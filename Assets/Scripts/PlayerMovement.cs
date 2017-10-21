@@ -34,17 +34,17 @@ public class PlayerMovement : MonoBehaviour {
 		//if (Input.GetKey ("d"))
 		//	transform.Translate (Vector2.right * Time.deltaTime * currentSideSpeed);
 
-		if (Input.GetButton ("Jump") && rb.velocity.y == 0) {
+		/*if (Input.GetButton ("Jump") && rb.velocity.y == 0) {
 
 			rb.AddForce (new Vector2(0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 			onGround = false;
-		}
-		/*
+		}*/
+
 		if (Input.GetKey ("w") && rb.velocity.y == 0) {
 			
 			rb.AddForce (new Vector2(0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 			onGround = false;
-		}*/
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
