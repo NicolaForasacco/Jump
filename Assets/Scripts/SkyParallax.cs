@@ -7,56 +7,73 @@ public class SkyParallax : MonoBehaviour {
 	public Transform[] backgrounds;
 	public Transform cameraTrasform;
 
-	private float currentWidth;
+	public float centerPoint;
 	private bool currentBackground = true;
 	private float Width;
 
 	private Vector3 lastCamera;
 
-	public float parallaxSpeed = 0.20f;
+	public float parallaxSpeedY = 0.1f;
+
+	public float parallaxSpeedX = 0.20f;
+
+	public int rightIndex=2, leftIndex=0;
 
 	void Start(){
 
-		Width = backgrounds[0].GetComponent<SpriteRenderer>().bounds.size.x*2;
-		currentWidth = Width / 2;
+		Width = backgrounds[1].GetComponent<SpriteRenderer>().bounds.size.x;
+
+		centerPoint = Width/2;
 	}
+
+
 
 	// Update is called once per frame
 	void Update () {
 
-		if (currentWidth < cameraTrasform.position.x) {
-			if (currentBackground )
-				backgrounds [0].localPosition = new Vector3 (backgrounds[0].localPosition.x + Width,
-																			backgrounds[0].localPosition.y,
-																			backgrounds[0].localPosition.z);
-			else
-				backgrounds [1].localPosition = new Vector3 (backgrounds[1].localPosition.x + Width,
-																backgrounds[1].localPosition.y,
-																backgrounds[1].localPosition.z);
-			
+		if (centerPoint  + Width/2 < cameraTrasform.position.x ) {
 
-			currentWidth += Width/2;
-			currentBackground = !currentBackground;
+			ScrollRight ();
 
-		} else if(currentWidth > cameraTrasform.position.x + Width/2){
+			centerPoint += Width;
 
-			if (currentBackground )
-				backgrounds [1].localPosition = new Vector3 (backgrounds[1].localPosition.x - Width,
-					backgrounds[1].localPosition.y,
-					backgrounds[1].localPosition.z);
-			else
-				backgrounds [0].localPosition = new Vector3 (backgrounds[0].localPosition.x - Width,
-					backgrounds[0].localPosition.y,
-					backgrounds[0].localPosition.z);
+		} else if(centerPoint - Width/2> cameraTrasform.position.x ){
 
+			ScrollLeft ();
 
-			currentWidth -= Width/2;
-			currentBackground = !currentBackground;
+			centerPoint -= Width;
 
 		}
 
 		float deltaX = cameraTrasform.position.x - lastCamera.x;
-		transform.position += Vector3.right * deltaX * parallaxSpeed;
+		float deltaY = cameraTrasform.position.y - lastCamera.y;
+
+		transform.position += Vector3.right * deltaX * parallaxSpeedX;
+		transform.position += Vector3.down * deltaY * parallaxSpeedY;
 		lastCamera = cameraTrasform.position;
+	}
+
+	private void ScrollLeft(){
+		
+		backgrounds[rightIndex].localPosition = new Vector3(backgrounds[leftIndex].localPosition.x - Width,
+			backgrounds[rightIndex].localPosition.y, 
+			backgrounds[rightIndex].localPosition.z);
+
+		leftIndex = rightIndex;
+		rightIndex--;
+		if (rightIndex < 0)
+			rightIndex = backgrounds.Length - 1;
+		
+	}
+
+	private void ScrollRight(){
+		
+		backgrounds[leftIndex].localPosition =  new Vector3(backgrounds[rightIndex].localPosition.x + Width,
+			backgrounds[leftIndex].localPosition.y, 
+			backgrounds[leftIndex].localPosition.z);
+		rightIndex = leftIndex;
+		leftIndex++;
+		if (leftIndex == backgrounds.Length)
+			leftIndex = 0;
 	}
 }

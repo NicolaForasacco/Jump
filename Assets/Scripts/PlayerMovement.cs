@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision){
 	
-		if (rb.velocity.y == 0) {
+		if (rb.velocity.y == 0 && transform.position.y > collision.gameObject.GetComponent<Transform>().position.y) {
 			
 			jumpNumber = 0;
 			jumpKeyRealised = false;
