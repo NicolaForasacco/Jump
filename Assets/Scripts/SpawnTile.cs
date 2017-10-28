@@ -8,7 +8,8 @@ public class SpawnTile : MonoBehaviour {
 	public GameObject[] prefab;
 
 	private Queue grounds;
-	public int maxPlatformLength = 3;
+	public int maxPlatformLength = 4;
+	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 3;
 
 
@@ -40,7 +41,7 @@ public class SpawnTile : MonoBehaviour {
 
 	void spawnPlatform(){
 
-		int platformLength = Random.Range (1, maxPlatformLength);
+		int platformLength = Random.Range (minPlatformLength, maxPlatformLength);
 
 		int randomRange = platformLength * 3;
 
