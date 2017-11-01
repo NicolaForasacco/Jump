@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 	public CameraController camera;
 	public GameManager gm;
 
+	public GameObject pencilPrefab;
+
 	public float sideSpeed, 
 					slowSideSpeed, 
 					jumpSpeed,
@@ -25,7 +27,10 @@ public class PlayerMovement : MonoBehaviour {
 	private int maxJumpNumber = 2;
 
 	public bool jumpKeyRealised = false ;
-	public bool isJumping;
+	public bool isJumping = false;
+
+
+	bool pencilSpawnThisLevel = true;
 
 	void Start()
 	{
@@ -79,6 +84,8 @@ public class PlayerMovement : MonoBehaviour {
 			if (rb.velocity.y == 0) {
 			
 				rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
+				pencilSpawnThisLevel = false;
+
 				jumpNumber++;
 				isJumping = false;
 
@@ -101,16 +108,43 @@ public class PlayerMovement : MonoBehaviour {
 			gm.gameEnd ();
 	}
 
+
 	void OnCollisionEnter2D(Collision2D collision){
 	
-		if (rb.velocity.y == 0) {
+
+		if (collision.gameObject.CompareTag ("Pencil")) {
+
+			jumpNumber = 0;
+			jumpKeyRealised = false;
+
+			if (this.gameObject.GetComponent<BoxCollider2D>().bounds.min.y <= collision.gameObject.transform.position.y)
+				gm.gameEnd ();
+
+		}
+
+		if (rb.velocity.y == 0 && 
+			transform.position.y > collision.gameObject.GetComponent<Transform>().position.y && 
+			(collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("CloudTile"))) {
 			
 			jumpNumber = 0;
 			jumpKeyRealised = false;
+
+			if (Random.value > 0.1 && !pencilSpawnThisLevel) {
+				
+				pencilSpawnThisLevel = true;
+				spawnPencil ();
+			}
 
 			spawnManager.spawnALevelOfPlatforms ();
 
 			collision.gameObject.GetComponent<TileBehavior> ().behave();
 		}
+	}
+
+	void spawnPencil(){
+
+		Vector2 v = new Vector2 (camera.getYBounds(), transform.position.y + 0.5f);
+
+		Instantiate (pencilPrefab, v, Quaternion.identity);
 	}
 }

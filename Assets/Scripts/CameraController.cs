@@ -36,6 +36,17 @@ public class CameraController : MonoBehaviour {
 		transform.position = v;
 	}
 
+
+	public float getXStart(){
+
+		return transform.position.x - Camera.main.orthographicSize * 2;
+	}
+
+	public float getYBounds(){
+
+		return transform.position.x + Camera.main.orthographicSize * 2;
+	}
+
 	public float getMinPosition(){
 		
 		//Debug.Log (transform.position.y - Camera.main.orthographicSize * 2);

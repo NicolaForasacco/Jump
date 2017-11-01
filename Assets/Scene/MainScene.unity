@@ -1704,6 +1704,8 @@ MonoBehaviour:
   rb: {fileID: 1582222238}
   camera: {fileID: 295262797}
   gm: {fileID: 839180566}
+  pencilPrefab: {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f,
+    type: 2}
   sideSpeed: 10
   slowSideSpeed: 10
   jumpSpeed: 700

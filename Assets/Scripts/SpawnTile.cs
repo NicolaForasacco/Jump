@@ -7,8 +7,8 @@ public class SpawnTile : MonoBehaviour {
 	public GameObject player;
 	public GameObject[] prefab;
 
-	private Queue grounds;
-	public int maxPlatformLength = 3;
+	public int maxPlatformLength = 4;
+	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 3;
 
 
@@ -17,15 +17,13 @@ public class SpawnTile : MonoBehaviour {
 
 	void Start () {
 		
-		grounds = new Queue ();
 		lastPlatformPosition = 0;
 		lastPlatformPosition = player.transform.position.x;
 	}
 
 	public void spawnMultiplePlatform(){
 		
-		Debug.Log ("spawnMultiplePlatform");
-		for (int i = 0; i < 60; i++)
+		for (int i = 0; i < 20; i++)
 			spawnALevelOfPlatforms ();
 	}
 
@@ -40,7 +38,7 @@ public class SpawnTile : MonoBehaviour {
 
 	void spawnPlatform(){
 
-		int platformLength = Random.Range (1, maxPlatformLength);
+		int platformLength = Random.Range (minPlatformLength, maxPlatformLength);
 
 		int randomRange = platformLength * 3;
 
