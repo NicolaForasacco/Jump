@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -41,9 +42,11 @@ public class PlayerMovement : MonoBehaviour {
 		spawnManager.spawnMultiplePlatform();
 	}
 
-	void Update(){
-		scoreText.text = Mathf.Round(transform.position.y).ToString();
+	public Text pointsText;
 
+	void Update(){
+		scoreText.text = Mathf.Round(transform.position.y*50).ToString();
+		pointsText.text = points.ToString ();
 
 		/*if (Input.GetButtonDown ("Jump") && rb.velocity.y == 0) {
 
@@ -64,6 +67,35 @@ public class PlayerMovement : MonoBehaviour {
 		
 	}
 
+	public void onJumpButtonDown(){
+
+		anim.SetFloat ("isJumping", 0.6f);
+		isJumping = true;
+	}
+
+
+	public void onJumpButtonUp(){
+		jumpKeyRealised = true;	
+	}
+
+
+
+	public void goLeft(){
+		
+		horizontalSpeed -=0.05f;
+	}
+
+	public void goRight(){
+
+		horizontalSpeed += 0.05f;
+	}
+	
+	public void stopHorizontalSpeed(){
+		horizontalSpeed = 0;
+	}
+
+	float horizontalSpeed, maxHorizontalSpeed = 1;
+
 	void FixedUpdate()
 	{
 	
@@ -71,12 +103,23 @@ public class PlayerMovement : MonoBehaviour {
 		if(rb.velocity.y < 0)
 			anim.SetFloat ("isJumping", 0.0f);
 			
-		float h = Input.GetAxis ("Horizontal");
-		anim.SetFloat ("isMoving",Mathf.Abs(h));
+		horizontalSpeed = Input.GetAxis ("Horizontal");
+
+		if (horizontalSpeed != 0) {
+
+			if (horizontalSpeed > 0 && horizontalSpeed < maxHorizontalSpeed) {
+				horizontalSpeed += 0.05f;
+			} else if (horizontalSpeed < 0 && horizontalSpeed > -maxHorizontalSpeed) {
+				horizontalSpeed -= 0.05f;
+			}
+
+
+		}
+	anim.SetFloat ("isMoving",Mathf.Abs(horizontalSpeed));
 
 		//h = Input.acceleration.x * 2;
 	
-		transform.Translate (new Vector2(Time.deltaTime * currentSideSpeed * h, 0));
+	transform.Translate (new Vector2(Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
 
 
@@ -99,18 +142,24 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		
 
-		if (h < 0)
+	if (horizontalSpeed < 0)
 			transform.localScale = new Vector2 (1, 1);
-		else if (h > 0)
+	else if (horizontalSpeed > 0)
 			transform.localScale = new Vector2 (-1, 1);
 
 		if (transform.position.y < camera.getMinPosition())
 			gm.gameEnd ();
 	}
 
+	int points;
 
 	void OnCollisionEnter2D(Collision2D collision){
 	
+		if (collision.gameObject.CompareTag ("Food")) {
+			Destroy (collision.gameObject);
+
+			points++;
+		}
 
 		if (collision.gameObject.CompareTag ("Pencil")) {
 
@@ -123,17 +172,13 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (rb.velocity.y == 0 && 
-			transform.position.y > collision.gameObject.GetComponent<Transform>().position.y && 
+			transform.position.y > collision.gameObject.GetComponent<Transform>().position.y &&
 			(collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("CloudTile"))) {
 			
 			jumpNumber = 0;
 			jumpKeyRealised = false;
 
-			if (Random.value > 0.1 && !pencilSpawnThisLevel) {
-				
-				pencilSpawnThisLevel = true;
-				spawnPencil ();
-			}
+			spawnRandomPencil ();
 
 			spawnManager.spawnALevelOfPlatforms ();
 
@@ -141,10 +186,14 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	void spawnPencil(){
+	void spawnRandomPencil(){
 
-		Vector2 v = new Vector2 (camera.getYBounds(), transform.position.y + 0.5f);
+		if (Random.value > 0.95 && !pencilSpawnThisLevel) {
 
-		Instantiate (pencilPrefab, v, Quaternion.identity);
+			pencilSpawnThisLevel = true;
+			Vector2 v = new Vector2 (camera.getYBounds(), transform.position.y + 0.5f);
+			Instantiate (pencilPrefab, v, Quaternion.identity);
+		}
+
 	}
 }

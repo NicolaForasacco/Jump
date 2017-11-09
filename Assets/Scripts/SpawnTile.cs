@@ -5,11 +5,14 @@ using UnityEngine;
 public class SpawnTile : MonoBehaviour {
 
 	public GameObject player;
-	public GameObject[] prefab;
+	public GameObject[] tilePrefabs;
+	public GameObject[] collectablesPrefabs;
 
 	public int maxPlatformLength = 4;
 	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 3;
+
+	public int maxCollectablesPerLevel = 2;
 
 
 	float lastPlatformPosition;
@@ -49,14 +52,27 @@ public class SpawnTile : MonoBehaviour {
 
 		Vector2 v = new Vector2 (randomX, randomY);
 
-		Instantiate (prefab[Random.Range(0,prefab.Length)], v, Quaternion.identity);
+		Instantiate (tilePrefabs[Random.Range(0, tilePrefabs.Length)], v, Quaternion.identity);
+		spawnCollectable (new Vector2(v.x,v.y));
+
 
 		Vector2 v2;
 		for (int i = 1; i < platformLength; i++) {
 
 			v2 = new Vector2 (v.x + i, v.y);
 
-			Instantiate (prefab[Random.Range(0,prefab.Length)], v2, Quaternion.identity);
+			Instantiate (tilePrefabs[Random.Range(0,tilePrefabs.Length)], v2, Quaternion.identity);
+			spawnCollectable (new Vector2(v.x,v.y));
+		}
+
+
+	}
+
+	private void spawnCollectable(Vector2 v){
+
+		if (Random.value > 0.7) {
+			v.y = v.y + 1;
+			Instantiate (collectablesPrefabs[Random.Range(0,collectablesPrefabs.Length)], v, Quaternion.identity);
 		}
 	}
 }
