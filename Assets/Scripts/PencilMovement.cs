@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PencilMovement : MonoBehaviour {
 
-	public CameraController camera;
+	public CameraController cameraController;
 
 	public float speed = 10;
 
 	void Start(){
 
-		camera = GameObject.FindObjectOfType<CameraController> ();
+		cameraController = GameObject.FindObjectOfType<CameraController> ();
 
 	}
 	// Update is called once per frame
@@ -18,7 +18,7 @@ public class PencilMovement : MonoBehaviour {
 
 		transform.position -= Vector3.right * speed * Time.deltaTime;
 
-		if (camera.getXStart () >= transform.position.x) {
+		if (cameraController.getXStart () >= transform.position.x) {
 			Destroy(this.gameObject);
 		}
 	}

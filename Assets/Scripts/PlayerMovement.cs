@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour {
 
 	public Rigidbody2D rb;
-	public CameraController camera;
+	public CameraController cameraController;
 	public GameManager gm;
 
 	public GameObject pencilPrefab;
@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float currentSideSpeed;
 	private Animator anim;
-	private BoxCollider2D bc;
 
 	public int jumpNumber = 0;
 	private int maxJumpNumber = 2;
@@ -37,7 +36,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator> ();
-		bc = GetComponent<BoxCollider2D> ();
 
 		spawnManager.spawnMultiplePlatform();
 	}
@@ -58,13 +56,14 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (Input.GetButton ("Jump")) {
 
-			anim.SetFloat ("isJumping", 0.6f);
+
 			isJumping = true;
 		}
 
-		if (Input.GetButtonUp ("Jump"))
+		if (Input.GetButtonUp ("Jump")) {
+			anim.SetFloat ("isJumping", 0.6f);
 			jumpKeyRealised = true;
-		
+		}
 	}
 
 	public void onJumpButtonDown(){
@@ -147,7 +146,7 @@ public class PlayerMovement : MonoBehaviour {
 	else if (horizontalSpeed > 0)
 			transform.localScale = new Vector2 (-1, 1);
 
-		if (transform.position.y < camera.getMinPosition())
+		if (transform.position.y < cameraController.getMinPosition())
 			gm.gameEnd ();
 	}
 
@@ -191,7 +190,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Random.value > 0.95 && !pencilSpawnThisLevel) {
 
 			pencilSpawnThisLevel = true;
-			Vector2 v = new Vector2 (camera.getYBounds(), transform.position.y + 0.5f);
+			Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y + 0.5f);
 			Instantiate (pencilPrefab, v, Quaternion.identity);
 		}
 

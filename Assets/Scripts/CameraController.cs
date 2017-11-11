@@ -42,9 +42,9 @@ public class CameraController : MonoBehaviour {
 		return transform.position.x - Camera.main.orthographicSize * 2;
 	}
 
-	public float getYBounds(){
+	public float getXBounds(){
 
-		return transform.position.x + Camera.main.orthographicSize * 2;
+		return transform.position.x + Camera.main.orthographicSize;
 	}
 
 	public float getMinPosition(){
