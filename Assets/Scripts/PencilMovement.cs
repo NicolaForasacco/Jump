@@ -18,7 +18,7 @@ public class PencilMovement : MonoBehaviour {
 
 		transform.position -= Vector3.right * speed * Time.deltaTime;
 
-		if (cameraController.getXStart () >= transform.position.x) {
+		if (cameraController.getMinPosition () >= transform.position.y) {
 			Destroy(this.gameObject);
 		}
 	}

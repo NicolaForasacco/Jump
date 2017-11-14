@@ -6,13 +6,16 @@ public class SkyParallax : MonoBehaviour {
 
 	public Transform[] backgrounds;
 	public Transform cameraTrasform;
+	private CameraController cameraController;
 
 	public float centerPoint;
 	private float Width;
 
 	private Vector3 lastCamera;
 
-	public float parallaxSpeedY = 0.1f;
+	public float parallaxSpeedY = 0f;
+
+	public float maxParallaxSpeedY = 0.1f;
 
 	public float parallaxSpeedX = 0.20f;
 
@@ -20,12 +23,12 @@ public class SkyParallax : MonoBehaviour {
 
 	void Start(){
 
+		cameraController = GameObject.FindObjectOfType<CameraController> ();
+
 		Width = backgrounds[1].GetComponent<SpriteRenderer>().bounds.size.x;
 
 		centerPoint = Width/2;
 	}
-
-
 
 	// Update is called once per frame
 	void Update () {
@@ -43,6 +46,9 @@ public class SkyParallax : MonoBehaviour {
 			centerPoint -= Width;
 
 		}
+
+		if (cameraController.getMinPosition() >= transform.position.y + transform.localScale.y)
+			parallaxSpeedX = maxParallaxSpeedY;
 
 		float deltaX = cameraTrasform.position.x - lastCamera.x;
 		float deltaY = cameraTrasform.position.y - lastCamera.y;
