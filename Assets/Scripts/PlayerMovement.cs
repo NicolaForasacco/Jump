@@ -17,25 +17,26 @@ public class PlayerMovement : MonoBehaviour {
 					jumpSpeed,
 					slowJumpSpeed;
 
-	public SpawnTile spawnManager;
-	public Text scoreText;
+	public int jumpNumber = 0;
+	public bool jumpKeyRealised = false, 
+				isJumping = false;
 
-	private float currentSideSpeed;
+	public SpawnTile spawnManager;
+
+	public Text scoreText, 
+				pointsText;
+
+	private float currentSideSpeed, 
+					horizontalSpeed, 
+					maxHorizontalSpeed = 1;
+
 	private Animator anim;
 
-	public int jumpNumber = 0;
-	private int maxJumpNumber = 2;
+	private int maxJumpNumber = 2, 
+				points;
 
-	public bool jumpKeyRealised = false, isJumping = false;
-
-	bool pencilSpawnThisLevel = true;
-	bool shurikenSpawnThisLevel = true;
-
-	int points;
-
-	public Text pointsText;
-
-	float horizontalSpeed, maxHorizontalSpeed = 1;
+	private bool pencilSpawnThisLevel = true, 
+					shurikenSpawnThisLevel = true;
 
 	void Start()
 	{
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	void Update(){
-		scoreText.text = Mathf.Round(transform.position.y*5).ToString();
+		scoreText.text = Mathf.Round(transform.position.y * 5).ToString();
 		pointsText.text = points.ToString ();
 
 		if (Input.GetButton ("Jump")) {
@@ -113,8 +114,10 @@ public class PlayerMovement : MonoBehaviour {
 				isJumping = false;
 
 			} else if (jumpNumber < maxJumpNumber && jumpKeyRealised) {
+				
+				if(rb.velocity.y <= 0)
+					rb.AddForce (new Vector2 (0, slowJumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 
-				//rb.AddForce (new Vector2 (0, slowJumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 				jumpNumber++;
 				jumpKeyRealised = false;
 				isJumping = false;

@@ -2569,7 +2569,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 6
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 3
@@ -2597,13 +2597,13 @@ MonoBehaviour:
   - {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94, type: 2}
   sideSpeed: 10
   slowSideSpeed: 10
-  jumpSpeed: 3000
-  slowJumpSpeed: 150
-  spawnManager: {fileID: 839180564}
-  scoreText: {fileID: 470594548}
+  jumpSpeed: 4000
+  slowJumpSpeed: 4500
   jumpNumber: 0
   jumpKeyRealised: 0
   isJumping: 0
+  spawnManager: {fileID: 839180564}
+  scoreText: {fileID: 470594548}
   pointsText: {fileID: 827160592}
   pencilN: 1
   shurikenN: 1
