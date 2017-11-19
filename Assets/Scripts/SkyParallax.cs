@@ -5,9 +5,9 @@ using UnityEngine;
 public class SkyParallax : MonoBehaviour {
 
 	public Transform[] backgrounds;
-	public Transform cameraTrasform;
+	private Transform cameraTrasform;
 	private CameraController cameraController;
-
+	private BackgroundController backgroundController;
 	public float centerPoint;
 	private float Width;
 
@@ -23,7 +23,10 @@ public class SkyParallax : MonoBehaviour {
 
 	void Start(){
 
+		backgroundController = this.transform.parent.GetComponentInParent<BackgroundController> ();
+
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
+		cameraTrasform = GameObject.Find ("Main Camera").transform;
 
 		Width = backgrounds[1].GetComponent<SpriteRenderer>().bounds.size.x;
 
@@ -54,7 +57,10 @@ public class SkyParallax : MonoBehaviour {
 		float deltaY = cameraTrasform.position.y - lastCamera.y;
 
 		transform.position += Vector3.right * deltaX * parallaxSpeedX;
-		transform.position += Vector3.down * deltaY * parallaxSpeedY;
+
+		if(backgroundController.active)
+			transform.position += Vector3.down * deltaY * parallaxSpeedY;
+
 		lastCamera = cameraTrasform.position;
 	}
 

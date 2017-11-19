@@ -17,9 +17,7 @@ public class PlayerMovement : MonoBehaviour {
 					jumpSpeed,
 					slowJumpSpeed;
 
-	public int jumpNumber = 0;
-	public bool jumpKeyRealised = false, 
-				isJumping = false;
+	public bool isJumping = false, jumped = false;
 
 	public SpawnTile spawnManager;
 
@@ -32,8 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private Animator anim;
 
-	private int maxJumpNumber = 2, 
-				points;
+	private int points;
 
 	private bool pencilSpawnThisLevel = true, 
 					shurikenSpawnThisLevel = true;
@@ -51,24 +48,18 @@ public class PlayerMovement : MonoBehaviour {
 		scoreText.text = Mathf.Round(transform.position.y * 5).ToString();
 		pointsText.text = points.ToString ();
 
-		if (Input.GetButton ("Jump")) {
+		if (Input.GetButton ("Jump")&& !isJumping) {
+			
 			isJumping = true;
-		}
-
-		if (Input.GetButtonUp ("Jump")) {
-			anim.SetFloat ("isJumping", 0.6f);
-			jumpKeyRealised = true;
 		}
 	}
 
 	public void onJumpButtonDown(){
-
-		anim.SetFloat ("isJumping", 0.6f);
 		isJumping = true;
 	}
 		
 	public void onJumpButtonUp(){
-		jumpKeyRealised = true;
+		//jumpKeyRealised = true;
 	}
 		
 	public void goLeft(){
@@ -97,31 +88,21 @@ public class PlayerMovement : MonoBehaviour {
 			else if (horizontalSpeed < 0 && horizontalSpeed > -maxHorizontalSpeed)
 				horizontalSpeed -= 0.05f;
 		
-	
-		anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+		if (!isJumping)
+			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+		
 		//h = Input.acceleration.x * 2;
 	
 		transform.Translate (new Vector2(Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-		if (isJumping && jumpKeyRealised){/*|| Input.GetTouch(0).tapCount > 0) {*/
-			if (rb.velocity.y == 0) {
+		if (isJumping && !jumped ){
 			
-				rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
-				pencilSpawnThisLevel = false;
-				shurikenSpawnThisLevel = false;
+			anim.SetBool ("isJumping", true);
+			rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
+			pencilSpawnThisLevel = false;
+			shurikenSpawnThisLevel = false;
 
-				jumpNumber++;
-				isJumping = false;
-
-			} else if (jumpNumber < maxJumpNumber && jumpKeyRealised) {
-				
-				if(rb.velocity.y <= 0)
-					rb.AddForce (new Vector2 (0, slowJumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
-
-				jumpNumber++;
-				jumpKeyRealised = false;
-				isJumping = false;
-			}
+			jumped = true;
 		}
 		
 
@@ -135,42 +116,34 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
-	
-		if (collision.gameObject.CompareTag ("Food")) {
-			Destroy (collision.gameObject);
 
-			points++;
-		}
+		GameObject c = collision.gameObject;
 
-		if (collision.gameObject.CompareTag ("Pencil")) {
+		if (c.CompareTag ("Pencil")) {
 
-			jumpNumber = 0;
-			jumpKeyRealised = false;
+			isJumping = false;
+			anim.SetBool ("isJumping", false);
 
-			anim.SetFloat ("isJumping", 0.0f);
-
-			if (this.gameObject.GetComponent<BoxCollider2D>().bounds.min.y <= collision.gameObject.transform.position.y)
+			if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
 				gm.gameEnd ();
-
 		}
-
-		if (rb.velocity.y == 0 && 
-			transform.position.y > collision.gameObject.GetComponent<Transform>().position.y &&
-			(collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("CloudTile"))) {
 			
-			jumpNumber = 0;
-			jumpKeyRealised = false;
+		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile")) 
+			&& transform.position.y > c.transform.position.y 
+			&& rb.velocity.y <= 0) {
+			
+			anim.SetBool ("isJumping", false);
 
-			anim.SetFloat ("isJumping", 0.0f);
+			isJumping = false;
+			jumped = false;
 
 			spawnRandomHorizontalPencil ();
 			spawnRandomVerticalShuriken();
-
 			spawnManager.spawnALevelOfPlatforms ();
-
-			collision.gameObject.GetComponent<TileBehavior> ().behave();
+			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
+
 	public float pencilN = 0.95f;
 
 	void spawnRandomHorizontalPencil(){

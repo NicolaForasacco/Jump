@@ -16,4 +16,11 @@ public class FoodController : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D other){
+
+		if (other.CompareTag ("player")) {
+			Destroy (this.gameObject);
+		}
+	}
 }

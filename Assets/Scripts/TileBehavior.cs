@@ -22,7 +22,7 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 		
-		switch(tag){
+		switch(this.tag){
 		case "CloudTile":
 			enableGravity();
 			break;
