@@ -8,17 +8,17 @@ public class SpawnTile : MonoBehaviour {
 	public GameObject[] tilePrefabs;
 	public GameObject[] collectablesPrefabs;
 
-	public int maxPlatformLength = 4;
-	public int minPlatformLength = 4;
+	public int maxPlatformLength = 1;
+	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 1;
 	public int randomRange = 7;
 
 	private void changeParameters(){
 
-		maxPlatformLength = Random.Range (1,5);
-		minPlatformLength = Random.Range (1, maxPlatformLength);
+		//maxPlatformLength = Random.Range (1,5);
+		//minPlatformLength = Random.Range (1, maxPlatformLength);
 
-		maxPlatformPerLevel = Random.Range(1, 5 - maxPlatformLength);
+		//maxPlatformPerLevel = Random.Range(1, 5 - maxPlatformLength);
 
 		//randomRange = 
 	}
@@ -62,25 +62,22 @@ public class SpawnTile : MonoBehaviour {
 
 		lastPlatformPosition = randomX;
 
-		Vector2 v = new Vector2 (randomX, randomY);
 
-		Instantiate (tilePrefabs[Random.Range(0, tilePrefabs.Length)], v, Quaternion.identity);
-		spawnCollectable (new Vector2(v.x,v.y));
-
+		int tileType = Random.Range (0, tilePrefabs.Length);
 
 		Vector2 v2;
-		for (int i = 1; i <= platformLength-1; i++) {
+		for (int i = 0; i <platformLength; i++) {
+			
+			v2 = new Vector2 (randomX + i, randomY);
+			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			v2 = new Vector2 (v.x + i, v.y);
-
-			Instantiate (tilePrefabs[Random.Range(0,tilePrefabs.Length)], v2, Quaternion.identity);
-			spawnCollectable (new Vector2(v.x,v.y));
+			spawnCollectable (v2);
 		}
 	}
 
 	private void spawnCollectable(Vector2 v){
 
-		if (Random.value > 0.7) {
+		if (Random.value > 0.8) {
 			v.y = v.y + 1;
 			Instantiate (collectablesPrefabs[Random.Range(0,collectablesPrefabs.Length)], v, Quaternion.identity);
 		}

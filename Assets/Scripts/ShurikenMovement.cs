@@ -6,7 +6,10 @@ public class ShurikenMovement : MonoBehaviour {
 
 	private CameraController cameraController;
 
-	public float speed = 0.6f;
+	public float horizontalSpeed = 1f;
+	public float verticalSpeed = 1.8f;
+	public int horizontalWide = 40;
+
 	public float rotateSpeed = 1000;
 
 	public int right = 0;
@@ -22,12 +25,12 @@ public class ShurikenMovement : MonoBehaviour {
 
 		transform.Rotate (Vector3.forward * rotateSpeed * Time.deltaTime);
 
-		transform.position -= Vector3.up * speed * Time.deltaTime;
+		transform.position -= Vector3.up * verticalSpeed * Time.deltaTime;
 
 
 		if (side) {
-			if (right < 30) {
-				transform.position += Vector3.right * speed/2 * Time.deltaTime;
+			if (right < horizontalWide) {
+				transform.position += Vector3.right * horizontalSpeed * Time.deltaTime;
 
 				right++;
 			} else {
@@ -36,8 +39,8 @@ public class ShurikenMovement : MonoBehaviour {
 			}
 		}
 		else {
-			if (right > -30) {
-				transform.position -= Vector3.right * speed/2 * Time.deltaTime;
+			if (right > -horizontalWide) {
+				transform.position -= Vector3.right * horizontalSpeed * Time.deltaTime;
 
 				right--;
 			} else {

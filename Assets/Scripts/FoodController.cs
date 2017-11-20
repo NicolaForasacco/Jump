@@ -17,10 +17,13 @@ public class FoodController : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
+	void OnCollisionEnter2D(Collision2D other){
 
-		if (other.CompareTag ("player")) {
+		if (other.gameObject.CompareTag ("player")) {
 			Destroy (this.gameObject);
 		}
+
+		if ((other.gameObject.CompareTag("Tile") || other.gameObject.CompareTag("CloudTile") || other.gameObject.CompareTag("MovingTile")))
+			transform.SetParent(other.gameObject.transform);
 	}
 }

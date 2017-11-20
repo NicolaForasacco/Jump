@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class controller : MonoBehaviour {
 
-	float height=25;
+	public float height=25;
 	// Use this for initialization
 	void Start () {
 		

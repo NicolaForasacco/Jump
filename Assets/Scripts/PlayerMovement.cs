@@ -82,34 +82,40 @@ public class PlayerMovement : MonoBehaviour {
 			
 		horizontalSpeed = Input.GetAxis ("Horizontal");
 
-		if (horizontalSpeed != 0)
+		if (!isJumping)
+			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+		
+		if (horizontalSpeed != 0) {
+			
 			if (horizontalSpeed > 0 && horizontalSpeed < maxHorizontalSpeed)
 				horizontalSpeed += 0.05f;
 			else if (horizontalSpeed < 0 && horizontalSpeed > -maxHorizontalSpeed)
 				horizontalSpeed -= 0.05f;
 		
-		if (!isJumping)
-			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+
 		
-		//h = Input.acceleration.x * 2;
+			//h = Input.acceleration.x * 2;
 	
-		transform.Translate (new Vector2(Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
+			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
+
+			if (horizontalSpeed <= 0)
+				transform.localScale = new Vector2 (1, 1);
+			else if (horizontalSpeed > 0)
+				transform.localScale = new Vector2 (-1, 1);
+			
+		}
 
 		if (isJumping && !jumped ){
 			
 			anim.SetBool ("isJumping", true);
+			transform.SetParent (null);
+
 			rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 			pencilSpawnThisLevel = false;
 			shurikenSpawnThisLevel = false;
 
 			jumped = true;
 		}
-		
-
-		if (horizontalSpeed < 0)
-				transform.localScale = new Vector2 (1, 1);
-		else if (horizontalSpeed > 0)
-				transform.localScale = new Vector2 (-1, 1);
 
 		if (transform.position.y < cameraController.getMinPosition())
 			gm.gameEnd ();
@@ -120,15 +126,22 @@ public class PlayerMovement : MonoBehaviour {
 		GameObject c = collision.gameObject;
 
 		if (c.CompareTag ("Pencil")) {
-
-			isJumping = false;
+			
 			anim.SetBool ("isJumping", false);
 
+			isJumping = false;
+			jumped = false;
 			if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
 				gm.gameEnd ();
 		}
+
+		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Pencil")) && transform.position.y > c.transform.position.y 
+			&& rb.velocity.y <= 0) {
+
+			this.transform.SetParent (c.transform);
+		}
 			
-		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile")) 
+		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("MovingTile")) 
 			&& transform.position.y > c.transform.position.y 
 			&& rb.velocity.y <= 0) {
 			
@@ -165,7 +178,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Random.value > shurikenN && !shurikenSpawnThisLevel) {
 
 			shurikenSpawnThisLevel = true;
-			Vector2 v = new Vector2 (transform.position.x, cameraController.getMaxPosition());
+			Vector2 v = new Vector2 (transform.position.x + Random.Range(0,3), cameraController.getMaxPosition());
 			Instantiate (pencilPrefab[1], v, Quaternion.identity);
 		}
 	}

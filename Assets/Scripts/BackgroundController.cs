@@ -25,8 +25,8 @@ public class BackgroundController : MonoBehaviour {
 			active = true;
 
 		if (this.transform.position.y < cameraController.getMinPosition ())
-			this.transform.position += Vector3.up * (controller.gameHeight() + rd.bounds.extents.y/2);
+			this.transform.position = Vector2.up*(controller.gameHeight() + rd.bounds.extents.y);
 
-		controller.setNewHeight (transform.position.y + rd.bounds.extents.y/2);
+		controller.setNewHeight (transform.position.y + rd.bounds.extents.y);
 	}
 }

@@ -9,6 +9,7 @@ TagManager:
   - CloudTile
   - Pencil
   - Food
+  - MovingTile
   layers:
   - Default
   - TransparentFX
