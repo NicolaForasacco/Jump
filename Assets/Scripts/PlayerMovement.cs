@@ -35,16 +35,25 @@ public class PlayerMovement : MonoBehaviour {
 	private bool pencilSpawnThisLevel = true, 
 					shurikenSpawnThisLevel = true;
 
+	float lastHeight;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator> ();
+		lastHeight = transform.position.y;
 
 		spawnManager.spawnMultiplePlatform();
 	}
 
 
 	void Update(){
+		if (transform.position.y * 5> lastHeight * 5 + 40) {
+
+			lastHeight = transform.position.y;
+			cameraController.changeRandomBackgroundColor ();
+		}
+
 		scoreText.text = Mathf.Round(transform.position.y * 5).ToString();
 		pointsText.text = points.ToString ();
 
@@ -107,8 +116,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (isJumping && !jumped ){
 			
-			anim.SetBool ("isJumping", true);
-			transform.SetParent (null);
+			anim.SetTrigger ("Jumping");
 
 			rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 			pencilSpawnThisLevel = false;
@@ -121,13 +129,19 @@ public class PlayerMovement : MonoBehaviour {
 			gm.gameEnd ();
 	}
 
+	void OnCollisionExit2D(Collision2D collision){
+		
+		if (collision.gameObject.CompareTag ("MovingTile"))
+			transform.SetParent (null);
+	}
+
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
 
 		if (c.CompareTag ("Pencil")) {
 			
-			anim.SetBool ("isJumping", false);
+			//anim.SetBool ("isJumping", false);
 
 			isJumping = false;
 			jumped = false;
@@ -135,17 +149,32 @@ public class PlayerMovement : MonoBehaviour {
 				gm.gameEnd ();
 		}
 
-		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Pencil")) && transform.position.y > c.transform.position.y 
+		if (c.CompareTag ("MovingTile")  && transform.position.y > c.transform.position.y 
 			&& rb.velocity.y <= 0) {
 
 			this.transform.SetParent (c.transform);
+		}
+
+		if (c.CompareTag ("BounceTile") &&
+		   transform.position.y > c.transform.position.y) {
+
+			//anim.SetBool ("isJumping", false);
+
+			isJumping = false;
+			jumped = false;
+
+			spawnRandomHorizontalPencil ();
+			spawnRandomVerticalShuriken();
+			spawnManager.spawnALevelOfPlatforms ();
+
+			c.GetComponent<TileBehavior> ().behave();
 		}
 			
 		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("MovingTile")) 
 			&& transform.position.y > c.transform.position.y 
 			&& rb.velocity.y <= 0) {
 			
-			anim.SetBool ("isJumping", false);
+			//anim.SetBool ("isJumping", false);
 
 			isJumping = false;
 			jumped = false;

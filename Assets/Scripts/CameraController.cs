@@ -10,17 +10,26 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 offset;         //Private variable to store the offset distance between the player and camera
 	private Vector3 v;
-
+	Camera cameraB;
 
 
 	// Use this for initialization
 	void Start () 
 	{
+		cameraB = GetComponent<Camera> ();
 		//Calculate and store the offset value by getting the distance between the player's position and camera's position.
 		offset = transform.position - player.transform.position;
 
 		transform.position = player.transform.position + offset;
 		v = new Vector3 (transform.position.x,transform.position.y,transform.position.z);
+	}
+
+	void Update(){	
+	}
+
+	public void changeRandomBackgroundColor(){
+
+		cameraB.backgroundColor = Random.ColorHSV();
 	}
 
 	// LateUpdate is called after Update each frame

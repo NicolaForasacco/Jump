@@ -7,9 +7,12 @@ public class TileBehavior : MonoBehaviour {
 	private GameObject player;
 	private Rigidbody2D rb;
 
+	Animator anim;
+
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("player");
+		anim = GetComponent<Animator> ();
 	}
 
 	void Update () {
@@ -25,6 +28,9 @@ public class TileBehavior : MonoBehaviour {
 		switch(this.tag){
 		case "CloudTile":
 			enableGravity();
+			break;
+		case "BounceTile":
+			anim.SetTrigger ("Bouncing");
 			break;
 		default:
 			break;

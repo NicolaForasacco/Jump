@@ -1935,6 +1935,9 @@ MonoBehaviour:
   - {fileID: 1054978158330604, guid: 54d1a561315748e47830b987179a41f3, type: 2}
   - {fileID: 1624925779961050, guid: 5e1371b9c68cde3479e6968d4744442c, type: 2}
   - {fileID: 1054978158330604, guid: 2c73355ba1502e044a349c6a610d965c, type: 2}
+  - {fileID: 1122039140993570, guid: 1ec1d804d1736e544a2211bb4f2325a8, type: 2}
+  - {fileID: 1346916375844550, guid: a77af72de57ffce479a71abbd77f0762, type: 2}
+  - {fileID: 1825397220059294, guid: da9a2beceba5f3942a14070ec00cbaa1, type: 2}
   collectablesPrefabs:
   - {fileID: 1314897649320336, guid: b444c492eee01fc4b9a384f98b303b78, type: 2}
   - {fileID: 1314897649320336, guid: 26f4ae4ddf5c9594dae7f804dc721bf7, type: 2}
@@ -3829,7 +3832,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1582222234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -27,7 +27,7 @@ public class SpawnTile : MonoBehaviour {
 
 	float lastPlatformPosition;
 
-	private int level = 2;
+	private float level = 2;
 
 	void Start () {
 		
@@ -49,29 +49,41 @@ public class SpawnTile : MonoBehaviour {
 		for (int i = 0; i < maxPlatformPerLevel; i++) 
 			spawnPlatform ();
 		
-		level += 2;
+		level += Random.Range(1.7f, 2.2f);
 	}
 
 	void spawnPlatform(){
 
 		int platformLength = Random.Range (minPlatformLength, maxPlatformLength);
 
-
-		int randomX = Mathf.RoundToInt (lastPlatformPosition + Random.Range (- randomRange + 1, randomRange));
-		int randomY = Mathf.RoundToInt (level);
+		float randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange);
 
 		lastPlatformPosition = randomX;
 
 
-		int tileType = Random.Range (0, tilePrefabs.Length);
+		int tileType = 0;
+		float randomFloat = Random.value;
+
+		if (randomFloat <= 0.5f)
+			tileType = 0;
+		else if (randomFloat <= 0.8f)
+			tileType = 1;
+		else if (randomFloat <= 0.9f)
+			tileType = Random.Range (2, 5);
+		else if (randomFloat <= 1)
+			tileType = 5;
 
 		Vector2 v2;
-		for (int i = 0; i <platformLength; i++) {
+
+		if (tileType < 2 || tileType > 5)
+			platformLength = Random.Range (1, 4);
+		
+		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector2 (randomX + i, randomY);
+			v2 = new Vector2 (randomX + i, level);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			spawnCollectable (v2);
+			//spawnCollectable (v2);
 		}
 	}
 
