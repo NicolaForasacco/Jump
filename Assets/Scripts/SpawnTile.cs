@@ -27,7 +27,7 @@ public class SpawnTile : MonoBehaviour {
 
 	float lastPlatformPosition;
 
-	private float level = 2;
+	private float level = 1;
 
 	void Start () {
 		
@@ -37,7 +37,7 @@ public class SpawnTile : MonoBehaviour {
 
 	public void spawnMultiplePlatform(){
 		
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 50; i++)
 			spawnALevelOfPlatforms ();
 	}
 
@@ -64,10 +64,12 @@ public class SpawnTile : MonoBehaviour {
 		int tileType = 0;
 		float randomFloat = Random.value;
 
-		if (randomFloat <= 0.5f)
+		if (randomFloat <= 0.4f)
 			tileType = 0;
-		else if (randomFloat <= 0.8f)
+		else if (randomFloat <= 0.6f)
 			tileType = 1;
+		else if (randomFloat <= 0.8f)
+			tileType = 6;
 		else if (randomFloat <= 0.9f)
 			tileType = Random.Range (2, 5);
 		else if (randomFloat <= 1)

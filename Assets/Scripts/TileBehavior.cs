@@ -27,19 +27,22 @@ public class TileBehavior : MonoBehaviour {
 		
 		switch(this.tag){
 		case "CloudTile":
-			enableGravity();
+			enableGravity(1.2f);
 			break;
 		case "BounceTile":
 			anim.SetTrigger ("Bouncing");
+			break;
+		case "UselessTile":
+			enableGravity (0.2f);
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void enableGravity(){
+	private void enableGravity(float waitFor){
 		
-		StartCoroutine (enableTileGravity(1.2f));
+		StartCoroutine (enableTileGravity(waitFor));
 	}
 
 	private IEnumerator enableTileGravity(float time){

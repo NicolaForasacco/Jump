@@ -11,6 +11,7 @@ TagManager:
   - Food
   - MovingTile
   - BounceTile
+  - UselessTile
   layers:
   - Default
   - TransparentFX

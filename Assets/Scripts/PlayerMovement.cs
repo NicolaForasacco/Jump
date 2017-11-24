@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Rigidbody2D rb;
 	public CameraController cameraController;
+	public CameraShake cameraShake;
 	public GameManager gm;
 
 	public GameObject[] pencilPrefab;
@@ -137,12 +138,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision){
 
+
 		GameObject c = collision.gameObject;
 
 		if (c.CompareTag ("Pencil")) {
 			
 			//anim.SetBool ("isJumping", false);
-
+			cameraShake.enable ();
 			isJumping = false;
 			jumped = false;
 			if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
@@ -159,23 +161,22 @@ public class PlayerMovement : MonoBehaviour {
 		   transform.position.y > c.transform.position.y) {
 
 			//anim.SetBool ("isJumping", false);
-
+			cameraShake.enable ();
 			isJumping = false;
 			jumped = false;
 
 			spawnRandomHorizontalPencil ();
-			spawnRandomVerticalShuriken();
 			spawnManager.spawnALevelOfPlatforms ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}
 			
-		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("MovingTile")) 
+		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("UselessTile") || c.CompareTag("MovingTile")) 
 			&& transform.position.y > c.transform.position.y 
 			&& rb.velocity.y <= 0) {
 			
 			//anim.SetBool ("isJumping", false);
-
+			cameraShake.enable ();
 			isJumping = false;
 			jumped = false;
 
