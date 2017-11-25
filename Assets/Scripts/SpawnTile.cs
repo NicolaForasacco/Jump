@@ -11,7 +11,7 @@ public class SpawnTile : MonoBehaviour {
 	public int maxPlatformLength = 1;
 	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 2;
-	public int randomRange = 7;
+	public int randomRange = 5;
 
 	private void changeParameters(){
 
@@ -45,21 +45,25 @@ public class SpawnTile : MonoBehaviour {
 
 		if (level >= 20)
 			changeParameters ();
+
+		spawnPlatform (0);
+
+		if(lastTileType < 2 || lastTileType > 5)
+			if(Random.value > 0.3)
+				spawnPlatform (1);
 		
-		for (int i = 0; i < maxPlatformPerLevel; i++) 
-			spawnPlatform ();
-		
-		level += Random.Range(35f, 40f);
+		level += Random.Range(40f, 40f);
 	}
 
-	void spawnPlatform(){
+	float lastPlatformLength;
 
-		int platformLength = Random.Range (minPlatformLength, maxPlatformLength);
+	float randomX;
 
-		float randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange)*10;
+	int lastTileType;
 
-		lastPlatformPosition = randomX;
+	public float tileWidth = 20;
 
+	void spawnPlatform(int n){
 
 		int tileType = 0;
 		float randomFloat = Random.value;
@@ -70,19 +74,39 @@ public class SpawnTile : MonoBehaviour {
 			tileType = 1;
 		else if (randomFloat <= 0.8f)
 			tileType = 6;
-		else if (randomFloat <= 0.9f)
+		else if (randomFloat <= 0.9f && n == 0)
 			tileType = Random.Range (2, 5);
 		else if (randomFloat <= 1)
 			tileType = 5;
 
-		Vector2 v2;
+		lastTileType = tileType;
 
-		if (tileType < 2 || tileType > 5)
-			platformLength = Random.Range (1, 4);
+		int platformLength = 1;
+
+		if (n != 0) {
 		
+			platformLength = Random.Range (1, 3);
+
+			if (Random.value > 0.5f)
+				randomX = lastPlatformPosition + lastPlatformLength * tileWidth + Random.Range (1, 3) * tileWidth;
+			else
+				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
+		} else {
+			
+			if (tileType < 2 || tileType > 5)
+				platformLength = Random.Range (1, 4);
+			
+			randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange) * tileWidth;
+			lastPlatformPosition = randomX;
+		}
+
+		lastPlatformLength = platformLength;
+
+
+		Vector2 v2;
 		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector2 (randomX + i*20, level);
+			v2 = new Vector2 (randomX + i * tileWidth, level);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
 			if (tileType < 2 || tileType > 5)
@@ -92,9 +116,11 @@ public class SpawnTile : MonoBehaviour {
 
 	private void spawnCollectable(Vector2 v){
 
-		if (Random.value > 0.8) {
-			v.y = v.y + 20;
-			Instantiate (collectablesPrefabs[Random.Range(0,collectablesPrefabs.Length)], v, Quaternion.identity);
+		if (Random.value > 0.3) {
+			v.y = v.y + tileWidth - 2;
+			int foodType = Random.Range (0, collectablesPrefabs.Length);
+
+			Instantiate (collectablesPrefabs[foodType], v, Quaternion.identity);
 		}
 	}
 }

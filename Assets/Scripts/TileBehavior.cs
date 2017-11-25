@@ -50,6 +50,7 @@ public class TileBehavior : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 
 		rb.bodyType = RigidbodyType2D.Dynamic;
-		rb.gravityScale = 1;
+		rb.mass = 60;
+		rb.gravityScale = 20;
 	}
 }
