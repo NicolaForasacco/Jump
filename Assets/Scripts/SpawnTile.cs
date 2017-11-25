@@ -10,7 +10,7 @@ public class SpawnTile : MonoBehaviour {
 
 	public int maxPlatformLength = 1;
 	public int minPlatformLength = 1;
-	public int maxPlatformPerLevel = 1;
+	public int maxPlatformPerLevel = 2;
 	public int randomRange = 7;
 
 	private void changeParameters(){
@@ -27,7 +27,7 @@ public class SpawnTile : MonoBehaviour {
 
 	float lastPlatformPosition;
 
-	private float level = 1;
+	private float level = 40;
 
 	void Start () {
 		
@@ -49,14 +49,14 @@ public class SpawnTile : MonoBehaviour {
 		for (int i = 0; i < maxPlatformPerLevel; i++) 
 			spawnPlatform ();
 		
-		level += Random.Range(1.7f, 2.2f);
+		level += Random.Range(35f, 40f);
 	}
 
 	void spawnPlatform(){
 
 		int platformLength = Random.Range (minPlatformLength, maxPlatformLength);
 
-		float randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange);
+		float randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange)*10;
 
 		lastPlatformPosition = randomX;
 
@@ -82,17 +82,18 @@ public class SpawnTile : MonoBehaviour {
 		
 		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector2 (randomX + i, level);
+			v2 = new Vector2 (randomX + i*20, level);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			//spawnCollectable (v2);
+			if (tileType < 2 || tileType > 5)
+				spawnCollectable (v2);
 		}
 	}
 
 	private void spawnCollectable(Vector2 v){
 
 		if (Random.value > 0.8) {
-			v.y = v.y + 1;
+			v.y = v.y + 20;
 			Instantiate (collectablesPrefabs[Random.Range(0,collectablesPrefabs.Length)], v, Quaternion.identity);
 		}
 	}

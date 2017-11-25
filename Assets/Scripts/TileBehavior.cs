@@ -18,7 +18,7 @@ public class TileBehavior : MonoBehaviour {
 	void Update () {
 		
 		if (player != null) {
-			if (player.transform.position.y - transform.position.y > 10)
+			if (player.transform.position.y - transform.position.y > 200)
 				DestroyObject (this.gameObject);
 		}
 	}

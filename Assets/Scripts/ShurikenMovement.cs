@@ -25,12 +25,12 @@ public class ShurikenMovement : MonoBehaviour {
 
 		transform.Rotate (Vector3.forward * rotateSpeed * Time.deltaTime);
 
-		transform.position -= Vector3.up * verticalSpeed * Time.deltaTime;
+		transform.position += Vector3.right * verticalSpeed * Time.deltaTime;
 
 
 		if (side) {
 			if (right < horizontalWide) {
-				transform.position += Vector3.right * horizontalSpeed * Time.deltaTime;
+				transform.position += Vector3.up * horizontalSpeed * Time.deltaTime;
 
 				right++;
 			} else {
@@ -40,7 +40,7 @@ public class ShurikenMovement : MonoBehaviour {
 		}
 		else {
 			if (right > -horizontalWide) {
-				transform.position -= Vector3.right * horizontalSpeed * Time.deltaTime;
+				transform.position -= Vector3.up * horizontalSpeed * Time.deltaTime;
 
 				right--;
 			} else {
@@ -49,7 +49,7 @@ public class ShurikenMovement : MonoBehaviour {
 			}
 		}
 
-		if (cameraController.getMinPosition () >= transform.position.y) {
+		if (cameraController.getXBounds () <= transform.position.x) {
 			Destroy(this.gameObject);
 		}
 	}

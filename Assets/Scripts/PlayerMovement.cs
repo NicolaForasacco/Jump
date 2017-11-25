@@ -49,19 +49,26 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	void Update(){
-		if (transform.position.y * 5> lastHeight * 5 + 40) {
+		
+		if (transform.position.y * 5> lastHeight * 5 + 400) {
 
 			lastHeight = transform.position.y;
 			cameraController.changeRandomBackgroundColor ();
 		}
 
-		scoreText.text = Mathf.Round(transform.position.y * 5).ToString();
+		scoreText.text = Mathf.Round(transform.position.y).ToString();
 		pointsText.text = points.ToString ();
+
+		if (rb.velocity.y == 0 && jumped) {
+			isJumping = false;
+			jumped = false;
+		}
 
 		if (Input.GetButton ("Jump")&& !isJumping) {
 			
 			isJumping = true;
 		}
+
 	}
 
 	public void onJumpButtonDown(){
@@ -152,7 +159,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("MovingTile")  && transform.position.y > c.transform.position.y 
-			&& rb.velocity.y <= 0) {
+			&& rb.velocity.y == 0) {
 
 			this.transform.SetParent (c.transform);
 		}
@@ -208,7 +215,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Random.value > shurikenN && !shurikenSpawnThisLevel) {
 
 			shurikenSpawnThisLevel = true;
-			Vector2 v = new Vector2 (transform.position.x + Random.Range(0,3), cameraController.getMaxPosition());
+			Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y);
 			Instantiate (pencilPrefab[1], v, Quaternion.identity);
 		}
 	}

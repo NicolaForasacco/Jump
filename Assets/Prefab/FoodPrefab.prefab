@@ -80,7 +80,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.15}
+    oldSize: {x: 20, y: 23}
     newSize: {x: 1, y: 1.15}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -88,10 +88,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5, y: 0.5}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 0.5, y: 0.5}
+    - - {x: -10, y: 11.5}
+      - {x: -10, y: -0.5}
+      - {x: -3, y: -11.5}
+      - {x: 3, y: -11.5}
+      - {x: 10, y: 2.5}
+      - {x: 10, y: 11.5}
 --- !u!114 &114082562166362736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +114,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -127,6 +130,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
