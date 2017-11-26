@@ -35,10 +35,14 @@ public class SpawnTile : MonoBehaviour {
 		lastPlatformPosition = player.transform.position.x;
 	}
 
+	int levels = 50;
+
 	public void spawnMultiplePlatform(){
-		
-		for (int i = 0; i < 50; i++)
+
+		for (int i = 0; i < levels; i++)
 			spawnALevelOfPlatforms ();
+
+		levels = 4;
 	}
 
 	public void spawnALevelOfPlatforms(){
@@ -68,16 +72,20 @@ public class SpawnTile : MonoBehaviour {
 		int tileType = 0;
 		float randomFloat = Random.value;
 
+
+
 		if (randomFloat <= 0.4f)
 			tileType = 0;
 		else if (randomFloat <= 0.6f)
 			tileType = 1;
-		else if (randomFloat <= 0.8f)
+		else if (randomFloat <= 0.7f)
 			tileType = 6;
-		else if (randomFloat <= 0.9f && n == 0)
+		else if (randomFloat <= 0.8f && n == 0)
 			tileType = Random.Range (2, 5);
-		else if (randomFloat <= 1)
+		else if (randomFloat <= 0.9f)
 			tileType = 5;
+		else if (randomFloat <= 1)
+			tileType = 7;
 
 		lastTileType = tileType;
 
@@ -100,6 +108,9 @@ public class SpawnTile : MonoBehaviour {
 			lastPlatformPosition = randomX;
 		}
 
+		if (tileType == 7)
+			platformLength = 1;
+		
 		lastPlatformLength = platformLength;
 
 
@@ -109,7 +120,7 @@ public class SpawnTile : MonoBehaviour {
 			v2 = new Vector2 (randomX + i * tileWidth, level);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			if (tileType < 2 || tileType > 5)
+			if ((tileType < 2 || tileType > 5) && tileType != 7)
 				spawnCollectable (v2);
 		}
 	}

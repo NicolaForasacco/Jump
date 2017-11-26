@@ -12,6 +12,7 @@ TagManager:
   - MovingTile
   - BounceTile
   - UselessTile
+  - ColorizeTile
   layers:
   - Default
   - TransparentFX

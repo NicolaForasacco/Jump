@@ -32,11 +32,9 @@ public class CameraController : MonoBehaviour {
 		cameraB.backgroundColor = Random.ColorHSV();
 	}
 
-	// LateUpdate is called after Update each frame
 	void LateUpdate () 
 	{
-		// Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
-
+		
 		float newPosition = (player.transform.position.y + offset.y >= transform.position.y) ? player.transform.position.y + offset.y : transform.position.y;
 
 		v.x = player.transform.position.x + offset.x;
@@ -58,7 +56,6 @@ public class CameraController : MonoBehaviour {
 
 	public float getMinPosition(){
 		
-		//Debug.Log (transform.position.y - Camera.main.orthographicSize * 2);
 		return transform.position.y - Camera.main.orthographicSize * 1.5f;
 	}
 

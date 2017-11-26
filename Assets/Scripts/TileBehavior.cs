@@ -6,6 +6,7 @@ public class TileBehavior : MonoBehaviour {
 	
 	private GameObject player;
 	private Rigidbody2D rb;
+	public bool isVisited = false;
 
 	Animator anim;
 
@@ -25,6 +26,8 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 		
+		isVisited = true;
+
 		switch(this.tag){
 		case "CloudTile":
 			enableGravity(1.2f);
@@ -34,6 +37,9 @@ public class TileBehavior : MonoBehaviour {
 			break;
 		case "UselessTile":
 			enableGravity (0.2f);
+			break;
+		case "ColorizeTile":
+			anim.SetTrigger ("pressed");
 			break;
 		default:
 			break;

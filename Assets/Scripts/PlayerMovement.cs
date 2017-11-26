@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (transform.position.y * 5> lastHeight * 5 + 400) {
 
 			lastHeight = transform.position.y;
-			cameraController.changeRandomBackgroundColor ();
+
 		}
 
 		scoreText.text = Mathf.Round(transform.position.y).ToString();
@@ -149,11 +149,24 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (c.CompareTag ("Pencil")) {
 			
-			cameraShake.enable ();
+			if(jumped)
+				cameraShake.startShake ();
+			
 			isJumping = false;
 			jumped = false;
 			if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
 				gm.gameEnd ();
+		}
+
+		if (c.CompareTag ("ColorizeTile")
+			&& transform.position.y > c.transform.position.y ) {
+
+			if (!c.GetComponent<TileBehavior> ().isVisited) {
+				
+				cameraController.changeRandomBackgroundColor ();
+				cameraShake.startBigShake ();
+				c.GetComponent<TileBehavior> ().behave ();
+			}
 		}
 
 		if (c.CompareTag ("MovingTile")  
@@ -166,12 +179,14 @@ public class PlayerMovement : MonoBehaviour {
 		if (c.CompareTag ("BounceTile") 
 			&& transform.position.y > c.transform.position.y) {
 
-			cameraShake.enable ();
+			if(jumped)
+				cameraShake.startShake ();
+			
 			isJumping = false;
 			jumped = false;
 
 			spawnRandomHorizontalPencil ();
-			spawnManager.spawnALevelOfPlatforms ();
+			spawnManager.spawnMultiplePlatform ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}
@@ -182,13 +197,15 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("MovingTile")) 
 			&& transform.position.y > c.transform.position.y ) {
 
-			cameraShake.enable ();
+			if(jumped)
+				cameraShake.startShake ();
+			
 			isJumping = false;
 			jumped = false;
 
 			spawnRandomHorizontalPencil ();
 			spawnRandomVerticalShuriken();
-			spawnManager.spawnALevelOfPlatforms ();
+			spawnManager.spawnMultiplePlatform ();
 			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
