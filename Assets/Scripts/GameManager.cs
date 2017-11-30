@@ -7,13 +7,25 @@ public class GameManager : MonoBehaviour {
 
 	public Canvas menu;
 	public Canvas controls;
+	public bool useButtons;
 
 	public void gameEnd(){
+
+		menu.gameObject.SetActive (true);
+		controls.gameObject.SetActive (false);
+
 		SceneManager.LoadScene ("MainScene",LoadSceneMode.Single);
 	}
 
 	public void startGame(){
 		menu.gameObject.SetActive (false);
-		controls.gameObject.SetActive (true);
+
+		if(useButtons)
+			controls.gameObject.SetActive (true);
+
+	}
+
+	public void changeButtonsUse(){
+		useButtons = !useButtons;
 	}
 }

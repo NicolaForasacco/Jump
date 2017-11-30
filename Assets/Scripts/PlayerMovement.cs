@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public Rigidbody2D rb;
-	public CameraController cameraController;
-	public CameraShake cameraShake;
-	public GameManager gm;
+	private Rigidbody2D rb;
+	private CameraController cameraController;
+	private CameraShake cameraShake;
+	private GameManager gm;
 
 	public GameObject[] pencilPrefab;
 
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool isJumping = false, jumped = false;
 
-	public SpawnTile spawnManager;
+	private SpawnTile spawnManager;
 
 	public Text scoreText, 
 				pointsText;
@@ -42,14 +42,75 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator> ();
+
+		cameraShake = GameObject.FindObjectOfType<CameraShake>();
+		cameraController = GameObject.FindObjectOfType<CameraController> ();
+		gm = GameObject.FindObjectOfType<GameManager> ();
+		spawnManager = GameObject.FindObjectOfType<SpawnTile> ();
+
 		lastHeight = transform.position.y;
 
 		spawnManager.spawnMultiplePlatform();
 	}
 
+	public void increasePoint(){
+		points++;
+	}
+
+	//inside class
+	Vector2 firstPressPos;
+	Vector2 secondPressPos;
+	Vector2 currentSwipe;
+
+	public void Swipe()
+	{
+		if(Input.touches.Length > 0)
+		{
+			Touch t = Input.GetTouch(0);
+			if(t.phase == TouchPhase.Began)
+			{
+				//save began touch 2d point
+				firstPressPos = new Vector2(t.position.x,t.position.y);
+			}
+			if(t.phase == TouchPhase.Ended)
+			{
+				//save ended touch 2d point
+				secondPressPos = new Vector2(t.position.x,t.position.y);
+
+				//create vector from the two points
+				currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+
+				//normalize the 2d vector
+				currentSwipe.Normalize();
+				/*
+				//swipe upwards
+				if(currentSwipe.y > 0  && currentSwipe.x > -0.5f  && currentSwipe.x < 0.5f)
+				{
+					Debug.Log("up swipe");
+				}else 
+				//swipe down
+				if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+				{
+					Debug.Log("down swipe");
+				}*/
+				
+				//swipe left
+				if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+					left = true;
+				} else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
+					right = true;
+				} else {
+					if (!isJumping) {
+						isJumping= true;
+					}
+				}
+			}
+		}
+	}
 
 	void Update(){
-		
+
+		useButtons = gm.useButtons;
 		if (transform.position.y * 5> lastHeight * 5 + 400) {
 
 			lastHeight = transform.position.y;
@@ -64,11 +125,22 @@ public class PlayerMovement : MonoBehaviour {
 			jumped = false;
 		}
 
-		if (Input.GetButton ("Jump")&& !isJumping) {
-			
-			isJumping = true;
-		}
 
+		if (useButtons) {
+			if (Input.GetButton ("Jump") && !isJumping) {
+
+				isJumping = true;
+			}
+		} else {
+
+			if (Input.GetKey (KeyCode.A))
+				left = true;
+
+			if (Input.GetKey (KeyCode.D))
+				right = true;
+
+			Swipe ();
+		}
 	}
 
 	public void onJumpButtonDown(){
@@ -91,35 +163,70 @@ public class PlayerMovement : MonoBehaviour {
 		horizontalSpeed = 0;
 	}
 
+	bool left = false;
+
+	bool right = false;
+
+	bool useButtons = false;
+
 
 	void FixedUpdate()
 	{
-	
-		currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
+		if (useButtons) {
 
-		#if UNITY_EDITOR_WIN
-		horizontalSpeed = Input.GetAxis ("Horizontal");
-		#endif
+			currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 
-		if (!isJumping)
-			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
-		
-		if (horizontalSpeed != 0) {
-			
-			if (horizontalSpeed > 0 && horizontalSpeed < maxHorizontalSpeed)
-				horizontalSpeed += 0.05f;
-			else if (horizontalSpeed < 0 && horizontalSpeed > - maxHorizontalSpeed)
-				horizontalSpeed -= 0.05f;
-		
-			//h = Input.acceleration.x * 2;
-	
-			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-			if (horizontalSpeed <= 0)
-				transform.localScale = new Vector2 (1, 1);
-			else if (horizontalSpeed > 0)
+			#if UNITY_EDITOR_WIN
+			horizontalSpeed = Input.GetAxis ("Horizontal");
+			#endif
+
+			if (!isJumping)
+				anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+
+			if (horizontalSpeed != 0) {
+
+				if (horizontalSpeed > 0 && horizontalSpeed < maxHorizontalSpeed)
+					horizontalSpeed += 0.05f;
+				else if (horizontalSpeed < 0 && horizontalSpeed > -maxHorizontalSpeed)
+					horizontalSpeed -= 0.05f;
+
+				//h = Input.acceleration.x * 2;
+
+				transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
+
+				if (horizontalSpeed <= 0)
+					transform.localScale = new Vector2 (1, 1);
+				else if (horizontalSpeed > 0)
+					transform.localScale = new Vector2 (-1, 1);
+			}
+		} else {
+			int speed = 100;
+
+			if (right) {
+				transform.Translate (new Vector2 (Time.deltaTime * 100,0));
+
 				transform.localScale = new Vector2 (-1, 1);
+
+				if (!isJumping)
+					anim.SetFloat ("isMoving", Mathf.Abs (1));
+
+				if(Mathf.FloorToInt(transform.position.x % 20) == 0)
+					right = false;
+
+			} else if (left) {
+				transform.Translate (new Vector2 (-Time.deltaTime * 100,0));
+
+				transform.localScale = new Vector2 (1, 1);
+
+				if (!isJumping)
+					anim.SetFloat ("isMoving", Mathf.Abs (1));
+
+				if(Mathf.FloorToInt(transform.position.x % 20) == 0)
+					left = false;
+			}
 		}
+
 
 		if (isJumping && !jumped ){
 			

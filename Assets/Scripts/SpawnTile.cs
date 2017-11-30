@@ -35,14 +35,14 @@ public class SpawnTile : MonoBehaviour {
 		lastPlatformPosition = player.transform.position.x;
 	}
 
-	int levels = 50;
+	int levels = 15;
 
 	public void spawnMultiplePlatform(){
 
 		for (int i = 0; i < levels; i++)
 			spawnALevelOfPlatforms ();
 
-		levels = 4;
+		levels = 2;
 	}
 
 	public void spawnALevelOfPlatforms(){
@@ -80,7 +80,7 @@ public class SpawnTile : MonoBehaviour {
 			tileType = 1;
 		else if (randomFloat <= 0.7f)
 			tileType = 6;
-		else if (randomFloat <= 0.8f && n == 0)
+		else if (randomFloat <= 0.85f && n == 0)
 			tileType = Random.Range (2, 5);
 		else if (randomFloat <= 0.9f)
 			tileType = 5;

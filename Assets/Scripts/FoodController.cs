@@ -19,7 +19,10 @@ public class FoodController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 
-		if (other.gameObject.CompareTag ("player"))
+		if (other.gameObject.CompareTag ("player")) {
+			PlayerMovement pm = other.gameObject.GetComponent<PlayerMovement> ();
+			pm.increasePoint ();
 			Destroy (this.gameObject);
+		}
 	}
 }

@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4245101274349948}
   - component: {fileID: 212725595327899892}
+  - component: {fileID: 61502049644716574}
   - component: {fileID: 251488525179621594}
   - component: {fileID: 114512126868106300}
   - component: {fileID: 114385465210343922}
-  - component: {fileID: 61502049644716574}
   m_Layer: 0
   m_Name: MovingTile2
   m_TagString: MovingTile
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122039140993570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.41, y: 5.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisited: 0
 --- !u!212 &212725595327899892
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -105,7 +106,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -121,7 +121,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

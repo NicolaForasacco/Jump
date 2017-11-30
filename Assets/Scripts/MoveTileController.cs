@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveTileController : MonoBehaviour {
 	
-	public float horizontalSpeed = 1f;
-	public int horizontalWide = 40;
+	public float horizontalSpeed =1f;
+	public int horizontalWide = 20;
 
 	public int right = 0;
 	public bool side = true;
