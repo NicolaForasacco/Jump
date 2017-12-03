@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 			#if UNITY_EDITOR_WIN
-			horizontalSpeed = Input.GetAxis ("Horizontal");
+			 horizontalSpeed = Input.GetAxis ("Horizontal");
 			#endif
 
 			if (!isJumping)
@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour {
 					right = false;
 
 			} else if (left) {
-				transform.Translate (new Vector2 (-Time.deltaTime * 100,0));
+				transform.Translate (new Vector2 (- Time.deltaTime * 100, 0));
 
 				transform.localScale = new Vector2 (1, 1);
 
@@ -277,7 +277,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("MovingTile")  
-			&& transform.position.y > c.transform.position.y 
+			&& transform.position.y >= c.transform.position.y 
 			&& rb.velocity.y == 0) {
 
 			this.transform.SetParent (c.transform);
