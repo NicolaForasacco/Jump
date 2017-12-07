@@ -35,6 +35,13 @@ public class SpawnTile : MonoBehaviour {
 		lastPlatformPosition = player.transform.position.x;
 	}
 
+	void Update () {
+
+		if (player.transform.position.y + 300 > level)
+			spawnMultiplePlatform ();
+	}
+
+
 	int levels = 15;
 
 	public void spawnMultiplePlatform(){
@@ -71,8 +78,6 @@ public class SpawnTile : MonoBehaviour {
 
 		int tileType = 0;
 		float randomFloat = Random.value;
-
-
 
 		if (randomFloat <= 0.4f)
 			tileType = 0;

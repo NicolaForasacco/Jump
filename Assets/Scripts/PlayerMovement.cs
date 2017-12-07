@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool isJumping = false, jumped = false;
 
-	private SpawnTile spawnManager;
-
 	public Text scoreText, 
 				pointsText;
 
@@ -46,18 +44,14 @@ public class PlayerMovement : MonoBehaviour {
 		cameraShake = GameObject.FindObjectOfType<CameraShake>();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		gm = GameObject.FindObjectOfType<GameManager> ();
-		spawnManager = GameObject.FindObjectOfType<SpawnTile> ();
 
 		lastHeight = transform.position.y;
-
-		spawnManager.spawnMultiplePlatform();
 	}
 
 	public void increasePoint(){
 		points++;
 	}
 
-	//inside class
 	Vector2 firstPressPos;
 	Vector2 secondPressPos;
 	Vector2 currentSwipe;
@@ -117,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		scoreText.text = Mathf.Round(transform.position.y).ToString();
+		scoreText.text = Mathf.Round(transform.position.y / 20).ToString();
 		pointsText.text = points.ToString ();
 
 		if (rb.velocity.y == 0 && jumped) {
@@ -204,7 +198,7 @@ public class PlayerMovement : MonoBehaviour {
 			int speed = 100;
 
 			if (right) {
-				transform.Translate (new Vector2 (Time.deltaTime * 100,0));
+				transform.Translate (new Vector2 (Time.deltaTime * speed,0));
 
 				transform.localScale = new Vector2 (-1, 1);
 
@@ -215,7 +209,7 @@ public class PlayerMovement : MonoBehaviour {
 					right = false;
 
 			} else if (left) {
-				transform.Translate (new Vector2 (- Time.deltaTime * 100, 0));
+				transform.Translate (new Vector2 (- Time.deltaTime * speed, 0));
 
 				transform.localScale = new Vector2 (1, 1);
 
@@ -293,7 +287,6 @@ public class PlayerMovement : MonoBehaviour {
 			jumped = false;
 
 			spawnRandomHorizontalPencil ();
-			spawnManager.spawnMultiplePlatform ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}
@@ -312,7 +305,6 @@ public class PlayerMovement : MonoBehaviour {
 
 			spawnRandomHorizontalPencil ();
 			spawnRandomVerticalShuriken();
-			spawnManager.spawnMultiplePlatform ();
 			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
