@@ -49,7 +49,7 @@ public class ShurikenMovement : MonoBehaviour {
 			}
 		}
 
-		if (cameraController.getXBounds () <= transform.position.x) {
+		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () <= transform.position.x) {
 			Destroy(this.gameObject);
 		}
 	}

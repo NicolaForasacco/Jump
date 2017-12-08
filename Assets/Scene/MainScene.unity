@@ -2021,8 +2021,8 @@ MonoBehaviour:
   jumped: 0
   scoreText: {fileID: 470594548}
   pointsText: {fileID: 827160592}
-  pencilN: 5
-  shurikenN: 5
+  pencilN: 0.4
+  shurikenN: 0.4
 --- !u!95 &1582222240
 Animator:
   serializedVersion: 3

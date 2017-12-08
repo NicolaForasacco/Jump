@@ -26,7 +26,7 @@ public class CloudDestroyer : MonoBehaviour {
 	void Update () {
 
 		if (player != null) {
-			if (player.transform.position.y - transform.position.y > 200)
+			if (player.transform.position.y - transform.position.y > 200 || Mathf.Abs(player.transform.position.x - transform.position.x) > 300)
 				DestroyObject (this.gameObject);
 			else {
 				transform.position += Vector3.right * speedX * Time.deltaTime;

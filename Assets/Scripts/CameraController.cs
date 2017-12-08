@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	private int min;
-	public GameObject player;       //Public variable to store a reference to the player game object
+	public GameObject player;
 
-
-	private Vector3 offset;         //Private variable to store the offset distance between the player and camera
-	private Vector3 v;
+	int min;
+	Vector3 offset, v;
 	Camera cameraB;
 
 
-	// Use this for initialization
 	void Start () 
 	{
 		cameraB = GetComponent<Camera> ();
-		//Calculate and store the offset value by getting the distance between the player's position and camera's position.
 		offset = transform.position - player.transform.position;
 
 		transform.position = player.transform.position + offset;
@@ -46,12 +42,12 @@ public class CameraController : MonoBehaviour {
 
 	public float getXStart(){
 
-		return transform.position.x - Camera.main.orthographicSize;
+		return transform.position.x - Camera.main.orthographicSize * 1.5f;
 	}
 
 	public float getXBounds(){
 
-		return transform.position.x + Camera.main.orthographicSize*1.5f;
+		return transform.position.x + Camera.main.orthographicSize * 1.5f;
 	}
 
 	public float getMinPosition(){
@@ -61,6 +57,6 @@ public class CameraController : MonoBehaviour {
 
 	public float getMaxPosition(){
 
-		return transform.position.y + Camera.main.orthographicSize*1.5f;
+		return transform.position.y + Camera.main.orthographicSize * 1.5f;
 	}
 }
