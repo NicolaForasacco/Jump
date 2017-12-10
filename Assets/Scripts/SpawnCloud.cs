@@ -29,7 +29,7 @@ public class SpawnCloud : MonoBehaviour {
 		lastPlatformPositionX = player.transform.position.x + Random.Range (-5,5) * 30;
 		lastPlatformPositionY = lastPlatformPositionY + Random.Range (1,4) * 30;
 
-		Vector2 v = new Vector2 (lastPlatformPositionX,lastPlatformPositionY);
+		Vector3 v = new Vector3 (lastPlatformPositionX, lastPlatformPositionY, 1);
 
 		Instantiate (cloudPrefabs[Random.Range(0,cloudPrefabs.Length)], v, Quaternion.identity);
 	}
