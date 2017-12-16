@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4546047325863058}
   - component: {fileID: 212388015483756370}
   - component: {fileID: 60722117118267664}
+  - component: {fileID: 251704386828354326}
+  - component: {fileID: 50041625858891112}
   - component: {fileID: 114800080317425738}
   m_Layer: 0
   m_Name: PencilPrefab
@@ -42,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50041625858891112
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085186396359000}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 20
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!60 &60722117118267664
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -52,7 +74,7 @@ PolygonCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -66,12 +88,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -22.5, y: 5.5}
-      - {x: -27.5, y: 2.5}
-      - {x: -27.5, y: -2.5}
-      - {x: -24.5, y: -5.5}
-      - {x: 27.5, y: -5.5}
-      - {x: 27.5, y: 5.5}
+    - - {x: -32.5, y: 5.5}
+      - {x: -32.5, y: -2.5}
+      - {x: -29.5, y: -5.5}
+      - {x: 32.5, y: -5.5}
+      - {x: 32.5, y: 5.5}
 --- !u!114 &114800080317425738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,3 +150,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!251 &251704386828354326
+PlatformEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085186396359000}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 90
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

@@ -501,7 +501,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656422015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 497.37158, y: -523, z: 0}
+  m_LocalPosition: {x: -107, y: 77, z: 0}
   m_LocalScale: {x: 2.46024, y: 2.46024, z: 2.46024}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -805,7 +805,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813017862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -467, z: 0}
+  m_LocalPosition: {x: 0, y: 133, z: 0}
   m_LocalScale: {x: 2.2, y: 2.2, z: 1}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -1232,7 +1232,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1261025554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 544, z: 0}
+  m_LocalPosition: {x: 0, y: -56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -1998,7 +1998,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: f43f6f47ddb6acc41b2f325420b0d753, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1582222239
 MonoBehaviour:
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   pencilPrefab:
   - {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f, type: 2}
   - {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94, type: 2}
-  - {fileID: 1942693615075920, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
+  - {fileID: 1673884997067744, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
   sideSpeed: 400
   slowSideSpeed: 150
   jumpSpeed: 1000000
@@ -2023,9 +2023,9 @@ MonoBehaviour:
   jumped: 0
   scoreText: {fileID: 470594548}
   pointsText: {fileID: 827160592}
-  pencilN: 0.1
-  shurikenN: 0.1
-  liftN: 0.1
+  pencilN: 1
+  shurikenN: 0.2
+  liftN: 0.2
 --- !u!95 &1582222240
 Animator:
   serializedVersion: 3
@@ -2390,7 +2390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2121820415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2455,8 +2455,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2121820414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 276.5, y: 274.5, z: 0}
-  m_LocalScale: {x: 0.4575, y: 0.4575, z: 0.4575}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 813017863}
   - {fileID: 1261025555}

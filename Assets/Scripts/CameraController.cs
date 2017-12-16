@@ -17,10 +17,7 @@ public class CameraController : MonoBehaviour {
 		offset = transform.position - player.transform.position;
 
 		transform.position = player.transform.position + offset;
-		v = new Vector3 (transform.position.x,transform.position.y,transform.position.z);
-	}
-
-	void Update(){	
+		v = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 	}
 
 	public void changeRandomBackgroundColor(){
@@ -34,7 +31,11 @@ public class CameraController : MonoBehaviour {
 		float newPosition = (player.transform.position.y + offset.y >= transform.position.y) ? player.transform.position.y + offset.y : transform.position.y;
 
 		v.x = player.transform.position.x + offset.x;
-		v.y = newPosition;
+
+		if (newPosition > v.y)
+			v.y = newPosition;
+		else
+			v.y = transform.position.y + 10 * Time.deltaTime;
 
 		transform.position = v;
 	}

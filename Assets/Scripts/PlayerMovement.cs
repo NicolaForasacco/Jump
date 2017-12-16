@@ -242,8 +242,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision){
 		
-		if (collision.gameObject.CompareTag ("MovingTile"))
+		if (collision.gameObject.CompareTag ("MovingTile")
+		    || collision.gameObject.CompareTag ("LiftTile")
+		    || collision.gameObject.CompareTag ("Pencil")) {
+
 			transform.SetParent (null);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
@@ -261,7 +265,13 @@ public class PlayerMovement : MonoBehaviour {
 			
 			isJumping = false;
 			jumped = false;
-			if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
+
+			if(transform.position.y >= c.transform.position.y){
+
+				this.transform.SetParent (c.transform);
+				c.GetComponent<PencilMovement> ().enableGravity ();
+
+			}else if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
 				gm.gameEnd ();
 		}
 
@@ -276,11 +286,14 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if (c.CompareTag ("MovingTile")
+		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
 			&& transform.position.y >= c.transform.position.y 
 			&& rb.velocity.y == 0) {
 
 			this.transform.SetParent (c.transform);
+
+			if (c.CompareTag ("LiftTile"))
+				c.GetComponent<VerticalLift> ().incrementSpeed ();
 		}
 
 		if (c.CompareTag ("BounceTile") 
@@ -309,9 +322,7 @@ public class PlayerMovement : MonoBehaviour {
 			isJumping = false;
 			jumped = false;
 
-			spawnRandomHorizontalPencil();
-			spawnRandomVerticalShuriken();
-			spawnRandomVerticalLift();
+			spawnEnemies ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}
@@ -322,6 +333,21 @@ public class PlayerMovement : MonoBehaviour {
 	}
 		
 	public float pencilN = 0.05f;
+
+	void spawnEnemies(){
+
+		if (Random.value > 1 - pencilN) {
+			int r = Random.Range (1, pencilPrefab.Length + 1);
+
+			if (r == 1)
+				spawnRandomVerticalShuriken ();
+			if (r == 2)
+				spawnRandomHorizontalPencil ();
+			if (r == 3)
+				spawnRandomVerticalLift ();
+
+		}
+	}
 
 	void spawnRandomHorizontalPencil(){
 

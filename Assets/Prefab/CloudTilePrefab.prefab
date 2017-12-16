@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4822059024329074}
   - component: {fileID: 212798296823011788}
   - component: {fileID: 61231316349205258}
-  - component: {fileID: 50394061739587050}
   - component: {fileID: 251327442977282272}
+  - component: {fileID: 50394061739587050}
   - component: {fileID: 114090111469670880}
   m_Layer: 0
   m_Name: CloudTilePrefab
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisited: 0
 --- !u!212 &212798296823011788
 SpriteRenderer:
   m_ObjectHideFlags: 1
