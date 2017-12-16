@@ -501,7 +501,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656422015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 493, y: -850.8874, z: 0}
+  m_LocalPosition: {x: 497.37158, y: -523, z: 0}
   m_LocalScale: {x: 2.46024, y: 2.46024, z: 2.46024}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -805,7 +805,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813017862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -794.8874, z: 0}
+  m_LocalPosition: {x: 0, y: -467, z: 0}
   m_LocalScale: {x: 2.2, y: 2.2, z: 1}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -1019,6 +1019,7 @@ MonoBehaviour:
   - {fileID: 1825397220059294, guid: da9a2beceba5f3942a14070ec00cbaa1, type: 2}
   - {fileID: 1624925779961050, guid: 85a76b35f09bf1a4cb6b5aa1316cab3b, type: 2}
   - {fileID: 1297513007848872, guid: 85ec334e832ef564e950aa2859945da7, type: 2}
+  - {fileID: 1054978158330604, guid: 2e79ba14ed96d1c49bed88a770aedb9c, type: 2}
   collectablesPrefabs:
   - {fileID: 1314897649320336, guid: 26f4ae4ddf5c9594dae7f804dc721bf7, type: 2}
   maxPlatformLength: 1
@@ -1231,7 +1232,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1261025554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 871.8874, z: 0}
+  m_LocalPosition: {x: 0, y: 544, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2121820418}
@@ -2013,6 +2014,7 @@ MonoBehaviour:
   pencilPrefab:
   - {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f, type: 2}
   - {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94, type: 2}
+  - {fileID: 1942693615075920, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
   sideSpeed: 400
   slowSideSpeed: 150
   jumpSpeed: 1000000
@@ -2021,8 +2023,9 @@ MonoBehaviour:
   jumped: 0
   scoreText: {fileID: 470594548}
   pointsText: {fileID: 827160592}
-  pencilN: 0.4
-  shurikenN: 0.4
+  pencilN: 0.1
+  shurikenN: 0.1
+  liftN: 0.1
 --- !u!95 &1582222240
 Animator:
   serializedVersion: 3
@@ -2452,8 +2455,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2121820414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 177.5, y: 274.5, z: 0}
-  m_LocalScale: {x: 0.29583332, y: 0.29583332, z: 0.29583332}
+  m_LocalPosition: {x: 276.5, y: 274.5, z: 0}
+  m_LocalScale: {x: 0.4575, y: 0.4575, z: 0.4575}
   m_Children:
   - {fileID: 813017863}
   - {fileID: 1261025555}

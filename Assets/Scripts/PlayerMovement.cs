@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour {
 	private int points;
 
 	private bool pencilSpawnThisLevel = true, 
-					shurikenSpawnThisLevel = true;
+					shurikenSpawnThisLevel = true,	
+					liftSpawnThisLevel = true;
 
 	float lastHeight;
 
@@ -230,6 +231,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			pencilSpawnThisLevel = false;
 			shurikenSpawnThisLevel = false;
+			liftSpawnThisLevel = false;
 
 			jumped = true;
 		}
@@ -247,6 +249,10 @@ public class PlayerMovement : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
+
+		if (c.CompareTag ("Shuriken")) {
+			gm.gameEnd ();
+		}
 
 		if (c.CompareTag ("Pencil")) {
 			
@@ -270,7 +276,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if (c.CompareTag ("MovingTile")  
+		if (c.CompareTag ("MovingTile")
 			&& transform.position.y >= c.transform.position.y 
 			&& rb.velocity.y == 0) {
 
@@ -303,13 +309,19 @@ public class PlayerMovement : MonoBehaviour {
 			isJumping = false;
 			jumped = false;
 
-			spawnRandomHorizontalPencil ();
+			spawnRandomHorizontalPencil();
 			spawnRandomVerticalShuriken();
+			spawnRandomVerticalLift();
+
 			c.GetComponent<TileBehavior> ().behave();
 		}
+
+		if (c.CompareTag ("SpineTile") && transform.position.y > c.transform.position.y)
+			gm.gameEnd ();
+		
 	}
 		
-	public float pencilN = 0.95f;
+	public float pencilN = 0.05f;
 
 	void spawnRandomHorizontalPencil(){
 
@@ -318,12 +330,12 @@ public class PlayerMovement : MonoBehaviour {
 			&& !pencilSpawnThisLevel) {
 
 			pencilSpawnThisLevel = true;
-			Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y + 0.5f);
+			Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y);
 			Instantiate (pencilPrefab[0], v, Quaternion.identity);
 		}
 	}
 
-	public float shurikenN = 0.95f;
+	public float shurikenN = 0.05f;
 
 	void spawnRandomVerticalShuriken(){
 
@@ -332,8 +344,21 @@ public class PlayerMovement : MonoBehaviour {
 			&& !shurikenSpawnThisLevel) {
 
 			shurikenSpawnThisLevel = true;
-			Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y);
+			Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
 			Instantiate (pencilPrefab[1], v, Quaternion.identity);
+		}
+	}
+
+	public float liftN = 0.05f;
+
+	void spawnRandomVerticalLift(){
+		
+		if (Random.value > 1 - liftN 
+			&& !shurikenSpawnThisLevel) {
+
+			liftSpawnThisLevel = true;
+			Vector2 v = new Vector2 (Random.Range(cameraController.getXStart(), cameraController.getXBounds()), cameraController.getMinPosition());
+			Instantiate (pencilPrefab[2], v, Quaternion.identity);
 		}
 	}
 }

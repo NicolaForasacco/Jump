@@ -83,14 +83,16 @@ public class SpawnTile : MonoBehaviour {
 			tileType = 0;
 		else if (randomFloat <= 0.6f)
 			tileType = 1;
-		else if (randomFloat <= 0.7f)
+		else if (randomFloat <= 0.75f)
 			tileType = 6;
 		else if (randomFloat <= 0.85f && n == 0)
 			tileType = Random.Range (2, 5);
 		else if (randomFloat <= 0.9f)
-			tileType = 5;
-		else if (randomFloat <= 1)
+			tileType = 1;
+		else if (randomFloat <= 0.93f)
 			tileType = 7;
+		else if (randomFloat <= 0.96f)
+			tileType = 8;
 
 		lastTileType = tileType;
 
@@ -125,7 +127,7 @@ public class SpawnTile : MonoBehaviour {
 			v2 = new Vector2 (randomX + i * tileWidth, level);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			if ((tileType < 2 || tileType > 5) && tileType != 7)
+			if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 8)
 				spawnCollectable (v2);
 		}
 	}

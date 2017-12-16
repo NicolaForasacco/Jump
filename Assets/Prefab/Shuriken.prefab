@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114143708122710550}
   m_Layer: 0
   m_Name: Shuriken
-  m_TagString: Pencil
+  m_TagString: Shuriken
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: 20
-  verticalSpeed: 15
+  verticalSpeed: 40
   horizontalWide: 100
   rotateSpeed: 2000
   right: 0

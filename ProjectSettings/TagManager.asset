@@ -13,6 +13,9 @@ TagManager:
   - BounceTile
   - UselessTile
   - ColorizeTile
+  - SpineTile
+  - Shuriken
+  - LiftTile
   layers:
   - Default
   - TransparentFX
