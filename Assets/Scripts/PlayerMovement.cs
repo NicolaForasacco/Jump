@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	private GameManager gm;
 
 	public GameObject[] pencilPrefab;
+	public GameObject deadBodyPrefab;
 
 	public float sideSpeed, 
 					slowSideSpeed, 
@@ -249,30 +250,38 @@ public class PlayerMovement : MonoBehaviour {
 			transform.SetParent (null);
 		}
 	}
+	void die(){
+		
+		Vector2 v = new Vector2 (transform.position.x - 3,transform.position.y - 30);
+		Instantiate (deadBodyPrefab, v, Quaternion.identity);
+		this.gameObject.SetActive (false);
 
+		gm.gameEnd ();
+	}
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
 
-		if (c.CompareTag ("Shuriken")) {
-			gm.gameEnd ();
-		}
+		if (c.CompareTag ("Shuriken"))
+			die ();
+		
 
 		if (c.CompareTag ("Pencil")) {
-			
+
+
 			if(jumped)
 				cameraShake.startShake ();
 			
 			isJumping = false;
 			jumped = false;
 
-			if(transform.position.y >= c.transform.position.y){
+			if (GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y) {
 
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().enableGravity ();
 
-			}else if (GetComponent<BoxCollider2D>().bounds.min.y <= c.transform.position.y)
-				gm.gameEnd ();
+			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y)
+				die ();
 		}
 
 		if (c.CompareTag ("ColorizeTile")
@@ -327,8 +336,8 @@ public class PlayerMovement : MonoBehaviour {
 			c.GetComponent<TileBehavior> ().behave();
 		}
 
-		if (c.CompareTag ("SpineTile") && transform.position.y > c.transform.position.y)
-			gm.gameEnd ();
+		if (c.CompareTag ("SpineTile") && GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y)
+			die ();
 		
 	}
 		

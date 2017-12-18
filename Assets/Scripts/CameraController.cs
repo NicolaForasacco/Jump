@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour {
 	int min;
 	Vector3 offset, v;
 	Camera cameraB;
-
+	public bool active = false;
 
 	void Start () 
 	{
@@ -27,17 +27,15 @@ public class CameraController : MonoBehaviour {
 
 	void LateUpdate () 
 	{
-		
-		float newPosition = (player.transform.position.y + offset.y >= transform.position.y) ? player.transform.position.y + offset.y : transform.position.y;
-
-		v.x = player.transform.position.x + offset.x;
-
-		if (newPosition > v.y)
-			v.y = newPosition;
-		else
+		if (active) {
+			
+			v.x = player.transform.position.x + offset.x;
 			v.y = transform.position.y + 10 * Time.deltaTime;
 
-		transform.position = v;
+			v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
+
+			transform.position = v;
+		}
 	}
 
 
