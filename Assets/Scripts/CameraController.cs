@@ -25,6 +25,8 @@ public class CameraController : MonoBehaviour {
 		cameraB.backgroundColor = Random.ColorHSV();
 	}
 
+	Vector3 velocity;
+
 	void LateUpdate () 
 	{
 		if (active) {
@@ -32,7 +34,13 @@ public class CameraController : MonoBehaviour {
 			v.x = player.transform.position.x + offset.x;
 			v.y = transform.position.y + 10 * Time.deltaTime;
 
-			v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
+			if (player.transform.position.y + offset.y >= v.y) {
+
+				v.y = player.transform.position.y + offset.y;
+				v = Vector3.SmoothDamp (transform.position, v, ref velocity, 0.1f);
+			}
+
+			//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
 
 			transform.position = v;
 		}
