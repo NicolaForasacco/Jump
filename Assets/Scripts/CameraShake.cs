@@ -35,10 +35,10 @@ public class CameraShake : MonoBehaviour {
 
 	public void startShake()
 	{
-		active = true;
+		//active = true;
 		originalPos = camTransform.localPosition;
-		shakeAmount = 2f;
-		maxShakeDuration = 0.1f;
+		shakeAmount = 0.5f;
+		maxShakeDuration = 0.05f;
 	}
 
 	public void startBigShake(){

@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	float lastHeight;
 
+	public int side = -1;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour {
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
 		lastHeight = transform.position.y;
+		horizontalSpeed = 0;
 	}
 
 	public void increasePoint(){
@@ -92,9 +95,9 @@ public class PlayerMovement : MonoBehaviour {
 				
 				//swipe left
 				if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-					left = true;
+					//left = true;
 				} else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-					right = true;
+					//right = true;
 				} else {
 					if (!isJumping) {
 						isJumping= true;
@@ -127,14 +130,15 @@ public class PlayerMovement : MonoBehaviour {
 
 				isJumping = true;
 			}
+
+			if (Input.GetKey(KeyCode.A))
+				side = 0;
+			else if (Input.GetKey(KeyCode.D))
+				side = 1;
+			else
+				side = -1;
+			
 		} else {
-
-			if (Input.GetKey (KeyCode.A))
-				left = true;
-
-			if (Input.GetKey (KeyCode.D))
-				right = true;
-
 			Swipe ();
 		}
 	}
@@ -148,80 +152,54 @@ public class PlayerMovement : MonoBehaviour {
 	}
 		
 	public void goLeft(){
-		horizontalSpeed -=0.05f;
+		side = 0;
 	}
 
 	public void goRight(){
-		horizontalSpeed += 0.05f;
+		side = 1;
 	}
 	
 	public void stopHorizontalSpeed(){
-		horizontalSpeed = 0;
+		side = -1;
 	}
 
-	bool left = false;
-
-	bool right = false;
 
 	bool useButtons = false;
 
 
 	void FixedUpdate()
 	{
-		if (useButtons) {
-
-			currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
+		currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 
 
-			#if UNITY_EDITOR_WIN
-			 horizontalSpeed = Input.GetAxis ("Horizontal");
-			#endif
+		#if UNITY_EDITOR_WIN
+		// horizontalSpeed = Input.GetAxis ("Horizontal");
+		#endif
 
-			if (!isJumping)
-				anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+		//if (!isJumping)
+			//anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
+		
 
-			if (horizontalSpeed != 0) {
+		if (horizontalSpeed < maxHorizontalSpeed && side == 1)
+			horizontalSpeed += 0.05f;
+		
+		else if (horizontalSpeed > - maxHorizontalSpeed && side == 0)
+			horizontalSpeed -= 0.05f;
+		
+		else if (side == -1) {
 
-				if (horizontalSpeed > 0 && horizontalSpeed < maxHorizontalSpeed)
-					horizontalSpeed += 0.05f;
-				else if (horizontalSpeed < 0 && horizontalSpeed > -maxHorizontalSpeed)
-					horizontalSpeed -= 0.05f;
+			if(horizontalSpeed > 0)
+				horizontalSpeed -= 0.05f;
+			else if(horizontalSpeed < 0)
+				horizontalSpeed += 0.05f;
+		}			
 
-				//h = Input.acceleration.x * 2;
+		transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-				transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
-
-				if (horizontalSpeed <= 0)
-					transform.localScale = new Vector2 (1, 1);
-				else if (horizontalSpeed > 0)
-					transform.localScale = new Vector2 (-1, 1);
-			}
-		} else {
-			int speed = 100;
-
-			if (right) {
-				transform.Translate (new Vector2 (Time.deltaTime * speed,0));
-
-				transform.localScale = new Vector2 (-1, 1);
-
-				if (!isJumping)
-					anim.SetFloat ("isMoving", Mathf.Abs (1));
-
-				if(Mathf.FloorToInt(transform.position.x % 20) == 0)
-					right = false;
-
-			} else if (left) {
-				transform.Translate (new Vector2 (- Time.deltaTime * speed, 0));
-
-				transform.localScale = new Vector2 (1, 1);
-
-				if (!isJumping)
-					anim.SetFloat ("isMoving", Mathf.Abs (1));
-
-				if(Mathf.FloorToInt(transform.position.x % 20) == 0)
-					left = false;
-			}
-		}
+		if (horizontalSpeed < 0)
+			transform.localScale = new Vector2 (1, 1);
+		else if(horizontalSpeed > 0)
+			transform.localScale = new Vector2 (-1, 1);
 
 
 		if (isJumping && !jumped ){
@@ -250,6 +228,7 @@ public class PlayerMovement : MonoBehaviour {
 			transform.SetParent (null);
 		}
 	}
+
 	void die(){
 		
 		Vector2 v = new Vector2 (transform.position.x - 3,transform.position.y - 30);
@@ -258,6 +237,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		gm.gameEnd ();
 	}
+
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
@@ -341,6 +321,9 @@ public class PlayerMovement : MonoBehaviour {
 		
 	}
 		
+
+
+
 	public float pencilN = 0.05f;
 
 	void spawnEnemies(){
