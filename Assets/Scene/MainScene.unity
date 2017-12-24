@@ -443,7 +443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -627, y: 47}
+  m_AnchoredPosition: {x: -627, y: 46.99994}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &470594548
@@ -1639,7 +1639,7 @@ MonoBehaviour:
   - {fileID: 1673884997067744, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
   deadBodyPrefab: {fileID: 1854650050600510, guid: 54bcec7e3efc64c4c878c4dc64221261,
     type: 2}
-  sideSpeed: 280
+  sideSpeed: 200
   slowSideSpeed: 150
   jumpSpeed: 1000000
   slowJumpSpeed: 700000
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   scoreText: {fileID: 470594548}
   pointsText: {fileID: 827160592}
   side: -1
+  dead: 0
   pencilN: 0
   shurikenN: 0
   liftN: 0
