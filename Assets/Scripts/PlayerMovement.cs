@@ -107,6 +107,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	public bool dead = false;
+
+	float currentRecord = 0;
+
 	void Update(){
 
 		useButtons = gm.useButtons;
@@ -116,8 +120,16 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		scoreText.text = Mathf.Round(transform.position.y / 20).ToString();
-		pointsText.text = points.ToString ();
+		if (!dead) {
+			
+			if(transform.position.y / 20 > currentRecord){
+				currentRecord = transform.position.y / 20;
+				scoreText.text = Mathf.Round (currentRecord).ToString ();
+
+			}
+
+			pointsText.text = points.ToString ();
+		}
 
 		if (rb.velocity.y == 0 && jumped) {
 			isJumping = false;
@@ -165,33 +177,29 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	bool useButtons = false;
-
+	float speed = 0.2f; 
+	float decreaseFactor = 0.05f;
 
 	void FixedUpdate()
 	{
 		currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
-
-
-		#if UNITY_EDITOR_WIN
-		// horizontalSpeed = Input.GetAxis ("Horizontal");
-		#endif
-
-		//if (!isJumping)
-			//anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
-		
+	
 
 		if (horizontalSpeed < maxHorizontalSpeed && side == 1)
-			horizontalSpeed += 0.05f;
+			horizontalSpeed += speed;
 		
 		else if (horizontalSpeed > - maxHorizontalSpeed && side == 0)
-			horizontalSpeed -= 0.05f;
+			horizontalSpeed -= speed;
 		
-		else if (side == -1) {
+		else if (side == -1 && horizontalSpeed != 0) {
 
 			if(horizontalSpeed > 0)
-				horizontalSpeed -= 0.05f;
+				horizontalSpeed -= decreaseFactor;
 			else if(horizontalSpeed < 0)
-				horizontalSpeed += 0.05f;
+				horizontalSpeed += decreaseFactor;
+
+			if (horizontalSpeed >= -decreaseFactor && horizontalSpeed <= decreaseFactor)
+				horizontalSpeed = 0;
 		}			
 
 		transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
@@ -200,6 +208,9 @@ public class PlayerMovement : MonoBehaviour {
 			transform.localScale = new Vector2 (1, 1);
 		else if(horizontalSpeed > 0)
 			transform.localScale = new Vector2 (-1, 1);
+
+		if (!isJumping)
+			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
 
 
 		if (isJumping && !jumped ){
@@ -215,8 +226,8 @@ public class PlayerMovement : MonoBehaviour {
 			jumped = true;
 		}
 
-		if (transform.position.y < cameraController.getMinPosition())
-			gm.gameEnd ();
+		if (transform.position.y < cameraController.getMinPosition ())
+			die ();
 	}
 
 	void OnCollisionExit2D(Collision2D collision){
@@ -235,6 +246,7 @@ public class PlayerMovement : MonoBehaviour {
 		Instantiate (deadBodyPrefab, v, Quaternion.identity);
 		this.gameObject.SetActive (false);
 
+		dead = true;
 		gm.gameEnd ();
 	}
 

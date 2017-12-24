@@ -6,25 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	public Canvas menu;
-	public Canvas controls;
 	public bool useButtons;
-	public Animator menuAnim;
 	public Animator cameraAnim;
 
 	public CameraController camera;
 	public bool isFirstPlay = true;
 
+	public Animator menuAnim;
+
 	public void gameEnd(){
+		menuAnim.SetTrigger ("GameOver");
 
-		menu.gameObject.SetActive (true);
-		menuAnim.SetTrigger ("PlayButtonOn");
-
-
-		controls.gameObject.SetActive (false);
 		camera.active = false;
 		cameraAnim.SetTrigger ("CameraZoomOff");
-
-		//SceneManager.LoadScene ("MainScene",LoadSceneMode.Single);
 	}
 
 
@@ -33,24 +27,19 @@ public class GameManager : MonoBehaviour {
 		menuAnim = menu.GetComponent<Animator> ();
 		cameraAnim = camera.GetComponent<Animator> ();
 
-		menu.gameObject.SetActive (true);
-		menuAnim.SetTrigger ("PlayButtonOn");
+		menuAnim.SetTrigger ("MenuOn");
 	}
 
 	public void startGame(){
-
-		menu.gameObject.SetActive (false);
+		
 		camera.active = true;
+		menuAnim.SetTrigger ("ControlsOn");
 
 		if (!isFirstPlay) {
 			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
 			//cameraAnim.SetTrigger ("CameraZoomOn");
 		} else {
-		
 			isFirstPlay = false;
-
-			if (useButtons)
-				controls.gameObject.SetActive (true);
 		}
 	}
 
