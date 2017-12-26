@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator> ();
+        
 
 		cameraShake = GameObject.FindObjectOfType<CameraShake>();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
@@ -141,9 +142,8 @@ public class PlayerMovement : MonoBehaviour {
 			
 			#if UNITY_EDITOR_WIN
 
-			if (Input.GetButton ("Jump") && !isJumping) {
-
-				isJumping = true;
+			if (Input.GetButton ("Jump")) {
+                onJumpButtonDown();
 			}
 
 			if (Input.GetKey(KeyCode.A))
@@ -165,7 +165,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 		
 	public void onJumpButtonUp(){
-		//jumpKeyRealised = true;
 	}
 		
 	public void goLeft(){
@@ -183,7 +182,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool useButtons = true;
 	float speed = 0.2f; 
-	float decreaseFactor = 0.05f;
+	float decreaseFactor = 0.1f;
 
 	void FixedUpdate()
 	{
@@ -214,13 +213,15 @@ public class PlayerMovement : MonoBehaviour {
 		else if(horizontalSpeed > 0)
 			transform.localScale = new Vector2 (-1, 1);
 
-		if (!isJumping && !jumped)
-			anim.SetFloat ("isMoving", Mathf.Abs (horizontalSpeed));
-
+        if (!isJumping && !jumped)
+            if (horizontalSpeed == 0)
+                idleAnim();
+            else
+                movingAnim();
 
 		if (isJumping && !jumped ){
-			
-			anim.SetTrigger ("Jumping");
+
+            jumpAnim();
 
 			rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
 
@@ -244,6 +245,29 @@ public class PlayerMovement : MonoBehaviour {
 			transform.SetParent (null);
 		}
 	}
+
+    void idleAnim()
+    {
+
+        anim.SetBool("Idle", true);
+        anim.SetBool("Moving", false);
+        anim.SetBool("Jumping", false);
+    }
+
+    void movingAnim()
+    {
+
+        anim.SetBool("Idle", false);
+        anim.SetBool("Moving", true);
+        anim.SetBool("Jumping", false);
+    }
+
+    void jumpAnim() {
+
+        anim.SetBool("Idle",false);
+        anim.SetBool("Moving", false);
+        anim.SetBool("Jumping", true);
+    }
 
 	void die(){
 		
@@ -269,9 +293,8 @@ public class PlayerMovement : MonoBehaviour {
 			
 			isJumping = false;
 			jumped = false;
-			anim.SetTrigger ("Idle");
 
-			if (GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y) {
+            if (GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y) {
 
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().enableGravity ();
@@ -295,8 +318,7 @@ public class PlayerMovement : MonoBehaviour {
 			&& transform.position.y >= c.transform.position.y) {
 
 			isJumping = false;
-			jumped = false;
-			anim.SetTrigger ("Idle");
+            jumped = false;
 
 			this.transform.SetParent (c.transform);
 
@@ -315,9 +337,8 @@ public class PlayerMovement : MonoBehaviour {
 
 			isJumping = false;
 			jumped = false;
-			anim.SetTrigger ("Idle");
 
-			spawnEnemies ();
+            spawnEnemies ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}
