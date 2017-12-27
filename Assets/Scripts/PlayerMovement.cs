@@ -270,13 +270,16 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void die(){
-		
-		Vector2 v = new Vector2 (transform.position.x - 3,transform.position.y - 30);
-		Instantiate (deadBodyPrefab, v, Quaternion.identity);
-		this.gameObject.SetActive (false);
 
-		dead = true;
-		gm.gameEnd ();
+        if (!dead)
+        {
+            Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30);
+            Instantiate(deadBodyPrefab, v, Quaternion.identity);
+            this.gameObject.SetActive(false);
+
+            dead = true;
+            gm.gameEnd();
+        }
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){

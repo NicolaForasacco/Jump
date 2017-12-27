@@ -443,7 +443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -627, y: 46.99994}
+  m_AnchoredPosition: {x: -627, y: 47}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &470594548
@@ -478,7 +478,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 10000
+  m_Text: 4000
 --- !u!222 &470594549
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1649,9 +1649,9 @@ MonoBehaviour:
   pointsText: {fileID: 827160592}
   side: -1
   dead: 0
-  pencilN: 0
-  shurikenN: 0
-  liftN: 0
+  pencilN: 1
+  shurikenN: 1
+  liftN: 1
 --- !u!95 &1582222240
 Animator:
   serializedVersion: 3
