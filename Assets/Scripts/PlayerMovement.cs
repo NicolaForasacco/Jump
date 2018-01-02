@@ -16,8 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float sideSpeed, 
 					slowSideSpeed, 
-					jumpSpeed,
-					slowJumpSpeed;
+					jumpSpeed;
 
 	public bool isJumping = false, jumped = false;
 
@@ -223,7 +222,7 @@ public class PlayerMovement : MonoBehaviour {
 
             jumpAnim();
 
-			rb.AddForce (new Vector2 (0, jumpSpeed * Time.deltaTime), ForceMode2D.Impulse);
+			rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 
 			pencilSpawnThisLevel = false;
 			shurikenSpawnThisLevel = false;
@@ -378,7 +377,6 @@ public class PlayerMovement : MonoBehaviour {
 				spawnRandomHorizontalPencil ();
 			if (r == 3)
 				spawnRandomVerticalLift ();
-
 		}
 	}
 
