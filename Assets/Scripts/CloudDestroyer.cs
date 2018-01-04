@@ -10,13 +10,14 @@ public class CloudDestroyer : MonoBehaviour {
 
 	void Start () {
 		
+		transform.SetParent (GameObject.FindGameObjectWithTag ("background").transform);
 		player = GameObject.FindGameObjectWithTag ("player");
 
 		float randomScale = Random.Range (2,5);
 
 		transform.localScale = (Random.value > 0.5) ? new Vector2 (randomScale, randomScale): new Vector2 (-randomScale, randomScale);
 
-		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.4f, 0.8f));
+		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.8f, 1));
 
 		speedX = Random.Range (- 15, 15);
 	}

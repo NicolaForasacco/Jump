@@ -16,6 +16,8 @@ TagManager:
   - SpineTile
   - Shuriken
   - LiftTile
+  - background
+  - PushUpTile
   layers:
   - Default
   - TransparentFX

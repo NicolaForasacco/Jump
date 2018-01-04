@@ -93,6 +93,8 @@ public class SpawnTile : MonoBehaviour {
 			tileType = 7;
 		else if (randomFloat <= 0.96f)
 			tileType = 8;
+		else if (randomFloat <= 1)
+			tileType = 5;
 
 		lastTileType = tileType;
 

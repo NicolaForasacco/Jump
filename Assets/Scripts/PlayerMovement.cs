@@ -218,7 +218,7 @@ public class PlayerMovement : MonoBehaviour {
             else
                 movingAnim();
 
-		if (isJumping && !jumped ){
+		if (isJumping && !jumped && rb.velocity.y == 0){
 
             jumpAnim();
 
@@ -306,7 +306,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("ColorizeTile")
-			&& transform.position.y > c.transform.position.y ) {
+			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
 			if (!c.GetComponent<TileBehavior> ().isVisited) {
 				
@@ -317,7 +317,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
-			&& transform.position.y >= c.transform.position.y) {
+			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
 			isJumping = false;
             jumped = false;
@@ -332,7 +332,7 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("CloudTile") 
 			|| c.CompareTag("UselessTile") 
 			|| c.CompareTag("MovingTile")) 
-			&& transform.position.y > c.transform.position.y ) {
+			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
 
 			if(jumped)
 				cameraShake.startShake ();
@@ -345,23 +345,19 @@ public class PlayerMovement : MonoBehaviour {
 			c.GetComponent<TileBehavior> ().behave();
 		}
 
-		if (c.CompareTag ("SpineTile") && GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y && rb.velocity.y == 0)
+		if (c.CompareTag ("SpineTile") 
+			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y 
+			&& rb.velocity.y == 0)
 			die ();
 
-		/*if (c.CompareTag ("BounceTile") 
+		if (c.CompareTag ("BounceTile") 
 			&& transform.position.y > c.transform.position.y) {
 
 			if(jumped)
 				cameraShake.startShake ();
-			
-			isJumping = false;
-			jumped = false;
-			anim.SetTrigger ("Idle");
-
-			spawnRandomHorizontalPencil ();
 
 			c.GetComponent<TileBehavior> ().behave();
-		}*/
+		}
 	}
 		
 	public float pencilN = 0.05f;
