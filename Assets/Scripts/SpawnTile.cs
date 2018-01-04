@@ -12,6 +12,7 @@ public class SpawnTile : MonoBehaviour {
 	public int minPlatformLength = 1;
 	public int maxPlatformPerLevel = 2;
 	public int randomRange = 5;
+	public float lastXPosition;
 
 	private void changeParameters(){
 
@@ -123,7 +124,8 @@ public class SpawnTile : MonoBehaviour {
 		lastPlatformLength = platformLength;
 
 
-		Vector2 v2;
+		Vector2 v2 = new Vector2 (randomX, level);
+
 		for (int i = 0; i < platformLength; i++) {
 			
 			v2 = new Vector2 (randomX + i * tileWidth, level);
@@ -132,6 +134,8 @@ public class SpawnTile : MonoBehaviour {
 			if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 8)
 				spawnCollectable (v2);
 		}
+
+		lastXPosition = v2.x;
 	}
 
 	private void spawnCollectable(Vector2 v){

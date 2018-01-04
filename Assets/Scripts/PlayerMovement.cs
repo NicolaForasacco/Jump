@@ -237,10 +237,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision){
 		
-		if (collision.gameObject.CompareTag ("MovingTile")
-		    || collision.gameObject.CompareTag ("LiftTile")
-		    || collision.gameObject.CompareTag ("Pencil")) {
+		if (collision.gameObject.CompareTag ("MovingTile") || collision.gameObject.CompareTag ("Pencil")) {
 
+			if(!isOnLift)
+				transform.SetParent (null);
+		}
+
+		if (collision.gameObject.CompareTag ("LiftTile")) {
+			isOnLift = false;
 			transform.SetParent (null);
 		}
 	}
@@ -280,6 +284,8 @@ public class PlayerMovement : MonoBehaviour {
             gm.gameEnd();
         }
 	}
+
+	bool isOnLift = false;
 
 	void OnCollisionEnter2D(Collision2D collision){
 
@@ -322,10 +328,13 @@ public class PlayerMovement : MonoBehaviour {
 			isJumping = false;
             jumped = false;
 
-			this.transform.SetParent (c.transform);
+			if(!isOnLift)
+				this.transform.SetParent (c.transform);
 
-			if (c.CompareTag ("LiftTile"))
+			if (c.CompareTag ("LiftTile")) {
 				c.GetComponent<VerticalLift> ().incrementSpeed ();
+				isOnLift = true;
+			}
 		}
 
 		if ((c.CompareTag("Tile") 
@@ -346,8 +355,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("SpineTile") 
-			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y 
-			&& rb.velocity.y == 0)
+			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y )
 			die ();
 
 		if (c.CompareTag ("BounceTile") 
@@ -374,6 +382,8 @@ public class PlayerMovement : MonoBehaviour {
 			if (r == 3)
 				spawnRandomVerticalLift ();
 		}
+
+		spawnRandomVerticalLift ();
 	}
 
 	void spawnRandomHorizontalPencil(){

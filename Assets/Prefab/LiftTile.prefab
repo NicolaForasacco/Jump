@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  sideSpeed: 10
   isOn: 1
   isFast: 0
 --- !u!212 &212937905150278634
