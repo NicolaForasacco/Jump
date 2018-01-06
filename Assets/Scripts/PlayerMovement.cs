@@ -237,13 +237,15 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision){
 		
-		if (collision.gameObject.CompareTag ("MovingTile") || collision.gameObject.CompareTag ("Pencil")) {
+		if (collision.gameObject.CompareTag ("MovingTile") 
+            || collision.gameObject.CompareTag ("Pencil")) {
 
 			if(!isOnLift)
 				transform.SetParent (null);
 		}
 
 		if (collision.gameObject.CompareTag ("LiftTile")) {
+
 			isOnLift = false;
 			transform.SetParent (null);
 		}
@@ -276,7 +278,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!dead)
         {
-            Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30);
+            Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
             Instantiate(deadBodyPrefab, v, Quaternion.identity);
             this.gameObject.SetActive(false);
 
@@ -325,16 +327,18 @@ public class PlayerMovement : MonoBehaviour {
 		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
-			isJumping = false;
-            jumped = false;
+            if (!isOnLift){
 
-			if(!isOnLift)
-				this.transform.SetParent (c.transform);
+                this.transform.SetParent(c.transform);
 
-			if (c.CompareTag ("LiftTile")) {
-				c.GetComponent<VerticalLift> ().incrementSpeed ();
-				isOnLift = true;
-			}
+                if (c.CompareTag("LiftTile")){
+                    c.GetComponent<VerticalLift>().incrementSpeed();
+                    isOnLift = true;
+                }
+
+                isJumping = false;
+                jumped = false;
+            }
 		}
 
 		if ((c.CompareTag("Tile") 

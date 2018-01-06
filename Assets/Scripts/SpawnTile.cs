@@ -80,22 +80,24 @@ public class SpawnTile : MonoBehaviour {
 		int tileType = 0;
 		float randomFloat = Random.value;
 
-		if (randomFloat <= 0.4f)
-			tileType = 0;
-		else if (randomFloat <= 0.6f)
-			tileType = 1;
-		else if (randomFloat <= 0.75f)
-			tileType = 6;
-		else if (randomFloat <= 0.85f && n == 0)
-			tileType = Random.Range (2, 5);
-		else if (randomFloat <= 0.9f)
-			tileType = 1;
-		else if (randomFloat <= 0.93f)
-			tileType = 7;
-		else if (randomFloat <= 0.96f)
-			tileType = 8;
-		else if (randomFloat <= 1)
-			tileType = 5;
+        if (randomFloat <= 0.4f)
+            tileType = 0;
+        else if (randomFloat <= 0.5)
+            tileType = 9;
+        else if (randomFloat <= 0.6f)
+            tileType = 1;
+        else if (randomFloat <= 0.75f)
+            tileType = 6;
+        else if (randomFloat <= 0.85f && n == 0)
+            tileType = Random.Range(2, 5);
+        else if (randomFloat <= 0.9f)
+            tileType = 1;
+        else if (randomFloat <= 0.93f)
+            tileType = 7;
+        else if (randomFloat <= 0.96f)
+            tileType = 8;
+        else if (randomFloat <= 1)
+            tileType = 5;
 
 		lastTileType = tileType;
 
