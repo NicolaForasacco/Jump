@@ -338,6 +338,7 @@ public class PlayerMovement : MonoBehaviour {
 
                 isJumping = false;
                 jumped = false;
+				idleAnim ();
             }
 		}
 
@@ -352,6 +353,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			isJumping = false;
 			jumped = false;
+			idleAnim ();
 
             spawnEnemies ();
 
@@ -371,12 +373,13 @@ public class PlayerMovement : MonoBehaviour {
 			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
-		
+	public float enemiesN = 0.05f;
+
 	public float pencilN = 0.05f;
 
 	void spawnEnemies(){
 
-		if (Random.value > 1 - pencilN) {
+		if (Random.value > 1 - enemiesN) {
 			int r = Random.Range (1, pencilPrefab.Length + 1);
 
 			if (r == 1)
@@ -386,8 +389,6 @@ public class PlayerMovement : MonoBehaviour {
 			if (r == 3)
 				spawnRandomVerticalLift ();
 		}
-
-		spawnRandomVerticalLift ();
 	}
 
 	void spawnRandomHorizontalPencil(){
