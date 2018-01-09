@@ -777,6 +777,14 @@ MonoBehaviour:
   lastXPosition: 0
   maxCollectablesPerLevel: 2
   tileWidth: 20
+  collectableN: 0.7
+  flowersPrefab:
+  - {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f, type: 2}
+  - {fileID: 1371878996871524, guid: d5723e3c5354ea54bad37f46a63468e0, type: 2}
+  - {fileID: 1684144292555614, guid: 0219e16a4dc63f44a89e4ff93ec4ef76, type: 2}
+  - {fileID: 1099580202918612, guid: 4d6f0cc36bdb7054fadabd2b397a3ea1, type: 2}
+  - {fileID: 1839789377025054, guid: 51fc0e4000ec7094e802904592bd5361, type: 2}
+  - {fileID: 1331551620486404, guid: 990078c01ff9f5341afeb552ff08feb3, type: 2}
 --- !u!4 &839180565
 Transform:
   m_ObjectHideFlags: 0
@@ -1556,7 +1564,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4953b40703be3ae41a660409aaf86f6c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24bab1c5f87b1f444b2604015718b58f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1573,7 +1581,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1582222234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 19.8, z: 0}
+  m_LocalPosition: {x: 0, y: 19.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1595,7 +1603,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 26, y: 20}
+    oldSize: {x: 20, y: 20}
     newSize: {x: 23, y: 33}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

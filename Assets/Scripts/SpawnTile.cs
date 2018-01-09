@@ -130,23 +130,51 @@ public class SpawnTile : MonoBehaviour {
 
 		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector2 (randomX + i * tileWidth, level);
+			v2 = new Vector3 (randomX + i * tileWidth, level,0);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 8)
-				spawnCollectable (v2);
+			spawnCollectable (v2, tileType);
+			spawnFlowers (v2, tileType);
 		}
 
 		lastXPosition = v2.x;
 	}
+	public float collectableN = 0.7f;
 
-	private void spawnCollectable(Vector2 v){
+	private void spawnCollectable(Vector3 v, int tileType){
+		
+		float currentN = collectableN;
 
-		if (Random.value > 0.3) {
-			v.y = v.y + tileWidth - 2;
-			int foodType = Random.Range (0, collectablesPrefabs.Length);
+		if (tileType == 1 || tileType == 6 || tileType == 8 || tileType == 9) {
+			
+		} else if (tileType == 0 || tileType == 5) {
+			currentN -= 0.3f;
+		}
 
-			Instantiate (collectablesPrefabs[foodType], v, Quaternion.identity);
+		if ((tileType < 2 || tileType > 5) && tileType != 7) {
+
+			if (Random.value > 1 - collectableN) {
+			
+				v.y = v.y + tileWidth - 2;
+				v.z = -1;
+				int foodType = Random.Range (0, collectablesPrefabs.Length);
+
+				Instantiate (collectablesPrefabs [foodType], v, Quaternion.identity);
+			}
+		}
+	}
+
+	public GameObject[] flowersPrefab;
+
+	private void spawnFlowers(Vector3 v, int tileType){
+
+		if (tileType == 0) {
+			
+			v.y = v.y + tileWidth / 2;
+			v.z = -1;
+			
+			int flowerType = Random.Range (0, flowersPrefab.Length);
+			Instantiate (flowersPrefab [flowerType], v, Quaternion.identity);
 		}
 	}
 }
