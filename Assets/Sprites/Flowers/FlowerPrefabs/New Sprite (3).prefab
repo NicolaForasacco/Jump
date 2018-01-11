@@ -9,30 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1839789377025054}
+  m_RootGameObject: {fileID: 1099580202918612}
   m_IsPrefabParent: 1
---- !u!1 &1839789377025054
+--- !u!1 &1099580202918612
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4640644217870342}
-  - component: {fileID: 212509523638176216}
+  - component: {fileID: 4602556011684128}
+  - component: {fileID: 212487987527737842}
+  - component: {fileID: 114410252240974216}
   m_Layer: 0
-  m_Name: New Sprite (4)
+  m_Name: New Sprite (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4640644217870342
+--- !u!4 &4602556011684128
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839789377025054}
+  m_GameObject: {fileID: 1099580202918612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 30, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +41,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &212509523638176216
+--- !u!114 &114410252240974216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099580202918612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be52cf726b3d08242b2cc119d4ebd0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &212487987527737842
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839789377025054}
+  m_GameObject: {fileID: 1099580202918612}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2a4239d4b1da8e46b10558248af8ddf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fcce546865fa2b40915e60001896092, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

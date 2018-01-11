@@ -10,13 +10,11 @@ public class SpawnCloud : MonoBehaviour {
 	float lastPlatformPositionY,
 			lastPlatformPositionX;
 
-	// Use this for initialization
 	void Start () {
 
 		lastPlatformPositionY = 0;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 		if (player.transform.position.y + 300 > lastPlatformPositionY)
@@ -26,11 +24,13 @@ public class SpawnCloud : MonoBehaviour {
 
 	void spawnClouds(){
 		
-		lastPlatformPositionX = player.transform.position.x + Random.Range (-5,5) * 30;
-		lastPlatformPositionY = lastPlatformPositionY + Random.Range (1,4) * 30;
+		lastPlatformPositionX = player.transform.position.x + Random.Range (-5, 5) * 30;
+		lastPlatformPositionY = lastPlatformPositionY + Random.Range (1, 4) * 30;
 
-		Vector3 v = new Vector3 (lastPlatformPositionX, lastPlatformPositionY, 1);
+		Vector3 v = new Vector3 (lastPlatformPositionX, 
+									lastPlatformPositionY, 
+									1);
 
-		Instantiate (cloudPrefabs[Random.Range(0,cloudPrefabs.Length)], v, Quaternion.identity);
+		Instantiate (cloudPrefabs[Random.Range(0, cloudPrefabs.Length)], v, Quaternion.identity);
 	}
 }

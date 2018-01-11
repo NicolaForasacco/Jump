@@ -785,6 +785,10 @@ MonoBehaviour:
   - {fileID: 1099580202918612, guid: 4d6f0cc36bdb7054fadabd2b397a3ea1, type: 2}
   - {fileID: 1839789377025054, guid: 51fc0e4000ec7094e802904592bd5361, type: 2}
   - {fileID: 1331551620486404, guid: 990078c01ff9f5341afeb552ff08feb3, type: 2}
+  - {fileID: 1331551620486404, guid: c020d2d277136634e905d829eb87869a, type: 2}
+  - {fileID: 1331551620486404, guid: c25c5401c5810634bbd87b5ceb41d80b, type: 2}
+  - {fileID: 1331551620486404, guid: 49aaa1762c6f95c478c3553640091cf1, type: 2}
+  - {fileID: 1331551620486404, guid: 87fad6959684fb64ba3f94751941e730, type: 2}
 --- !u!4 &839180565
 Transform:
   m_ObjectHideFlags: 0
@@ -810,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1271838680}
+  bird: {fileID: 1701188304188148, guid: 718696ba0076fc14db5e85ee04f79787, type: 2}
   useButtons: 1
   cameraAnim: {fileID: 295262799}
   camera: {fileID: 295262797}
@@ -1998,7 +2003,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: e9cfb5f58ea2e0a42930db7db34e5040, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: b5aec5a7bb2648b47ac04e50f5654386, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2042,7 +2047,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 41d8728d84ee1774cabb41df0c2ba498, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4535399bd13cb1347adc62d6f93b2437, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

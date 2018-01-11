@@ -259,6 +259,8 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("Jumping", false);
     }
 
+	void landAnim(){}
+
     void movingAnim()
     {
 
@@ -268,10 +270,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void jumpAnim() {
-
+		/*
         anim.SetBool("Idle",false);
         anim.SetBool("Moving", false);
         anim.SetBool("Jumping", true);
+        */
     }
 
 	void die(){
@@ -298,8 +301,10 @@ public class PlayerMovement : MonoBehaviour {
 		
 		if (c.CompareTag ("Pencil")) {
 
-			if(jumped)
+			if (jumped) {
 				cameraShake.startShake ();
+				landAnim ();
+			}
 			
 			isJumping = false;
 			jumped = false;
@@ -327,6 +332,10 @@ public class PlayerMovement : MonoBehaviour {
 		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
+			if (jumped) {
+				landAnim ();
+			}
+
             if (!isOnLift){
 
                 this.transform.SetParent(c.transform);
@@ -348,8 +357,10 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("MovingTile")) 
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
 
-			if(jumped)
+			if (jumped) {
 				cameraShake.startShake ();
+				landAnim ();
+			}
 
 			isJumping = false;
 			jumped = false;
@@ -373,6 +384,9 @@ public class PlayerMovement : MonoBehaviour {
 			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
+
+		
+
 	public float enemiesN = 0.05f;
 
 	public float pencilN = 0.05f;

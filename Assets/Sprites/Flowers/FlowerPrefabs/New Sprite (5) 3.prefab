@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4423202598255336}
   - component: {fileID: 212180809498981004}
+  - component: {fileID: 114241687751519442}
   m_Layer: 0
-  m_Name: New Sprite (5)
+  m_Name: New Sprite (5) 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114241687751519442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1331551620486404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be52cf726b3d08242b2cc119d4ebd0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212180809498981004
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -74,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7aa9ac91326be8e468b95c75cc12ac81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97bac822bf1b43947ba8fc9dea93f75c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

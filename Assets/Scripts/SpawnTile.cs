@@ -133,8 +133,8 @@ public class SpawnTile : MonoBehaviour {
 			v2 = new Vector3 (randomX + i * tileWidth, level,0);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
-			spawnCollectable (v2, tileType);
-			spawnFlowers (v2, tileType);
+			if(!spawnFlowers (v2, tileType))
+				spawnCollectable (v2, tileType);
 		}
 
 		lastXPosition = v2.x;
@@ -145,11 +145,8 @@ public class SpawnTile : MonoBehaviour {
 		
 		float currentN = collectableN;
 
-		if (tileType == 1 || tileType == 6 || tileType == 8 || tileType == 9) {
-			
-		} else if (tileType == 0 || tileType == 5) {
-			currentN -= 0.3f;
-		}
+		if (tileType == 5)
+			currentN -= 0.4f;
 
 		if ((tileType < 2 || tileType > 5) && tileType != 7) {
 
@@ -166,16 +163,20 @@ public class SpawnTile : MonoBehaviour {
 
 	public GameObject[] flowersPrefab;
 
-	private void spawnFlowers(Vector3 v, int tileType){
+	private bool spawnFlowers(Vector3 v, int tileType){
 
-		if (tileType == 0) {
+
+		if (tileType == 0 && Random.value > 0.1f) {
 			
 			v.y = v.y + tileWidth / 2;
 			v.z = -1;
 			
 			int flowerType = Random.Range (0, flowersPrefab.Length);
 			Instantiate (flowersPrefab [flowerType], v, Quaternion.identity);
+			return true;
 		}
+
+		return false;
 	}
 }
 

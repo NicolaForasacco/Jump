@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	public Canvas menu;
+	public GameObject bird;
+
 	public bool useButtons;
 	public Animator cameraAnim;
 
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour {
 		
 		camera.active = true;
 		menuAnim.SetTrigger ("ControlsOn");
+
+		Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
 
 		if (!isFirstPlay) {
 			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);

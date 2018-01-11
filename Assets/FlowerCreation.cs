@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlowerCreation : MonoBehaviour {
+	
+	GameObject player;
 
-	// Use this for initialization
 	void Start () {
-		
+
+		player = GameObject.FindGameObjectWithTag ("player");
+
 		if (Random.value > 0.5)
 			transform.localScale = new Vector2 (1, 1);
 		else
 			transform.localScale = new Vector2 (-1, 1);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
+
+		if (player != null) {
 		
+			if (player.transform.position.y - transform.position.y > 200)
+				DestroyObject (this.gameObject);
+		}
 	}
 }
