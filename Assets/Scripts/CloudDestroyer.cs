@@ -5,6 +5,7 @@ using UnityEngine;
 public class CloudDestroyer : MonoBehaviour {
 	
 	GameObject player;
+	Vector3 v;
 
 	float speedY;
 
@@ -19,19 +20,30 @@ public class CloudDestroyer : MonoBehaviour {
 
 		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.5f, 0.9f));
 
-		speedX = Random.Range (- 15, 15);
+		speedX = Random.Range (- 13, 15);
+		speedX *= 4;
+
+		v = transform.position;
 	}
 
 	float speedX;
+
+	Vector3 velocity;
 
 	void Update () {
 
 		if (player != null) {
 			
-			if (player.transform.position.y - transform.position.y > 200 || Mathf.Abs(player.transform.position.x - transform.position.x) > 300)
+			if (player.transform.position.y - transform.position.y > 200 || Mathf.Abs (player.transform.position.x - transform.position.x) > 300)
 				DestroyObject (this.gameObject);
-			else 
-				transform.position += Vector3.right * speedX * Time.deltaTime;
+			else {
+				
+				v.x = v.x + speedX * Time.deltaTime;
+
+				v = Vector3.SmoothDamp (transform.position, v, ref velocity, 0.1f);
+
+				transform.position = v;
+			}
 		}
 	}
 }

@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4113600593127300}
   - component: {fileID: 212974577650154964}
-  - component: {fileID: 114264216630478464}
+  - component: {fileID: 114400830202505638}
   m_Layer: 0
-  m_Name: Cloud (3)
+  m_Name: Cloud (3) 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114264216630478464
+--- !u!114 &114400830202505638
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06dc526683b1c6e48a47fcface6d93d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d8bb0dcfcc459f45befceac8f0a5a91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

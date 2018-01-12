@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVisited: 0
+  explosion: {fileID: 1449858865450576, guid: fce7a504badb48e4db40c7a3404982f2, type: 2}
 --- !u!212 &212798296823011788
 SpriteRenderer:
   m_ObjectHideFlags: 1

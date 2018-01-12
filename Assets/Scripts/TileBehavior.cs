@@ -26,7 +26,7 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 		
-		isVisited = true;
+
 
 		switch(this.tag){
 		case "CloudTile":
@@ -36,7 +36,7 @@ public class TileBehavior : MonoBehaviour {
 			anim.SetTrigger ("Bouncing");
 			break;
 		case "UselessTile":
-			enableGravity (0.2f);
+			showExplosion (0.3f);
 			break;
 		case "ColorizeTile":
 			anim.SetTrigger ("pressed");
@@ -44,11 +44,14 @@ public class TileBehavior : MonoBehaviour {
 		default:
 			break;
 		}
+
+		isVisited = true;
 	}
 
 	private void enableGravity(float waitFor){
 		
-		StartCoroutine (enableTileGravity(waitFor));
+		if(!isVisited)
+			StartCoroutine (enableTileGravity(waitFor));
 	}
 
 	private IEnumerator enableTileGravity(float time){
@@ -58,5 +61,21 @@ public class TileBehavior : MonoBehaviour {
 		rb.bodyType = RigidbodyType2D.Dynamic;
 		rb.mass = 60;
 		rb.gravityScale = 20;
+	}
+
+	public GameObject explosion;
+
+	private void showExplosion(float time){
+		
+		if(!isVisited)
+			StartCoroutine (showExplosionCoroutine(time));
+	}
+
+	private IEnumerator showExplosionCoroutine(float time){
+
+		yield return new WaitForSeconds(time);
+
+		Instantiate(explosion, transform.position, Quaternion.identity);
+		GameObject.Destroy (this.gameObject);
 	}
 }

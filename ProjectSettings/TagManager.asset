@@ -18,6 +18,7 @@ TagManager:
   - LiftTile
   - background
   - PushUpTile
+  - UselessPiece
   layers:
   - Default
   - TransparentFX

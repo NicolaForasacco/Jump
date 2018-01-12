@@ -9,76 +9,55 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1555697106370688}
+  m_RootGameObject: {fileID: 1836050914822708}
   m_IsPrefabParent: 1
---- !u!1 &1555697106370688
+--- !u!1 &1836050914822708
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4570557903850804}
-  - component: {fileID: 212391333234400910}
-  - component: {fileID: 60173322015173670}
+  - component: {fileID: 4113600593127300}
+  - component: {fileID: 212974577650154964}
+  - component: {fileID: 114877458716561872}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Cloud (3) 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4570557903850804
+--- !u!4 &4113600593127300
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555697106370688}
+  m_GameObject: {fileID: 1836050914822708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.8, y: 25.5, z: -2.3125}
+  m_LocalPosition: {x: -2.9, y: -13.3, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60173322015173670
-PolygonCollider2D:
+--- !u!114 &114877458716561872
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555697106370688}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 40, y: 20}
-    newSize: {x: 40, y: 20}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -20, y: -10}
-      - {x: 20, y: -10}
-      - {x: 20, y: 10}
-      - {x: 15.9, y: 10}
-      - {x: 15.9, y: -5.9}
-      - {x: -15.9, y: -5.9}
-      - {x: -15.9, y: 10}
-      - {x: -20, y: 10}
---- !u!212 &212391333234400910
+  m_GameObject: {fileID: 1836050914822708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680512fb028fdad4ba8bfff696293fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &212974577650154964
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555697106370688}
+  m_GameObject: {fileID: 1836050914822708}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -106,13 +85,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b3356ad4dcabcb448b2a6ce9bf349522, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 168b91f2425b3b143a2fa69ecc5e10b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 40, y: 20}
+  m_Size: {x: 38, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
