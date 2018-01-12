@@ -9,7 +9,7 @@ public class destroyPiece : MonoBehaviour {
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
-		hideCollider (1.5f);
+		hideCollider (0.4f);
 	}
 
 	void Update () {

@@ -80,8 +80,10 @@ public class SpawnTile : MonoBehaviour {
 		int tileType = 0;
 		float randomFloat = Random.value;
 
-        if (randomFloat <= 0.4f)
-            tileType = 0;
+		if (randomFloat <= 0.4f)
+			tileType = 0;
+		else if (randomFloat <= 0.45f && n == 0)
+			tileType = 10;
         else if (randomFloat <= 0.5)
             tileType = 9;
         else if (randomFloat <= 0.6f)
@@ -95,7 +97,7 @@ public class SpawnTile : MonoBehaviour {
         else if (randomFloat <= 0.93f)
             tileType = 7;
         else if (randomFloat <= 0.96f)
-            tileType = 8;
+            tileType = 0;
         else if (randomFloat <= 1)
             tileType = 5;
 
@@ -113,7 +115,7 @@ public class SpawnTile : MonoBehaviour {
 				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
 		} else {
 			
-			if (tileType < 2 || tileType > 5)
+			if (tileType < 2 || tileType > 5 && tileType != 10)
 				platformLength = Random.Range (1, 4);
 			
 			randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange) * tileWidth;
@@ -130,7 +132,7 @@ public class SpawnTile : MonoBehaviour {
 
 		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector3 (randomX + i * tileWidth, level,0);
+			v2 = new Vector3 (randomX + i * tileWidth, level, 0);
 			Instantiate (tilePrefabs [tileType], v2, Quaternion.identity);
 
 			if(!spawnFlowers (v2, tileType))

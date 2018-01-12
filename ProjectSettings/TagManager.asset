@@ -17,8 +17,8 @@ TagManager:
   - Shuriken
   - LiftTile
   - background
-  - PushUpTile
   - UselessPiece
+  - RotatingTile
   layers:
   - Default
   - TransparentFX

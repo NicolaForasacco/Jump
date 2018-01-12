@@ -218,7 +218,7 @@ public class PlayerMovement : MonoBehaviour {
             else
                 movingAnim();
 
-		if (isJumping && !jumped && rb.velocity.y == 0){
+		if (isJumping && !jumped && (rb.velocity.y == 0 || isOnMovingTile)){
 
             jumpAnim();
 
@@ -239,6 +239,8 @@ public class PlayerMovement : MonoBehaviour {
 		
 		if (collision.gameObject.CompareTag ("MovingTile") 
             || collision.gameObject.CompareTag ("Pencil")) {
+
+			isOnMovingTile = false;
 
 			if(!isOnLift)
 				transform.SetParent (null);
@@ -292,6 +294,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool isOnLift = false;
 
+	bool isOnMovingTile = false;
+
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
@@ -332,6 +336,8 @@ public class PlayerMovement : MonoBehaviour {
 		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
+			isOnMovingTile = true;
+
 			if (jumped) {
 				landAnim ();
 			}
@@ -354,7 +360,8 @@ public class PlayerMovement : MonoBehaviour {
 		if ((c.CompareTag("Tile") 
 			|| c.CompareTag("CloudTile") 
 			|| c.CompareTag("UselessTile") 
-			|| c.CompareTag("MovingTile")) 
+			|| c.CompareTag("MovingTile")
+			|| c.CompareTag("RotatingTile")) 
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
 
 			if (jumped) {
