@@ -207,11 +207,11 @@ public class PlayerMovement : MonoBehaviour {
 
 		transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-		if (horizontalSpeed < 0)
+		/*if (horizontalSpeed < 0)
 			transform.localScale = new Vector2 (1, 1);
 		else if(horizontalSpeed > 0)
 			transform.localScale = new Vector2 (-1, 1);
-
+*/
         if (!isJumping && !jumped)
             if (horizontalSpeed == 0)
                 idleAnim();
