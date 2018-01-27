@@ -39,10 +39,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	public int side = -1;
 
+	GameObject groundDust;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		anim = GetComponent<Animator> ();
+		groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
+		anim = groundDust.GetComponent<Animator>();
         
 
 		cameraShake = GameObject.FindObjectOfType<CameraShake>();
@@ -146,9 +149,9 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 			if (Input.GetKey(KeyCode.A))
-				side = 0;
+				goLeft();
 			else if (Input.GetKey(KeyCode.D))
-				side = 1;
+				goRight();
 			else
 				side = -1;
 			
@@ -167,10 +170,18 @@ public class PlayerMovement : MonoBehaviour {
 	}
 		
 	public void goLeft(){
+		
+		if (!isJumping && !jumped && side != 0)
+			movingAnim ();
+		
 		side = 0;
 	}
 
 	public void goRight(){
+
+		if (!isJumping && !jumped && side != 1)
+			movingAnim ();
+		
 		side = 1;
 	}
 	
@@ -207,16 +218,18 @@ public class PlayerMovement : MonoBehaviour {
 
 		transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-		/*if (horizontalSpeed < 0)
-			transform.localScale = new Vector2 (1, 1);
+		if (horizontalSpeed < 0)
+			groundDust.transform.localScale = new Vector2 (-1, 1);
 		else if(horizontalSpeed > 0)
-			transform.localScale = new Vector2 (-1, 1);
-*/
-        if (!isJumping && !jumped)
+			groundDust.transform.localScale = new Vector2 (1, 1);
+
+
+        /*if (!isJumping && !jumped)
             if (horizontalSpeed == 0)
                 idleAnim();
             else
                 movingAnim();
+*/
 
 		if (isJumping && !jumped && (rb.velocity.y == 0 || isOnMovingTile)){
 
@@ -255,20 +268,24 @@ public class PlayerMovement : MonoBehaviour {
 
     void idleAnim()
     {
-
+		/*
         anim.SetBool("Idle", true);
         anim.SetBool("Moving", false);
-        anim.SetBool("Jumping", false);
+        anim.SetBool("Jumping", false);*/
     }
 
-	void landAnim(){}
+	void landAnim(){
+		anim.SetTrigger ("landing");
+	}
 
     void movingAnim()
     {
 
-        anim.SetBool("Idle", false);
+		anim.SetTrigger ("moving");
+
+        /*anim.SetBool("Idle", false);
         anim.SetBool("Moving", true);
-        anim.SetBool("Jumping", false);
+        anim.SetBool("Jumping", false);*/
     }
 
     void jumpAnim() {

@@ -40,6 +40,7 @@ public class TileBehavior : MonoBehaviour {
 			break;
 		case "ColorizeTile":
 			anim.SetTrigger ("pressed");
+			showExplosion (0f);
 			break;
 		default:
 			break;
@@ -76,6 +77,8 @@ public class TileBehavior : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 
 		Instantiate(explosion, transform.position, Quaternion.identity);
-		GameObject.Destroy (this.gameObject);
+
+		if(this.CompareTag("UselessTile"))
+			GameObject.Destroy (this.gameObject);
 	}
 }

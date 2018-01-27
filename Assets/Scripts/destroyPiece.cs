@@ -5,11 +5,15 @@ using UnityEngine;
 public class destroyPiece : MonoBehaviour {
 
 	GameObject player;
+	public float verticalForce = 0, horizontalForce = 0;
 
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
-		hideCollider (0.4f);
+
+		GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 10000, verticalForce * 10000),ForceMode2D.Impulse);
+
+		hideCollider (0.2f);
 	}
 
 	void Update () {

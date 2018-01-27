@@ -137,6 +137,8 @@ public class SpawnTile : MonoBehaviour {
 
 			if(!spawnFlowers (v2, tileType))
 				spawnCollectable (v2, tileType);
+
+			spawnBird (v2, tileType);
 		}
 
 		lastXPosition = v2.x;
@@ -175,6 +177,25 @@ public class SpawnTile : MonoBehaviour {
 			
 			int flowerType = Random.Range (0, flowersPrefab.Length);
 			Instantiate (flowersPrefab [flowerType], v, Quaternion.identity);
+			return true;
+		}
+
+		return false;
+	}
+
+	bool birdSpawn = false;
+
+	public GameObject bird;
+
+	private bool spawnBird(Vector3 v, int tileType){
+
+		if (tileType == 0 && Random.value > 0.1f && !birdSpawn && v.y >= 100) {
+
+			v.y = v.y + tileWidth;
+			v.z = -1;
+
+			Instantiate (bird, v, Quaternion.identity);
+			birdSpawn = true;
 			return true;
 		}
 

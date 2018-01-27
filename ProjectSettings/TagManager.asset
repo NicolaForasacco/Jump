@@ -19,6 +19,7 @@ TagManager:
   - background
   - UselessPiece
   - RotatingTile
+  - GroundDust
   layers:
   - Default
   - TransparentFX

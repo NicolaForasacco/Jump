@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 		camera.active = true;
 		menuAnim.SetTrigger ("ControlsOn");
 
-		Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
+		//Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
 
 		if (!isFirstPlay) {
 			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
