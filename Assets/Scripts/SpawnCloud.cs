@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class SpawnCloud : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject player;
 	public GameObject[] cloudPrefabs;
 
 	float lastPlatformPositionY,
 			lastPlatformPositionX;
 
 	void Start () {
-
+		
+		player = GameObject.FindGameObjectWithTag ("player");
 		lastPlatformPositionY = 0;
 	}
 

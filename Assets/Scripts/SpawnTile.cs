@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject player;
 	public GameObject[] tilePrefabs;
 	public GameObject[] collectablesPrefabs;
 
@@ -31,7 +31,9 @@ public class SpawnTile : MonoBehaviour {
 	private float level = 40;
 
 	void Start () {
-		
+
+		player = GameObject.FindGameObjectWithTag ("player");
+
 		lastPlatformPosition = 0;
 		lastPlatformPosition = player.transform.position.x;
 	}
@@ -82,8 +84,6 @@ public class SpawnTile : MonoBehaviour {
 
 		if (randomFloat <= 0.4f)
 			tileType = 0;
-		else if (randomFloat <= 0.45f && n == 0)
-			tileType = 10;
         else if (randomFloat <= 0.5)
             tileType = 9;
         else if (randomFloat <= 0.6f)
@@ -115,7 +115,7 @@ public class SpawnTile : MonoBehaviour {
 				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
 		} else {
 			
-			if (tileType < 2 || tileType > 5 && tileType != 10)
+			if (tileType < 2 || tileType > 5)
 				platformLength = Random.Range (1, 4);
 			
 			randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange) * tileWidth;

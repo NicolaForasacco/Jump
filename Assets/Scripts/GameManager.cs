@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	public Canvas menu;
-	public GameObject bird;
 
 	public bool useButtons;
 	public Animator cameraAnim;
@@ -15,17 +15,38 @@ public class GameManager : MonoBehaviour {
 	public bool isFirstPlay = true;
 
 	public Animator menuAnim;
+	public Text recordText;
+
 
 	public void gameEnd(){
+
+		int record = PlayerPrefs.GetInt ("Record", 0);
+		int donuts = PlayerPrefs.GetInt ("Donuts", 0);
+
+		donuts += player.donutsPicked;
+		PlayerPrefs.SetInt ("Donuts", donuts);
+
+		recordText.text = "Best " + record.ToString ();
+
 		menuAnim.SetTrigger ("GameOver");
 
 		camera.active = false;
 		cameraAnim.SetTrigger ("CameraZoomOff");
+
+
+
+		if (player.currentRecord > record) {
+			PlayerPrefs.SetInt ("Record", player.currentRecord);
+			record = player.currentRecord;
+		}
 	}
 
+	PlayerMovement player;
 
 	void Start(){
 		
+		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+
 		menuAnim = menu.GetComponent<Animator> ();
 		cameraAnim = camera.GetComponent<Animator> ();
 

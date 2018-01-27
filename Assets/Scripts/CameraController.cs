@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject player;
 
 	int min;
 	Vector3 offset, v;
@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour {
 
 	void Start () 
 	{
+		player = GameObject.FindGameObjectWithTag ("player");
+
 		cameraB = GetComponent<Camera> ();
 		offset = transform.position - player.transform.position;
 

@@ -40,7 +40,7 @@ public class Bird : MonoBehaviour {
 		} else {
 			
 			if (player != null) {
-				if (transform.position.y - player.transform.position.y < 80 && transform.position.x - player.transform.position.x < 80)
+				if (transform.position.y - player.transform.position.y < 100 && transform.position.x - player.transform.position.x < 100)
 					startMoving (0.1f);	
 			}
 		}

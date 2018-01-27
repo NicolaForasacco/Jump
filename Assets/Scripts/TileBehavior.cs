@@ -26,9 +26,8 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 		
-
-
 		switch(this.tag){
+
 		case "CloudTile":
 			enableGravity(1.2f);
 			break;
@@ -42,6 +41,7 @@ public class TileBehavior : MonoBehaviour {
 			anim.SetTrigger ("pressed");
 			showExplosion (0f);
 			break;
+
 		default:
 			break;
 		}

@@ -29,7 +29,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	private Animator anim;
 
-	private int points;
+	public int donutsPicked;
+
+	public bool dead = false;
+
+	public int currentRecord = 0;
 
 	private bool pencilSpawnThisLevel = true, 
 					shurikenSpawnThisLevel = true,	
@@ -57,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void increasePoint(){
-		points++;
+		donutsPicked++;
 	}
 
 	Vector2 firstPressPos;
@@ -110,10 +114,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	public bool dead = false;
-
-	float currentRecord = 0;
-
 	void Update(){
 
 		useButtons = gm.useButtons;
@@ -126,12 +126,12 @@ public class PlayerMovement : MonoBehaviour {
 		if (!dead) {
 			
 			if(transform.position.y / 20 > currentRecord){
-				currentRecord = transform.position.y / 20;
-				scoreText.text = Mathf.Round (currentRecord).ToString ();
+				currentRecord = Mathf.FloorToInt(transform.position.y / 20);
+				scoreText.text = currentRecord.ToString ();
 
 			}
 
-			pointsText.text = points.ToString ();
+			pointsText.text = donutsPicked.ToString ();
 		}
 
 		if (rb.velocity.y == 0 && jumped) {
@@ -146,7 +146,8 @@ public class PlayerMovement : MonoBehaviour {
 
 			if (Input.GetButton ("Jump")) {
                 onJumpButtonDown();
-			}
+			}else
+				onJumpButtonUp();
 
 			if (Input.GetKey(KeyCode.A))
 				goLeft();
@@ -157,16 +158,24 @@ public class PlayerMovement : MonoBehaviour {
 			
 			#endif
 
+			if (jumpButtonDown)
+				isJumping = true;
+
 		} else {
 			Swipe ();
 		}
 	}
 
+	bool jumpButtonDown = false;
+
 	public void onJumpButtonDown(){
-		isJumping = true;
-	}
 		
+		jumpButtonDown = true;
+	}
+
 	public void onJumpButtonUp(){
+		
+		jumpButtonDown = false;
 	}
 		
 	public void goLeft(){

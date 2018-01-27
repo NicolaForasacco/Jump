@@ -20,6 +20,9 @@ TagManager:
   - UselessPiece
   - RotatingTile
   - GroundDust
+  - HeightText
+  - RecordText
+  - DonutPointsText
   layers:
   - Default
   - TransparentFX

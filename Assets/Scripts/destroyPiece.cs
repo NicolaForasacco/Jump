@@ -11,7 +11,7 @@ public class destroyPiece : MonoBehaviour {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
 
-		GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 10000, verticalForce * 10000),ForceMode2D.Impulse);
+		GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 15000, verticalForce * 15000),ForceMode2D.Impulse);
 
 		hideCollider (0.2f);
 	}
