@@ -817,10 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77067c1e0dbaa741a6890dd4bf2548c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pencilPrefab:
-  - {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f, type: 2}
-  - {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94, type: 2}
-  - {fileID: 1673884997067744, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
+  enemiesPrefab: []
   deadBodyPrefab: {fileID: 1854650050600510, guid: 54bcec7e3efc64c4c878c4dc64221261,
     type: 2}
   sideSpeed: 170
@@ -830,8 +827,10 @@ MonoBehaviour:
   jumped: 0
   scoreText: {fileID: 0}
   pointsText: {fileID: 0}
-  side: -1
+  donutsPicked: 0
   dead: 0
+  currentRecord: 0
+  side: -1
   enemiesN: 0.05
   pencilN: 0
   shurikenN: 0

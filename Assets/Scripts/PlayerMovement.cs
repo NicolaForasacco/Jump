@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	private CameraShake cameraShake;
 	private GameManager gm;
 
-	public GameObject[] pencilPrefab;
+	public GameObject[] enemiesPrefab;
 	public GameObject deadBodyPrefab;
 
 	public float sideSpeed, 
@@ -19,8 +19,9 @@ public class PlayerMovement : MonoBehaviour {
 					jumpSpeed;
 
 	public bool isJumping = false, jumped = false;
+	public bool active = false;
 
-	public Text scoreText, 
+	private Text scoreText, 
 				pointsText;
 
 	private float currentSideSpeed, 
@@ -50,11 +51,15 @@ public class PlayerMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
 		anim = groundDust.GetComponent<Animator>();
-        
+
+		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
 		cameraShake = GameObject.FindObjectOfType<CameraShake>();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		gm = GameObject.FindObjectOfType<GameManager> ();
+
+
+		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
 
 		lastHeight = transform.position.y;
 		horizontalSpeed = 0;
@@ -114,55 +119,62 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	public void activate(){
+		
+		active = true;
+		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
+	}
+
 	void Update(){
+		if (active) {
+			useButtons = gm.useButtons;
+			if (transform.position.y * 5 > lastHeight * 5 + 400) {
 
-		useButtons = gm.useButtons;
-		if (transform.position.y * 5> lastHeight * 5 + 400) {
-
-			lastHeight = transform.position.y;
-
-		}
-
-		if (!dead) {
-			
-			if(transform.position.y / 20 > currentRecord){
-				currentRecord = Mathf.FloorToInt(transform.position.y / 20);
-				scoreText.text = currentRecord.ToString ();
+				lastHeight = transform.position.y;
 
 			}
 
-			pointsText.text = donutsPicked.ToString ();
-		}
-
-		if (rb.velocity.y == 0 && jumped) {
-			isJumping = false;
-			jumped = false;
-		}
-
-
-		if (useButtons) {
+			if (!dead) {
 			
-			#if UNITY_EDITOR_WIN
+				if (transform.position.y / 20 > currentRecord) {
+					currentRecord = Mathf.FloorToInt (transform.position.y / 20);
+					scoreText.text = currentRecord.ToString ();
 
-			if (Input.GetButton ("Jump")) {
-                onJumpButtonDown();
-			}else
-				onJumpButtonUp();
+				}
 
-			if (Input.GetKey(KeyCode.A))
-				goLeft();
-			else if (Input.GetKey(KeyCode.D))
-				goRight();
-			else
-				side = -1;
+				pointsText.text = donutsPicked.ToString ();
+			}
+
+			if (rb.velocity.y == 0 && jumped) {
+				isJumping = false;
+				jumped = false;
+			}
+
+
+			if (useButtons) {
 			
-			#endif
+				#if UNITY_EDITOR_WIN
 
-			if (jumpButtonDown)
-				isJumping = true;
+				if (Input.GetButton ("Jump")) {
+					onJumpButtonDown ();
+				} else
+					onJumpButtonUp ();
 
-		} else {
-			Swipe ();
+				if (Input.GetKey (KeyCode.A))
+					goLeft ();
+				else if (Input.GetKey (KeyCode.D))
+					goRight ();
+				else
+					side = -1;
+			
+				#endif
+
+				if (jumpButtonDown)
+					isJumping = true;
+
+			} else {
+				Swipe ();
+			}
 		}
 	}
 
@@ -205,56 +217,57 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
+		if (active) {
+			currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 	
 
-		if (horizontalSpeed < maxHorizontalSpeed && side == 1)
-			horizontalSpeed += speed;
-		
-		else if (horizontalSpeed > - maxHorizontalSpeed && side == 0)
-			horizontalSpeed -= speed;
-		
-		else if (side == -1 && horizontalSpeed != 0) {
+			if (horizontalSpeed < maxHorizontalSpeed && side == 1)
+				horizontalSpeed += speed;
+			else if (horizontalSpeed > -maxHorizontalSpeed && side == 0)
+				horizontalSpeed -= speed;
+			else if (side == -1 && horizontalSpeed != 0) {
 
-			if(horizontalSpeed > 0)
-				horizontalSpeed -= decreaseFactor;
-			else if(horizontalSpeed < 0)
-				horizontalSpeed += decreaseFactor;
+				if (horizontalSpeed > 0)
+					horizontalSpeed -= decreaseFactor;
+				else if (horizontalSpeed < 0)
+					horizontalSpeed += decreaseFactor;
 
-			if (horizontalSpeed >= -decreaseFactor && horizontalSpeed <= decreaseFactor)
-				horizontalSpeed = 0;
-		}			
+				if (horizontalSpeed >= -decreaseFactor && horizontalSpeed <= decreaseFactor)
+					horizontalSpeed = 0;
+			}			
 
-		transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
+			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-		if (horizontalSpeed < 0)
-			groundDust.transform.localScale = new Vector2 (-1, 1);
-		else if(horizontalSpeed > 0)
-			groundDust.transform.localScale = new Vector2 (1, 1);
+			if (horizontalSpeed < 0)
+				groundDust.transform.localScale = new Vector2 (-1, 1);
+			else if (horizontalSpeed > 0)
+				groundDust.transform.localScale = new Vector2 (1, 1);
 
 
-        /*if (!isJumping && !jumped)
+			/*if (!isJumping && !jumped)
             if (horizontalSpeed == 0)
                 idleAnim();
             else
                 movingAnim();
 */
 
-		if (isJumping && !jumped && (rb.velocity.y == 0 || isOnMovingTile)){
+			if (isJumping && !jumped && (rb.velocity.y == 0 || isOnMovingTile)) {
 
-            jumpAnim();
+				jumpAnim ();
 
-			rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+				rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 
-			pencilSpawnThisLevel = false;
-			shurikenSpawnThisLevel = false;
-			liftSpawnThisLevel = false;
+				pencilSpawnThisLevel = false;
+				shurikenSpawnThisLevel = false;
+				liftSpawnThisLevel = false;
 
-			jumped = true;
+				jumped = true;
+			}
+
+			if (transform.position.y < cameraController.getMinPosition ())
+				die ();
+
 		}
-
-		if (transform.position.y < cameraController.getMinPosition ())
-			die ();
 	}
 
 	void OnCollisionExit2D(Collision2D collision){
@@ -427,7 +440,7 @@ public class PlayerMovement : MonoBehaviour {
 	void spawnEnemies(){
 
 		if (Random.value > 1 - enemiesN) {
-			int r = Random.Range (1, pencilPrefab.Length + 1);
+			int r = Random.Range (1, enemiesPrefab.Length + 1);
 
 			if (r == 1)
 				spawnRandomVerticalShuriken ();
@@ -446,7 +459,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			pencilSpawnThisLevel = true;
 			Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y);
-			Instantiate (pencilPrefab[0], v, Quaternion.identity);
+			Instantiate (enemiesPrefab[0], v, Quaternion.identity);
 		}
 	}
 
@@ -460,7 +473,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			shurikenSpawnThisLevel = true;
 			Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
-			Instantiate (pencilPrefab[1], v, Quaternion.identity);
+			Instantiate (enemiesPrefab[1], v, Quaternion.identity);
 		}
 	}
 
@@ -473,7 +486,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			liftSpawnThisLevel = true;
 			Vector2 v = new Vector2 (Random.Range(cameraController.getXStart(), cameraController.getXBounds()), cameraController.getMinPosition());
-			Instantiate (pencilPrefab[2], v, Quaternion.identity);
+			Instantiate (enemiesPrefab[2], v, Quaternion.identity);
 		}
 	}
 }

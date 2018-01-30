@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnTile : MonoBehaviour {
 
 	private GameObject player;
+
 	public GameObject[] tilePrefabs;
 	public GameObject[] collectablesPrefabs;
 
@@ -38,10 +39,14 @@ public class SpawnTile : MonoBehaviour {
 		lastPlatformPosition = player.transform.position.x;
 	}
 
-	void Update () {
 
-		if (player.transform.position.y + 300 > level)
-			spawnMultiplePlatform ();
+	void Update () {
+		
+		if (player != null) {
+			if (player.transform.position.y + 300 > level)
+				spawnMultiplePlatform ();
+		}else
+			player = GameObject.FindGameObjectWithTag ("player");
 	}
 
 

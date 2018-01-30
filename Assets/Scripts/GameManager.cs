@@ -17,14 +17,13 @@ public class GameManager : MonoBehaviour {
 	public Animator menuAnim;
 	public Text recordText;
 
+	public GameObject foreground;
 
 	public void gameEnd(){
 
 		int record = PlayerPrefs.GetInt ("Record", 0);
-		int donuts = PlayerPrefs.GetInt ("Donuts", 0);
 
-		donuts += player.donutsPicked;
-		PlayerPrefs.SetInt ("Donuts", donuts);
+		PlayerPrefs.SetInt ("Donuts", player.donutsPicked);
 
 		recordText.text = "Best " + record.ToString ();
 
@@ -44,6 +43,8 @@ public class GameManager : MonoBehaviour {
 	PlayerMovement player;
 
 	void Start(){
+
+		//int characterSelected = PlayerPrefs.GetInt ("CharacterSelected", 0);
 		
 		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
 
@@ -56,7 +57,10 @@ public class GameManager : MonoBehaviour {
 	public void startGame(){
 		
 		camera.active = true;
+		foreground.SetActive (true);
 		menuAnim.SetTrigger ("ControlsOn");
+		cameraAnim.SetTrigger ("CameraZoomOn");
+		player.activate ();
 
 		//Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
 
@@ -67,6 +71,21 @@ public class GameManager : MonoBehaviour {
 			isFirstPlay = false;
 		}
 	}
+
+	public void showCharacterSelectionMenu(){
+		
+		menuAnim.SetTrigger ("CharacterSelectionMenu");
+		cameraAnim.SetTrigger ("CameraZoomCharacter");
+		foreground.SetActive (false);
+	}
+
+	public void closeCharacterSelectionMenu(){
+
+		menuAnim.SetTrigger ("MenuOn");
+		cameraAnim.SetTrigger ("CameraZoomOn");
+		foreground.SetActive (true);
+	}
+
 
 	public void changeButtonsUse(){
 		useButtons = !useButtons;

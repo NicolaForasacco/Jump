@@ -9,6 +9,7 @@ public class FlowerCreation : MonoBehaviour {
 	void Start () {
 
 		player = GameObject.FindGameObjectWithTag ("player");
+		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 
 		if (Random.value > 0.5)
 			transform.localScale = new Vector2 (1, 1);

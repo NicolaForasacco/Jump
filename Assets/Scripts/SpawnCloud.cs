@@ -18,8 +18,12 @@ public class SpawnCloud : MonoBehaviour {
 
 	void Update () {
 		
-		if (player.transform.position.y + 300 > lastPlatformPositionY)
-			spawnClouds ();
+		if (player != null) {
+			
+			if (player.transform.position.y + 300 > lastPlatformPositionY)
+				spawnClouds ();
+		}else
+			player = GameObject.FindGameObjectWithTag ("player");
 	}
 
 

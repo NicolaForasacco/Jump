@@ -14,6 +14,9 @@ public class TileBehavior : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("player");
 		anim = GetComponent<Animator> ();
+
+		if(transform.parent == null)
+			transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 	}
 
 	void Update () {

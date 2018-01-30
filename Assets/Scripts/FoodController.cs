@@ -10,6 +10,7 @@ public class FoodController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
+		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 	}
 	
 	// Update is called once per frame

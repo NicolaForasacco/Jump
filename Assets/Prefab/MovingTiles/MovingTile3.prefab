@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isVisited: 0
+  explosion: {fileID: 0}
 --- !u!114 &114922421473477476
 MonoBehaviour:
   m_ObjectHideFlags: 1

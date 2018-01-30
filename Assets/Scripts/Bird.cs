@@ -15,6 +15,7 @@ public class Bird : MonoBehaviour {
 	void Start () {
 
 		player = GameObject.FindGameObjectWithTag ("player");
+		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 
 		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().lastXPosition > 0) ? 1 : -1;
 

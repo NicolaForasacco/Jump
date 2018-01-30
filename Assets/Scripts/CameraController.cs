@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour {
 	Camera cameraB;
 	public bool active = false;
 
-	void Start () 
+	public void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("player");
 
@@ -21,6 +21,8 @@ public class CameraController : MonoBehaviour {
 		transform.position = player.transform.position + offset;
 		v = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 	}
+
+
 
 	public void changeRandomBackgroundColor(){
 

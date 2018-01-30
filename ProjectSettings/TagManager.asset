@@ -23,6 +23,7 @@ TagManager:
   - HeightText
   - RecordText
   - DonutPointsText
+  - foreground
   layers:
   - Default
   - TransparentFX
