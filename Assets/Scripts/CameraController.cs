@@ -7,48 +7,57 @@ public class CameraController : MonoBehaviour {
 	private GameObject player;
 
 	int min;
-	Vector3 offset, v;
+	Vector3 offset, v, velocity;
 	Camera cameraB;
 	public bool active = false;
 
 	public void Start () 
 	{
-		player = GameObject.FindGameObjectWithTag ("player");
-
-		cameraB = GetComponent<Camera> ();
-		offset = transform.position - player.transform.position;
-
-		transform.position = player.transform.position + offset;
-		v = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		initialSetup ();
 	}
 
+	void initialSetup(){
+		
+		player = GameObject.FindGameObjectWithTag ("player");
 
+		if (player != null) {
+			
+			cameraB = GetComponent<Camera> ();
+			offset = transform.position - player.transform.position;
+
+			transform.position = player.transform.position + offset;
+			v = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		}
+	}
 
 	public void changeRandomBackgroundColor(){
 
 		cameraB.backgroundColor = Random.ColorHSV();
 	}
-
-	Vector3 velocity;
-
+		
 	void LateUpdate () 
 	{
 		if (active) {
 			
-			v.x = player.transform.position.x + offset.x;
-			v.y = transform.position.y + 100 * Time.deltaTime;
+			if (player != null) {
+				
+				v.x = player.transform.position.x + offset.x;
+				v.y = transform.position.y + 100 * Time.deltaTime;
 
-			if (player.transform.position.y + offset.y >= v.y) {
+				if (player.transform.position.y + offset.y >= v.y) {
 
-				v.y = player.transform.position.y + offset.y;
+					v.y = player.transform.position.y + offset.y;
 
+				}
+
+				v = Vector3.SmoothDamp (transform.position, v, ref velocity, 0.1f);
+
+				//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
+
+				transform.position = v;
+			} else {
+				initialSetup ();
 			}
-
-			v = Vector3.SmoothDamp (transform.position, v, ref velocity, 0.1f);
-
-			//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
-
-			transform.position = v;
 		}
 	}
 

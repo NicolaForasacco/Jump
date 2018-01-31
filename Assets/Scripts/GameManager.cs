@@ -41,11 +41,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	PlayerMovement player;
+	public sliderManager sm;
 
 	void Start(){
 
 		//int characterSelected = PlayerPrefs.GetInt ("CharacterSelected", 0);
-		
+		sm.InstantiateCharacter();
+
 		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
 
 		menuAnim = menu.GetComponent<Animator> ();
@@ -60,7 +62,11 @@ public class GameManager : MonoBehaviour {
 		foreground.SetActive (true);
 		menuAnim.SetTrigger ("ControlsOn");
 		cameraAnim.SetTrigger ("CameraZoomOn");
-		player.activate ();
+
+		if(player!= null)
+			player.activate ();
+		else
+			player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
 
 		//Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
 
@@ -81,7 +87,7 @@ public class GameManager : MonoBehaviour {
 
 	public void closeCharacterSelectionMenu(){
 
-		menuAnim.SetTrigger ("MenuOn");
+		//menuAnim.SetTrigger ("MenuOn");
 		cameraAnim.SetTrigger ("CameraZoomOn");
 		foreground.SetActive (true);
 	}

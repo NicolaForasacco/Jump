@@ -8,7 +8,7 @@ public class sliderManager : MonoBehaviour {
 	public GameManager gm;
 	public CameraController camera;
 
-	int currentSelectedCharacter = 0;
+	public int currentSelectedCharacter = 0;
 
 	public GameObject currentCharacter;
 
@@ -17,16 +17,17 @@ public class sliderManager : MonoBehaviour {
 	PlayerMovement currentPlayerMovement;
 
 	// Use this for initialization
-	void Start () {
+	public void InstantiateCharacter () {
 
 		gm = GameObject.FindObjectOfType<GameManager> ();
-		currentSelectedCharacter = 0;//PlayerPrefs.GetInt ("CharacterSelected", 0);
 
-		currentCharacter = characters [0];
+		currentSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
 
-		/*currentCharacter = Instantiate (characters[currentSelectedCharacter], 
-			new Vector3(currentCharacter.transform.position.x, 120, 0), 
-			Quaternion.identity);*/
+		currentCharacter = characters [currentSelectedCharacter];
+
+		currentCharacter = Instantiate (characters [currentSelectedCharacter], 
+			new Vector3 (currentCharacter.transform.position.x, currentCharacter.transform.position.y, 0), 
+			Quaternion.identity);
 		
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 	}
@@ -66,42 +67,33 @@ public class sliderManager : MonoBehaviour {
 
 	public void slideCharacterRight(){
 		
-		if (currentSelectedCharacter > 0) {
-
-
-			currentSelectedCharacter -= 1;
-
-			newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
-											new Vector3(currentCharacter.transform.position.x, 120, 0), 
-											Quaternion.identity);
-			
-			DestroyObject (currentCharacter.gameObject);
-			camera.Start ();
-
-			currentCharacter = newCurrentCharacter;
-			currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
+		if (currentSelectedCharacter < characters.Length - 1) {
+		
+			currentSelectedCharacter += 1;
+			spawnNewCurrentCharacter ();
 		}
 	}
 
 	public void slideCharacterLeft(){
 
-		if (currentSelectedCharacter < characters.Length - 1) {
+		if (currentSelectedCharacter > 0) {
 
-			currentSelectedCharacter += 1;
-
-
-			newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
-												new Vector3(currentCharacter.transform.position.x, 120, 0), 
-												Quaternion.identity);
-
-			DestroyObject (currentCharacter.gameObject);
-			camera.Start ();
-
-			currentCharacter = newCurrentCharacter;
-			currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
-
-
+			currentSelectedCharacter -= 1;
+			spawnNewCurrentCharacter ();
 		}
+	}
+
+	void spawnNewCurrentCharacter(){
+		
+		newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
+											new Vector3(currentCharacter.transform.position.x, currentCharacter.transform.position.y, 0), 
+											Quaternion.identity);
+
+		DestroyObject (currentCharacter.gameObject);
+		camera.Start ();
+
+		currentCharacter = newCurrentCharacter;
+		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 	}
 
 	public void selectCurrentCharacter(){
@@ -109,9 +101,10 @@ public class sliderManager : MonoBehaviour {
 		if (true) { // controllo che sia stato acquistato
 			
 			// PlayerPrefs.SetInt (currentCharacter.tag, 1); // 1 indica personaggio acquistato 0 non acquistato/disponibile
-			int oldSelectedCharacter = 0;//PlayerPrefs.GetInt ("CharacterSelected", 0);
+			int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
 
 			if (oldSelectedCharacter == currentSelectedCharacter) {
+				
 				gm.closeCharacterSelectionMenu ();
 				gm.startGame ();
 			}else {

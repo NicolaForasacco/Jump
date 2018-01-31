@@ -589,7 +589,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678845980
 GameObject:
@@ -809,7 +809,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1901187788}
-          m_MethodName: slideCharacterRight
+          m_MethodName: slideCharacterLeft
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1069,6 +1069,7 @@ MonoBehaviour:
   menuAnim: {fileID: 1271838682}
   recordText: {fileID: 542793030}
   foreground: {fileID: 595325371}
+  sm: {fileID: 1901187788}
 --- !u!114 &839180567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,7 +1203,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1901187788}
-          m_MethodName: slideCharacterLeft
+          m_MethodName: slideCharacterRight
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1922,58 +1923,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1418308271}
---- !u!1001 &1422079981
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -62.21672
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 97.78628
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -5.6344113
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774558792880428, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114782283197692898, guid: 97f7a5a6636492f4f8d85b32269f2025,
-        type: 2}
-      propertyPath: scoreText
-      value: 
-      objectReference: {fileID: 470594548}
-    - target: {fileID: 114782283197692898, guid: 97f7a5a6636492f4f8d85b32269f2025,
-        type: 2}
-      propertyPath: pointsText
-      value: 
-      objectReference: {fileID: 827160592}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1459730374
 Prefab:
   m_ObjectHideFlags: 0
@@ -2627,11 +2576,6 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!1 &1857045163 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1381346599440294, guid: 97f7a5a6636492f4f8d85b32269f2025,
-    type: 2}
-  m_PrefabInternal: {fileID: 1422079981}
 --- !u!1 &1901187787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,12 +2604,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters:
-  - {fileID: 1857045163}
-  - {fileID: 1900962091886118, guid: 87ed2db1d4ac22c4faf0e76cb2a2ff50, type: 2}
-  - {fileID: 1900962091886118, guid: 6d86403baba00974cab2cc43848ef516, type: 2}
+  - {fileID: 1381346599440294, guid: 97f7a5a6636492f4f8d85b32269f2025, type: 2}
+  - {fileID: 1413358371662882, guid: f951c67d484f4254abc9314486b4c9ea, type: 2}
+  - {fileID: 1713889026234570, guid: fa476f449f9ff0a4b97cf34cec1238e7, type: 2}
   gm: {fileID: 839180566}
   camera: {fileID: 295262797}
-  currentCharacter: {fileID: 1857045163}
+  currentSelectedCharacter: 0
+  currentCharacter: {fileID: 0}
 --- !u!224 &1901187789
 RectTransform:
   m_ObjectHideFlags: 0

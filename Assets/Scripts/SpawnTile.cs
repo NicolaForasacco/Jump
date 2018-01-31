@@ -31,22 +31,17 @@ public class SpawnTile : MonoBehaviour {
 
 	private float level = 40;
 
-	void Start () {
-
-		player = GameObject.FindGameObjectWithTag ("player");
-
-		lastPlatformPosition = 0;
-		lastPlatformPosition = player.transform.position.x;
-	}
-
-
 	void Update () {
 		
 		if (player != null) {
 			if (player.transform.position.y + 300 > level)
 				spawnMultiplePlatform ();
-		}else
+		} else {
+			
 			player = GameObject.FindGameObjectWithTag ("player");
+			lastPlatformPosition = 0;
+			lastPlatformPosition = player.transform.position.x;
+		}
 	}
 
 
