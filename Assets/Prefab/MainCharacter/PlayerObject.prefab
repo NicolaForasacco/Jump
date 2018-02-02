@@ -156,6 +156,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4774558792880428}
+  - component: {fileID: 114999439470551278}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -820,20 +821,34 @@ MonoBehaviour:
   enemiesPrefab: []
   deadBodyPrefab: {fileID: 1854650050600510, guid: 54bcec7e3efc64c4c878c4dc64221261,
     type: 2}
+  cost: 0
   sideSpeed: 170
   slowSideSpeed: 150
   jumpSpeed: 35000
+  enemiesP: 0.05
+  pencilP: 0.05
+  shurikenP: 0.05
+  liftP: 0.05
   isJumping: 0
   jumped: 0
   active: 0
-  donutsPicked: 0
   dead: 0
+  donutsPicked: 0
   currentRecord: 0
   side: -1
-  enemiesN: 0.05
-  pencilN: 0
-  shurikenN: 0
-  liftN: 1
+--- !u!114 &114999439470551278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381346599440294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602421ea9d56d464984f37e491852346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  characterId: 0
 --- !u!212 &212028181706237216
 SpriteRenderer:
   m_ObjectHideFlags: 1

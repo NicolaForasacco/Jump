@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class sliderManager : MonoBehaviour {
 
 	public GameObject[] characters;
 	public GameManager gm;
-	public CameraController camera;
+	public CameraController cameraController;
 
 	public int currentSelectedCharacter = 0;
 
@@ -16,8 +18,20 @@ public class sliderManager : MonoBehaviour {
 
 	PlayerMovement currentPlayerMovement;
 
+	public GameObject donutsCostLabel;
+
+	bool characterSelectionMenuOpen = false;
+
+	public void openSelection (){
+		
+		characterSelectionMenuOpen = true;
+	}
+
 	// Use this for initialization
 	public void InstantiateCharacter () {
+		
+		//donutsCostLabel = GameObject.FindGameObjectWithTag ("DonutsCostLabel");
+		donutsCost = GameObject.FindGameObjectWithTag ("DonutsCost").GetComponent<Text> ();
 
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
@@ -30,6 +44,17 @@ public class sliderManager : MonoBehaviour {
 			Quaternion.identity);
 		
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
+
+		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought()) {
+
+			donutsCostLabel.SetActive (true);
+			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
+
+		} else {
+
+			donutsCostLabel.SetActive (false);
+			donutsCost.text = "";
+		}
 	}
 
 	public void goLeft(){
@@ -83,6 +108,8 @@ public class sliderManager : MonoBehaviour {
 		}
 	}
 
+	Text donutsCost;
+
 	void spawnNewCurrentCharacter(){
 		
 		newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
@@ -90,31 +117,50 @@ public class sliderManager : MonoBehaviour {
 											Quaternion.identity);
 
 		DestroyObject (currentCharacter.gameObject);
-		camera.Start ();
+		cameraController.Start ();
 
 		currentCharacter = newCurrentCharacter;
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
+
+		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought() && currentCharacter.GetComponent<CostManager> ().cost > 0 ) {
+			
+			donutsCostLabel.SetActive (true);
+			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
+
+		} else {
+			
+			donutsCostLabel.SetActive (false);
+			donutsCost.text = "";
+		}
 	}
 
-	public void selectCurrentCharacter(){
-		
-		if (true) { // controllo che sia stato acquistato
-			
-			// PlayerPrefs.SetInt (currentCharacter.tag, 1); // 1 indica personaggio acquistato 0 non acquistato/disponibile
-			int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
 
-			if (oldSelectedCharacter == currentSelectedCharacter) {
+	public void selectCurrentCharacter(){
+
+		if (characterSelectionMenuOpen) {
+			
+			if (currentCharacter.GetComponent<CostManager> ().buy () && !currentPlayerMovement.dead) { // controllo che sia stato acquistato
+			
+				int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
+
+				if (oldSelectedCharacter == currentSelectedCharacter) {
 				
-				gm.closeCharacterSelectionMenu ();
-				gm.startGame ();
-			}else {
+					gm.closeCharacterSelectionMenu ();
+					gm.startGame ();
+				} else {
 				
+					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
+					PlayerPrefs.SetInt ("CharacterSelected", currentSelectedCharacter);
+					gm.startGame ();
+				}
+			} else {
 				gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
 				PlayerPrefs.SetInt ("CharacterSelected", currentSelectedCharacter);
 				gm.startGame ();
 			}
-
-		}
+		}else
+			gm.startGame ();
+			
 	}
 
 }

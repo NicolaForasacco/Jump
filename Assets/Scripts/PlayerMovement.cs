@@ -10,47 +10,33 @@ public class PlayerMovement : MonoBehaviour {
 	private CameraController cameraController;
 	private CameraShake cameraShake;
 	private GameManager gm;
+	private Animator anim;
+	private GameObject groundDust;
 
 	public GameObject[] enemiesPrefab;
 	public GameObject deadBodyPrefab;
 
-	public float sideSpeed, 
-					slowSideSpeed, 
-					jumpSpeed;
+	public int cost;
 
-	public bool isJumping = false, jumped = false;
-	public bool active = false;
 
-	private Text scoreText, 
-				pointsText;
+	public float sideSpeed, slowSideSpeed, jumpSpeed, enemiesP = 0.05f, pencilP = 0.05f, shurikenP = 0.05f, liftP = 0.05f;
 
-	private float currentSideSpeed, 
-					horizontalSpeed, 
-					maxHorizontalSpeed = 1;
+	public bool isJumping = false, jumped = false, active = false, dead = false;
 
-	private Animator anim;
+	public int donutsPicked, currentRecord = 0, side = -1;
 
-	public int donutsPicked;
 
-	public bool dead = false;
+	private Text scoreText, pointsText;
 
-	public int currentRecord = 0;
+	private float currentSideSpeed, horizontalSpeed, maxHorizontalSpeed = 1, lastHeight;
 
-	private bool pencilSpawnThisLevel = true, 
-					shurikenSpawnThisLevel = true,	
-					liftSpawnThisLevel = true;
-
-	float lastHeight;
-
-	public int side = -1;
-
-	GameObject groundDust;
+	private bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true, liftSpawnThisLevel = true, isOnLift = false, isOnMovingTile = false;
 
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
-		anim = groundDust.GetComponent<Animator>();
+
+
 
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
@@ -121,8 +107,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void activate(){
 		
-		active = true;
 		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
+
+		// non metter questo in start(provare a capire il problema)
+		groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
+		anim = groundDust.GetComponent<Animator>();
+
+		active = true;
 	}
 
 	void Update(){
@@ -331,10 +322,6 @@ public class PlayerMovement : MonoBehaviour {
         }
 	}
 
-	bool isOnLift = false;
-
-	bool isOnMovingTile = false;
-
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
@@ -432,14 +419,9 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 		
-
-	public float enemiesN = 0.05f;
-
-	public float pencilN = 0.05f;
-
 	void spawnEnemies(){
 
-		if (Random.value > 1 - enemiesN) {
+		if (Random.value <= enemiesP) {
 			int r = Random.Range (1, enemiesPrefab.Length + 1);
 
 			if (r == 1)
@@ -454,7 +436,7 @@ public class PlayerMovement : MonoBehaviour {
 	void spawnRandomHorizontalPencil(){
 
 
-		if (Random.value > 1 - pencilN 
+		if (Random.value <= pencilP 
 			&& !pencilSpawnThisLevel) {
 
 			pencilSpawnThisLevel = true;
@@ -463,12 +445,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	public float shurikenN = 0.05f;
-
 	void spawnRandomVerticalShuriken(){
 
 
-		if (Random.value > 1 - shurikenN 
+		if (Random.value <= shurikenP 
 			&& !shurikenSpawnThisLevel) {
 
 			shurikenSpawnThisLevel = true;
@@ -476,12 +456,10 @@ public class PlayerMovement : MonoBehaviour {
 			Instantiate (enemiesPrefab[1], v, Quaternion.identity);
 		}
 	}
-
-	public float liftN = 0.05f;
-
+		
 	void spawnRandomVerticalLift(){
 		
-		if (Random.value > 1 - liftN 
+		if (Random.value <= liftP 
 			&& !shurikenSpawnThisLevel) {
 
 			liftSpawnThisLevel = true;

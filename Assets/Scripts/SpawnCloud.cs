@@ -36,6 +36,8 @@ public class SpawnCloud : MonoBehaviour {
 									lastPlatformPositionY, 
 									1);
 
-		Instantiate (cloudPrefabs[Random.Range(0, cloudPrefabs.Length)], v, Quaternion.identity);
+		int cloudType = (Random.value <= 0.95f) ? Random.Range (0, cloudPrefabs.Length - 1) : cloudPrefabs.Length - 1;
+
+		Instantiate (cloudPrefabs[cloudType], v, Quaternion.identity);
 	}
 }

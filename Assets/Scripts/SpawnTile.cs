@@ -5,15 +5,26 @@ using UnityEngine;
 public class SpawnTile : MonoBehaviour {
 
 	private GameObject player;
+	public GameObject bird;
 
-	public GameObject[] tilePrefabs;
-	public GameObject[] collectablesPrefabs;
+	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab;
 
-	public int maxPlatformLength = 1;
-	public int minPlatformLength = 1;
-	public int maxPlatformPerLevel = 2;
-	public int randomRange = 5;
+	public float tileWidth = 20;
+
+	public int maxPlatformLength = 1, minPlatformLength = 1, maxPlatformPerLevel = 2, randomRange = 5;
+
 	public float lastXPosition;
+
+	float lastPlatformLength, randomX, lastPlatformPosition;
+
+	int lastTileType;
+	int levels = 15;
+
+	private float level = 40;
+	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp, collectableP = 0.7f, flowerP = 0.8f;
+
+	bool birdSpawn = false;
+
 
 	private void changeParameters(){
 
@@ -24,12 +35,6 @@ public class SpawnTile : MonoBehaviour {
 
 		//randomRange = 
 	}
-
-	public int maxCollectablesPerLevel = 2;
-
-	float lastPlatformPosition;
-
-	private float level = 40;
 
 	void Update () {
 		
@@ -44,9 +49,6 @@ public class SpawnTile : MonoBehaviour {
 		}
 	}
 
-
-	int levels = 15;
-
 	public void spawnMultiplePlatform(){
 
 		for (int i = 0; i < levels; i++)
@@ -60,52 +62,57 @@ public class SpawnTile : MonoBehaviour {
 		if (level >= 20)
 			changeParameters ();
 
-		spawnPlatform (0);
+		spawnPlatform (true);
 
+		//se l'ultima tile non è una moving tile provo a creare un'altra tile in questo stesso livello
 		if(lastTileType < 2 || lastTileType > 5)
 			if(Random.value > 0.3)
-				spawnPlatform (1);
+				spawnPlatform (false);
 		
 		level += Random.Range(40f, 40f);
 	}
 
-	float lastPlatformLength;
-
-	float randomX;
-
-	int lastTileType;
-
-	public float tileWidth = 20;
-
-	void spawnPlatform(int n){
+	void setTilePercentage(){
+		
+		zerop = 0.4f;
+		ninep = 0.13f;
+		onep = 0.15f;
+		sixp = 0.15f;
+		twofourp = 0.08f;
+		eightp = 0.02f;
+		sevenp = 0.03f;
+		fivep = 0.04f;
+	}
+	 
+	void spawnPlatform(bool isFirstTileOfThisLevel){
 
 		int tileType = 0;
 		float randomFloat = Random.value;
 
-		if (randomFloat <= 0.4f)
+		setTilePercentage ();
+
+		if (randomFloat <= zerop)
 			tileType = 0;
-        else if (randomFloat <= 0.5)
-            tileType = 9;
-        else if (randomFloat <= 0.6f)
-            tileType = 1;
-        else if (randomFloat <= 0.75f)
-            tileType = 6;
-        else if (randomFloat <= 0.85f && n == 0)
-            tileType = Random.Range(2, 5);
-        else if (randomFloat <= 0.9f)
-            tileType = 1;
-        else if (randomFloat <= 0.93f)
-            tileType = 7;
-        else if (randomFloat <= 0.96f)
-            tileType = 0;
-        else if (randomFloat <= 1)
-            tileType = 5;
+		else if (randomFloat <= zerop + ninep)
+			tileType = 9;
+		else if (randomFloat <= zerop + ninep + onep)
+			tileType = 1;
+		else if (randomFloat <= zerop + ninep + onep + sixp)
+			tileType = 6;
+		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp && isFirstTileOfThisLevel)
+			tileType = Random.Range (2, 5);
+		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp + sevenp)
+			tileType = 7;
+		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp + sevenp + fivep)
+			tileType = 5;
+		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp + sevenp + fivep + eightp)
+			tileType = 8;
 
 		lastTileType = tileType;
 
 		int platformLength = 1;
 
-		if (n != 0) {
+		if (!isFirstTileOfThisLevel) {
 		
 			platformLength = Random.Range (1, 3);
 
@@ -113,6 +120,7 @@ public class SpawnTile : MonoBehaviour {
 				randomX = lastPlatformPosition + lastPlatformLength * tileWidth + Random.Range (1, 3) * tileWidth;
 			else
 				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
+			
 		} else {
 			
 			if (tileType < 2 || tileType > 5)
@@ -143,18 +151,12 @@ public class SpawnTile : MonoBehaviour {
 
 		lastXPosition = v2.x;
 	}
-	public float collectableN = 0.7f;
 
 	private void spawnCollectable(Vector3 v, int tileType){
 		
-		float currentN = collectableN;
+		if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 5) {
 
-		if (tileType == 5)
-			currentN -= 0.4f;
-
-		if ((tileType < 2 || tileType > 5) && tileType != 7) {
-
-			if (Random.value > 1 - collectableN) {
+			if (Random.value <= collectableP) {
 			
 				v.y = v.y + tileWidth - 2;
 				v.z = -1;
@@ -165,27 +167,22 @@ public class SpawnTile : MonoBehaviour {
 		}
 	}
 
-	public GameObject[] flowersPrefab;
-
 	private bool spawnFlowers(Vector3 v, int tileType){
 
 
-		if (tileType == 0 && Random.value > 0.1f) {
+		if (tileType == 0 && Random.value <= flowerP) {
 			
 			v.y = v.y + tileWidth / 2;
 			v.z = -1;
 			
 			int flowerType = Random.Range (0, flowersPrefab.Length);
 			Instantiate (flowersPrefab [flowerType], v, Quaternion.identity);
+
 			return true;
 		}
 
 		return false;
 	}
-
-	bool birdSpawn = false;
-
-	public GameObject bird;
 
 	private bool spawnBird(Vector3 v, int tileType){
 

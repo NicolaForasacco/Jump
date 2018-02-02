@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	public bool useButtons;
 	public Animator cameraAnim;
 
-	public CameraController camera;
+	public CameraController cameraController;
 	public bool isFirstPlay = true;
 
 	public Animator menuAnim;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 
 		menuAnim.SetTrigger ("GameOver");
 
-		camera.active = false;
+		cameraController.active = false;
 		cameraAnim.SetTrigger ("CameraZoomOff");
 
 
@@ -51,35 +51,41 @@ public class GameManager : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
 
 		menuAnim = menu.GetComponent<Animator> ();
-		cameraAnim = camera.GetComponent<Animator> ();
+		cameraAnim = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Animator> ();
 
 		menuAnim.SetTrigger ("MenuOn");
+
+		//deleteAll ();
+	}
+
+	void deleteAll(){
+		
+		PlayerPrefs.DeleteAll ();
 	}
 
 	public void startGame(){
-		
-		camera.active = true;
-		foreground.SetActive (true);
-		menuAnim.SetTrigger ("ControlsOn");
-		cameraAnim.SetTrigger ("CameraZoomOn");
-
-		if(player!= null)
-			player.activate ();
-		else
-			player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
-
-		//Instantiate (bird, new Vector2(bird.transform.position.x, bird.transform.position.y), Quaternion.identity);
 
 		if (!isFirstPlay) {
 			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
-			//cameraAnim.SetTrigger ("CameraZoomOn");
 		} else {
 			isFirstPlay = false;
+			cameraController.active = true;
+			foreground.SetActive (true);
+			menuAnim.SetTrigger ("ControlsOn");
+
+			if(player!= null)
+				player.activate ();
+			else
+				player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+
+			if(player!= null)
+				player.activate ();
 		}
 	}
 
 	public void showCharacterSelectionMenu(){
 		
+		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraAnim.SetTrigger ("CameraZoomCharacter");
 		foreground.SetActive (false);
