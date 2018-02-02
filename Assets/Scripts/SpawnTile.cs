@@ -7,7 +7,7 @@ public class SpawnTile : MonoBehaviour {
 	private GameObject player;
 	public GameObject bird;
 
-	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab;
+	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab, finishlinesPrefab;
 
 	public float tileWidth = 20;
 
@@ -36,11 +36,29 @@ public class SpawnTile : MonoBehaviour {
 		//randomRange = 
 	}
 
+	private float nextFinishLine = 400 * 20;
+
+	void spawnNextFinishLine ()
+	{
+		Instantiate (finishlinesPrefab [Random.Range(0,finishlinesPrefab.Length)], new Vector2 (lastXPosition, level), Quaternion.identity);
+	}
+
 	void Update () {
 		
 		if (player != null) {
-			if (player.transform.position.y + 300 > level)
+			
+			if (player.transform.position.y + 15 * tileWidth > level)
 				spawnMultiplePlatform ();
+
+			if ((player.transform.position.y + 15 * tileWidth) > nextFinishLine) {
+
+				level += 40;
+
+				spawnNextFinishLine ();
+				nextFinishLine += 400 * tileWidth;
+
+				level += 6 * tileWidth;
+			}
 		} else {
 			
 			player = GameObject.FindGameObjectWithTag ("player");
@@ -74,13 +92,13 @@ public class SpawnTile : MonoBehaviour {
 
 	void setTilePercentage(){
 		
-		zerop = 0.4f;
-		ninep = 0.13f;
-		onep = 0.15f;
+		zerop = 0.45f;
+		ninep = 0.05f;
+		onep = 0.2f;
 		sixp = 0.15f;
 		twofourp = 0.08f;
 		eightp = 0.02f;
-		sevenp = 0.03f;
+		sevenp = 0.01f;
 		fivep = 0.04f;
 	}
 	 

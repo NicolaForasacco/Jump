@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour {
 	Vector3 offset, v, velocity;
 	Camera cameraB;
 	public bool active = false;
+	public float cameraSlowSpeed = 70;
 
 	public void Start () 
 	{
@@ -42,7 +43,7 @@ public class CameraController : MonoBehaviour {
 			if (player != null) {
 				
 				v.x = player.transform.position.x + offset.x;
-				v.y = transform.position.y + 100 * Time.deltaTime;
+				v.y = transform.position.y + cameraSlowSpeed * Time.deltaTime;
 
 				if (player.transform.position.y + offset.y >= v.y) {
 

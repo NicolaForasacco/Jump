@@ -26,6 +26,7 @@ TagManager:
   - foreground
   - DonutsCost
   - DonutsCostLabel
+  - DarkPanel
   layers:
   - Default
   - TransparentFX

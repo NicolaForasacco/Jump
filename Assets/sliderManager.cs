@@ -19,6 +19,7 @@ public class sliderManager : MonoBehaviour {
 	PlayerMovement currentPlayerMovement;
 
 	public GameObject donutsCostLabel;
+	public GameObject darkpanel;
 
 	bool characterSelectionMenuOpen = false;
 
@@ -30,6 +31,7 @@ public class sliderManager : MonoBehaviour {
 	// Use this for initialization
 	public void InstantiateCharacter () {
 		
+		darkpanel.SetActive (false);
 		//donutsCostLabel = GameObject.FindGameObjectWithTag ("DonutsCostLabel");
 		donutsCost = GameObject.FindGameObjectWithTag ("DonutsCost").GetComponent<Text> ();
 
@@ -40,20 +42,21 @@ public class sliderManager : MonoBehaviour {
 		currentCharacter = characters [currentSelectedCharacter];
 
 		currentCharacter = Instantiate (characters [currentSelectedCharacter], 
-			new Vector3 (currentCharacter.transform.position.x, currentCharacter.transform.position.y, 0), 
+			new Vector3 (currentCharacter.transform.position.x, 40, 0), 
 			Quaternion.identity);
 		
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 
 		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought()) {
 
+			darkpanel.SetActive (true);
 			donutsCostLabel.SetActive (true);
 			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
 
 		} else {
-
+			
+			darkpanel.SetActive (false);
 			donutsCostLabel.SetActive (false);
-			donutsCost.text = "";
 		}
 	}
 
@@ -113,7 +116,7 @@ public class sliderManager : MonoBehaviour {
 	void spawnNewCurrentCharacter(){
 		
 		newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
-											new Vector3(currentCharacter.transform.position.x, currentCharacter.transform.position.y, 0), 
+											new Vector3(currentCharacter.transform.position.x, 40, 0), 
 											Quaternion.identity);
 
 		DestroyObject (currentCharacter.gameObject);
@@ -123,14 +126,15 @@ public class sliderManager : MonoBehaviour {
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 
 		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought() && currentCharacter.GetComponent<CostManager> ().cost > 0 ) {
-			
+
 			donutsCostLabel.SetActive (true);
+			darkpanel.SetActive (true);
 			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
 
 		} else {
 			
+			darkpanel.SetActive (false);
 			donutsCostLabel.SetActive (false);
-			donutsCost.text = "";
 		}
 	}
 

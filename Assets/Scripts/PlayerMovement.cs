@@ -36,8 +36,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 
-
-
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
 		cameraShake = GameObject.FindObjectOfType<CameraShake>();
@@ -46,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
+		pointsText.text = donutsPicked.ToString ();
 
 		lastHeight = transform.position.y;
 		horizontalSpeed = 0;
@@ -118,6 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 		if (active) {
+			
 			useButtons = gm.useButtons;
 			if (transform.position.y * 5 > lastHeight * 5 + 400) {
 
@@ -422,39 +422,31 @@ public class PlayerMovement : MonoBehaviour {
 	void spawnEnemies(){
 
 		if (Random.value <= enemiesP) {
-			int r = Random.Range (1, enemiesPrefab.Length + 1);
+			float r = Random.value;
 
-			if (r == 1)
+			if (r <= shurikenP && !shurikenSpawnThisLevel)
 				spawnRandomVerticalShuriken ();
-			if (r == 2)
+			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
 				spawnRandomHorizontalPencil ();
-			if (r == 3)
-				spawnRandomVerticalLift ();
+
+			//spawnRandomVerticalLift ();
 		}
 	}
 
 	void spawnRandomHorizontalPencil(){
 
-
-		if (Random.value <= pencilP 
-			&& !pencilSpawnThisLevel) {
-
-			pencilSpawnThisLevel = true;
-			Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y);
-			Instantiate (enemiesPrefab[0], v, Quaternion.identity);
-		}
+		pencilSpawnThisLevel = true;
+		Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y);
+		Instantiate (enemiesPrefab[1], v, Quaternion.identity);
+		
 	}
 
 	void spawnRandomVerticalShuriken(){
 
+		shurikenSpawnThisLevel = true;
+		Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
+		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
 
-		if (Random.value <= shurikenP 
-			&& !shurikenSpawnThisLevel) {
-
-			shurikenSpawnThisLevel = true;
-			Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
-			Instantiate (enemiesPrefab[1], v, Quaternion.identity);
-		}
 	}
 		
 	void spawnRandomVerticalLift(){
