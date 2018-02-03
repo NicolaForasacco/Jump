@@ -23,7 +23,7 @@ public class SpawnTile : MonoBehaviour {
 	private float level = 40;
 	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp, collectableP = 0.7f, flowerP = 0.8f;
 
-	bool birdSpawn = false;
+	bool firstbirdSpawn = false;
 
 
 	private void changeParameters(){
@@ -204,13 +204,26 @@ public class SpawnTile : MonoBehaviour {
 
 	private bool spawnBird(Vector3 v, int tileType){
 
-		if (tileType == 0 && Random.value > 0.1f && !birdSpawn && v.y >= 100) {
+		if (tileType == 0 && Random.value <= 9f && !firstbirdSpawn && v.y >= 100) {
 
 			v.y = v.y + tileWidth;
 			v.z = -1;
 
 			Instantiate (bird, v, Quaternion.identity);
-			birdSpawn = true;
+			firstbirdSpawn = true;
+
+			return true;
+
+		}else if (tileType == 0 && Random.value <= 0.05f && v.y >= 100) {
+
+			v.y = v.y + tileWidth;
+			v.z = -1;
+
+			Instantiate (bird, v, Quaternion.identity);
+
+			if(Random.value <= 0.7f)
+				Instantiate (bird, new Vector3(v.x + 4, v.y, v.z), Quaternion.identity);
+			
 			return true;
 		}
 

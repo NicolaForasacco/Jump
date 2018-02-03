@@ -342,7 +342,7 @@ public class PlayerMovement : MonoBehaviour {
             if (GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y) {
 
 				this.transform.SetParent (c.transform);
-				c.GetComponent<PencilMovement> ().enableGravity ();
+				c.GetComponent<PencilMovement> ().showExplosion ();
 
 			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y)
 				die ();
@@ -436,9 +436,8 @@ public class PlayerMovement : MonoBehaviour {
 	void spawnRandomHorizontalPencil(){
 
 		pencilSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y);
-		Instantiate (enemiesPrefab[1], v, Quaternion.identity);
-		
+		Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y + 80);
+		Instantiate (enemiesPrefab[1], v, Quaternion.identity);	
 	}
 
 	void spawnRandomVerticalShuriken(){
@@ -446,7 +445,6 @@ public class PlayerMovement : MonoBehaviour {
 		shurikenSpawnThisLevel = true;
 		Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
 		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
-
 	}
 		
 	void spawnRandomVerticalLift(){

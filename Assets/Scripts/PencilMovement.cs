@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PencilMovement : MonoBehaviour {
 
-	public CameraController cameraController;
 
+	public GameObject explosion;
 	public float speed = 10;
 
 	Rigidbody2D rb;
+	CameraController cameraController;
 
 	void Start(){
 		
@@ -26,18 +27,38 @@ public class PencilMovement : MonoBehaviour {
 		}
 	}
 
-	public void enableGravity(){
+	public void showExplosion(){
 
-		StartCoroutine (enableTileGravity(0.2f));
+		enableGravity (0.2f);
+		showExplosion (0.4f);
+	}
+
+	private void enableGravity(float waitFor){
+
+		StartCoroutine (enableTileGravity(waitFor));
 	}
 
 	private IEnumerator enableTileGravity(float time){
 
 		yield return new WaitForSeconds(time);
 
-		speed = 0;
 		rb.bodyType = RigidbodyType2D.Dynamic;
 		rb.mass = 60;
 		rb.gravityScale = 20;
+	}
+
+
+	private void showExplosion(float time){
+
+		StartCoroutine (showExplosionCoroutine(time));
+	}
+
+	private IEnumerator showExplosionCoroutine(float time){
+
+		yield return new WaitForSeconds(time);
+
+		Instantiate(explosion, transform.position, Quaternion.identity);
+
+		GameObject.Destroy (this.gameObject);
 	}
 }

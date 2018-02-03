@@ -12,6 +12,8 @@ public class Bird : MonoBehaviour {
 
 	GameObject player;
 
+	Vector3 initialPosition;
+
 	void Start () {
 
 		player = GameObject.FindGameObjectWithTag ("player");
@@ -19,9 +21,10 @@ public class Bird : MonoBehaviour {
 
 		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().lastXPosition > 0) ? 1 : -1;
 
-		transform.localScale = new Vector2 (side, 1);
+		float randomScale = Random.Range (0.3f, 0.8f);
 
-		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+		transform.localScale = new Vector2 (side * randomScale, 1 * randomScale);
+		initialPosition = transform.position;
 	}
 
 	void Update () {
@@ -36,25 +39,14 @@ public class Bird : MonoBehaviour {
 			else if (r > 0f)
 				transform.position += Vector3.down * Time.deltaTime * speedY * 0.8f;
 
-			if ((transform.position.x >= 250 || transform.position.x <= -250) && transform.position.y >= 250)
+			if ((transform.position.x >= initialPosition.x + 400 || transform.position.x <= initialPosition.x - 400) && transform.position.y >= initialPosition.y + 250)
 				DestroyObject (this.gameObject);
 		} else {
 			
 			if (player != null) {
 				if (transform.position.y - player.transform.position.y < 100 && transform.position.x - player.transform.position.x < 100)
-					startMoving (0.1f);	
+					isMoving = true;
 			}
 		}
-	}
-
-	private void startMoving(float waitFor){
-		
-		StartCoroutine (startMovingCoroutine(waitFor));
-	}
-
-	private IEnumerator startMovingCoroutine(float time){
-
-		yield return new WaitForSeconds(time);
-		isMoving = true;
 	}
 }
