@@ -5,9 +5,8 @@ using UnityEngine;
 public class SpawnTile : MonoBehaviour {
 
 	private GameObject player;
-	public GameObject bird;
 
-	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab, finishlinesPrefab;
+	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab, finishlinesPrefab, animals;
 
 	public float tileWidth = 20;
 
@@ -23,7 +22,7 @@ public class SpawnTile : MonoBehaviour {
 	private float level = 40;
 	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp, collectableP = 0.7f, flowerP = 0.8f;
 
-	bool firstbirdSpawn = false;
+	bool firstAnimalSpawn = false;
 
 
 	private void changeParameters(){
@@ -164,7 +163,7 @@ public class SpawnTile : MonoBehaviour {
 			if(!spawnFlowers (v2, tileType))
 				spawnCollectable (v2, tileType);
 
-			spawnBird (v2, tileType);
+			spawnAnimal (v2, tileType);
 		}
 
 		lastXPosition = v2.x;
@@ -202,15 +201,16 @@ public class SpawnTile : MonoBehaviour {
 		return false;
 	}
 
-	private bool spawnBird(Vector3 v, int tileType){
+	private bool spawnAnimal(Vector3 v, int tileType){
 
-		if (tileType == 0 && Random.value <= 9f && !firstbirdSpawn && v.y >= 100) {
+		if (tileType == 0 && Random.value <= 0.9f && !firstAnimalSpawn && v.y >= 100) {
 
 			v.y = v.y + tileWidth;
 			v.z = -1;
+			int animalType = Random.Range (0, animals.Length);
 
-			Instantiate (bird, v, Quaternion.identity);
-			firstbirdSpawn = true;
+			Instantiate (animals[animalType], v, Quaternion.identity);
+			firstAnimalSpawn = true;
 
 			return true;
 
@@ -218,11 +218,12 @@ public class SpawnTile : MonoBehaviour {
 
 			v.y = v.y + tileWidth;
 			v.z = -1;
+			int animalType = Random.Range (0, animals.Length);
 
-			Instantiate (bird, v, Quaternion.identity);
+			Instantiate (animals[animalType], v, Quaternion.identity);
 
 			if(Random.value <= 0.7f)
-				Instantiate (bird, new Vector3(v.x + 4, v.y, v.z), Quaternion.identity);
+				Instantiate (animals[animalType], new Vector3(v.x + 4, v.y, v.z), Quaternion.identity);
 			
 			return true;
 		}

@@ -11,7 +11,8 @@ public class destroyPiece : MonoBehaviour {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
 
-		GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 15000, verticalForce * 15000), ForceMode2D.Impulse);
+		if(GetComponent<Rigidbody2D>() != null)
+			GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 15000, verticalForce * 15000), ForceMode2D.Impulse);
 
 		hideCollider (0.2f);
 	}
@@ -30,6 +31,8 @@ public class destroyPiece : MonoBehaviour {
 
 		yield return new WaitForSeconds(time);
 
-		GetComponent<BoxCollider2D> ().enabled = false;
+		if(GetComponent<BoxCollider2D>() != null)
+			GetComponent<BoxCollider2D> ().enabled = false;
+
 	}
 }

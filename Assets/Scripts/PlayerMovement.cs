@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true, liftSpawnThisLevel = true, isOnLift = false, isOnMovingTile = false;
 
+	public GameObject comic;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -171,14 +173,29 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool jumpButtonDown = false;
 
+	public void hideComic(){
+		
+		if(comic != null)
+			comic.GetComponent<Animator> ().SetTrigger ("FadeOut");
+	}
+
+	bool isFirstMovement = true;
+
 	public void onJumpButtonDown(){
 		
 		jumpButtonDown = true;
+
+		if (isFirstMovement) {
+			hideComic ();
+			isFirstMovement = false;
+		}
 	}
 
 	public void onJumpButtonUp(){
 		
 		jumpButtonDown = false;
+
+
 	}
 		
 	public void goLeft(){
@@ -187,6 +204,11 @@ public class PlayerMovement : MonoBehaviour {
 			movingAnim ();
 		
 		side = 0;
+
+		if (isFirstMovement) {
+			hideComic ();
+			isFirstMovement = false;
+		}
 	}
 
 	public void goRight(){
@@ -195,6 +217,11 @@ public class PlayerMovement : MonoBehaviour {
 			movingAnim ();
 		
 		side = 1;
+
+		if (isFirstMovement) {
+			hideComic ();
+			isFirstMovement = false;
+		}
 	}
 	
 	public void stopHorizontalSpeed(){

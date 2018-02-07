@@ -76,6 +76,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4028356061684584}
+  - component: {fileID: 114820981023558578}
   m_Layer: 0
   m_Name: UselessTileExplode
   m_TagString: Untagged
@@ -929,6 +930,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1342549242245092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalForce: 0
+  horizontalForce: 0
+--- !u!114 &114820981023558578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449858865450576}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
