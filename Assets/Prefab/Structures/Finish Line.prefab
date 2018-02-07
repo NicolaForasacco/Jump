@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212631780024071070}
   - component: {fileID: 61267388208826044}
   - component: {fileID: 251971087574775860}
-  - component: {fileID: 114858389020993264}
   m_Layer: 0
   m_Name: TilePrefab (2)
   m_TagString: Tile
@@ -41,7 +40,6 @@ GameObject:
   - component: {fileID: 212745446590218654}
   - component: {fileID: 61943852568222004}
   - component: {fileID: 251612059993427094}
-  - component: {fileID: 114699932241248472}
   m_Layer: 0
   m_Name: TilePrefab (7)
   m_TagString: Tile
@@ -57,6 +55,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4086594000799018}
+  - component: {fileID: 114958208040758840}
   m_Layer: 0
   m_Name: Finish Line
   m_TagString: Untagged
@@ -75,7 +74,6 @@ GameObject:
   - component: {fileID: 212077889463752012}
   - component: {fileID: 61945190858557722}
   - component: {fileID: 251486070441041538}
-  - component: {fileID: 114481299869681112}
   m_Layer: 0
   m_Name: TilePrefab (4)
   m_TagString: Tile
@@ -94,7 +92,6 @@ GameObject:
   - component: {fileID: 212883011511297170}
   - component: {fileID: 61975038804979650}
   - component: {fileID: 251033447005162108}
-  - component: {fileID: 114379839066109546}
   m_Layer: 0
   m_Name: TilePrefab (5)
   m_TagString: Tile
@@ -113,7 +110,6 @@ GameObject:
   - component: {fileID: 212747506515368918}
   - component: {fileID: 61835812317974104}
   - component: {fileID: 251608871204326926}
-  - component: {fileID: 114131633988503524}
   m_Layer: 0
   m_Name: TilePrefab (3)
   m_TagString: Tile
@@ -132,7 +128,6 @@ GameObject:
   - component: {fileID: 212421944927433708}
   - component: {fileID: 61920533297576964}
   - component: {fileID: 251077492451251640}
-  - component: {fileID: 114534099153860868}
   m_Layer: 0
   m_Name: TilePrefab
   m_TagString: Tile
@@ -151,7 +146,6 @@ GameObject:
   - component: {fileID: 212242317530985126}
   - component: {fileID: 61024480260600318}
   - component: {fileID: 251315987324621260}
-  - component: {fileID: 114015010076668480}
   m_Layer: 0
   m_Name: TilePrefab (1)
   m_TagString: Tile
@@ -475,97 +469,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
---- !u!114 &114015010076668480
+--- !u!114 &114958208040758840
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1962184723490258}
+  m_GameObject: {fileID: 1159447883909632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
+  m_Script: {fileID: 11500000, guid: 37bb8abc6d3a54f4e8d6ce583d010035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114131633988503524
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541664578170968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114379839066109546
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1457115027713402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114481299869681112
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295392451794210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114534099153860868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712899276369194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114699932241248472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1047867726067244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
---- !u!114 &114858389020993264
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1006387872724182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isVisited: 0
-  explosion: {fileID: 0}
 --- !u!212 &212069087132817340
 SpriteRenderer:
   m_ObjectHideFlags: 1

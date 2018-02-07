@@ -45,6 +45,13 @@ public class PlayerMovement : MonoBehaviour {
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
 
+		if (comic != null) {
+			
+			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
+			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
+		}
+
+
 		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
 		pointsText.text = donutsPicked.ToString ();
 
@@ -173,10 +180,30 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool jumpButtonDown = false;
 
-	public void hideComic(){
+	public void showFinishLineMessage(){
+
+		if (comic != null) {
+
+			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getFinishLineMessage ();
+			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
+		}
+	}
+
+	public void showMessage(){
 		
-		if(comic != null)
+		if (comic != null) {
+
+			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
+			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
+		}
+	}
+
+	public void hideMessage(){
+		
+		if (comic != null) {
+			
 			comic.GetComponent<Animator> ().SetTrigger ("FadeOut");
+		}
 	}
 
 	bool isFirstMovement = true;
@@ -186,7 +213,7 @@ public class PlayerMovement : MonoBehaviour {
 		jumpButtonDown = true;
 
 		if (isFirstMovement) {
-			hideComic ();
+			hideMessage ();
 			isFirstMovement = false;
 		}
 	}
@@ -206,7 +233,7 @@ public class PlayerMovement : MonoBehaviour {
 		side = 0;
 
 		if (isFirstMovement) {
-			hideComic ();
+			hideMessage ();
 			isFirstMovement = false;
 		}
 	}
@@ -219,7 +246,7 @@ public class PlayerMovement : MonoBehaviour {
 		side = 1;
 
 		if (isFirstMovement) {
-			hideComic ();
+			hideMessage ();
 			isFirstMovement = false;
 		}
 	}
@@ -428,7 +455,10 @@ public class PlayerMovement : MonoBehaviour {
 
             spawnEnemies ();
 
-			c.GetComponent<TileBehavior> ().behave();
+			try{
+				c.GetComponent<TileBehavior> ().behave();
+			}catch{}
+
 		}
 
 		if (c.CompareTag ("SpineTile") 

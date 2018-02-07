@@ -1099,7 +1099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -101, y: -34}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &827160592
@@ -2881,6 +2881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1901187789}
   - component: {fileID: 1901187788}
+  - component: {fileID: 1901187790}
   m_Layer: 5
   m_Name: SliderManager
   m_TagString: Untagged
@@ -2927,6 +2928,19 @@ RectTransform:
   m_AnchoredPosition: {x: 1023.0109, y: 168.00182}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1901187790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901187787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e88653def276d64abbcd06d2162f9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMessages:
+  - {fileID: 21300000, guid: 4865a5de48489a84a938a92bf28bb9e9, type: 3}
 --- !u!4 &2057576211 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4724301727306128, guid: 54d1a561315748e47830b987179a41f3,

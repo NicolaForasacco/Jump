@@ -35,7 +35,7 @@ public class SpawnTile : MonoBehaviour {
 		//randomRange = 
 	}
 
-	private float nextFinishLine = 400 * 20;
+	private float nextFinishLine = 50 * 20;
 
 	void spawnNextFinishLine ()
 	{
