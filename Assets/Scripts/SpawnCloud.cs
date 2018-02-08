@@ -5,39 +5,59 @@ using UnityEngine;
 public class SpawnCloud : MonoBehaviour {
 
 	private GameObject player;
-	public GameObject[] cloudPrefabs;
 
-	float lastPlatformPositionY,
-			lastPlatformPositionX;
+	public GameObject cloudPrefab, backgroundPrefab, baloonPrefab;
+
+	float lastSpawnPositionY = 0;
+
+	int tileWidth = 20, minXRange = -6, maxXRange = 6, minYRange = 5, maxYRange = 8;
 
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
-		lastPlatformPositionY = 0;
 	}
 
 	void Update () {
 		
 		if (player != null) {
 			
-			if (player.transform.position.y + 300 > lastPlatformPositionY)
+			if (player.transform.position.y + 300 > lastSpawnPositionY)
 				spawnClouds ();
 		}else
 			player = GameObject.FindGameObjectWithTag ("player");
 	}
 
+	float getRandomX(){
+		
+		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
+	}
+
+	float getRandomSideX(){
+		
+		if(Random.value <= 0.5f)
+			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) - 1 * maxXRange * tileWidth;
+		else
+			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + 1 * maxXRange * tileWidth;
+	}
+
+	float getRandomY(){
+		return lastSpawnPositionY + Random.Range (minYRange, maxYRange) * tileWidth;
+	}
 
 	void spawnClouds(){
 		
-		lastPlatformPositionX = player.transform.position.x + Random.Range (-5, 5) * 30;
-		lastPlatformPositionY = lastPlatformPositionY + Random.Range (1, 4) * 30;
+		Vector3 randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
 
-		Vector3 v = new Vector3 (lastPlatformPositionX, 
-									lastPlatformPositionY, 
-									1);
+		if (Random.value <= 0.7f)
+			Instantiate (cloudPrefab, randomPosition, Quaternion.identity);
+		else {
 
-		int cloudType = (Random.value <= 0.95f) ? Random.Range (0, cloudPrefabs.Length - 1) : cloudPrefabs.Length - 1;
+			randomPosition = new Vector3 (getRandomSideX(), getRandomY(), 1);
 
-		Instantiate (cloudPrefabs[cloudType], v, Quaternion.identity);
+			if (Random.value <= 0.8f)
+				Instantiate (backgroundPrefab, randomPosition, Quaternion.identity);
+		}
+
+		lastSpawnPositionY = randomPosition.y;
 	}
 }

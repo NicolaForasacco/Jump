@@ -195,6 +195,7 @@ MonoBehaviour:
   donutsPicked: 0
   currentRecord: 0
   side: -1
+  comic: {fileID: 0}
 --- !u!114 &114910630106759190
 MonoBehaviour:
   m_ObjectHideFlags: 1

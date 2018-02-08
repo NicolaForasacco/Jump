@@ -6,33 +6,48 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
-	private Rigidbody2D rb;
-	private CameraController cameraController;
-	private CameraShake cameraShake;
-	private GameManager gm;
-	private Animator anim;
-	private GameObject groundDust;
+	public	GameObject[]	enemiesPrefab;
+	public	GameObject	deadBodyPrefab,
+						comic;
+	public	int	cost;
 
-	public GameObject[] enemiesPrefab;
-	public GameObject deadBodyPrefab;
+	public	float	sideSpeed,
+					slowSideSpeed,
+					jumpSpeed,
+					enemiesP = 0.05f,
+					pencilP = 0.05f,
+					shurikenP = 0.05f,
+					liftP = 0.05f;
 
-	public int cost;
+	public	bool 	isJumping = false,
+					jumped = false,
+					active = false,
+					dead = false;
+
+	public	int	donutsPicked,
+				currentRecord = 0,
+				side = -1;
 
 
-	public float sideSpeed, slowSideSpeed, jumpSpeed, enemiesP = 0.05f, pencilP = 0.05f, shurikenP = 0.05f, liftP = 0.05f;
+	private Rigidbody2D	rb;
+	private GameManager	gm;
+	private Animator	anim;
+	private GameObject	groundDust;
+	private CameraShake	cameraShake;
+	private	CameraController	cameraController;
 
-	public bool isJumping = false, jumped = false, active = false, dead = false;
+	private	Text	scoreText,	
+					pointsText;
 
-	public int donutsPicked, currentRecord = 0, side = -1;
+	private	float	currentSideSpeed,
+					horizontalSpeed,
+					maxHorizontalSpeed = 1,
+					lastHeight;
 
-
-	private Text scoreText, pointsText;
-
-	private float currentSideSpeed, horizontalSpeed, maxHorizontalSpeed = 1, lastHeight;
-
-	private bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true, liftSpawnThisLevel = true, isOnLift = false, isOnMovingTile = false;
-
-	public GameObject comic;
+	private	bool	pencilSpawnThisLevel = true,
+					shurikenSpawnThisLevel = true,
+					isOnLift = false,
+					isOnMovingTile = false;
 
 	void Start()
 	{
@@ -40,9 +55,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
-		cameraShake = GameObject.FindObjectOfType<CameraShake>();
-		cameraController = GameObject.FindObjectOfType<CameraController> ();
-		gm = GameObject.FindObjectOfType<GameManager> ();
+		cameraShake	=	GameObject.FindObjectOfType<CameraShake>();
+		cameraController	= GameObject.FindObjectOfType<CameraController> ();
+		gm	=	GameObject.FindObjectOfType<GameManager> ();
 
 
 		if (comic != null) {
@@ -304,7 +319,6 @@ public class PlayerMovement : MonoBehaviour {
 
 				pencilSpawnThisLevel = false;
 				shurikenSpawnThisLevel = false;
-				liftSpawnThisLevel = false;
 
 				jumped = true;
 			}
@@ -504,7 +518,7 @@ public class PlayerMovement : MonoBehaviour {
 		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
 	}
 		
-	void spawnRandomVerticalLift(){
+	/*void spawnRandomVerticalLift(){
 		
 		if (Random.value <= liftP 
 			&& !shurikenSpawnThisLevel) {
@@ -513,5 +527,5 @@ public class PlayerMovement : MonoBehaviour {
 			Vector2 v = new Vector2 (Random.Range(cameraController.getXStart(), cameraController.getXBounds()), cameraController.getMinPosition());
 			Instantiate (enemiesPrefab[2], v, Quaternion.identity);
 		}
-	}
+	}*/
 }

@@ -10,11 +10,11 @@ public class FlowerCreation : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("player");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
+		GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<FlowerManager> ().getFlowerSprite ();
 
-		if (Random.value > 0.5)
-			transform.localScale = new Vector2 (1, 1);
-		else
-			transform.localScale = new Vector2 (-1, 1);
+		int side = (Random.value > 0.5) ? 1 : -1;
+
+		transform.localScale = new Vector2 (side, 1);
 	}
 
 	void Update () {

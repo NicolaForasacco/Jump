@@ -6,58 +6,39 @@ using UnityEngine.UI;
 
 public class sliderManager : MonoBehaviour {
 
-	public GameObject[] characters;
-	public GameManager gm;
-	public CameraController cameraController;
+	public	GameObject[]	characters;
+	public	GameManager	gm;
+	public	CameraController	cameraController;
+	public	GameObject	currentCharacter,
+						donutsCostLabel;
 
-	public int currentSelectedCharacter = 0;
+	public	int	currentSelectedCharacter = 0;
 
-	public GameObject currentCharacter;
 
-	GameObject newCurrentCharacter;
+	private	GameObject	newCurrentCharacter;
+	private	PlayerMovement	currentPlayerMovement;
+	private	Text	donutsCost;
+	private	bool	characterSelectionMenuOpen = false;
 
-	PlayerMovement currentPlayerMovement;
 
-	public GameObject donutsCostLabel;
-	public GameObject darkpanel;
-
-	bool characterSelectionMenuOpen = false;
-
-	public void openSelection (){
-		
-		characterSelectionMenuOpen = true;
-	}
-
-	// Use this for initialization
 	public void InstantiateCharacter () {
 		
-		darkpanel.SetActive (false);
 		//donutsCostLabel = GameObject.FindGameObjectWithTag ("DonutsCostLabel");
 		donutsCost = GameObject.FindGameObjectWithTag ("DonutsCost").GetComponent<Text> ();
+		donutsCostLabel.SetActive (false);
 
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
 		currentSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
-
 		currentCharacter = characters [currentSelectedCharacter];
+		newCurrentCharacter = Instantiate (characters [currentSelectedCharacter], new Vector3 (currentCharacter.transform.position.x, 20, 0), Quaternion.identity);
 
-		currentCharacter = Instantiate (characters [currentSelectedCharacter], 
-			new Vector3 (currentCharacter.transform.position.x, 40, 0), 
-			Quaternion.identity);
-		
+		//DestroyObject (currentCharacter.gameObject);
+		cameraController.Start ();
+
+		currentCharacter = newCurrentCharacter;
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 
-		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought()) {
-
-			darkpanel.SetActive (true);
-			donutsCostLabel.SetActive (true);
-			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
-
-		} else {
-			
-			darkpanel.SetActive (false);
-			donutsCostLabel.SetActive (false);
-		}
 	}
 
 	public void goLeft(){
@@ -90,9 +71,6 @@ public class sliderManager : MonoBehaviour {
 			currentPlayerMovement.onJumpButtonUp();
 	}
 
-	// Update is called once per frame
-	void Update () {}
-
 	public void slideCharacterRight(){
 		
 		if (currentSelectedCharacter < characters.Length - 1) {
@@ -111,8 +89,6 @@ public class sliderManager : MonoBehaviour {
 		}
 	}
 
-	Text donutsCost;
-
 	void spawnNewCurrentCharacter(){
 		
 		newCurrentCharacter = Instantiate (characters[currentSelectedCharacter], 
@@ -127,17 +103,21 @@ public class sliderManager : MonoBehaviour {
 
 		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought() && currentCharacter.GetComponent<CostManager> ().cost > 0 ) {
 
+			// rendo il personaggio un po' scuro per far capire che deve essere acquistato
+			currentCharacter.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
+
 			donutsCostLabel.SetActive (true);
-			darkpanel.SetActive (true);
 			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
 
 		} else {
-			
-			darkpanel.SetActive (false);
 			donutsCostLabel.SetActive (false);
 		}
 	}
 
+	public void openSelection (){
+
+		characterSelectionMenuOpen = true;
+	}
 
 	public void selectCurrentCharacter(){
 
@@ -166,5 +146,4 @@ public class sliderManager : MonoBehaviour {
 			gm.startGame ();
 			
 	}
-
 }

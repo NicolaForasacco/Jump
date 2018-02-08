@@ -4,25 +4,40 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour {
 
+	public GameObject[] tilePrefabs,
+						collectablesPrefabs,
+						finishlinesPrefab,
+						animals;
+
+	public Object flowerPrefab;
+	public float tileWidth = 20, lastXPosition;
+
+	public int maxPlatformLength = 1,
+				minPlatformLength = 1,
+				maxPlatformPerLevel = 2,
+				randomRange = 4;
+
+
+
 	private GameObject player;
 
-	public GameObject[] tilePrefabs, collectablesPrefabs, flowersPrefab, finishlinesPrefab, animals;
+	private int lastTileType,
+				levels = 15,
+				maxXRage = 4;
 
-	public float tileWidth = 20;
+	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp;
 
-	public int maxPlatformLength = 1, minPlatformLength = 1, maxPlatformPerLevel = 2, randomRange = 5;
+	private float lastPlatformLength, 
+					randomX, 
+					lastPlatformPosition, 
+					level = 40, 
+					minLevelRange = 40f, 
+					maxLevelRange = 40, 
+					collectableP = 0.7f, 
+					flowerP = 0.8f, 
+					nextFinishLine = 50 * 20;
 
-	public float lastXPosition;
-
-	float lastPlatformLength, randomX, lastPlatformPosition;
-
-	int lastTileType;
-	int levels = 15;
-
-	private float level = 40;
-	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp, collectableP = 0.7f, flowerP = 0.8f;
-
-	bool firstAnimalSpawn = false;
+	private bool firstAnimalSpawn = false;
 
 
 	private void changeParameters(){
@@ -34,9 +49,7 @@ public class SpawnTile : MonoBehaviour {
 
 		//randomRange = 
 	}
-
-	private float nextFinishLine = 50 * 20;
-
+		
 	void spawnNextFinishLine ()
 	{
 		Instantiate (finishlinesPrefab [Random.Range(0,finishlinesPrefab.Length)], new Vector2 (lastXPosition, level), Quaternion.identity);
@@ -76,8 +89,8 @@ public class SpawnTile : MonoBehaviour {
 
 	public void spawnALevelOfPlatforms(){
 
-		if (level >= 20)
-			changeParameters ();
+		/*if (level >= 20)
+			changeParameters ();*/
 
 		spawnPlatform (true);
 
@@ -86,7 +99,7 @@ public class SpawnTile : MonoBehaviour {
 			if(Random.value > 0.3)
 				spawnPlatform (false);
 		
-		level += Random.Range(40f, 40f);
+		level += Random.Range(minLevelRange, maxLevelRange);
 	}
 
 	void setTilePercentage(){
@@ -100,7 +113,13 @@ public class SpawnTile : MonoBehaviour {
 		sevenp = 0.01f;
 		fivep = 0.04f;
 	}
+
 	 
+	void Start(){
+		
+		//maxXRage = randomRange;
+	}
+
 	void spawnPlatform(bool isFirstTileOfThisLevel){
 
 		int tileType = 0;
@@ -142,8 +161,15 @@ public class SpawnTile : MonoBehaviour {
 			
 			if (tileType < 2 || tileType > 5)
 				platformLength = Random.Range (1, 4);
-			
-			randomX = lastPlatformPosition + Random.Range (- randomRange + 1, randomRange) * tileWidth;
+
+			float currentRandomX = Random.Range (-randomRange + 1, randomRange);
+
+			if (randomRange - Mathf.Abs (currentRandomX) < 2 && randomRange > 1)
+				randomRange -= 1;
+			else 
+				randomRange = (randomRange < maxXRage) ? randomRange + 1 : maxXRage;
+
+			randomX = lastPlatformPosition + currentRandomX * tileWidth;
 			lastPlatformPosition = randomX;
 		}
 
@@ -184,6 +210,7 @@ public class SpawnTile : MonoBehaviour {
 		}
 	}
 
+
 	private bool spawnFlowers(Vector3 v, int tileType){
 
 
@@ -191,9 +218,8 @@ public class SpawnTile : MonoBehaviour {
 			
 			v.y = v.y + tileWidth / 2;
 			v.z = -1;
-			
-			int flowerType = Random.Range (0, flowersPrefab.Length);
-			Instantiate (flowersPrefab [flowerType], v, Quaternion.identity);
+
+			Instantiate (flowerPrefab, v, Quaternion.identity);
 
 			return true;
 		}
@@ -229,6 +255,11 @@ public class SpawnTile : MonoBehaviour {
 		}
 
 		return false;
+	}
+
+	public float getAverageX(){
+		
+		return (player.transform.position.x + lastXPosition) / 2;
 	}
 }
 
