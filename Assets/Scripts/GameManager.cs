@@ -98,6 +98,13 @@ public class GameManager : MonoBehaviour {
 		foreground.SetActive (true);
 	}
 
+	public void closeCharacterSelectionMenuShowMenu(){
+
+		menuAnim.SetTrigger ("MenuOn");
+		cameraAnim.SetTrigger ("CameraZoomOn");
+		foreground.SetActive (true);
+	}
+
 
 	public void changeButtonsUse(){
 		useButtons = !useButtons;

@@ -381,14 +381,18 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!dead)
         {
+			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
+
             Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
             Instantiate(deadBodyPrefab, v, Quaternion.identity);
             this.gameObject.SetActive(false);
 
             dead = true;
-            gm.gameEnd();
+			gm.gameEnd();
         }
 	}
+
+
 
 	void OnCollisionEnter2D(Collision2D collision){
 
