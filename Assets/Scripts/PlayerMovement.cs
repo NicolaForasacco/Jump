@@ -416,7 +416,8 @@ public class PlayerMovement : MonoBehaviour {
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().showExplosion ();
 
-			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y)
+			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y &&
+				transform.position.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
 				die ();
 		}
 

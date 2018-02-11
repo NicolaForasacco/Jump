@@ -6,7 +6,6 @@ public class SpawnTile : MonoBehaviour {
 
 	public GameObject[] tilePrefabs,
 						collectablesPrefabs,
-						finishlinesPrefab,
 						animals;
 
 	public Object flowerPrefab;
@@ -34,8 +33,7 @@ public class SpawnTile : MonoBehaviour {
 					minLevelRange = 40f, 
 					maxLevelRange = 40, 
 					collectableP = 0.7f, 
-					flowerP = 0.8f, 
-					nextFinishLine = 50 * 20;
+					flowerP = 0.8f;
 
 	private bool firstAnimalSpawn = false;
 
@@ -49,11 +47,6 @@ public class SpawnTile : MonoBehaviour {
 
 		//randomRange = 
 	}
-		
-	void spawnNextFinishLine ()
-	{
-		Instantiate (finishlinesPrefab [Random.Range(0,finishlinesPrefab.Length)], new Vector2 (lastXPosition, level), Quaternion.identity);
-	}
 
 	void Update () {
 		
@@ -61,16 +54,6 @@ public class SpawnTile : MonoBehaviour {
 			
 			if (player.transform.position.y + 15 * tileWidth > level)
 				spawnMultiplePlatform ();
-
-			if ((player.transform.position.y + 15 * tileWidth) > nextFinishLine) {
-
-				level += 40;
-
-				spawnNextFinishLine ();
-				nextFinishLine += 400 * tileWidth;
-
-				level += 6 * tileWidth;
-			}
 		} else {
 			
 			player = GameObject.FindGameObjectWithTag ("player");

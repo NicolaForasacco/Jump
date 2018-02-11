@@ -146,4 +146,13 @@ public class sliderManager : MonoBehaviour {
 			gm.startGame ();
 			
 	}
+
+	public void close(){
+		int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
+
+		if (oldSelectedCharacter != currentSelectedCharacter) {
+			currentSelectedCharacter = oldSelectedCharacter;
+			spawnNewCurrentCharacter ();
+		}
+	}
 }
