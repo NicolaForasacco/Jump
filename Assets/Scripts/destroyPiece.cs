@@ -6,6 +6,7 @@ public class destroyPiece : MonoBehaviour {
 
 	GameObject player;
 	public float verticalForce = 0, horizontalForce = 0;
+	public float hideColliderAfter = 0.2f;
 
 	void Start () {
 		
@@ -14,7 +15,7 @@ public class destroyPiece : MonoBehaviour {
 		if(GetComponent<Rigidbody2D>() != null)
 			GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 15000, verticalForce * 15000), ForceMode2D.Impulse);
 
-		hideCollider (0.2f);
+		hideCollider (hideColliderAfter);
 	}
 
 	void Update () {

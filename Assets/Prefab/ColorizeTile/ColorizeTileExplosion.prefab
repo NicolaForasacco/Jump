@@ -1745,7 +1745,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1770,7 +1770,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1795,7 +1795,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1820,7 +1820,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1845,7 +1845,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1870,7 +1870,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1895,7 +1895,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1920,7 +1920,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1945,7 +1945,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1970,7 +1970,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1995,7 +1995,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2020,7 +2020,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2045,7 +2045,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2070,7 +2070,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2095,7 +2095,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2120,7 +2120,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2145,7 +2145,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2170,7 +2170,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2195,7 +2195,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2220,7 +2220,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2245,7 +2245,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2270,7 +2270,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2295,7 +2295,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2320,7 +2320,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2345,7 +2345,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2370,7 +2370,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2395,7 +2395,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2420,7 +2420,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2445,7 +2445,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2470,7 +2470,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2495,7 +2495,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2520,7 +2520,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2549,6 +2549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 1
   horizontalForce: 1
+  hideColliderAfter: 0.2
 --- !u!114 &114090709933770882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2562,6 +2563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114109696323313772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2575,6 +2577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114118641464329082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2588,6 +2591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114134266697626486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2601,6 +2605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114149127305597876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2614,6 +2619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114225183784919132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2627,6 +2633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114232324982587646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2640,6 +2647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114429960683922814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2653,6 +2661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114455561157521302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2666,6 +2675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114461417605670244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2679,6 +2689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 1
   horizontalForce: -1
+  hideColliderAfter: 0.2
 --- !u!114 &114474398519913446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2692,6 +2703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114474775141548570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2705,6 +2717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114478471263624508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2718,6 +2731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 1
   horizontalForce: -0.2
+  hideColliderAfter: 0.2
 --- !u!114 &114497182137256984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2731,6 +2745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114504357910992062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2744,6 +2759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114518436213173966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2757,6 +2773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114521288864641752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2770,6 +2787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 1
   horizontalForce: 0.2
+  hideColliderAfter: 0.2
 --- !u!114 &114544292675758484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2783,6 +2801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114559643595199630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2796,6 +2815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: -1
   horizontalForce: 1
+  hideColliderAfter: 0.2
 --- !u!114 &114566965191378262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2809,6 +2829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114583466933228132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2822,6 +2843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: -1
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114624072231786386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2835,6 +2857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: -1
   horizontalForce: -1
+  hideColliderAfter: 0.2
 --- !u!114 &114731953807826568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2848,6 +2871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114777748120576136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2861,6 +2885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114779442434803592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2874,6 +2899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114789567789292462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2887,6 +2913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: -1
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114793870480951944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2900,6 +2927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114815943527348376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2913,6 +2941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114826192715232520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2926,6 +2955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114845866496235996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2939,6 +2969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114855576378580738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2952,6 +2983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!114 &114915199892337902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2965,6 +2997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalForce: 0
   horizontalForce: 0
+  hideColliderAfter: 0.2
 --- !u!212 &212000347092201406
 SpriteRenderer:
   m_ObjectHideFlags: 1
