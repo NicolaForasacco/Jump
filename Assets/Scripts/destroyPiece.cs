@@ -13,7 +13,7 @@ public class destroyPiece : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("player");
 
 		if(GetComponent<Rigidbody2D>() != null)
-			GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 15000, verticalForce * 15000), ForceMode2D.Impulse);
+			GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * 12000, verticalForce * 12000), ForceMode2D.Impulse);
 
 		hideCollider (hideColliderAfter);
 	}

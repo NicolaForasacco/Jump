@@ -130,6 +130,12 @@ public class GameManager : MonoBehaviour {
 			foreground.SetActive (true);
 			menuAnim.SetTrigger ("ControlsOn");
 
+			if (!isOptionsMenuClosed)
+				manageMenuOptions();
+
+			if (!isOptionsMenu2Closed)
+				manageMenuOptions2();
+
 			if(player!= null)
 				player.activate ();
 			else
@@ -138,6 +144,34 @@ public class GameManager : MonoBehaviour {
 			if(player!= null)
 				player.activate ();
 		}
+	}
+
+	public GameObject optionsMenu2;
+
+	bool isOptionsMenu2Closed = true;
+
+	public void manageMenuOptions2(){
+
+		if(isOptionsMenu2Closed)
+			optionsMenu2.SetActive (true);
+		else 
+			optionsMenu2.SetActive (false);
+
+		isOptionsMenu2Closed = !isOptionsMenu2Closed;
+	}
+
+	public GameObject optionsMenu;
+
+	bool isOptionsMenuClosed = true;
+
+	public void manageMenuOptions(){
+
+		if(isOptionsMenuClosed)
+			optionsMenu.SetActive (true);
+		else 
+			optionsMenu.SetActive (false);
+
+		isOptionsMenuClosed = !isOptionsMenuClosed;
 	}
 
 	public void showCharacterSelectionMenu(){
