@@ -10,7 +10,8 @@ public class sliderManager : MonoBehaviour {
 	public	GameManager	gm;
 	public	CameraController	cameraController;
 	public	GameObject	currentCharacter,
-						donutsCostLabel;
+						donutsCostLabel,
+						playButton;
 
 	public	int	currentSelectedCharacter = 0;
 
@@ -19,6 +20,7 @@ public class sliderManager : MonoBehaviour {
 	private	PlayerMovement	currentPlayerMovement;
 	private	Text	donutsCost;
 	private	bool	characterSelectionMenuOpen = false;
+
 
 
 	public void InstantiateCharacter () {
@@ -101,13 +103,20 @@ public class sliderManager : MonoBehaviour {
 		currentCharacter = newCurrentCharacter;
 		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
 
-		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought() && currentCharacter.GetComponent<CostManager> ().cost > 0 ) {
+		if ( !currentCharacter.GetComponent<CostManager> ().hasBeenBought() && currentCharacter.GetComponent<CostManager> ().cost.count > 0 ) {
 
 			// rendo il personaggio un po' scuro per far capire che deve essere acquistato
 			currentCharacter.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
 
 			donutsCostLabel.SetActive (true);
-			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.ToString ();
+			donutsCost.text = currentCharacter.GetComponent<CostManager> ().cost.count.ToString ();
+
+			// se il personaggio non è acquistabile rendo il bottone play scuro altrimenti il bottone chiaro per capire che può essere acquistato
+			if (currentCharacter.GetComponent<CostManager> ().canBeBought ())
+				playButton.GetComponentInChildren<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
+			else
+				playButton.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
+			
 
 		} else {
 			donutsCostLabel.SetActive (false);

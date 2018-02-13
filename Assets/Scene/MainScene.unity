@@ -7288,6 +7288,7 @@ MonoBehaviour:
   cameraController: {fileID: 295262797}
   currentCharacter: {fileID: 0}
   donutsCostLabel: {fileID: 1585364538}
+  playButton: {fileID: 0}
   currentSelectedCharacter: 0
 --- !u!224 &1901187789
 RectTransform:
