@@ -19,7 +19,7 @@ public class destroyPiece : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if(player != null)
 		if (player.transform.position.y - transform.position.y > 200)
 			GameObject.Destroy (this.gameObject);
 	}
