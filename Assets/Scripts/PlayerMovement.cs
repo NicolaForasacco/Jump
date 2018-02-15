@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 	private Rigidbody2D	rb;
 	private GameManager	gm;
 	private Animator	anim;
-	private GameObject	groundDust;
+	//private GameObject	groundDust;
 	private CameraShake	cameraShake;
 	private	CameraController	cameraController;
 
@@ -74,8 +74,15 @@ public class PlayerMovement : MonoBehaviour {
 		horizontalSpeed = 0;
 	}
 
-	public void increasePoint(){
+	public void increaseDonutsPicked(){
 		donutsPicked++;
+	}
+
+	public void increasePizzaPicked(){
+		
+	}
+
+	public void increaseHamburgerPicked(){
 	}
 
 	Vector2 firstPressPos;
@@ -133,8 +140,8 @@ public class PlayerMovement : MonoBehaviour {
 		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
 
 		// non metter questo in start(provare a capire il problema)
-		groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
-		anim = groundDust.GetComponent<Animator>();
+		//groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
+		//anim = groundDust.GetComponent<Animator>();
 
 		active = true;
 	}
@@ -298,11 +305,11 @@ public class PlayerMovement : MonoBehaviour {
 
 			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-			if (horizontalSpeed < 0)
-				groundDust.transform.localScale = new Vector2 (-1, 1);
+			/*if (horizontalSpeed < 0)
+				groundDust.transform.localScale = new Vector2 (-groundDust.transform.localScale.x, groundDust.transform.localScale.y);
 			else if (horizontalSpeed > 0)
-				groundDust.transform.localScale = new Vector2 (1, 1);
-
+				groundDust.transform.localScale = new Vector2 (groundDust.transform.localScale.x, groundDust.transform.localScale.y);
+*/
 
 			/*if (!isJumping && !jumped)
             if (horizontalSpeed == 0)
@@ -356,13 +363,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void landAnim(){
-		anim.SetTrigger ("landing");
+		//anim.SetTrigger ("landing");
 	}
 
     void movingAnim()
     {
 
-		anim.SetTrigger ("moving");
+		//anim.SetTrigger ("moving");
 
         /*anim.SetBool("Idle", false);
         anim.SetBool("Moving", true);
@@ -382,12 +389,12 @@ public class PlayerMovement : MonoBehaviour {
         if (!dead)
         {
 			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
-
+			dead = true;
             Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
             Instantiate(deadBodyPrefab, v, Quaternion.identity);
             this.gameObject.SetActive(false);
 
-            dead = true;
+            
 			gm.gameEnd();
         }
 	}

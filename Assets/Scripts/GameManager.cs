@@ -38,15 +38,34 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("Record", player.currentRecord);
 			record = player.currentRecord;
 		}
+
+		if (Random.value <= 0.5f)
+			showVideoForDonutsPanel ();
+
+		if (Random.value <= 0.5f)
+			showShareForDonutsPanel ();
 	}
+
+	public GameObject videoForDonutsPanel;
+
+	public void showVideoForDonutsPanel(){
+
+		videoForDonutsPanel.SetActive(true);
+	}
+
+	public GameObject shareForDonutsPanel;
+
+	public void showShareForDonutsPanel(){
+
+		shareForDonutsPanel.SetActive(true);
+	}
+
 
 	public void showVideoForDonuts(){
 
 		#if UNITY_ANDROID
 
 
-
-		string body,subject;
 
 		//show video add
 

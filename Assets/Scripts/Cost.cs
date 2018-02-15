@@ -8,7 +8,7 @@ public class Cost  : MonoBehaviour {
 	public objectType type;
 	public bool boughtWithObjects; // se donut o diamanti o qualsiasi altro oggetto
 
-	public enum objectType{ donut, diamond};
+	public enum objectType{ donut,pizza,hamburger};
 
 	public int getCount(){
 		return count;
@@ -20,8 +20,10 @@ public class Cost  : MonoBehaviour {
 		case objectType.donut:
 			return "Donuts";
 
-		case objectType.diamond:
-			return "Diamonds";
+		case objectType.pizza:
+			return "Pizza";
+		case objectType.hamburger:
+			return "Hamburger";
 
 		default:
 			return "";

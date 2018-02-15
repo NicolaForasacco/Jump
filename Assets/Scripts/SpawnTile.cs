@@ -178,17 +178,26 @@ public class SpawnTile : MonoBehaviour {
 		lastXPosition = v2.x;
 	}
 
+	float donutP = 0.8f, pizzaP = 0.1f, hamburgerP = 0.1f;
+
 	private void spawnCollectable(Vector3 v, int tileType){
 		
 		if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 5) {
 
 			if (Random.value <= collectableP) {
 			
-				v.y = v.y + tileWidth - 2;
+				v.y = v.y + tileWidth;
 				v.z = -1;
-				int foodType = Random.Range (0, collectablesPrefabs.Length);
+				float randomP = Random.value;
 
-				Instantiate (collectablesPrefabs [foodType], v, Quaternion.identity);
+
+				if(randomP <=donutP)
+					Instantiate (collectablesPrefabs [0], v, Quaternion.identity);
+				else if (randomP <= donutP + pizzaP)
+					Instantiate (collectablesPrefabs [1], v, Quaternion.identity);
+				else if(randomP <= donutP + pizzaP + hamburgerP)
+					Instantiate (collectablesPrefabs [2], v, Quaternion.identity);
+
 			}
 		}
 	}

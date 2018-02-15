@@ -15,10 +15,13 @@ public class CameraController : MonoBehaviour {
 	public void Start () 
 	{
 		initialSetup ();
+
 	}
 
+	ScreenOrientation previousScreenOrientation;
+
 	void initialSetup(){
-		
+
 		player = GameObject.FindGameObjectWithTag ("player");
 
 		if (player != null) {
@@ -34,6 +37,41 @@ public class CameraController : MonoBehaviour {
 	public void changeRandomBackgroundColor(){
 
 		cameraB.backgroundColor = Random.ColorHSV();
+	}
+	public int minSize = 20,maxSize = 180;
+
+	void Update(){
+
+		if (previousScreenOrientation != Screen.orientation || previousScreenOrientation == null) {
+			
+			Debug.Log (Screen.orientation);
+
+			if (Screen.orientation == ScreenOrientation.Portrait
+			    || Screen.orientation == ScreenOrientation.PortraitUpsideDown) {
+
+				cameraB.orthographic = true;
+				cameraB.orthographicSize = maxSize;
+				Debug.Log (cameraB.orthographicSize);
+
+			} else if (Screen.orientation == ScreenOrientation.LandscapeLeft
+			          || Screen.orientation == ScreenOrientation.LandscapeRight
+			          || Screen.orientation == ScreenOrientation.Landscape) {
+
+				cameraB.orthographic = true;
+				cameraB.orthographicSize = minSize;
+
+			}else if (Screen.orientation == ScreenOrientation.AutoRotation) {
+
+				cameraB.orthographic = true;
+				cameraB.orthographicSize = minSize;
+
+			} else {
+				
+				Debug.Log (Screen.orientation);
+			}
+
+			previousScreenOrientation = Screen.orientation;
+		}
 	}
 		
 	void LateUpdate () 

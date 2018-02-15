@@ -6,6 +6,10 @@ public class FoodController : MonoBehaviour {
 	
 	private CameraController cameraController;
 	public GameObject blink;
+	public objectType type;
+
+	public enum objectType{ donut, pizza, hamburger};
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +29,20 @@ public class FoodController : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("player")) {
 			PlayerMovement pm = other.gameObject.GetComponent<PlayerMovement> ();
-			pm.increasePoint ();
+
+			switch(type){
+			case objectType.donut:
+				pm.increaseDonutsPicked ();
+				break;
+
+			case objectType.pizza:
+				pm.increasePizzaPicked ();
+				break;
+
+			case objectType.hamburger:
+				pm.increaseHamburgerPicked ();
+				break;
+			}
 
 			Instantiate (blink, transform.position, Quaternion.identity);
 

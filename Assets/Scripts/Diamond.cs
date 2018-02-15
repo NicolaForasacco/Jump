@@ -24,7 +24,7 @@ public class Diamond : MonoBehaviour {
 		if (other.gameObject.CompareTag ("player")) {
 		
 			PlayerMovement pm = other.gameObject.GetComponent<PlayerMovement> ();
-			pm.increasePoint ();
+			//pm.increasePoint ();
 
 			Instantiate(blink, transform.position, Quaternion.identity);
 			GameObject.Destroy (this.gameObject);
