@@ -30,9 +30,6 @@ public class GameManager : MonoBehaviour {
 		menuAnim.SetTrigger ("GameOver");
 
 		cameraController.active = false;
-		cameraAnim.SetTrigger ("CameraZoomOff");
-
-
 
 		if (player.currentRecord > record) {
 			PlayerPrefs.SetInt ("Record", player.currentRecord);
@@ -197,14 +194,14 @@ public class GameManager : MonoBehaviour {
 		
 		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
-		cameraAnim.SetTrigger ("CameraZoomCharacter");
+		cameraController.zoomOn ();
 		foreground.SetActive (false);
 	}
 
 	public void closeCharacterSelectionMenu(){
 
 		//menuAnim.SetTrigger ("MenuOn");
-		cameraAnim.SetTrigger ("CameraZoomOn");
+		cameraController.zoomOff();
 		foreground.SetActive (true);
 	}
 
@@ -213,7 +210,7 @@ public class GameManager : MonoBehaviour {
 		sm.close ();
 
 		menuAnim.SetTrigger ("MenuOn");
-		cameraAnim.SetTrigger ("CameraZoomOn");
+		cameraController.zoomOff ();
 		foreground.SetActive (true);
 	}
 

@@ -22,6 +22,7 @@ public class Cost  : MonoBehaviour {
 
 		case objectType.pizza:
 			return "Pizza";
+
 		case objectType.hamburger:
 			return "Hamburger";
 

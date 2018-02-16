@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour {
 					slowSideSpeed,
 					jumpSpeed,
 					enemiesP = 0.05f,
-					pencilP = 0.05f,
-					shurikenP = 0.05f,
-					liftP = 0.05f;
+					pencilP = 0.3f,
+					shurikenP = 0.3f,
+					liftP = 0.3f;
 
 	public	bool 	isJumping = false,
 					jumped = false,
@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private	bool	pencilSpawnThisLevel = true,
 					shurikenSpawnThisLevel = true,
+					liftSpawnThisLevel = true,
 					isOnLift = false,
 					isOnMovingTile = false;
 
@@ -89,7 +90,7 @@ public class PlayerMovement : MonoBehaviour {
 	Vector2 secondPressPos;
 	Vector2 currentSwipe;
 
-	public void Swipe()
+	/*public void Swipe()
 	{
 		if(Input.touches.Length > 0)
 		{
@@ -109,7 +110,7 @@ public class PlayerMovement : MonoBehaviour {
 
 				//normalize the 2d vector
 				currentSwipe.Normalize();
-				/*
+
 				//swipe upwards
 				if(currentSwipe.y > 0  && currentSwipe.x > -0.5f  && currentSwipe.x < 0.5f)
 				{
@@ -119,7 +120,7 @@ public class PlayerMovement : MonoBehaviour {
 				if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
 				{
 					Debug.Log("down swipe");
-				}*/
+				}
 				
 				//swipe left
 				if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
@@ -133,7 +134,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 
 	public void activate(){
 		
@@ -195,7 +196,7 @@ public class PlayerMovement : MonoBehaviour {
 					isJumping = true;
 
 			} else {
-				Swipe ();
+				//Swipe ();
 			}
 		}
 	}
@@ -326,6 +327,7 @@ public class PlayerMovement : MonoBehaviour {
 
 				pencilSpawnThisLevel = false;
 				shurikenSpawnThisLevel = false;
+				liftSpawnThisLevel = false;
 
 				jumped = true;
 			}
@@ -511,8 +513,8 @@ public class PlayerMovement : MonoBehaviour {
 				spawnRandomVerticalShuriken ();
 			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
 				spawnRandomHorizontalPencil ();
-
-			//spawnRandomVerticalLift ();
+			else if (r <= shurikenP + pencilP + liftP && !liftSpawnThisLevel)
+				spawnRandomVerticalLift ();
 		}
 	}
 
@@ -530,14 +532,11 @@ public class PlayerMovement : MonoBehaviour {
 		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
 	}
 		
-	/*void spawnRandomVerticalLift(){
-		
-		if (Random.value <= liftP 
-			&& !shurikenSpawnThisLevel) {
+	void spawnRandomVerticalLift(){
 
-			liftSpawnThisLevel = true;
-			Vector2 v = new Vector2 (Random.Range(cameraController.getXStart(), cameraController.getXBounds()), cameraController.getMinPosition());
-			Instantiate (enemiesPrefab[2], v, Quaternion.identity);
-		}
-	}*/
+		liftSpawnThisLevel = true;
+		Vector2 v = new Vector2 (transform.position.x, cameraController.getMinPosition());
+		Instantiate (enemiesPrefab[2], v, Quaternion.identity);
+		
+	}
 }

@@ -16,7 +16,7 @@ public class ShurikenMovement : MonoBehaviour {
 	public bool side = true;
 
 	void Start(){
-
+		
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 
 	}

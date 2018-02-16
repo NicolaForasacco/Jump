@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	private GameObject player;
 
-	int min;
-	Vector3 offset, v, velocity;
-	Camera cameraB;
-	public bool active = false;
-	public float cameraSlowSpeed = 70;
+	public Color[] backgroundColors;
+	public	bool	active	=	false;
+	public	float	cameraSlowSpeed	=	70,
+					landscapeSize	= 	120f,
+					portraitSize	= 	180f,
+					landscapeSizeZoomOn	= 60f,
+					portraitSizeZoomOn	= 90f;
+
+
+	private	GameObject player;
+	private	Camera cameraB;
+	private	ScreenOrientation previousScreenOrientation;
+	private	Vector3	offset, newCameraPosition, velocity;
+	private int currentColorIndex = 0;
+
 
 	public void Start () 
 	{
 		initialSetup ();
-
 	}
-
-	ScreenOrientation previousScreenOrientation;
 
 	void initialSetup(){
 
@@ -30,45 +36,63 @@ public class CameraController : MonoBehaviour {
 			offset = transform.position - player.transform.position;
 
 			transform.position = player.transform.position + offset;
-			v = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			newCameraPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		}
 	}
 
-	public void changeRandomBackgroundColor(){
 
-		cameraB.backgroundColor = Random.ColorHSV();
+
+	public void changeRandomBackgroundColor(){
+		
+		currentColorIndex++;
+		if (currentColorIndex == backgroundColors.Length)
+			currentColorIndex = 0;
+		
+		cameraB.backgroundColor = backgroundColors[currentColorIndex];
+
 	}
-	public int minSize = 20,maxSize = 180;
+
+	private bool isZoomOn = false;
+
+	public void zoomOn(){
+		
+		isZoomOn = true;
+		updateCameraSize ();
+	}
+
+	public void  zoomOff(){
+		
+		isZoomOn = false;
+		updateCameraSize ();
+	}
+
+	void updateCameraSize(){
+		
+		if (Screen.orientation == ScreenOrientation.Portrait
+		    || Screen.orientation == ScreenOrientation.PortraitUpsideDown) {
+
+			if (!isZoomOn)
+				cameraB.orthographicSize = portraitSize;
+			else
+				cameraB.orthographicSize = portraitSizeZoomOn;
+
+		} else if (Screen.orientation == ScreenOrientation.LandscapeLeft
+		           || Screen.orientation == ScreenOrientation.LandscapeRight
+		           || Screen.orientation == ScreenOrientation.Landscape
+		           || Screen.orientation == ScreenOrientation.AutoRotation) {
+
+			if (!isZoomOn)
+				cameraB.orthographicSize = landscapeSize;
+			else
+				cameraB.orthographicSize = landscapeSizeZoomOn;
+		}
+	}
 
 	void Update(){
 
 		if (previousScreenOrientation != Screen.orientation || previousScreenOrientation == null) {
 			
-			Debug.Log (Screen.orientation);
-
-			if (Screen.orientation == ScreenOrientation.Portrait
-			    || Screen.orientation == ScreenOrientation.PortraitUpsideDown) {
-
-				cameraB.orthographic = true;
-				cameraB.orthographicSize = maxSize;
-				Debug.Log (cameraB.orthographicSize);
-
-			} else if (Screen.orientation == ScreenOrientation.LandscapeLeft
-			          || Screen.orientation == ScreenOrientation.LandscapeRight
-			          || Screen.orientation == ScreenOrientation.Landscape) {
-
-				cameraB.orthographic = true;
-				cameraB.orthographicSize = minSize;
-
-			}else if (Screen.orientation == ScreenOrientation.AutoRotation) {
-
-				cameraB.orthographic = true;
-				cameraB.orthographicSize = minSize;
-
-			} else {
-				
-				Debug.Log (Screen.orientation);
-			}
+			updateCameraSize ();
 
 			previousScreenOrientation = Screen.orientation;
 		}
@@ -80,20 +104,20 @@ public class CameraController : MonoBehaviour {
 			
 			if (player != null) {
 				
-				v.x = player.transform.position.x + offset.x;
-				v.y = transform.position.y + cameraSlowSpeed * Time.deltaTime;
+				newCameraPosition.x = player.transform.position.x + offset.x;
+				newCameraPosition.y = transform.position.y + cameraSlowSpeed * Time.deltaTime;
 
-				if (player.transform.position.y + offset.y >= v.y) {
+				if (player.transform.position.y + offset.y >= newCameraPosition.y) {
 
-					v.y = player.transform.position.y + offset.y;
+					newCameraPosition.y = player.transform.position.y + offset.y;
 
 				}
 
-				v = Vector3.SmoothDamp (transform.position, v, ref velocity, 0.1f);
+				newCameraPosition = Vector3.SmoothDamp (transform.position, newCameraPosition, ref velocity, 0.1f);
 
 				//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
 
-				transform.position = v;
+				transform.position = newCameraPosition;
 			} else {
 				initialSetup ();
 			}

@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1908649257919624
 GameObject:
   m_ObjectHideFlags: 1
@@ -822,6 +822,7 @@ MonoBehaviour:
   enemiesPrefab:
   - {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94, type: 2}
   - {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f, type: 2}
+  - {fileID: 1673884997067744, guid: 29f81e0cf5b91e147895ac866a0cfa2a, type: 2}
   deadBodyPrefab: {fileID: 1854650050600510, guid: 54bcec7e3efc64c4c878c4dc64221261,
     type: 2}
   comic: {fileID: 1178116514026028}
@@ -829,10 +830,10 @@ MonoBehaviour:
   sideSpeed: 170
   slowSideSpeed: 150
   jumpSpeed: 45000
-  enemiesP: 0.5
-  pencilP: 0.5
-  shurikenP: 0.5
-  liftP: 0.05
+  enemiesP: 0.3
+  pencilP: 0.4
+  shurikenP: 0.4
+  liftP: 0.1
   isJumping: 0
   jumped: 0
   active: 0

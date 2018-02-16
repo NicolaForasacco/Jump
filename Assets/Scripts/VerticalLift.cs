@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class VerticalLift : MonoBehaviour {
 
-	public float speed = 10, sideSpeed = 10;
+	public GameObject explosion;
+	public float	speed = 100,
+					sideSpeed = 30,
+					fastSpeed = 200,
+					fastSideSpeed = 40,
+					fastSpeedDuration = 10,
+					instantiateExplosionAfter = 4;
 
-	public bool isOn = true;
-	public bool isFast = false;
-
-	GameObject player;
-	SpawnTile gameManagerSpawnTile;
+	private GameObject player;
+	private SpawnTile gameManagerSpawnTile;
+	private bool	isLiftWorking = true,
+					isFast = false;
 
 	void Start(){
 		
+		Debug.Log ("Lift spawned");
+
 		player = GameObject.FindGameObjectWithTag ("player");
 		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile>();
-
-		StartCoroutine (turnOffLift(7));
-
 	}
 
 	// Update is called once per frame
@@ -26,28 +30,42 @@ public class VerticalLift : MonoBehaviour {
 
 		transform.position += Vector3.up * speed * Time.deltaTime;
 
-		if (player != null)
-			if (player.transform.position.y - transform.position.y > 500)
-				DestroyObject (this.gameObject);
-		
-		if (!isOn)
+		if (isLiftWorking) {
+			if (isFast) {
+
+				//va verso l'ultima tile
+				if (gameManagerSpawnTile.lastXPosition > transform.position.x)
+					transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
+				else
+					transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
+			} else {
+
+				//va verso il giocatore
+				if (player.transform.position.x > transform.position.x)
+					transform.position += Vector3.right * sideSpeed * Time.deltaTime;
+				else
+					transform.position -= Vector3.right * sideSpeed * Time.deltaTime;
+			}
+		}else
 			speed -= 30 * Time.deltaTime;
 
-		if (isFast) {
-			
-			if (gameManagerSpawnTile.lastXPosition > transform.position.x)
-				transform.position += Vector3.right * sideSpeed * Time.deltaTime;
-			else
-				transform.position -= Vector3.right  * sideSpeed * Time.deltaTime;
-		}
+
+		if (player != null)
+		if (isFast && !isLiftWorking )
+			StartCoroutine (destroyObjectAfter(instantiateExplosionAfter));
+		else if (player.transform.position.y - transform.position.y > 300 ||  transform.position.y - player.transform.position.y > 300)
+			DestroyObject (this.gameObject);
+		
 	}
 
-	public void incrementSpeed(){
+
 		
-		if (!isFast) {
-			speed *= 2.5f;
-			isFast = true;
-		}
+	public void incrementSpeed(){
+
+		//un giocatore è saltato sopra il lift
+		speed = fastSpeed;
+		isFast = true;
+		StartCoroutine (turnOffLift(fastSpeedDuration));
 	}
 
 
@@ -56,6 +74,14 @@ public class VerticalLift : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 
 		GetComponent<Animator> ().SetTrigger ("TurnOff");
-		isOn = false;
+		isLiftWorking = false;
+	}
+
+	private IEnumerator destroyObjectAfter(float time){
+
+		yield return new WaitForSeconds(time);
+
+		Instantiate (explosion, transform.position, Quaternion.identity);
+		DestroyObject (this.gameObject);
 	}
 }
