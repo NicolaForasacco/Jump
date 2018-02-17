@@ -10,11 +10,14 @@ public class VolumeButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-		if (volumeStateOn) {
+
+		volumeStateOn = FindObjectOfType<AudioManager> ().getSoundState ();
+
+		if (volumeStateOn)
 			GetComponent<Image> ().sprite = volumeOn;
-			//GetComponent<Button> ().spriteState = volumeOn;
-		}
+		else
+			GetComponent<Image> ().sprite = volumeOff;
+		
 	}
 
 	public void changeVolumeState(){
@@ -22,10 +25,16 @@ public class VolumeButton : MonoBehaviour {
 		volumeStateOn = !volumeStateOn;
 
 		if (volumeStateOn) {
+			
 			GetComponent<Image> ().sprite = volumeOn;
+			FindObjectOfType<AudioManager> ().SetSoundOn ();
+
 			//GetComponent<Button> ().spriteState.pressedSprite = volumeOn;
 		} else {
+			
 			GetComponent<Image> ().sprite = volumeOff;
+			FindObjectOfType<AudioManager> ().SetSoundOff ();
+
 			//GetComponent<Button> ().spriteState.pressedSprite = volumeOff;
 		}
 	}

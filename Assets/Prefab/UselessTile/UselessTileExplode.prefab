@@ -571,6 +571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114206301734668570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -582,6 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114326527998781172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,6 +597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114383226042659640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,6 +610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114393732381084578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -615,6 +623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114492574842606028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -626,6 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114528924058673782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -637,6 +649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114539572646442120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -648,6 +662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114556498283249792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -659,6 +675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!114 &114820981023558578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -670,6 +688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 0
 --- !u!114 &114891446144075698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -681,6 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forcePower: 12000
+  maxRotatingSpeed: 100
 --- !u!212 &212091968690553692
 SpriteRenderer:
   m_ObjectHideFlags: 1

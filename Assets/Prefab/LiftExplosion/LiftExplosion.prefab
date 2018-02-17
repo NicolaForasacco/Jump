@@ -2080,6 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114102246479800354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2092,6 +2093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114142174484902262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2104,6 +2106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114154772119947920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2116,6 +2119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114164876100777630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2128,6 +2132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114244399267479080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2140,6 +2145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114251872371930118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2152,6 +2158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114255854962579470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2164,6 +2171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114273934573873514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2176,6 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114320212010531376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2188,6 +2197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114321963141039292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,6 +2210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114326586996524720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2212,6 +2223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114363613521838162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2224,6 +2236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114433781667599772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2236,6 +2249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114451579774962002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2248,6 +2262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114523012429822656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2260,6 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114524374840761666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2272,6 +2288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114536609131927424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2284,6 +2301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114544405800805110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2296,6 +2314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114546864281625484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2308,6 +2327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114571017976354042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2320,6 +2340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114591522790492868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2332,6 +2353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114625921147668058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2344,6 +2366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114641292585254552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2356,6 +2379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114700635496998310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2368,6 +2392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114706466548114770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2380,6 +2405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114723820805549184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,6 +2418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114727872072769442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2404,6 +2431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114743604303224970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2416,6 +2444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114795479000353642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2428,6 +2457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114817528421059832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2440,6 +2470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114833400216868692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2452,6 +2483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114846794116395480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2464,6 +2496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114881857863575016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2476,6 +2509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114900786962639652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2488,6 +2522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 0
+  maxRotatingSpeed: 0
 --- !u!114 &114920574674661154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2500,6 +2535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114960552467526660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2512,6 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114972262764637400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2524,6 +2561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114977126111444968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2536,6 +2574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!114 &114978295545530470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2548,6 +2587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcePower: 8000
+  maxRotatingSpeed: 100
 --- !u!212 &212007429957405742
 SpriteRenderer:
   m_ObjectHideFlags: 1

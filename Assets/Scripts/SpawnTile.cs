@@ -32,7 +32,7 @@ public class SpawnTile : MonoBehaviour {
 					minLevelRange	=	40f, 
 					maxLevelRange	=	40, 
 					collectableP	=	0.7f, 
-					flowerP	=	0.8f,
+					flowerP	=	0.6f,
 					level	=	40;
 
 	private bool firstAnimalSpawn = false;
@@ -77,7 +77,10 @@ public class SpawnTile : MonoBehaviour {
 			spawnPlatform (false);
 		
 		level += Random.Range(minLevelRange, maxLevelRange);
+		isFirstLiftThisLevel = true;
 	}
+
+	float liftP;
 
 	void setTilePercentage(){
 		
@@ -85,10 +88,11 @@ public class SpawnTile : MonoBehaviour {
 		onep 	=	0.2f;
 		sixp	=	0.15f;
 		twofourp=	0.08f;
-		ninep	=	0.05f;
-		fivep	=	0.04f;
+		ninep	=	0.04f;
+		fivep	=	0.03f;
 		eightp	=	0.02f;
 		sevenp	=	0.01f;
+		liftP   = 	0.02f;
 	}
 
 	 
@@ -96,6 +100,8 @@ public class SpawnTile : MonoBehaviour {
 		
 		//maxXRage = randomRange;
 	}
+
+	bool isFirstLiftThisLevel = true;
 
 	void spawnPlatform(bool isFirstTileOfThisLevel){
 
@@ -120,6 +126,11 @@ public class SpawnTile : MonoBehaviour {
 			tileType = 5;
 		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp + sevenp + fivep + eightp)
 			tileType = 8;
+		else if (randomFloat <= zerop + ninep + onep + sixp + twofourp + sevenp + fivep + eightp + liftP && isFirstLiftThisLevel) {
+			tileType = 10;
+			isFirstLiftThisLevel = false;
+		} else
+			tileType = 0;	
 
 		lastTileType = tileType;
 
@@ -136,7 +147,7 @@ public class SpawnTile : MonoBehaviour {
 			
 		} else {
 			
-			if (tileType < 2 || tileType > 5)
+			if (tileType < 2 || tileType > 5 && tileType != 10)
 				platformLength = Random.Range (1, 4);
 
 			float currentRandomX = Random.Range (-randomRange + 1, randomRange);
@@ -150,7 +161,7 @@ public class SpawnTile : MonoBehaviour {
 			lastPlatformPosition = randomX;
 		}
 
-		if (tileType == 7)
+		if (tileType == 7 || tileType == 10)
 			platformLength = 1;
 		
 		lastPlatformLength = platformLength;
@@ -175,7 +186,7 @@ public class SpawnTile : MonoBehaviour {
 
 	private bool spawnCollectable(Vector3 v, int tileType){
 		
-		if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 5) {
+		if ((tileType < 2 || tileType > 5) && tileType != 7 && tileType != 5 && tileType != 10) {
 
 			if (Random.value <= collectableP) {
 			
@@ -215,18 +226,7 @@ public class SpawnTile : MonoBehaviour {
 
 	private bool spawnAnimal(Vector3 v, int tileType){
 
-		if (tileType == 0 && Random.value <= 0.9f && !firstAnimalSpawn && v.y >= 100) {
-
-			v.y = v.y + tileWidth;
-			v.z = -1;
-			int animalType = Random.Range (0, animals.Length);
-
-			Instantiate (animals[animalType], v, Quaternion.identity);
-			firstAnimalSpawn = true;
-
-			return true;
-
-		}else if (tileType == 0 && Random.value <= 0.05f && v.y >= 100) {
+		if (tileType == 0 && Random.value <= 0.5f && v.y >= 100) {
 
 			v.y = v.y + tileWidth;
 			v.z = -1;

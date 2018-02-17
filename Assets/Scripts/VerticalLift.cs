@@ -18,11 +18,12 @@ public class VerticalLift : MonoBehaviour {
 					isFast = false;
 
 	void Start(){
-		
-		Debug.Log ("Lift spawned");
+
+		Debug.Log ("Lift spawn");
 
 		player = GameObject.FindGameObjectWithTag ("player");
 		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile>();
+		GetComponent<Animator> ().SetTrigger ("TurnOn");
 	}
 
 	// Update is called once per frame
@@ -31,6 +32,7 @@ public class VerticalLift : MonoBehaviour {
 		transform.position += Vector3.up * speed * Time.deltaTime;
 
 		if (isLiftWorking) {
+
 			if (isFast) {
 
 				//va verso l'ultima tile
@@ -39,16 +41,18 @@ public class VerticalLift : MonoBehaviour {
 				else
 					transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
 			} else {
-
-				//va verso il giocatore
+				
+				//va verso il personaggio
 				if (player.transform.position.x > transform.position.x)
-					transform.position += Vector3.right * sideSpeed * Time.deltaTime;
+					transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
 				else
-					transform.position -= Vector3.right * sideSpeed * Time.deltaTime;
+					transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
 			}
-		}else
-			speed -= 30 * Time.deltaTime;
+		} else {
 
+
+			speed -= 30 * Time.deltaTime;
+		}
 
 		if (player != null)
 		if (isFast && !isLiftWorking )

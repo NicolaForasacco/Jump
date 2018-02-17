@@ -14,10 +14,10 @@ public class PlayerMovement : MonoBehaviour {
 	public	float	sideSpeed,
 					slowSideSpeed,
 					jumpSpeed,
-					enemiesP = 0.05f,
-					pencilP = 0.3f,
-					shurikenP = 0.3f,
-					liftP = 0.3f;
+					enemiesP	= 0.05f,
+					shurikenP	= 0.3f,
+					pencilP	= 0.3f,
+					liftP	= 0.3f;
 
 	public	bool 	isJumping = false,
 					jumped = false,
@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour {
 	private Rigidbody2D	rb;
 	private GameManager	gm;
 	private Animator	anim;
-	//private GameObject	groundDust;
 	private CameraShake	cameraShake;
 	private	CameraController	cameraController;
 
@@ -50,9 +49,12 @@ public class PlayerMovement : MonoBehaviour {
 					isOnLift = false,
 					isOnMovingTile = false;
 
+	AudioManager audioManager;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
@@ -471,6 +473,8 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("MovingTile")
 			|| c.CompareTag("RotatingTile")) 
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
+
+
 
 			if (jumped) {
 				cameraShake.startShake ();

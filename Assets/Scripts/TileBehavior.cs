@@ -10,7 +10,12 @@ public class TileBehavior : MonoBehaviour {
 
 	Animator anim;
 
+	AudioManager audioManager;
+
 	void Start () {
+
+		audioManager = GameObject.FindObjectOfType<AudioManager> ();
+
 		rb = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("player");
 		anim = GetComponent<Animator> ();
@@ -28,7 +33,9 @@ public class TileBehavior : MonoBehaviour {
 	}
 
 	public void behave(){
-		
+
+		audioManager.makeSound ();
+
 		switch(this.tag){
 
 		case "CloudTile":

@@ -7,6 +7,10 @@ public class destroyPiece : MonoBehaviour {
 	GameObject player;
 	private float verticalForce = 0, horizontalForce = 0;
 	public int forcePower = 12000;
+
+	public int maxRotatingSpeed = 100;
+	float rotatingSpeed;
+
 	//public float hideColliderAfter = 0.2f;
 
 	void Start () {
@@ -16,6 +20,8 @@ public class destroyPiece : MonoBehaviour {
 		verticalForce = Random.Range (-1f, 1f);
 		horizontalForce = Random.Range (-1f, 1f);
 
+		rotatingSpeed = Random.Range (-maxRotatingSpeed, maxRotatingSpeed);
+
 		if(GetComponent<Rigidbody2D>() != null)
 			GetComponent<Rigidbody2D> ().AddForce(new Vector2(horizontalForce * forcePower, verticalForce * forcePower), ForceMode2D.Impulse);
 
@@ -23,6 +29,9 @@ public class destroyPiece : MonoBehaviour {
 	}
 
 	void Update () {
+		
+		this.transform.Rotate (Vector3.forward * Time.deltaTime * rotatingSpeed, Space.World);
+
 		if(player != null)
 		if (player.transform.position.y - transform.position.y > 200)
 			GameObject.Destroy (this.gameObject);
