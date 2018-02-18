@@ -10,10 +10,12 @@ public class VerticalLift : MonoBehaviour {
 					fastSpeed = 200,
 					fastSideSpeed = 40,
 					fastSpeedDuration = 10,
+					maxDistanceFromPlayer = 300,
 					instantiateExplosionAfter = 4;
 
 	private GameObject player;
 	private SpawnTile gameManagerSpawnTile;
+	private float difference;
 	private bool	isLiftWorking = true,
 					isFast = false;
 
@@ -25,41 +27,53 @@ public class VerticalLift : MonoBehaviour {
 		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile>();
 		GetComponent<Animator> ().SetTrigger ("TurnOn");
 	}
-
-	// Update is called once per frame
+		
 	void Update () {
 
 		transform.position += Vector3.up * speed * Time.deltaTime;
 
 		if (isLiftWorking) {
 
-			if (isFast) {
-
-				//va verso l'ultima tile
-				if (gameManagerSpawnTile.lastXPosition > transform.position.x)
-					transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
-				else
-					transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
-			} else {
-				
-				//va verso il personaggio
-				if (player.transform.position.x > transform.position.x)
-					transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
-				else
-					transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
-			}
+			if (isFast)
+				goTowardsLastTile ();
+			else
+				goTowardsPlayer ();
+			
 		} else {
 
-
+			goTowardsLastTile ();
 			speed -= 30 * Time.deltaTime;
 		}
 
-		if (player != null)
-		if (isFast && !isLiftWorking )
-			StartCoroutine (destroyObjectAfter(instantiateExplosionAfter));
-		else if (player.transform.position.y - transform.position.y > 300 ||  transform.position.y - player.transform.position.y > 300)
-			DestroyObject (this.gameObject);
+		if (player != null) {
+			
+			if (isFast && !isLiftWorking)
+				StartCoroutine (destroyObjectAfter (instantiateExplosionAfter));
+			else if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer ||
+			        transform.position.y - player.transform.position.y > maxDistanceFromPlayer)
+				DestroyObject (this.gameObject);
+		}
+	}
+
+	void goTowardsLastTile(){
 		
+		difference = gameManagerSpawnTile.lastXPosition - transform.position.x;
+
+		if (difference >= fastSideSpeed || difference <= -fastSideSpeed) {
+
+			if(difference > fastSideSpeed)
+				transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
+			else
+				transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
+		}
+	}
+
+	void goTowardsPlayer(){
+		
+		if (player.transform.position.x > transform.position.x)
+			transform.position += Vector3.right * fastSideSpeed * Time.deltaTime;
+		else
+			transform.position -= Vector3.right * fastSideSpeed * Time.deltaTime;
 	}
 
 
@@ -73,7 +87,7 @@ public class VerticalLift : MonoBehaviour {
 	}
 
 
-	private IEnumerator turnOffLift(float time){
+	private IEnumerator turnOffLift(float time = 0){
 
 		yield return new WaitForSeconds(time);
 
@@ -81,7 +95,7 @@ public class VerticalLift : MonoBehaviour {
 		isLiftWorking = false;
 	}
 
-	private IEnumerator destroyObjectAfter(float time){
+	private IEnumerator destroyObjectAfter(float time = 0){
 
 		yield return new WaitForSeconds(time);
 

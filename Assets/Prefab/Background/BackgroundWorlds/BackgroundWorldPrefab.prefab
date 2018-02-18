@@ -53,17 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundWorlds:
-  - {fileID: 21300000, guid: 5d51b5bb8c37f6e4980ec7888e02d759, type: 3}
-  - {fileID: 21300000, guid: cdeab346f06a88042a08544b36c6f4b9, type: 3}
-  - {fileID: 21300000, guid: d7f65a1a56a191a428984d6eaa3ac84f, type: 3}
-  - {fileID: 21300000, guid: f5a8c6ac4407611498f884f52e348a49, type: 3}
-  - {fileID: 21300000, guid: 75b4617488ad57242be417687211b6c6, type: 3}
-  - {fileID: 21300000, guid: e24421dff88df3743ba8a93c00658c24, type: 3}
-  - {fileID: 21300000, guid: b247828cbcf276744bc4a6473a43d74e, type: 3}
-  - {fileID: 21300000, guid: c09b529bc11b2ac429e244dcde4cdbf0, type: 3}
-  - {fileID: 21300000, guid: 5cf89fc2673d1b245ae9059b63b98cf7, type: 3}
-  - {fileID: 21300000, guid: 20509b73509fb9a4792ea9b1baec0b34, type: 3}
-  - {fileID: 21300000, guid: cab80385043eb30488daee6aed537bac, type: 3}
+  - {fileID: 21300000, guid: be4f0ac11aea33c4e97fd27f35b5f2b9, type: 3}
+  - {fileID: 21300000, guid: ec2dea38cc4a50347b3647b9f903cc48, type: 3}
+  - {fileID: 21300000, guid: 68ace18a40da66b418178be18e00c316, type: 3}
 --- !u!212 &212974577650154964
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -106,5 +98,5 @@ SpriteRenderer:
   m_Size: {x: 48, y: 35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class TileBehavior : MonoBehaviour {
 	
-	private GameObject player;
-	private Rigidbody2D rb;
-	public bool isVisited = false;
+	public	GameObject	explosion,
+						liftPrefab;
 
-	Animator anim;
+	public	Sprite pressedTile;
+	public	bool isVisited = false;
+	public	int	maxDistanceFromPlayer = 200;
 
-	AudioManager audioManager;
+	private	GameObject player;
+	private	Rigidbody2D rb;
+	private	Animator anim;
+	private	AudioManager audioManager;
 
 	void Start () {
 
-		audioManager = GameObject.FindObjectOfType<AudioManager> ();
-
 		rb = GetComponent<Rigidbody2D> ();
-		player = GameObject.FindGameObjectWithTag ("player");
 		anim = GetComponent<Animator> ();
+		player = GameObject.FindGameObjectWithTag ("player");
+		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 
 		if(transform.parent == null)
 			transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
@@ -26,11 +29,12 @@ public class TileBehavior : MonoBehaviour {
 
 	void Update () {
 		
-		if (player != null) {
-			if (player.transform.position.y - transform.position.y > 200)
-				DestroyObject (this.gameObject);
-		}
+		if (player != null)
+		if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer)
+			DestroyObject (this.gameObject);
 	}
+
+
 
 	public void behave(){
 
@@ -41,15 +45,36 @@ public class TileBehavior : MonoBehaviour {
 		case "CloudTile":
 			enableGravity(1.2f);
 			break;
+
 		case "BounceTile":
 			anim.SetTrigger ("Bouncing");
 			break;
+
 		case "UselessTile":
 			showExplosion (0.3f);
 			break;
+
 		case "ColorizeTile":
 			anim.SetTrigger ("pressed");
-			showExplosion (0f);
+
+			if (!isVisited) {
+
+				FindObjectOfType<CameraShake> ().startBigShake ();
+				FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
+				showExplosion ();
+			}
+			break;
+
+		case "LiftTile":
+			GetComponent<SpriteRenderer> ().sprite = pressedTile;
+
+			if (!isVisited) {
+				
+				FindObjectOfType<CameraShake> ().startBigShake ();
+				Vector2 liftInitialPosition = new Vector2 (transform.position.x, FindObjectOfType<CameraController> ().getMinPosition ());
+				
+				Instantiate (liftPrefab, liftInitialPosition, Quaternion.identity);
+			}
 			break;
 
 		default:
@@ -59,7 +84,7 @@ public class TileBehavior : MonoBehaviour {
 		isVisited = true;
 	}
 
-	private void enableGravity(float waitFor){
+	private void enableGravity(float waitFor = 0f){
 		
 		if(!isVisited)
 			StartCoroutine (enableTileGravity(waitFor));
@@ -74,9 +99,7 @@ public class TileBehavior : MonoBehaviour {
 		rb.gravityScale = 20;
 	}
 
-	public GameObject explosion;
-
-	private void showExplosion(float time){
+	private void showExplosion(float time = 0f){
 		
 		if(!isVisited)
 			StartCoroutine (showExplosionCoroutine(time));
@@ -87,7 +110,6 @@ public class TileBehavior : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 
 		Instantiate(explosion, transform.position, Quaternion.identity);
-
 		if(this.CompareTag("UselessTile"))
 			GameObject.Destroy (this.gameObject);
 	}

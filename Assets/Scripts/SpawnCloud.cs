@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class SpawnCloud : MonoBehaviour {
 
+	public GameObject 	cloudPrefab,
+						backgroundPrefab,
+						baloonPrefab;
+
+	public float	cloudP = 0.7f,
+					backgroundP = 0.8f;
+
 	private GameObject player;
-
-	public GameObject cloudPrefab, backgroundPrefab, baloonPrefab;
-
 	float lastSpawnPositionY = 0;
 
-	int tileWidth = 20, minXRange = -6, maxXRange = 6, minYRange = 5, maxYRange = 8;
+	int	tileWidth = 20,
+		minXRange = -6,
+		maxXRange = 6,
+		minYRange = 5,
+		maxYRange = 8;
+
 
 	void Start () {
 		
@@ -32,13 +41,13 @@ public class SpawnCloud : MonoBehaviour {
 		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
 	}
 
-	float getRandomSideX(){
+	/*float getRandomSideX(){
 		
 		if(Random.value <= 0.5f)
-			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) - 1 * maxXRange * tileWidth;
+			return ();
 		else
-			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + 1 * maxXRange * tileWidth;
-	}
+			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX());
+	}*/
 
 	float getRandomY(){
 		return lastSpawnPositionY + Random.Range (minYRange, maxYRange) * tileWidth;
@@ -48,13 +57,13 @@ public class SpawnCloud : MonoBehaviour {
 		
 		Vector3 randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
 
-		if (Random.value <= 0.7f)
+		if (Random.value <= cloudP)
 			Instantiate (cloudPrefab, randomPosition, Quaternion.identity);
 		else {
 
-			randomPosition = new Vector3 (getRandomSideX(), getRandomY(), 1);
+			randomPosition = new Vector3 (player.transform.position.x, getRandomY(), 1);
 
-			if (Random.value <= 0.8f)
+			if (Random.value <= backgroundP)
 				Instantiate (backgroundPrefab, randomPosition, Quaternion.identity);
 		}
 

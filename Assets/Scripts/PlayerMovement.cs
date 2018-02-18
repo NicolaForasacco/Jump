@@ -185,9 +185,9 @@ public class PlayerMovement : MonoBehaviour {
 				} else
 					onJumpButtonUp ();
 
-				if (Input.GetKey (KeyCode.A))
+				if (Input.GetAxis("Horizontal") < 0)
 					goLeft ();
-				else if (Input.GetKey (KeyCode.D))
+				else if (Input.GetAxis("Horizontal") > 0)
 					goRight ();
 				else
 					side = -1;
@@ -351,7 +351,7 @@ public class PlayerMovement : MonoBehaviour {
 				transform.SetParent (null);
 		}
 
-		if (collision.gameObject.CompareTag ("LiftTile")) {
+		if (collision.gameObject.CompareTag ("Lift")) {
 
 			isOnLift = false;
 			transform.SetParent (null);
@@ -435,15 +435,10 @@ public class PlayerMovement : MonoBehaviour {
 		if (c.CompareTag ("ColorizeTile")
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
-			if (!c.GetComponent<TileBehavior> ().isVisited) {
-				
-				cameraController.changeRandomBackgroundColor ();
-				cameraShake.startBigShake ();
-				c.GetComponent<TileBehavior> ().behave ();
-			}
+			c.GetComponent<TileBehavior> ().behave ();
 		}
 
-		if ((c.CompareTag ("MovingTile") || c.CompareTag ("LiftTile"))
+		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Lift"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
 
 			isOnMovingTile = true;
@@ -456,7 +451,7 @@ public class PlayerMovement : MonoBehaviour {
 
                 this.transform.SetParent(c.transform);
 
-                if (c.CompareTag("LiftTile")){
+                if (c.CompareTag("Lift")){
                     c.GetComponent<VerticalLift>().incrementSpeed();
                     isOnLift = true;
                 }
@@ -471,10 +466,9 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("CloudTile") 
 			|| c.CompareTag("UselessTile") 
 			|| c.CompareTag("MovingTile")
-			|| c.CompareTag("RotatingTile")) 
+			|| c.CompareTag("RotatingTile")
+			|| c.CompareTag("LiftTile"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
-
-
 
 			if (jumped) {
 				cameraShake.startShake ();
@@ -517,8 +511,6 @@ public class PlayerMovement : MonoBehaviour {
 				spawnRandomVerticalShuriken ();
 			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
 				spawnRandomHorizontalPencil ();
-			else if (r <= shurikenP + pencilP + liftP && !liftSpawnThisLevel)
-				spawnRandomVerticalLift ();
 		}
 	}
 
@@ -534,13 +526,5 @@ public class PlayerMovement : MonoBehaviour {
 		shurikenSpawnThisLevel = true;
 		Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
 		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
-	}
-		
-	void spawnRandomVerticalLift(){
-
-		liftSpawnThisLevel = true;
-		Vector2 v = new Vector2 (transform.position.x, cameraController.getMinPosition());
-		Instantiate (enemiesPrefab[2], v, Quaternion.identity);
-		
 	}
 }

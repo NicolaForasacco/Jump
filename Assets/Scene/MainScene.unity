@@ -782,7 +782,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295262791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: -3}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1824,17 +1824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf0385a0f5495641bd142a9e7afe758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 1054978158330604, guid: 54d1a561315748e47830b987179a41f3, type: 2}
-  - {fileID: 1624925779961050, guid: 5e1371b9c68cde3479e6968d4744442c, type: 2}
-  - {fileID: 1054978158330604, guid: 2c73355ba1502e044a349c6a610d965c, type: 2}
-  - {fileID: 1122039140993570, guid: 1ec1d804d1736e544a2211bb4f2325a8, type: 2}
-  - {fileID: 1346916375844550, guid: a77af72de57ffce479a71abbd77f0762, type: 2}
-  - {fileID: 1825397220059294, guid: da9a2beceba5f3942a14070ec00cbaa1, type: 2}
-  - {fileID: 1624925779961050, guid: 85a76b35f09bf1a4cb6b5aa1316cab3b, type: 2}
-  - {fileID: 1297513007848872, guid: 85ec334e832ef564e950aa2859945da7, type: 2}
-  - {fileID: 1054978158330604, guid: 2e79ba14ed96d1c49bed88a770aedb9c, type: 2}
-  - {fileID: 1763151332436610, guid: c5fa191cfabb05d40b083c7e3f9bddea, type: 2}
   collectablesPrefabs:
   - {fileID: 1314897649320336, guid: 26f4ae4ddf5c9594dae7f804dc721bf7, type: 2}
   - {fileID: 1314897649320336, guid: 17a9888f7c3f3714da7ec55a19ce16f8, type: 2}
@@ -1842,6 +1831,40 @@ MonoBehaviour:
   animals:
   - {fileID: 1701188304188148, guid: 718696ba0076fc14db5e85ee04f79787, type: 2}
   - {fileID: 1038778162623122, guid: a389ff3cf6677e9418012a12f28bed74, type: 2}
+  tilePrefabs:
+  - tile: {fileID: 1054978158330604, guid: 54d1a561315748e47830b987179a41f3, type: 2}
+    probability: 0.45
+    id: 0
+  - tile: {fileID: 1624925779961050, guid: 5e1371b9c68cde3479e6968d4744442c, type: 2}
+    probability: 0.2
+    id: 1
+  - tile: {fileID: 1624925779961050, guid: 85a76b35f09bf1a4cb6b5aa1316cab3b, type: 2}
+    probability: 0.15
+    id: 2
+  - tile: {fileID: 1054978158330604, guid: 2c73355ba1502e044a349c6a610d965c, type: 2}
+    probability: 0.02
+    id: 3
+  - tile: {fileID: 1122039140993570, guid: 1ec1d804d1736e544a2211bb4f2325a8, type: 2}
+    probability: 0.02
+    id: 4
+  - tile: {fileID: 1346916375844550, guid: a77af72de57ffce479a71abbd77f0762, type: 2}
+    probability: 0.02
+    id: 5
+  - tile: {fileID: 1763151332436610, guid: c5fa191cfabb05d40b083c7e3f9bddea, type: 2}
+    probability: 0.04
+    id: 6
+  - tile: {fileID: 1297513007848872, guid: 85ec334e832ef564e950aa2859945da7, type: 2}
+    probability: 0.03
+    id: 7
+  - tile: {fileID: 1825397220059294, guid: da9a2beceba5f3942a14070ec00cbaa1, type: 2}
+    probability: 0.02
+    id: 8
+  - tile: {fileID: 1054978158330604, guid: 2e79ba14ed96d1c49bed88a770aedb9c, type: 2}
+    probability: 0.01
+    id: 9
+  - tile: {fileID: 1969394553931620, guid: f47e4f0c0346ce04b978fefc024cb0e4, type: 2}
+    probability: 0.03
+    id: 10
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
     type: 2}
   tileWidth: 20
@@ -1904,6 +1927,8 @@ MonoBehaviour:
     type: 2}
   baloonPrefab: {fileID: 1836050914822708, guid: 66dec998fbb4c4148ac5663953442bde,
     type: 2}
+  cloudP: 0.7
+  backgroundP: 0.8
 --- !u!1 &860963975
 GameObject:
   m_ObjectHideFlags: 0

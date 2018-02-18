@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 95520420345131044}
   m_Layer: 0
   m_Name: LiftTile
-  m_TagString: LiftTile
+  m_TagString: Lift
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,8 +101,9 @@ MonoBehaviour:
   speed: 100
   sideSpeed: 20
   fastSpeed: 200
-  fastSideSpeed: 40
+  fastSideSpeed: 60
   fastSpeedDuration: 10
+  maxDistanceFromPlayer: 300
   instantiateExplosionAfter: 4
 --- !u!212 &212937905150278634
 SpriteRenderer:

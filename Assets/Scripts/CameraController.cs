@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-
 	public Color[] backgroundColors;
-	public	bool	active	=	false;
-	public	float	cameraSlowSpeed	=	70,
+	public bool active = false;
+	public float	cameraSlowSpeed	=	70,
 					landscapeSize	= 	120f,
 					portraitSize	= 	180f,
 					landscapeSizeZoomOn	= 60f,
@@ -17,8 +16,11 @@ public class CameraController : MonoBehaviour {
 	private	GameObject player;
 	private	Camera cameraB;
 	private	ScreenOrientation previousScreenOrientation;
-	private	Vector3	offset, newCameraPosition, velocity;
 	private int currentColorIndex = 0;
+	private	Vector3	offset,
+					newCameraPosition,
+					velocity;
+
 
 
 	public void Start () 
@@ -36,7 +38,9 @@ public class CameraController : MonoBehaviour {
 			offset = transform.position - player.transform.position;
 
 			transform.position = player.transform.position + offset;
-			newCameraPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			newCameraPosition = new Vector3 (transform.position.x,
+											transform.position.y, 
+											transform.position.z);
 		}
 	}
 
@@ -107,20 +111,17 @@ public class CameraController : MonoBehaviour {
 				newCameraPosition.x = player.transform.position.x + offset.x;
 				newCameraPosition.y = transform.position.y + cameraSlowSpeed * Time.deltaTime;
 
-				if (player.transform.position.y + offset.y >= newCameraPosition.y) {
-
+				if (player.transform.position.y + offset.y >= newCameraPosition.y)
 					newCameraPosition.y = player.transform.position.y + offset.y;
-
-				}
 
 				newCameraPosition = Vector3.SmoothDamp (transform.position, newCameraPosition, ref velocity, 0.1f);
 
 				//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
 
 				transform.position = newCameraPosition;
-			} else {
+			} else
 				initialSetup ();
-			}
+			
 		}
 	}
 
