@@ -26,8 +26,6 @@ public class SpawnTile : MonoBehaviour {
 
 	private Tile lastTileType;
 
-	private float zerop, ninep, onep, sixp, twofourp, sevenp, fivep, eightp;
-
 	private float 	lastPlatformLength, 
 					randomX, 
 					lastPlatformPosition,
@@ -37,7 +35,6 @@ public class SpawnTile : MonoBehaviour {
 					flowerP	=	0.6f,
 					level	=	40;
 
-	private bool firstAnimalSpawn = false;
 
 
 	private void changeParameters(){

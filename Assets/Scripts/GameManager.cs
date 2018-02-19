@@ -7,17 +7,24 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	public Canvas menu;
-
-	public bool useButtons;
-	public Animator cameraAnim;
-
+	public bool useButtons, isFirstPlay = true;
+	public Animator cameraAnim, menuAnim;
 	public CameraController cameraController;
-	public bool isFirstPlay = true;
-
-	public Animator menuAnim;
 	public Text recordText;
+	public Camera cam;
+	public sliderManager sm;
 
-	public GameObject foreground;
+	public GameObject videoForDonutsPanel,
+						shareForDonutsPanel,
+						donutPrizePanel,
+						donutExplosion,
+						foreground,
+						bestText,
+						newBestText;
+
+
+	private PlayerMovement player;
+
 
 	public void gameEnd(){
 
@@ -27,13 +34,22 @@ public class GameManager : MonoBehaviour {
 
 		recordText.text = "Best " + record.ToString ();
 
-		menuAnim.SetTrigger ("GameOver");
-
 		cameraController.active = false;
 
+		menuAnim.SetTrigger ("GameOver");
+
 		if (player.currentRecord > record) {
+
+			newBestText.SetActive (true);
+			bestText.SetActive (false);
+
 			PlayerPrefs.SetInt ("Record", player.currentRecord);
 			record = player.currentRecord;
+		} else {
+			bestText.SetActive (true);
+			newBestText.SetActive (false);
+
+
 		}
 
 		if (Random.value <= 0.5f)
@@ -43,18 +59,21 @@ public class GameManager : MonoBehaviour {
 			showShareForDonutsPanel ();
 	}
 
-	public GameObject videoForDonutsPanel;
 
 	public void showVideoForDonutsPanel(){
-
 		videoForDonutsPanel.SetActive(true);
 	}
 
-	public GameObject shareForDonutsPanel;
-
 	public void showShareForDonutsPanel(){
-
 		shareForDonutsPanel.SetActive(true);
+	}
+
+	public void closeShareForDonutsPanel(){
+		shareForDonutsPanel.SetActive(false);
+	}
+
+	public void closeVideoForDonutsPanel(){
+		videoForDonutsPanel.SetActive(false);
 	}
 
 
@@ -66,7 +85,7 @@ public class GameManager : MonoBehaviour {
 
 		//show video add
 
-
+		closeVideoForDonutsPanel();
 		showDonutPrize();
 
 		#endif
@@ -74,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
 	public void shareForDonuts(){
 
-		#if UNITY_ANDROID
+		/*#if UNITY_ANDROID
 
 	
 
@@ -98,9 +117,12 @@ public class GameManager : MonoBehaviour {
 		currentActivity.Call ("startActivity", intentObject);
 
 
-		showDonutPrize();
 
-		#endif
+
+		#endif*/
+
+		closeShareForDonutsPanel ();
+		showDonutPrize();
 	}
 
 	int donutPrize = 100;
@@ -109,12 +131,20 @@ public class GameManager : MonoBehaviour {
 	{
 
 		PlayerPrefs.SetInt ("Donuts", PlayerPrefs.GetInt("Donuts",0) + donutPrize);
-		throw new System.NotImplementedException ();
+
+
+		donutPrizePanel.SetActive (true);
+		//donutPrizePanel.GetC
+
+		Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
+	}
+
+	public void closeDonutPrizePanel(){
+		donutPrizePanel.SetActive (false);
 	}
 
 
-	PlayerMovement player;
-	public sliderManager sm;
+
 
 	void Start(){
 
