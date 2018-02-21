@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private	bool	pencilSpawnThisLevel = true,
 					shurikenSpawnThisLevel = true,
-					liftSpawnThisLevel = true,
 					isOnLift = false,
 					isOnMovingTile = false;
 
@@ -329,7 +328,6 @@ public class PlayerMovement : MonoBehaviour {
 
 				pencilSpawnThisLevel = false;
 				shurikenSpawnThisLevel = false;
-				liftSpawnThisLevel = false;
 
 				jumped = true;
 			}

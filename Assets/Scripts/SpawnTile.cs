@@ -10,13 +10,12 @@ public class SpawnTile : MonoBehaviour {
 	public Tile[] tilePrefabs;
 
 	public Object flowerPrefab;
-	public float tileWidth = 20, lastXPosition;
+	public float tileWidth = 20, 
+				lastXPosition;
 
-	public int	maxPlatformLength	= 1,
-				minPlatformLength	= 1,
-				maxPlatformPerLevel	= 2,
+	public int	maxPlatformLength = 4,
+				minPlatformLength = 1,
 				randomRange	= 4;
-
 
 
 	private GameObject player;
@@ -29,17 +28,12 @@ public class SpawnTile : MonoBehaviour {
 	private float 	lastPlatformLength, 
 					randomX, 
 					lastPlatformPosition,
-					minLevelRange	=	40f, 
-					maxLevelRange	=	40, 
-					collectableP	=	0.7f, 
-					flowerP	=	0.6f,
-					level	=	40;
-
-
-
-	private void changeParameters(){
-		
-	}
+					minLevelRange =	40f, 
+					maxLevelRange =	40, 
+					collectableP = 0.1f, 
+					flowerP = 0.6f,
+					animalP = 0.5f,
+					level =	40;
 
 	void Update () {
 		
@@ -63,6 +57,10 @@ public class SpawnTile : MonoBehaviour {
 		levels = 2;
 	}
 
+	float twoPlatformOnSameLevelP = 0.8f;
+
+	bool isFirstLiftThisLevel = false;
+
 	public void spawnALevelOfPlatforms(){
 
 		/*if (level >= 20)
@@ -74,37 +72,23 @@ public class SpawnTile : MonoBehaviour {
 		if(lastTileType.id != Tile.TileType.MovingTile1 && 
 			lastTileType.id != Tile.TileType.MovingTile2 &&
 			lastTileType.id != Tile.TileType.MovingTile3)
-		if(Random.value > 0.3)
+		if(Random.value < twoPlatformOnSameLevelP)
 			spawnPlatform (false);
 		
 		level += Random.Range(minLevelRange, maxLevelRange);
 		isFirstLiftThisLevel = true;
+
 	}
 
-	float liftP;
 
-	void setTilePercentage(){
+	public Tile getNextTile(bool isFirstTileOfThisLevel){
 		
-	}
-
-	 
-	void Start(){
-		
-		//maxXRage = randomRange;
-	}
-
-	bool isFirstLiftThisLevel = true;
-
-	void spawnPlatform(bool isFirstTileOfThisLevel){
-
-		Tile tileType = null;
 		float randomFloat = Random.value;
-
-		setTilePercentage ();
+		Tile tileType = null;
 		float currentP = 0;
 
 		for(int i = 0; i < tilePrefabs.Length && tileType == null; i++){
-			
+
 			currentP += tilePrefabs[i].probability;
 
 			if (randomFloat <= currentP) {
@@ -120,13 +104,13 @@ public class SpawnTile : MonoBehaviour {
 					break;
 
 				case Tile.TileType.LiftTile:
-					
+
 					if (isFirstLiftThisLevel) {
 						tileType = tilePrefabs[i];
 						isFirstLiftThisLevel = false;
 					}
 					break;
-					
+
 				default:
 					tileType = tilePrefabs[i];
 					break;
@@ -137,13 +121,21 @@ public class SpawnTile : MonoBehaviour {
 		if (tileType== null)
 			tileType = tilePrefabs[0];
 
+		return tileType;
+	}
+
+	void spawnPlatform(bool isFirstTileOfThisLevel){
+
+		Tile tileType = null;
+
+		tileType = getNextTile(isFirstTileOfThisLevel);
 		lastTileType = tileType;
 
 		int platformLength = 1;
 
 		if (!isFirstTileOfThisLevel) {
 		
-			platformLength = Random.Range (1, 3);
+			platformLength = Random.Range (minPlatformLength, maxPlatformLength - 1);
 
 			if (Random.value > 0.5f)
 				randomX = lastPlatformPosition + lastPlatformLength * tileWidth + Random.Range (1, 3) * tileWidth;
@@ -151,12 +143,8 @@ public class SpawnTile : MonoBehaviour {
 				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
 			
 		} else {
-			
-			if (tileType.id != Tile.TileType.MovingTile1 && 
-				tileType.id != Tile.TileType.MovingTile2 &&
-				tileType.id != Tile.TileType.MovingTile3 &&
-				tileType.id != Tile.TileType.LiftTile)
-				platformLength = Random.Range (1, 4);
+
+			platformLength = Random.Range (minPlatformLength, maxPlatformLength);
 
 			float currentRandomX = Random.Range (-randomRange + 1, randomRange);
 
@@ -168,34 +156,39 @@ public class SpawnTile : MonoBehaviour {
 			randomX = lastPlatformPosition + currentRandomX * tileWidth;
 			lastPlatformPosition = randomX;
 		}
-
-		if (tileType.id == Tile.TileType.LiftTile || 
-			tileType.id == Tile.TileType.ColorizeTile || 
-			tileType.id == Tile.TileType.BounceTile)
+			
+		if (tileType.id == Tile.TileType.ColorizeTile || 
+			tileType.id == Tile.TileType.BounceTile ||
+			tileType.id == Tile.TileType.LiftTile || 
+			tileType.id == Tile.TileType.MovingTile1 ||
+			tileType.id == Tile.TileType.MovingTile2 ||
+			tileType.id == Tile.TileType.MovingTile3)
 			platformLength = 1;
 		
 		lastPlatformLength = platformLength;
 
 
-		Vector2 v2 = new Vector2 (randomX, level);
+		Vector2 tmpPosition = new Vector2 (randomX, level);
 
 		for (int i = 0; i < platformLength; i++) {
 			
-			v2 = new Vector3 (randomX + i * tileWidth, level, 0);
+			tmpPosition = new Vector3 (randomX + i * tileWidth, level, 0);
 
-			Instantiate (tileType.tile, v2, Quaternion.identity);
+			Instantiate (tileType.tile, tmpPosition, Quaternion.identity);
 
-			if(!spawnFlowers (v2, tileType.id))
-			if(!spawnCollectable (v2, tileType.id))
-				spawnAnimal (v2, tileType.id);
+			if(!spawnCollectable (tmpPosition, tileType.id))
+			if(!spawnFlowers (tmpPosition, tileType.id))
+				spawnAnimal (tmpPosition, tileType.id);
 		}
 
-		lastXPosition = v2.x;
+		lastXPosition = tmpPosition.x;
 	}
+
+
 
 	float donutP = 0.9f, pizzaP = 0.05f, hamburgerP = 0.05f;
 
-	private bool spawnCollectable(Vector3 v,  Tile.TileType tileType){
+	private bool spawnCollectable(Vector3 position,  Tile.TileType tileType){
 		
 		if (tileType != Tile.TileType.LiftTile && 
 			tileType != Tile.TileType.SpineTile &&
@@ -206,16 +199,16 @@ public class SpawnTile : MonoBehaviour {
 
 			if (Random.value <= collectableP) {
 			
-				v.y = v.y + tileWidth;
-				v.z = -1;
+				position.y = position.y + tileWidth;
+				position.z = -1;
 				float randomP = Random.value;
 
 				if(randomP <= donutP)
-					Instantiate (collectablesPrefabs [0], v, Quaternion.identity);
+					Instantiate (collectablesPrefabs [0], position, Quaternion.identity);
 				else if (randomP <= donutP + pizzaP)
-					Instantiate (collectablesPrefabs [1], v, Quaternion.identity);
+					Instantiate (collectablesPrefabs [1], position, Quaternion.identity);
 				else if(randomP <= donutP + pizzaP + hamburgerP)
-					Instantiate (collectablesPrefabs [2], v, Quaternion.identity);
+					Instantiate (collectablesPrefabs [2], position, Quaternion.identity);
 
 				return true;
 			}
@@ -224,16 +217,15 @@ public class SpawnTile : MonoBehaviour {
 		return false;
 	}
 
-
-	private bool spawnFlowers(Vector3 v, Tile.TileType tileType){
+	private bool spawnFlowers(Vector3 position, Tile.TileType tileType){
 
 
 		if (tileType == Tile.TileType.NormalTile && Random.value <= flowerP) {
 			
-			v.y = v.y + tileWidth / 2;
-			v.z = -1;
+			position.y = position.y + tileWidth / 2;
+			position.z = -1;
 
-			Instantiate (flowerPrefab, v, Quaternion.identity);
+			Instantiate (flowerPrefab, position, Quaternion.identity);
 
 			return true;
 		}
@@ -241,24 +233,26 @@ public class SpawnTile : MonoBehaviour {
 		return false;
 	}
 
-	private bool spawnAnimal(Vector3 v,  Tile.TileType tileType){
+	private bool spawnAnimal(Vector3 position,  Tile.TileType tileType){
 
-		if (tileType == Tile.TileType.NormalTile && Random.value <= 0.5f && v.y >= 100) {
+		if (tileType == Tile.TileType.NormalTile && Random.value <= animalP && position.y >= 100) {
 
-			v.y = v.y + tileWidth;
-			v.z = -1;
+			position.y = position.y + tileWidth;
+			position.z = -1;
+
 			int animalType = Random.Range (0, animals.Length);
+			int animalNumber = Random.Range (1, 3);
 
-			Instantiate (animals[animalType], v, Quaternion.identity);
-
-			if(Random.value <= 0.7f)
-				Instantiate (animals[animalType], new Vector3(v.x + 4, v.y, v.z), Quaternion.identity);
+			for (int i = 0; i < animalNumber; i++)
+				Instantiate (animals[animalType], new Vector3(position.x + 2*i, position.y, position.z), Quaternion.identity);
 			
+
 			return true;
 		}
 
 		return false;
 	}
+
 
 	public float getAverageX(){
 		

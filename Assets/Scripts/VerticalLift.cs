@@ -16,13 +16,11 @@ public class VerticalLift : MonoBehaviour {
 	private GameObject player;
 	private SpawnTile gameManagerSpawnTile;
 	private float difference;
-	private bool	isLiftWorking = true,
-					isFast = false;
+	private bool isLiftWorking = true,
+				isFast = false;
 
 	void Start(){
-
-		Debug.Log ("Lift spawn");
-
+		
 		player = GameObject.FindGameObjectWithTag ("player");
 		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile>();
 		GetComponent<Animator> ().SetTrigger ("TurnOn");
