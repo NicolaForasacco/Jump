@@ -6,8 +6,8 @@ public class VerticalLift : MonoBehaviour {
 
 	public GameObject explosion;
 	public float	speed = 100,
-					sideSpeed = 30,
 					fastSpeed = 200,
+					sideSpeed = 30,
 					fastSideSpeed = 40,
 					fastSpeedDuration = 10,
 					maxDistanceFromPlayer = 300,
@@ -40,7 +40,7 @@ public class VerticalLift : MonoBehaviour {
 		} else {
 
 			goTowardsLastTile ();
-			speed -= 30 * Time.deltaTime;
+			speed -= fastSpeed/5 * Time.deltaTime;
 		}
 
 		if (player != null) {

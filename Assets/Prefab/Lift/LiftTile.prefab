@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1310988641602668, guid: 98c36217041c9034ebe57127086454bc, type: 2}
-  speed: 100
+  speed: 200
+  fastSpeed: 400
   sideSpeed: 20
-  fastSpeed: 200
   fastSideSpeed: 60
   fastSpeedDuration: 10
   maxDistanceFromPlayer: 300

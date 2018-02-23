@@ -11,11 +11,18 @@ public class destroyPiece : MonoBehaviour {
 	public int maxRotatingSpeed = 100;
 	float rotatingSpeed;
 
+	Camera cameraController;
+
 	//public float hideColliderAfter = 0.2f;
 
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
+
+		if (player == null) {
+			cameraController = GameObject.FindObjectOfType<Camera> ();
+		}
+
 
 		verticalForce = Random.Range (-1f, 1f);
 		horizontalForce = Random.Range (-1f, 1f);
@@ -32,9 +39,14 @@ public class destroyPiece : MonoBehaviour {
 		
 		this.transform.Rotate (Vector3.forward * Time.deltaTime * rotatingSpeed, Space.World);
 
-		if(player != null)
-		if (player.transform.position.y - transform.position.y > 200)
-			GameObject.Destroy (this.gameObject);
+		if (player != null) {
+			if (player.transform.position.y - transform.position.y > 200)
+				GameObject.Destroy (this.gameObject);
+			
+		}else if (cameraController != null) {
+			if (cameraController.transform.position.y - transform.position.y > 200)
+				GameObject.Destroy (this.gameObject);
+		}
 	}
 
 	private void hideCollider(float time){

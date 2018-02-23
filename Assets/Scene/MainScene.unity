@@ -1106,7 +1106,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -627, y: 47}
+  m_AnchoredPosition: {x: -627, y: 47.00006}
   m_SizeDelta: {x: 36, y: 7}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &470594548
@@ -2131,38 +2131,71 @@ MonoBehaviour:
   - {fileID: 1038778162623122, guid: a389ff3cf6677e9418012a12f28bed74, type: 2}
   tilePrefabs:
   - tile: {fileID: 1054978158330604, guid: 54d1a561315748e47830b987179a41f3, type: 2}
-    probability: 0.45
-    id: 0
+    currentProbability: 0.4
+    type: 0
+    changeProbabilityParameter: 0.8
+    minProbability: 0.05
+    maxProbability: 0.6
   - tile: {fileID: 1624925779961050, guid: 5e1371b9c68cde3479e6968d4744442c, type: 2}
-    probability: 0.2
-    id: 1
+    currentProbability: 0.2
+    type: 1
+    changeProbabilityParameter: 1.1
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1624925779961050, guid: 85a76b35f09bf1a4cb6b5aa1316cab3b, type: 2}
-    probability: 0.15
-    id: 2
+    currentProbability: 0.1
+    type: 2
+    changeProbabilityParameter: 1.2
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1054978158330604, guid: 2c73355ba1502e044a349c6a610d965c, type: 2}
-    probability: 0.02
-    id: 3
+    currentProbability: 0.03
+    type: 3
+    changeProbabilityParameter: 1.2
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1122039140993570, guid: 1ec1d804d1736e544a2211bb4f2325a8, type: 2}
-    probability: 0.02
-    id: 4
+    currentProbability: 0.03
+    type: 4
+    changeProbabilityParameter: 1.2
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1346916375844550, guid: a77af72de57ffce479a71abbd77f0762, type: 2}
-    probability: 0.02
-    id: 5
+    currentProbability: 0.03
+    type: 5
+    changeProbabilityParameter: 1.2
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1763151332436610, guid: c5fa191cfabb05d40b083c7e3f9bddea, type: 2}
-    probability: 0.04
-    id: 6
+    currentProbability: 0.05
+    type: 6
+    changeProbabilityParameter: 1.1
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1297513007848872, guid: 85ec334e832ef564e950aa2859945da7, type: 2}
-    probability: 0.03
-    id: 7
+    currentProbability: 0.03
+    type: 7
+    changeProbabilityParameter: 1
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1825397220059294, guid: da9a2beceba5f3942a14070ec00cbaa1, type: 2}
-    probability: 0.02
-    id: 8
+    currentProbability: 0.03
+    type: 8
+    changeProbabilityParameter: 0.9
+    minProbability: 0.01
+    maxProbability: 0.6
   - tile: {fileID: 1054978158330604, guid: 2e79ba14ed96d1c49bed88a770aedb9c, type: 2}
-    probability: 0.01
-    id: 9
+    currentProbability: 0.02
+    type: 9
+    changeProbabilityParameter: 1.1
+    minProbability: 0
+    maxProbability: 0.6
   - tile: {fileID: 1969394553931620, guid: f47e4f0c0346ce04b978fefc024cb0e4, type: 2}
-    probability: 0.03
-    id: 10
+    currentProbability: 0.01
+    type: 10
+    changeProbabilityParameter: 1
+    minProbability: 0
+    maxProbability: 0.6
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
     type: 2}
   tileWidth: 20
