@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 	public bool useButtons, isFirstPlay = true;
 	public Animator cameraAnim, menuAnim;
 	public CameraController cameraController;
-	public Text recordText;
+	public Text recordText, donutText;
 	public Camera cam;
 	public sliderManager sm;
 
@@ -20,14 +20,21 @@ public class GameManager : MonoBehaviour {
 						donutExplosion,
 						foreground,
 						bestText,
-						newBestText;
+						newBestText,
+						donutsPresentsPanel,
+						optionsMenu2,
+						optionsMenu;
 
+
+	bool isOptionsMenu2Closed = true, isOptionsMenuClosed = true;
 
 	private PlayerMovement player;
 
+	int donutPrize = 100;
+
 
 	public void gameEnd(){
-
+		
 		int record = PlayerPrefs.GetInt ("Record", 0);
 
 		PlayerPrefs.SetInt ("Donuts", player.donutsPicked);
@@ -48,34 +55,48 @@ public class GameManager : MonoBehaviour {
 		} else {
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
-
-
 		}
+
+		managePanels ();
+	}
+
+	void managePanels(){
+		
+		//#if UNITY_ANDROID
 
 		if (Random.value <= 0.5f)
 			showVideoForDonutsPanel ();
 
 		if (Random.value <= 0.5f)
 			showShareForDonutsPanel ();
+		
+		//#endif
+
+		manageDailyGift ();
 	}
 
+	void manageDailyGift(){
 
-	public void showVideoForDonutsPanel(){
+		string lastTimeGiftPicked = PlayerPrefs.GetString ("LastTimeGiftPicked", "");
+
+		System.DateTime lastTime;
+
+		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
+
+		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo("") == 0) {
+			donutsPresentsPanel.SetActive(true);
+			PlayerPrefs.SetString ("LastTimeGiftPicked", System.DateTime.Now.ToString());
+		}
+	}
+
+	void showVideoForDonutsPanel(){
 		videoForDonutsPanel.SetActive(true);
 	}
 
-	public void showShareForDonutsPanel(){
+	void showShareForDonutsPanel(){
 		shareForDonutsPanel.SetActive(true);
-	}
-
-	public void closeShareForDonutsPanel(){
-		shareForDonutsPanel.SetActive(false);
-	}
-
-	public void closeVideoForDonutsPanel(){
-		videoForDonutsPanel.SetActive(false);
-	}
-
+  	}
+		
 
 	public void showVideoForDonuts(){
 
@@ -85,7 +106,7 @@ public class GameManager : MonoBehaviour {
 
 		//show video add
 
-		closeVideoForDonutsPanel();
+		videoForDonutsPanel.SetActive(false);
 		showDonutPrize();
 
 		#endif
@@ -93,10 +114,9 @@ public class GameManager : MonoBehaviour {
 
 	public void shareForDonuts(){
 
-		/*#if UNITY_ANDROID
+		#if UNITY_ANDROID
 
-	
-
+		/*
 		string body = "My record in Rage Jump is " + PlayerPrefs.GetInt ("Record", 0) + ". Can you beat my record?", subject = "";
 
 		//Reference of AndroidJavaClass class for intent
@@ -115,40 +135,39 @@ public class GameManager : MonoBehaviour {
 		AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
 		//start the activity by sending the intent data
 		currentActivity.Call ("startActivity", intentObject);
+		*/
 
-
-
-
-		#endif*/
-
-		closeShareForDonutsPanel ();
+		shareForDonutsPanel.SetActive(false);
 		showDonutPrize();
+
+		#endif
 	}
 
-	int donutPrize = 100;
+	public void showDonutGift(){
+
+		donutsPresentsPanel.SetActive(false);
+		showDonutPrize ();
+	}
+
 
 	void showDonutPrize ()
 	{
 
 		PlayerPrefs.SetInt ("Donuts", PlayerPrefs.GetInt("Donuts",0) + donutPrize);
 
-
 		donutPrizePanel.SetActive (true);
-		//donutPrizePanel.GetC
-
 		Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
+
+		donutText.text = PlayerPrefs.GetInt ("Donuts", 0).ToString();
 	}
 
 	public void closeDonutPrizePanel(){
 		donutPrizePanel.SetActive (false);
 	}
-
-
-
+		
 
 	void Start(){
 
-		//int characterSelected = PlayerPrefs.GetInt ("CharacterSelected", 0);
 		sm.InstantiateCharacter();
 
 		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
@@ -192,9 +211,6 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public GameObject optionsMenu2;
-
-	bool isOptionsMenu2Closed = true;
 
 	public void manageMenuOptions2(){
 
@@ -205,10 +221,6 @@ public class GameManager : MonoBehaviour {
 
 		isOptionsMenu2Closed = !isOptionsMenu2Closed;
 	}
-
-	public GameObject optionsMenu;
-
-	bool isOptionsMenuClosed = true;
 
 	public void manageMenuOptions(){
 
@@ -235,7 +247,7 @@ public class GameManager : MonoBehaviour {
 		foreground.SetActive (true);
 	}
 
-	public void closeCharacterSelectionMenuShowMenu(){
+	public void closeCharacterSelectionMenuAndShowMenu(){
 
 		sm.close ();
 
@@ -243,7 +255,6 @@ public class GameManager : MonoBehaviour {
 		cameraController.zoomOff ();
 		foreground.SetActive (true);
 	}
-
 
 	public void changeButtonsUse(){
 		useButtons = !useButtons;

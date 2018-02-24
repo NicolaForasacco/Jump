@@ -46,7 +46,9 @@ public class PlayerMovement : MonoBehaviour {
 	private	bool	pencilSpawnThisLevel = true,
 					shurikenSpawnThisLevel = true,
 					isOnLift = false,
-					isOnMovingTile = false;
+					isOnMovingTile = false,
+					isFirstMovement = true,
+					jumpButtonDown = false;
 
 	AudioManager audioManager;
 
@@ -76,16 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 		horizontalSpeed = 0;
 	}
 
-	public void increaseDonutsPicked(){
-		donutsPicked++;
-	}
 
-	public void increasePizzaPicked(){
-		
-	}
-
-	public void increaseHamburgerPicked(){
-	}
 
 	Vector2 firstPressPos;
 	Vector2 secondPressPos;
@@ -202,16 +195,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	bool jumpButtonDown = false;
-
-	public void showFinishLineMessage(){
-
-		if (comic != null) {
-
-			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getFinishLineMessage ();
-			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
-		}
-	}
 
 	public void showMessage(){
 		
@@ -229,8 +212,7 @@ public class PlayerMovement : MonoBehaviour {
 			comic.GetComponent<Animator> ().SetTrigger ("FadeOut");
 		}
 	}
-
-	bool isFirstMovement = true;
+		
 
 	public void onJumpButtonDown(){
 		
@@ -402,7 +384,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 
-
 	void OnCollisionEnter2D(Collision2D collision){
 
 		GameObject c = collision.gameObject;
@@ -524,5 +505,17 @@ public class PlayerMovement : MonoBehaviour {
 		shurikenSpawnThisLevel = true;
 		Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
 		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
+	}
+
+
+	public void increaseDonutsPicked(){
+		donutsPicked++;
+	}
+
+	public void increasePizzaPicked(){
+
+	}
+
+	public void increaseHamburgerPicked(){
 	}
 }
