@@ -6,27 +6,29 @@ public class CameraController : MonoBehaviour {
 
 	public Color[] backgroundColors;
 	public bool active = false;
-	public float	cameraSlowSpeed	=	70,
-					landscapeSize	= 	120f,
-					portraitSize	= 	180f,
-					landscapeSizeZoomOn	= 60f,
-					portraitSizeZoomOn	= 90f;
+	public float cameraSlowSpeed = 70,
+					landscapeSize = 120f,
+					portraitSize = 180f,
+					landscapeSizeZoomOn = 60f,
+					portraitSizeZoomOn = 90f;
 
 
 	private	GameObject player;
 	private	Camera cameraB;
 	private	ScreenOrientation previousScreenOrientation;
 	private int currentColorIndex = 0;
+	private bool isZoomOn = false;
 	private	Vector3	offset,
 					newCameraPosition,
 					velocity;
-
 
 
 	public void Start () 
 	{
 		initialSetup ();
 	}
+
+	Vector3 initialTransform;
 
 	void initialSetup(){
 
@@ -35,15 +37,13 @@ public class CameraController : MonoBehaviour {
 		if (player != null) {
 			
 			cameraB = GetComponent<Camera> ();
-			offset = transform.position - player.transform.position;
-
-			transform.position = player.transform.position + offset;
+			offset = new Vector3 (0, -20, transform.position.z);
+			initialTransform = transform.position;
 			newCameraPosition = new Vector3 (transform.position.x,
 											transform.position.y, 
 											transform.position.z);
 		}
 	}
-
 
 
 	public void changeRandomBackgroundColor(){
@@ -56,18 +56,21 @@ public class CameraController : MonoBehaviour {
 
 	}
 
-	private bool isZoomOn = false;
 
 	public void zoomOn(){
 		
 		isZoomOn = true;
 		updateCameraSize ();
+
+		if (player != null)
+			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
 	}
 
 	public void  zoomOff(){
 		
 		isZoomOn = false;
 		updateCameraSize ();
+		transform.position = initialTransform;
 	}
 
 	void updateCameraSize(){
@@ -104,8 +107,8 @@ public class CameraController : MonoBehaviour {
 		
 	void LateUpdate () 
 	{
+		
 		if (active) {
-			
 			if (player != null) {
 				
 				newCameraPosition.x = player.transform.position.x + offset.x;
@@ -113,15 +116,12 @@ public class CameraController : MonoBehaviour {
 
 				if (player.transform.position.y + offset.y >= newCameraPosition.y)
 					newCameraPosition.y = player.transform.position.y + offset.y;
-
+				
 				newCameraPosition = Vector3.SmoothDamp (transform.position, newCameraPosition, ref velocity, 0.1f);
-
-				//v.y = (player.transform.position.y + offset.y >= v.y) ? player.transform.position.y + offset.y : v.y;
 
 				transform.position = newCameraPosition;
 			} else
 				initialSetup ();
-			
 		}
 	}
 

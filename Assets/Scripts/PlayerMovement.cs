@@ -467,7 +467,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("SpineTile") 
-			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y )
+			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y)
 			die ();
 
 		if (c.CompareTag ("BounceTile") 

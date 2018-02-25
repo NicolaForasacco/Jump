@@ -73,7 +73,22 @@ public class GameManager : MonoBehaviour {
 		//#endif
 
 		manageDailyGift ();
+		manageChallenges ();
 	}
+
+	void manageChallenges(){
+		
+		/*int lastChallenge = PlayerPrefs.GetInt ("LastChallenge", 0);
+
+		if (lastChallenge != 0) {
+
+			showChallengePanel ();
+
+		}*/
+
+	}
+
+	void showChallengePanel(){}
 
 	void manageDailyGift(){
 
