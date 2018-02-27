@@ -9,7 +9,7 @@ public class VerticalLift : MonoBehaviour {
 					fastSpeed = 200,
 					sideSpeed = 30,
 					fastSideSpeed = 40,
-					fastSpeedDuration = 10,
+					fastSpeedDuration = 5,
 					maxDistanceFromPlayer = 300,
 					instantiateExplosionAfter = 4;
 

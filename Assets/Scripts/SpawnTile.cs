@@ -28,8 +28,8 @@ public class SpawnTile : MonoBehaviour {
 	private float 	lastPlatformLength, 
 					randomX, 
 					lastPlatformPosition,
-					minLevelHeightRange =	40f, 
-					maxLevelHeightRange =	40, 
+					minLevelHeightRange =	45f, 
+					maxLevelHeightRange =	60f, 
 					collectableP = 0.1f, 
 					flowerP = 0.6f,
 					animalP = 0.3f,
@@ -256,7 +256,7 @@ public class SpawnTile : MonoBehaviour {
 
 	private bool spawnAnimal(Vector3 position,  Tile.TileType tileType){
 
-		if (tileType == Tile.TileType.NormalTile && Random.value <= animalP && position.y >= 100) {
+		if (tileType == Tile.TileType.NormalTile && Random.value <= animalP && position.y >= 100 && !player.GetComponent<PlayerMovement>().isOnLift) {
 
 			position.y = position.y + tileWidth;
 			position.z = -1;

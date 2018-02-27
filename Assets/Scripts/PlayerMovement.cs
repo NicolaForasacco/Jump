@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 	public	bool 	isJumping = false,
 					jumped = false,
 					active = false,
-					dead = false;
+					dead = false,
+					isOnLift = false;
 
 	public	int	donutsPicked,
 				currentRecord = 0,
@@ -45,7 +46,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private	bool	pencilSpawnThisLevel = true,
 					shurikenSpawnThisLevel = true,
-					isOnLift = false,
 					isOnMovingTile = false,
 					isFirstMovement = true,
 					jumpButtonDown = false;
@@ -412,7 +412,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (c.CompareTag ("ColorizeTile")
-			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
+			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y) {
 
 			c.GetComponent<TileBehavior> ().behave ();
 		}

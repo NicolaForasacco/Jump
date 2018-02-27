@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour {
 	private	GameObject player;
 	private	Camera cameraB;
 	private	ScreenOrientation previousScreenOrientation;
-	private int currentColorIndex = 0;
+	public int currentColorIndex = 0;
 	private bool isZoomOn = false;
 	private	Vector3	offset,
 					newCameraPosition,

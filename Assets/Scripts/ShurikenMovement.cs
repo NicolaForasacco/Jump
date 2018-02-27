@@ -20,13 +20,13 @@ public class ShurikenMovement : MonoBehaviour {
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 
 	}
+
 	// Update is called once per frame
 	void Update () {
 
 		transform.Rotate (Vector3.forward * rotateSpeed * Time.deltaTime);
 
 		transform.position += Vector3.right * speed * Time.deltaTime;
-
 
 		if (side) {
 			if (right < wide) {
@@ -49,8 +49,8 @@ public class ShurikenMovement : MonoBehaviour {
 			}
 		}
 
-		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () <= transform.position.x) {
+		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () <= transform.position.x)
 			Destroy(this.gameObject);
-		}
+		
 	}
 }

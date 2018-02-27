@@ -102,7 +102,7 @@ MonoBehaviour:
   fastSpeed: 400
   sideSpeed: 20
   fastSideSpeed: 60
-  fastSpeedDuration: 10
+  fastSpeedDuration: 5
   maxDistanceFromPlayer: 300
   instantiateExplosionAfter: 4
 --- !u!212 &212937905150278634
