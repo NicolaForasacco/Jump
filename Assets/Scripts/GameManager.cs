@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour {
 						optionsMenu2,
 						optionsMenu;
 
+	public GameObject[] panel1;
+	public GameObject[] panel2;
+
+
 
 	bool isOptionsMenu2Closed = true, isOptionsMenuClosed = true;
 
@@ -64,16 +68,19 @@ public class GameManager : MonoBehaviour {
 		
 		//#if UNITY_ANDROID
 
-		if (Random.value <= 0.5f)
+		if(Random.value <= 0.5f)
+			panel1 [Random.Range (0, panel1.Length)].SetActive (true);
+
+		/*if (Random.value <= 0.5f)
 			showVideoForDonutsPanel ();
 
 		if (Random.value <= 0.5f)
-			showShareForDonutsPanel ();
+			showShareForDonutsPanel ();*/
 		
 		//#endif
 
 		manageDailyGift ();
-		manageChallenges ();
+		//manageChallenges ();
 	}
 
 	void manageChallenges(){
@@ -104,14 +111,14 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void showVideoForDonutsPanel(){
+	/*void showVideoForDonutsPanel(){
 		videoForDonutsPanel.SetActive(true);
 	}
 
 	void showShareForDonutsPanel(){
 		shareForDonutsPanel.SetActive(true);
   	}
-		
+	*/	
 
 	public void showVideoForDonuts(){
 
@@ -179,7 +186,8 @@ public class GameManager : MonoBehaviour {
 	public void closeDonutPrizePanel(){
 		donutPrizePanel.SetActive (false);
 	}
-		
+
+	public GameObject characterButton;		
 
 	void Start(){
 
@@ -191,6 +199,13 @@ public class GameManager : MonoBehaviour {
 		cameraAnim = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Animator> ();
 
 		menuAnim.SetTrigger ("MenuOn");
+
+		if (sm.existCharacterToBuy ()) {
+			
+			Debug.Log ("There are new characters");
+			characterButton.GetComponent<ButtonBlink> ().blinkActive = true;
+		} else
+			characterButton.GetComponent<ButtonBlink> ().blinkActive = false;
 
 		//deleteAll ();
 	}

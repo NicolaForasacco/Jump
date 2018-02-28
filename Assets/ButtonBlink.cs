@@ -7,15 +7,15 @@ public class ButtonBlink : MonoBehaviour {
 
 	public Sprite normalButton, blinkButton;
 	public float timeBetweenSpriteChange = 0.8f;
+	public bool blinkActive = false;
 
 	Image spriteRenderer;
-	bool blinkActive = false, isNormalButtonOn = true;
+	bool isNormalButtonOn = true;
 	float timeElapsed;
 
 	void Start () {
 		
 		spriteRenderer = GetComponent<Image> ();
-		blinkActive = true;
 	}
 
 	void Update () {

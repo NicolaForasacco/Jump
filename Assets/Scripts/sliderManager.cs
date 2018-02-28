@@ -164,4 +164,14 @@ public class sliderManager : MonoBehaviour {
 			spawnNewCurrentCharacter ();
 		}
 	}
+
+	public bool existCharacterToBuy(){
+
+		foreach(GameObject g in characters){
+			if (g.GetComponent<CostManager> ().canBeBought())
+				return true;
+		}
+
+		return false;
+	}
 }
