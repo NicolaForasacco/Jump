@@ -16,8 +16,9 @@ public class VerticalLift : MonoBehaviour {
 	private GameObject player;
 	private SpawnTile gameManagerSpawnTile;
 	private float difference;
-	private bool isLiftWorking = true,
-				isFast = false;
+	private bool isFast = false;
+
+	public bool isLiftWorking = true;
 
 	void Start(){
 		
@@ -40,7 +41,7 @@ public class VerticalLift : MonoBehaviour {
 		} else {
 
 			goTowardsLastTile ();
-			speed -= fastSpeed/5 * Time.deltaTime;
+			speed -= fastSpeed/1.5f * Time.deltaTime;
 		}
 
 		if (player != null) {

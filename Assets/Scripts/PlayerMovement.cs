@@ -84,6 +84,8 @@ public class PlayerMovement : MonoBehaviour {
 	Vector2 secondPressPos;
 	Vector2 currentSwipe;
 
+	VerticalLift currentLift;
+
 	/*public void Swipe()
 	{
 		if(Input.touches.Length > 0)
@@ -268,7 +270,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (active) {
+		if (active && (!isOnLift || (isOnLift && !currentLift.isLiftWorking ))) {
+			
 			currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 	
 
@@ -334,6 +337,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (collision.gameObject.CompareTag ("Lift")) {
 
 			isOnLift = false;
+			currentLift = null;
 			transform.SetParent (null);
 		}
 	}
@@ -432,7 +436,9 @@ public class PlayerMovement : MonoBehaviour {
 
                 if (c.CompareTag("Lift")){
                     c.GetComponent<VerticalLift>().incrementSpeed();
+
                     isOnLift = true;
+					currentLift = c.GetComponent<VerticalLift> ();
                 }
 
                 isJumping = false;

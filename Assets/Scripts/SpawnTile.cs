@@ -15,7 +15,7 @@ public class SpawnTile : MonoBehaviour {
 
 	public int	maxPlatformLength = 4,
 				minPlatformLength = 1,
-				randomRange	= 4;
+				randomRange	= 3;
 
 
 	private GameObject player;
@@ -28,7 +28,7 @@ public class SpawnTile : MonoBehaviour {
 	private float 	lastPlatformLength, 
 					randomX, 
 					lastPlatformPosition,
-					minLevelHeightRange =	45f, 
+					minLevelHeightRange =	40f, 
 					maxLevelHeightRange =	60f, 
 					collectableP = 0.1f, 
 					flowerP = 0.6f,
@@ -49,6 +49,10 @@ public class SpawnTile : MonoBehaviour {
 
 		for (int i = 0; i < tilePrefabs.Length; i++)
 			tilePrefabs [i].changeProbability ();
+
+		if (minLevelHeightRange * 1.05f <= maxLevelHeightRange) {
+			minLevelHeightRange *= 1.05f;
+		}
 	}
 
 	void Update () {
@@ -91,7 +95,7 @@ public class SpawnTile : MonoBehaviour {
 		if(Random.value < twoPlatformOnSameLevelP)
 			spawnPlatform (false);
 		
-		currentLevelHeight += Random.Range(minLevelHeightRange, maxLevelHeightRange);
+		currentLevelHeight += minLevelHeightRange;//Random.Range(minLevelHeightRange, maxLevelHeightRange);
 		isFirstLiftThisLevel = true;
 
 	}
