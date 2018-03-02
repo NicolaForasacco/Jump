@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject videoForDonutsPanel,
 						shareForDonutsPanel,
+						donutsPresentsPanel,
+	likeForDonutsPanel,
 						donutPrizePanel,
 						donutExplosion,
 						foreground,
 						bestText,
 						newBestText,
-						donutsPresentsPanel,
 						optionsMenu2,
 						optionsMenu;
 
@@ -68,8 +69,12 @@ public class GameManager : MonoBehaviour {
 		
 		//#if UNITY_ANDROID
 
-		if(Random.value <= 0.5f)
-			panel1 [Random.Range (0, panel1.Length)].SetActive (true);
+		manageVideoForDonutsPanel ();
+		manageDailyGiftPanel ();
+
+		if(!manageshareForDonutsPanel ())
+			manageLikeFonDonutsPanel ();
+		
 
 		/*if (Random.value <= 0.5f)
 			showVideoForDonutsPanel ();
@@ -79,11 +84,11 @@ public class GameManager : MonoBehaviour {
 		
 		//#endif
 
-		manageDailyGift ();
+
 		//manageChallenges ();
 	}
 
-	void manageChallenges(){
+	/*void manageChallenges(){
 		
 		/*int lastChallenge = PlayerPrefs.GetInt ("LastChallenge", 0);
 
@@ -91,13 +96,46 @@ public class GameManager : MonoBehaviour {
 
 			showChallengePanel ();
 
-		}*/
+		}
 
 	}
+	void showChallengePanel(){}*/
 
-	void showChallengePanel(){}
 
-	void manageDailyGift(){
+	bool manageLikeFonDonutsPanel(){
+		
+		if (Random.value <= 0.5f) {
+			likeForDonutsPanel.SetActive (true);
+			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool manageVideoForDonutsPanel(){
+		
+		if (Random.value <= 0.5f) {
+			videoForDonutsPanel.SetActive (true);
+			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool manageshareForDonutsPanel(){
+
+		if (Random.value <= 0.5f) {
+			shareForDonutsPanel.SetActive (true);
+			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool manageDailyGiftPanel(){
 
 		string lastTimeGiftPicked = PlayerPrefs.GetString ("LastTimeGiftPicked", "");
 
@@ -106,10 +144,18 @@ public class GameManager : MonoBehaviour {
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
 		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo("") == 0) {
+			
 			donutsPresentsPanel.SetActive(true);
+			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+
 			PlayerPrefs.SetString ("LastTimeGiftPicked", System.DateTime.Now.ToString());
+			return true;
 		}
+
+		return false;
 	}
+
+
 
 	/*void showVideoForDonutsPanel(){
 		videoForDonutsPanel.SetActive(true);
@@ -165,11 +211,12 @@ public class GameManager : MonoBehaviour {
 		#endif
 	}
 
-	public void showDonutGift(){
+	public void showDonutPresent(){
 
 		donutsPresentsPanel.SetActive(false);
 		showDonutPrize ();
 	}
+
 
 
 	void showDonutPrize ()
