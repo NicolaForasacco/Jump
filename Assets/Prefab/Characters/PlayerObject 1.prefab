@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4746893950552562}
   - component: {fileID: 114910630106759190}
+  - component: {fileID: 114411734657287890}
   m_Layer: 0
   m_Name: PlayerObject 1
   m_TagString: Untagged
@@ -118,6 +119,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &114411734657287890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713889026234570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a7e62e72df9f147a80e2703d8118c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  count: 200
+  type: 0
+  boughtWithObjects: 1
 --- !u!114 &114757261163541270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,13 +153,14 @@ MonoBehaviour:
   slowSideSpeed: 150
   jumpSpeed: 35000
   enemiesP: 0.05
-  pencilP: 0.05
   shurikenP: 0.05
+  pencilP: 0.05
   liftP: 0.05
   isJumping: 0
   jumped: 0
   active: 0
   dead: 0
+  isOnLift: 0
   donutsPicked: 0
   currentRecord: 0
   side: -1
@@ -159,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602421ea9d56d464984f37e491852346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: {fileID: 0}
+  cost: {fileID: 114411734657287890}
   characterId: 2
 --- !u!212 &212100043448677092
 SpriteRenderer:

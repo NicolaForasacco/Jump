@@ -9,6 +9,8 @@ public class BalloonBehaviour : MonoBehaviour {
 	int speed;
 
 	void Start () {
+
+		Debug.Log ("Balloon spawned");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("background").transform);
 		player = GameObject.FindGameObjectWithTag ("player");
 
@@ -16,7 +18,7 @@ public class BalloonBehaviour : MonoBehaviour {
 
 		transform.localScale = (Random.value > 0.5)? new Vector2 (randomScale, randomScale): new Vector2 (-randomScale, randomScale);
 
-		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.8f, 1));
+		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.5f, 0.9f));
 
 		speed = Random.Range (5, 15);
 	}
@@ -25,7 +27,7 @@ public class BalloonBehaviour : MonoBehaviour {
 
 		if (player != null) {
 			
-			if (player.transform.position.y - transform.position.y > 200)
+			if (Mathf.Abs(player.transform.position.y - transform.position.y) > 400)
 				DestroyObject (this.gameObject);
 			else {
 

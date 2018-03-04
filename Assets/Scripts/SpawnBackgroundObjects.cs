@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnCloud : MonoBehaviour {
+public class SpawnBackgroundObjects : MonoBehaviour {
 
 	public GameObject 	cloudPrefab,
-						backgroundPrefab,
+						airplanePrefab,
 						baloonPrefab;
 
-	public float	cloudP = 0.7f,
-					backgroundP = 0.8f;
+	public float	cloudP = 0.7f, 
+					ballonP = 0.5f,
+					airplaneP = 0.5f;
 
 	private GameObject player;
 	float lastSpawnPositionY = 0;
@@ -20,10 +21,12 @@ public class SpawnCloud : MonoBehaviour {
 		minYRange = 5,
 		maxYRange = 8;
 
+	CameraController cameraController;
 
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
+		cameraController	= GameObject.FindObjectOfType<CameraController> ();
 	}
 
 	void Update () {
@@ -41,6 +44,11 @@ public class SpawnCloud : MonoBehaviour {
 		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
 	}
 
+	float getRandomXForPlane(){
+		
+		return (Random.value >= 0.5f) ? cameraController.getXBounds() : cameraController.getXStart();
+	}
+
 	/*float getRandomSideX(){
 		
 		if(Random.value <= 0.5f)
@@ -53,6 +61,8 @@ public class SpawnCloud : MonoBehaviour {
 		return lastSpawnPositionY + Random.Range (minYRange, maxYRange) * tileWidth;
 	}
 
+
+
 	void spawnClouds(){
 		
 		Vector3 randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
@@ -61,10 +71,16 @@ public class SpawnCloud : MonoBehaviour {
 			Instantiate (cloudPrefab, randomPosition, Quaternion.identity);
 		else {
 
-			randomPosition = new Vector3 (player.transform.position.x, getRandomY(), 1);
+			randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
 
-			if (Random.value <= backgroundP)
-				Instantiate (backgroundPrefab, randomPosition, Quaternion.identity);
+			if (Random.value <= ballonP)
+				Instantiate (baloonPrefab, randomPosition, Quaternion.identity);
+			else {
+
+				randomPosition = new Vector3 (getRandomXForPlane(), getRandomY(), 1);
+				if(Random.value <= airplaneP)
+					Instantiate (airplanePrefab, randomPosition, Quaternion.identity);
+			}
 		}
 
 		lastSpawnPositionY = randomPosition.y;
