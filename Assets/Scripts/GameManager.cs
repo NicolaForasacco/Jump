@@ -26,11 +26,6 @@ public class GameManager : MonoBehaviour {
 						optionsMenu2,
 						optionsMenu;
 
-	public GameObject[] panel1;
-	public GameObject[] panel2;
-
-
-
 	bool isOptionsMenu2Closed = true, isOptionsMenuClosed = true;
 
 	private PlayerMovement player;
@@ -209,6 +204,13 @@ public class GameManager : MonoBehaviour {
 		showDonutPrize();
 
 		#endif
+	}
+
+	public void likeForDonuts (){
+
+		likeForDonutsPanel.SetActive (false);
+		Application.OpenURL("market://details?id=" + Application.productName);
+		showDonutPrize ();
 	}
 
 	public void showDonutPresent(){

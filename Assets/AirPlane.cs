@@ -11,9 +11,9 @@ public class AirPlane : MonoBehaviour {
 	GameObject player;
 	Vector3 lastUpdatedPosition, velocity;
 
-	float speedY, speedX, minAlpha = 0.5f, maxAlpha = 0.9f, minXSpeed = 80, maxXSpeed = 200;
+	float speedY, speedX, minAlpha = 0.5f, maxAlpha = 0.9f, minXSpeed = 80, maxXSpeed = 220;
 
-	float minScale = 0.5f, maxScale = 1, maxDistanceFromPlayer = 300;
+	float minScale = 0.5f, maxScale = 0.9f, maxDistanceFromPlayer = 300;
 
 
 	void Start () {
@@ -33,12 +33,7 @@ public class AirPlane : MonoBehaviour {
 
 		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(minAlpha, maxAlpha));
 
-
-
-
-
-
-		speedX = Random.Range (minXSpeed, maxXSpeed) * 4 * side;
+    	speedX = Random.Range (minXSpeed, maxXSpeed) * 4 * side;
 
 		lastUpdatedPosition = transform.position;
 	}
@@ -52,13 +47,12 @@ public class AirPlane : MonoBehaviour {
 
 				DestroyObject (this.gameObject);
 
-			}else {
+			}else if (transform.position.y - player.transform.position.y < 160) {
+					lastUpdatedPosition.x = lastUpdatedPosition.x + speedX * Time.deltaTime;
 
-				lastUpdatedPosition.x = lastUpdatedPosition.x + speedX * Time.deltaTime;
+					lastUpdatedPosition = Vector3.SmoothDamp (transform.position, lastUpdatedPosition, ref velocity, 0.1f);
 
-				lastUpdatedPosition = Vector3.SmoothDamp (transform.position, lastUpdatedPosition, ref velocity, 0.1f);
-
-				transform.position = lastUpdatedPosition;
+					transform.position = lastUpdatedPosition;
 			}
 		}
 	}

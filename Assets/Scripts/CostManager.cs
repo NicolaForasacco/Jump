@@ -41,7 +41,7 @@ public class CostManager : MonoBehaviour {
 	public bool canBeBought(){
 		
 		if (cost != null) {
-			if (cost.boughtWithObjects && cost.getCount () >= PlayerPrefs.GetInt (cost.getType (), 0))
+			if (cost.boughtWithObjects && cost.getCount () <= PlayerPrefs.GetInt (cost.getType (), 0) && !hasBeenBought())
 				return true;
 			else {
 				// guardare se può essere sbloccato per altri motivi

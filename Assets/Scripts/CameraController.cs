@@ -128,12 +128,12 @@ public class CameraController : MonoBehaviour {
 
 	public float getXStart(){
 
-		return transform.position.x - Camera.main.orthographicSize;
+		return transform.position.x - Camera.main.orthographicSize * 1.5f;
 	}
 
 	public float getXBounds(){
 
-		return transform.position.x + Camera.main.orthographicSize;
+		return transform.position.x + Camera.main.orthographicSize * 1.5f;
 	}
 
 	public float getMinPosition(){

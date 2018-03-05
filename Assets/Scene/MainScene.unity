@@ -2147,7 +2147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 839180566}
-        m_MethodName: showDonutGift
+        m_MethodName: showDonutPresent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2231,18 +2231,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770429594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999819, y: 0.9999819, z: 0.9999819}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_Children: []
   m_Father: {fileID: 1911801745}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -324.99997, y: 12}
-  m_SizeDelta: {x: 650, y: 250}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 142}
+  m_SizeDelta: {x: 59, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &770429596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,7 +2270,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: b5aec5a7bb2648b47ac04e50f5654386, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 043808e469470d3488dc1fea06a04732, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2314,7 +2314,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4535399bd13cb1347adc62d6f93b2437, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c377fe58cb1ab1b4186403a4d0e7981c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2504,12 +2504,6 @@ MonoBehaviour:
     minProbability: 0
     maxProbability: 0.6
     type: 9
-  - tile: {fileID: 1969394553931620, guid: f47e4f0c0346ce04b978fefc024cb0e4, type: 2}
-    currentProbability: 0.01
-    changeProbabilityParameter: 1
-    minProbability: 0
-    maxProbability: 0.6
-    type: 10
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
     type: 2}
   tileWidth: 20
@@ -2563,10 +2557,6 @@ MonoBehaviour:
   newBestText: {fileID: 60634066}
   optionsMenu2: {fileID: 1035672095}
   optionsMenu: {fileID: 1034429996}
-  panel1:
-  - {fileID: 147447010}
-  - {fileID: 1475377296}
-  panel2: []
   characterButton: {fileID: 569241200}
 --- !u!114 &839180567
 MonoBehaviour:
@@ -5383,7 +5373,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 839180566}
-        m_MethodName: shareForDonuts
+        m_MethodName: likeForDonuts
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
