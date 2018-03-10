@@ -6,14 +6,13 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public Character ch;
 	public	GameObject[]	enemiesPrefab;
 	public	GameObject	deadBodyPrefab,
 						comic;
 	public	int	cost;
 
-	public	float	sideSpeed,
-					slowSideSpeed,
-					jumpSpeed,
+	public	float	
 					enemiesP	= 0.05f,
 					shurikenP	= 0.3f,
 					pencilP	= 0.3f,
@@ -39,7 +38,10 @@ public class PlayerMovement : MonoBehaviour {
 	private	Text	scoreText,	
 					pointsText;
 
-	private	float	currentSideSpeed,
+	private	float	sideSpeed,
+					slowSideSpeed,
+					jumpSpeed,
+				currentSideSpeed,
 					horizontalSpeed,
 					maxHorizontalSpeed = 1,
 					lastHeight;
@@ -64,11 +66,15 @@ public class PlayerMovement : MonoBehaviour {
 		gm	=	GameObject.FindObjectOfType<GameManager> ();
 
 
-		if (comic != null) {
-			
-			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
-			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
-		}
+
+
+
+		rb.gravityScale = ch.gravityScale;
+		rb.mass = ch.mass;
+		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
+		jumpSpeed = ch.jumpSpeed;
+		sideSpeed = ch.sideSpeed;
+		slowSideSpeed = ch.slowSideSpeed;
 
 
 		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
@@ -139,6 +145,12 @@ public class PlayerMovement : MonoBehaviour {
 		// non metter questo in start(provare a capire il problema)
 		//groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
 		//anim = groundDust.GetComponent<Animator>();
+
+		if (comic != null) {
+
+			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
+			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
+		}
 
 		active = true;
 	}
@@ -523,5 +535,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void increaseHamburgerPicked(){
+	}
+
+	public void disableGravity(){
+
+		rb = GetComponent<Rigidbody2D>();
+		rb.bodyType = RigidbodyType2D.Static;
 	}
 }

@@ -11,13 +11,13 @@ public class AirPlane : MonoBehaviour {
 	GameObject player;
 	Vector3 lastUpdatedPosition, velocity;
 
-	float speedY, speedX, minAlpha = 0.5f, maxAlpha = 0.9f, minXSpeed = 80, maxXSpeed = 220;
+	float speedY, speedX, minAlpha = 0.3f, maxAlpha = 0.95f, minXSpeed = 80, maxXSpeed = 220;
 
-	float minScale = 0.5f, maxScale = 0.9f, maxDistanceFromPlayer = 300;
+	float minScale = 0.2f, maxScale = 0.4f, maxDistanceFromPlayer = 500;
 
 
 	void Start () {
-
+		
 		transform.SetParent (GameObject.FindGameObjectWithTag ("background").transform);
 		player = GameObject.FindGameObjectWithTag ("player");
 
@@ -47,7 +47,7 @@ public class AirPlane : MonoBehaviour {
 
 				DestroyObject (this.gameObject);
 
-			}else if (transform.position.y - player.transform.position.y < 160) {
+			}else if (transform.position.y - player.transform.position.y < 200) {
 					lastUpdatedPosition.x = lastUpdatedPosition.x + speedX * Time.deltaTime;
 
 					lastUpdatedPosition = Vector3.SmoothDamp (transform.position, lastUpdatedPosition, ref velocity, 0.1f);

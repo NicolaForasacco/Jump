@@ -10,7 +10,6 @@ public class BalloonBehaviour : MonoBehaviour {
 
 	void Start () {
 
-		Debug.Log ("Balloon spawned");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("background").transform);
 		player = GameObject.FindGameObjectWithTag ("player");
 

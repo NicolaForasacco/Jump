@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour {
 		if (player != null) {
 			
 			cameraB = GetComponent<Camera> ();
-			offset = new Vector3 (0, -20, transform.position.z);
+			offset = new Vector3 (0, 10, transform.position.z);
 			initialTransform = transform.position;
 			newCameraPosition = new Vector3 (transform.position.x,
 											transform.position.y, 

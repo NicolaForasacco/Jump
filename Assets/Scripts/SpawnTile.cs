@@ -80,10 +80,6 @@ public class SpawnTile : MonoBehaviour {
 		numberOfPlatformLevelSpawnedEachTime = 2;
 	}
 
-
-
-	bool isFirstLiftThisLevel = false;
-
 	public void spawnALevelOfPlatforms(){
 		
 		spawnPlatform (true);
@@ -96,8 +92,6 @@ public class SpawnTile : MonoBehaviour {
 			spawnPlatform (false);
 		
 		currentLevelHeight += minLevelHeightRange;//Random.Range(minLevelHeightRange, maxLevelHeightRange);
-		isFirstLiftThisLevel = true;
-
 	}
 
 	float getCurrentTotalTilesP(){
@@ -129,15 +123,7 @@ public class SpawnTile : MonoBehaviour {
 				case Tile.TileType.MovingTile3:
 
 					if (isFirstTileOfThisLevel)
-						tileType = tilePrefabs[i];
-					break;
-
-				case Tile.TileType.LiftTile:
-
-					if (isFirstLiftThisLevel) {
-						tileType = tilePrefabs[i];
-						isFirstLiftThisLevel = false;
-					}
+						tileType = tilePrefabs [i];
 					break;
 
 				default:
@@ -188,7 +174,6 @@ public class SpawnTile : MonoBehaviour {
 			
 		if (tileType.type == Tile.TileType.ColorizeTile || 
 			tileType.type == Tile.TileType.BounceTile ||
-			tileType.type == Tile.TileType.LiftTile || 
 			tileType.type == Tile.TileType.MovingTile1 ||
 			tileType.type == Tile.TileType.MovingTile2 ||
 			tileType.type == Tile.TileType.MovingTile3)
@@ -233,11 +218,7 @@ public class SpawnTile : MonoBehaviour {
 
 				if(randomP <= donutP)
 					Instantiate (collectablesPrefabs [0], position, Quaternion.identity);
-				else if (randomP <= donutP + pizzaP)
-					Instantiate (collectablesPrefabs [1], position, Quaternion.identity);
-				else if(randomP <= donutP + pizzaP + hamburgerP)
-					Instantiate (collectablesPrefabs [2], position, Quaternion.identity);
-
+			
 				return true;
 		}else
 			return false;

@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject videoForDonutsPanel,
 						shareForDonutsPanel,
 						donutsPresentsPanel,
-	likeForDonutsPanel,
+						likeForDonutsPanel,
 						donutPrizePanel,
+						donutsGiftSoonPanel,
 						donutExplosion,
 						foreground,
 						bestText,
@@ -130,6 +131,8 @@ public class GameManager : MonoBehaviour {
 		return false;
 	}
 
+
+
 	bool manageDailyGiftPanel(){
 
 		string lastTimeGiftPicked = PlayerPrefs.GetString ("LastTimeGiftPicked", "");
@@ -138,13 +141,17 @@ public class GameManager : MonoBehaviour {
 
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
-		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo("") == 0) {
+		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo ("") == 0) {
 			
-			donutsPresentsPanel.SetActive(true);
+			donutsPresentsPanel.SetActive (true);
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 
-			PlayerPrefs.SetString ("LastTimeGiftPicked", System.DateTime.Now.ToString());
+			PlayerPrefs.SetString ("LastTimeGiftPicked", System.DateTime.Now.ToString ());
 			return true;
+		} else {
+
+			if (Random.value <= 0.5f)
+				donutsGiftSoonPanel.SetActive (true);
 		}
 
 		return false;
@@ -248,13 +255,7 @@ public class GameManager : MonoBehaviour {
 		cameraAnim = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Animator> ();
 
 		menuAnim.SetTrigger ("MenuOn");
-
-		if (sm.existCharacterToBuy ()) {
-			
-			Debug.Log ("There are new characters");
-			characterButton.GetComponent<ButtonBlink> ().blinkActive = true;
-		} else
-			characterButton.GetComponent<ButtonBlink> ().blinkActive = false;
+		characterButton.GetComponent<ButtonBlink> ().blinkActive = (sm.existCharacterToBuy ()) ? true : false;
 
 		//deleteAll ();
 	}
@@ -324,6 +325,7 @@ public class GameManager : MonoBehaviour {
 		//menuAnim.SetTrigger ("MenuOn");
 		cameraController.zoomOff();
 		foreground.SetActive (true);
+		sm.close ();
 	}
 
 	public void closeCharacterSelectionMenuAndShowMenu(){
