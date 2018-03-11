@@ -7,33 +7,27 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour {
 
 	public Character ch;
-	public	GameObject[]	enemiesPrefab;
-	public	GameObject	deadBodyPrefab,
-						comic;
-	public	int	cost;
+	public GameObject deadBodyPrefab, comic;
 
-	public	float	
-					enemiesP	= 0.05f,
-					shurikenP	= 0.3f,
-					pencilP	= 0.3f,
-					liftP	= 0.3f;
+	public bool	isJumping = false,
+				jumped = false,
+				active = false,
+				dead = false,
+				isOnLift = false;
 
-	public	bool 	isJumping = false,
-					jumped = false,
-					active = false,
-					dead = false,
-					isOnLift = false;
-
-	public	int	donutsPicked,
+	public int donutsPicked,
 				currentRecord = 0,
-				side = -1;
+				side = -1,
+				cost;
 
 
-	private Rigidbody2D	rb;
-	private GameManager	gm;
-	private Animator	anim;
+	private Animator animator;
+	private Rigidbody2D	rigidBody;
+	private GameManager	gameManager;
 	private CameraShake	cameraShake;
-	private	CameraController	cameraController;
+	private AudioManager audioManager;
+	private	CameraController cameraController;
+	private SpawnTileManager spawnTileManager;
 
 	private	Text	scoreText,	
 					pointsText;
@@ -41,41 +35,27 @@ public class PlayerMovement : MonoBehaviour {
 	private	float	sideSpeed,
 					slowSideSpeed,
 					jumpSpeed,
-				currentSideSpeed,
+					currentSideSpeed,
 					horizontalSpeed,
 					maxHorizontalSpeed = 1,
 					lastHeight;
 
-	private	bool	pencilSpawnThisLevel = true,
-					shurikenSpawnThisLevel = true,
-					isOnMovingTile = false,
+	private	bool	isOnMovingTile = false,
 					isFirstMovement = true,
 					jumpButtonDown = false;
 
-	AudioManager audioManager;
 
 	void Start()
 	{
-		rb = GetComponent<Rigidbody2D>();
+		rigidBody = GetComponent<Rigidbody2D>();
+		cameraShake	= GameObject.FindObjectOfType<CameraShake>();
+		gameManager = GameObject.FindObjectOfType<GameManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
-
+		spawnTileManager = GameObject.FindObjectOfType<SpawnTileManager> ();
+		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
-		cameraShake	=	GameObject.FindObjectOfType<CameraShake>();
-		cameraController	= GameObject.FindObjectOfType<CameraController> ();
-		gm	=	GameObject.FindObjectOfType<GameManager> ();
-
-
-
-
-
-		rb.gravityScale = ch.gravityScale;
-		rb.mass = ch.mass;
-		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
-		jumpSpeed = ch.jumpSpeed;
-		sideSpeed = ch.sideSpeed;
-		slowSideSpeed = ch.slowSideSpeed;
-
+		initializeCharacterParameters ();
 
 		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
 		pointsText.text = donutsPicked.ToString ();
@@ -84,60 +64,16 @@ public class PlayerMovement : MonoBehaviour {
 		horizontalSpeed = 0;
 	}
 
+	private void initializeCharacterParameters(){
 
-
-	Vector2 firstPressPos;
-	Vector2 secondPressPos;
-	Vector2 currentSwipe;
-
-	VerticalLift currentLift;
-
-	/*public void Swipe()
-	{
-		if(Input.touches.Length > 0)
-		{
-			Touch t = Input.GetTouch(0);
-			if(t.phase == TouchPhase.Began)
-			{
-				//save began touch 2d point
-				firstPressPos = new Vector2(t.position.x,t.position.y);
-			}
-			if(t.phase == TouchPhase.Ended)
-			{
-				//save ended touch 2d point
-				secondPressPos = new Vector2(t.position.x,t.position.y);
-
-				//create vector from the two points
-				currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-
-				//normalize the 2d vector
-				currentSwipe.Normalize();
-
-				//swipe upwards
-				if(currentSwipe.y > 0  && currentSwipe.x > -0.5f  && currentSwipe.x < 0.5f)
-				{
-					Debug.Log("up swipe");
-				}else 
-				//swipe down
-				if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
-				{
-					Debug.Log("down swipe");
-				}
-				
-				//swipe left
-				if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-					//left = true;
-				} else if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f) {
-					//right = true;
-				} else {
-					if (!isJumping) {
-						isJumping= true;
-					}
-				}
-			}
-		}
-	}*/
-
+		rigidBody.gravityScale = ch.gravityScale;
+		rigidBody.mass = ch.mass;
+		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
+		jumpSpeed = ch.jumpSpeed;
+		sideSpeed = ch.sideSpeed;
+		slowSideSpeed = ch.slowSideSpeed;
+	}
+		
 	public void activate(){
 		
 		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
@@ -156,56 +92,41 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update(){
+		
 		if (active) {
 			
-			useButtons = gm.useButtons;
-			if (transform.position.y * 5 > lastHeight * 5 + 400) {
-
+			if (transform.position.y * 5 > lastHeight * 5 + 400)
 				lastHeight = transform.position.y;
 
+			if (!dead && transform.position.y / 20 > currentRecord) {
+
+				currentRecord = Mathf.FloorToInt (transform.position.y / 20);
+				scoreText.text = currentRecord.ToString ();
 			}
 
-			if (!dead) {
-			
-				if (transform.position.y / 20 > currentRecord) {
-					currentRecord = Mathf.FloorToInt (transform.position.y / 20);
-					scoreText.text = currentRecord.ToString ();
-
-				}
-
-				pointsText.text = donutsPicked.ToString ();
-			}
-
-			if (rb.velocity.y == 0 && jumped) {
+			if (rigidBody.velocity.y == 0 && jumped) {
 				isJumping = false;
 				jumped = false;
 			}
 
+			#if UNITY_EDITOR_WIN
 
-			if (useButtons) {
-			
-				#if UNITY_EDITOR_WIN
+			if (Input.GetButton ("Jump")) {
+				onJumpButtonDown ();
+			} else
+				onJumpButtonUp ();
 
-				if (Input.GetButton ("Jump")) {
-					onJumpButtonDown ();
-				} else
-					onJumpButtonUp ();
+			if (Input.GetAxis("Horizontal") < 0)
+				goLeft ();
+			else if (Input.GetAxis("Horizontal") > 0)
+				goRight ();
+			else
+				side = -1;
+		
+			#endif
 
-				if (Input.GetAxis("Horizontal") < 0)
-					goLeft ();
-				else if (Input.GetAxis("Horizontal") > 0)
-					goRight ();
-				else
-					side = -1;
-			
-				#endif
-
-				if (jumpButtonDown)
-					isJumping = true;
-
-			} else {
-				//Swipe ();
-			}
+			if (jumpButtonDown)
+				isJumping = true;
 		}
 	}
 
@@ -221,10 +142,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void hideMessage(){
 		
-		if (comic != null) {
-			
+		if (comic != null)
 			comic.GetComponent<Animator> ().SetTrigger ("FadeOut");
-		}
 	}
 		
 
@@ -274,17 +193,15 @@ public class PlayerMovement : MonoBehaviour {
 	public void stopHorizontalSpeed(){
 		side = -1;
 	}
-
-
-	bool useButtons = true;
+		
 	float speed = 0.2f; 
 	float decreaseFactor = 0.1f;
 
 	void FixedUpdate()
 	{
-		if (active && (!isOnLift || (isOnLift && !currentLift.isLiftWorking ))) {
+		if (active) //&& (!isOnLift || (isOnLift && !currentLift.isLiftWorking ))) {
 			
-			currentSideSpeed = (rb.velocity.y == 0) ? sideSpeed : slowSideSpeed;
+			currentSideSpeed = (rigidBody.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 	
 
 			if (horizontalSpeed < maxHorizontalSpeed && side == 1)
@@ -317,14 +234,14 @@ public class PlayerMovement : MonoBehaviour {
                 movingAnim();
 */
 
-			if (isJumping && !jumped && (rb.velocity.y == 0 || isOnMovingTile)) {
+			if (isJumping && !jumped && (rigidBody.velocity.y == 0 || isOnMovingTile)) {
 
 				jumpAnim ();
 
-				rb.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 
-				pencilSpawnThisLevel = false;
-				shurikenSpawnThisLevel = false;
+				spawnTileManager.pencilSpawnThisLevel = false;
+				spawnTileManager.shurikenSpawnThisLevel = false;
 
 				jumped = true;
 			}
@@ -332,7 +249,7 @@ public class PlayerMovement : MonoBehaviour {
 			if (transform.position.y < cameraController.getMinPosition ())
 				die ();
 
-		}
+
 	}
 
 	void OnCollisionExit2D(Collision2D collision){
@@ -349,7 +266,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (collision.gameObject.CompareTag ("Lift")) {
 
 			isOnLift = false;
-			currentLift = null;
 			transform.SetParent (null);
 		}
 	}
@@ -395,7 +311,7 @@ public class PlayerMovement : MonoBehaviour {
             this.gameObject.SetActive(false);
 
             
-			gm.gameEnd();
+			gameManager.gameEnd();
         }
 	}
 
@@ -450,7 +366,6 @@ public class PlayerMovement : MonoBehaviour {
                     c.GetComponent<VerticalLift>().incrementSpeed();
 
                     isOnLift = true;
-					currentLift = c.GetComponent<VerticalLift> ();
                 }
 
                 isJumping = false;
@@ -476,7 +391,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumped = false;
 			idleAnim ();
 
-            spawnEnemies ();
+			spawnTileManager.spawnEnemies ();
 
 			try{
 				c.GetComponent<TileBehavior> ().behave();
@@ -498,48 +413,16 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-		
-	void spawnEnemies(){
-
-		if (Random.value <= enemiesP) {
-			float r = Random.value;
-
-			if (r <= shurikenP && !shurikenSpawnThisLevel)
-				spawnRandomVerticalShuriken ();
-			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
-				spawnRandomHorizontalPencil ();
-		}
-	}
-
-	void spawnRandomHorizontalPencil(){
-
-		pencilSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXBounds(), transform.position.y + 80);
-		Instantiate (enemiesPrefab[1], v, Quaternion.identity);	
-	}
-
-	void spawnRandomVerticalShuriken(){
-
-		shurikenSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXStart(), transform.position.y + 40);
-		Instantiate (enemiesPrefab[0], v, Quaternion.identity);
-	}
-
 
 	public void increaseDonutsPicked(){
+		
 		donutsPicked++;
-	}
-
-	public void increasePizzaPicked(){
-
-	}
-
-	public void increaseHamburgerPicked(){
+		pointsText.text = donutsPicked.ToString ();
 	}
 
 	public void disableGravity(){
 
-		rb = GetComponent<Rigidbody2D>();
-		rb.bodyType = RigidbodyType2D.Static;
+		rigidBody = GetComponent<Rigidbody2D>();
+		rigidBody.bodyType = RigidbodyType2D.Static;
 	}
 }

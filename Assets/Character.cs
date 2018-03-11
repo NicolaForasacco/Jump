@@ -66,12 +66,10 @@ public class Character : ScriptableObject {
 
 	public bool canBeBought(){
 
-		if (cost != null) {
-			if (boughtWithObjects && cost <= PlayerPrefs.GetInt (getType(), 0) && !hasBeenBought())
-				return true;
-			else {
+		if (boughtWithObjects && cost <= PlayerPrefs.GetInt (getType(), 0) && !hasBeenBought())
+			return true;
+		else {
 				// guardare se può essere sbloccato per altri motivi
-			}
 		}
 
 		return false;

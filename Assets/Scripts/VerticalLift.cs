@@ -14,7 +14,7 @@ public class VerticalLift : MonoBehaviour {
 					instantiateExplosionAfter = 4;
 
 	private GameObject player;
-	private SpawnTile gameManagerSpawnTile;
+	private SpawnTileManager gameManagerSpawnTile;
 	private float difference;
 	private bool isFast = false;
 
@@ -23,7 +23,7 @@ public class VerticalLift : MonoBehaviour {
 	void Start(){
 		
 		player = GameObject.FindGameObjectWithTag ("player");
-		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile>();
+		gameManagerSpawnTile = GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager>();
 		GetComponent<Animator> ().SetTrigger ("TurnOn");
 	}
 		

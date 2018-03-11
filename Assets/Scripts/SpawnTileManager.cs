@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnTile : MonoBehaviour {
+public class SpawnTileManager : MonoBehaviour {
 
-	public GameObject[] collectablesPrefabs,
-						animals;
+	public GameObject[] collectablesPrefabs, animals;
+	public GameObject pencilPrefab, shurikenPrefab;
+
+	public CameraController cameraController;
 
 	public Tile[] tilePrefabs;
 
 	public Object flowerPrefab;
+
 	public float tileWidth = 20, 
 				lastXPosition;
 
@@ -18,10 +21,16 @@ public class SpawnTile : MonoBehaviour {
 				randomRange	= 3;
 
 
+	public float enemiesP, shurikenP, pencilP;
+
+	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
+
+
 	private GameObject player;
 
-	private int numberOfPlatformLevelSpawnedEachTime	= 15,
-				maxXRage	= 4;
+	private int numberOfPlatformLevelSpawnedEachTime = 15,
+				maxXRage = 4, 
+				levelIndex = 0;
 
 	private Tile lastTileType;
 
@@ -33,27 +42,12 @@ public class SpawnTile : MonoBehaviour {
 					collectableP = 0.1f, 
 					flowerP = 0.6f,
 					animalP = 0.3f,
+					donutP = 0.9f,
 					currentLevelHeight = 40,
-					twoPlatformOnSameLevelP = 0.8f;
+					twoPlatformOnSameLevelP = 0.8f,
+					probabilityChangeEvery = 800;
 
-	int levelIndex = 0;
 
-	float probabilityChangeEvery = 800;
-
-	void changeProbabilityParameters(){
-
-		Debug.Log ("Probabilities changed at " + currentLevelHeight);
-
-		levelIndex++;
-		probabilityChangeEvery *= 1.5f;
-
-		for (int i = 0; i < tilePrefabs.Length; i++)
-			tilePrefabs [i].changeProbability ();
-
-		if (minLevelHeightRange * 1.05f <= maxLevelHeightRange) {
-			minLevelHeightRange *= 1.05f;
-		}
-	}
 
 	void Update () {
 		
@@ -71,6 +65,22 @@ public class SpawnTile : MonoBehaviour {
 			lastPlatformPosition = player.transform.position.x;
 		}
 	}
+
+	private void changeProbabilityParameters(){
+
+		Debug.Log ("Probabilities changed at " + currentLevelHeight);
+
+		levelIndex++;
+		probabilityChangeEvery *= 1.5f;
+
+		for (int i = 0; i < tilePrefabs.Length; i++)
+			tilePrefabs [i].changeProbability ();
+
+		if (minLevelHeightRange * 1.05f <= maxLevelHeightRange) {
+			minLevelHeightRange *= 1.05f;
+		}
+	}
+
 
 	public void spawnMultiplePlatform(){
 
@@ -94,7 +104,67 @@ public class SpawnTile : MonoBehaviour {
 		currentLevelHeight += minLevelHeightRange;//Random.Range(minLevelHeightRange, maxLevelHeightRange);
 	}
 
-	float getCurrentTotalTilesP(){
+	private void spawnPlatform(bool isFirstTileOfThisLevel){
+
+		Tile tileType = null;
+
+		tileType = getNextTile(isFirstTileOfThisLevel);
+		lastTileType = tileType;
+
+		int platformLength = 1;
+
+		if (!isFirstTileOfThisLevel) {
+
+			platformLength = Random.Range (minPlatformLength, maxPlatformLength - 1);
+
+			if (Random.value > 0.5f)
+				randomX = lastPlatformPosition + lastPlatformLength * tileWidth + Random.Range (1, 3) * tileWidth;
+			else
+				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
+
+		} else {
+
+			platformLength = Random.Range (minPlatformLength, maxPlatformLength);
+
+			float currentRandomX = Random.Range (-randomRange + 1, randomRange);
+
+			if (randomRange - Mathf.Abs (currentRandomX) < 2 && randomRange > 1)
+				randomRange -= 1;
+			else 
+				randomRange = (randomRange < maxXRage) ? randomRange + 1 : maxXRage;
+
+			randomX = lastPlatformPosition + currentRandomX * tileWidth;
+			lastPlatformPosition = randomX;
+		}
+
+		if (tileType.type == Tile.TileType.ColorizeTile || 
+			tileType.type == Tile.TileType.BounceTile ||
+			tileType.type == Tile.TileType.MovingTile1 ||
+			tileType.type == Tile.TileType.MovingTile2 ||
+			tileType.type == Tile.TileType.MovingTile3)
+			platformLength = 1;
+
+		lastPlatformLength = platformLength;
+
+
+		Vector2 tmpPosition = new Vector2 (randomX, currentLevelHeight);
+
+		for (int i = 0; i < platformLength; i++) {
+
+			tmpPosition = new Vector3 (randomX + i * tileWidth, currentLevelHeight, 0);
+
+			Instantiate (tileType.tile, tmpPosition, Quaternion.identity);
+
+			if(!spawnCollectable (tmpPosition, tileType.type))
+			if(!spawnFlowers (tmpPosition, tileType.type))
+				spawnAnimal (tmpPosition, tileType.type);
+		}
+
+		lastXPosition = tmpPosition.x;
+	}
+
+
+	private float getCurrentTotalTilesP(){
 		
 		float totalP = 0;
 
@@ -104,7 +174,7 @@ public class SpawnTile : MonoBehaviour {
 		return totalP;
 	}
 
-	Tile getNextTile(bool isFirstTileOfThisLevel){
+	private Tile getNextTile(bool isFirstTileOfThisLevel){
 
 		float randomFloat = Random.Range (0, getCurrentTotalTilesP());
 		Tile tileType = null;
@@ -139,68 +209,6 @@ public class SpawnTile : MonoBehaviour {
 		return tileType;
 	}
 
-	void spawnPlatform(bool isFirstTileOfThisLevel){
-
-		Tile tileType = null;
-
-		tileType = getNextTile(isFirstTileOfThisLevel);
-		lastTileType = tileType;
-
-		int platformLength = 1;
-
-		if (!isFirstTileOfThisLevel) {
-		
-			platformLength = Random.Range (minPlatformLength, maxPlatformLength - 1);
-
-			if (Random.value > 0.5f)
-				randomX = lastPlatformPosition + lastPlatformLength * tileWidth + Random.Range (1, 3) * tileWidth;
-			else
-				randomX = lastPlatformPosition - platformLength * tileWidth - Random.Range (1, 3) * tileWidth;
-			
-		} else {
-
-			platformLength = Random.Range (minPlatformLength, maxPlatformLength);
-
-			float currentRandomX = Random.Range (-randomRange + 1, randomRange);
-
-			if (randomRange - Mathf.Abs (currentRandomX) < 2 && randomRange > 1)
-				randomRange -= 1;
-			else 
-				randomRange = (randomRange < maxXRage) ? randomRange + 1 : maxXRage;
-
-			randomX = lastPlatformPosition + currentRandomX * tileWidth;
-			lastPlatformPosition = randomX;
-		}
-			
-		if (tileType.type == Tile.TileType.ColorizeTile || 
-			tileType.type == Tile.TileType.BounceTile ||
-			tileType.type == Tile.TileType.MovingTile1 ||
-			tileType.type == Tile.TileType.MovingTile2 ||
-			tileType.type == Tile.TileType.MovingTile3)
-			platformLength = 1;
-		
-		lastPlatformLength = platformLength;
-
-
-		Vector2 tmpPosition = new Vector2 (randomX, currentLevelHeight);
-
-		for (int i = 0; i < platformLength; i++) {
-			
-			tmpPosition = new Vector3 (randomX + i * tileWidth, currentLevelHeight, 0);
-
-			Instantiate (tileType.tile, tmpPosition, Quaternion.identity);
-
-			if(!spawnCollectable (tmpPosition, tileType.type))
-			if(!spawnFlowers (tmpPosition, tileType.type))
-				spawnAnimal (tmpPosition, tileType.type);
-		}
-
-		lastXPosition = tmpPosition.x;
-	}
-
-
-
-	float donutP = 0.9f, pizzaP = 0.05f, hamburgerP = 0.05f;
 
 	private bool spawnCollectable(Vector3 position, Tile.TileType tileType){
 		
@@ -258,10 +266,35 @@ public class SpawnTile : MonoBehaviour {
 			return false;
 	}
 
+	public void spawnEnemies(){
+
+		if (Random.value <= enemiesP) {
+			float r = Random.value;
+
+			if (r <= shurikenP && !shurikenSpawnThisLevel)
+				spawnRandomVerticalShuriken ();
+			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
+				spawnRandomHorizontalPencil ();
+		}
+	}
+
+	private void spawnRandomHorizontalPencil(){
+
+		pencilSpawnThisLevel = true;
+		Vector2 v = new Vector2 (cameraController.getXBounds(), player.transform.position.y + Random.Range(4, 7) * tileWidth);
+		Instantiate (pencilPrefab, v, Quaternion.identity);	
+	}
+
+	private void spawnRandomVerticalShuriken(){
+
+		shurikenSpawnThisLevel = true;
+		Vector2 v = new Vector2 (cameraController.getXStart(), player.transform.position.y + Random.Range(5, 7) * tileWidth);
+		Instantiate (shurikenPrefab, v, Quaternion.identity);
+	}
+
 
 	public float getAverageX(){
 		
 		return (player.transform.position.x + lastXPosition) / 2;
 	}
 }
-

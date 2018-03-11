@@ -19,7 +19,7 @@ public class Bird : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("player");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 
-		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().lastXPosition > 0) ? 1 : -1;
+		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().lastXPosition > 0) ? 1 : -1;
 
 		float randomScale = Random.Range (0.3f, 0.8f);
 

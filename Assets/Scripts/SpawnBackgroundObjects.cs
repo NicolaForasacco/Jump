@@ -5,12 +5,10 @@ using UnityEngine;
 public class SpawnBackgroundObjects : MonoBehaviour {
 
 	public GameObject 	cloudPrefab,
-						airplanePrefab,
 						baloonPrefab;
 
 	public float	cloudP = 0.7f, 
-					ballonP = 0.5f,
-					airplaneP = 0.5f;
+					ballonP = 0.5f;
 
 	private GameObject player;
 	float lastSpawnPositionY = 0;
@@ -21,12 +19,9 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 		minYRange = 5,
 		maxYRange = 8;
 
-	CameraController cameraController;
-
 	void Start () {
 		
 		player = GameObject.FindGameObjectWithTag ("player");
-		cameraController	= GameObject.FindObjectOfType<CameraController> ();
 	}
 
 	void Update () {
@@ -41,12 +36,7 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 
 	float getRandomX(){
 		
-		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
-	}
-
-	float getRandomXForPlane(){
-		
-		return (Random.value >= 0.5f) ? cameraController.getXBounds() : cameraController.getXStart();
+		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
 	}
 
 	/*float getRandomSideX(){
@@ -75,12 +65,6 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 
 			if (Random.value <= ballonP)
 				Instantiate (baloonPrefab, randomPosition, Quaternion.identity);
-			else {
-
-				randomPosition = new Vector3 (getRandomXForPlane(), getRandomY(), 1);
-				if(Random.value <= airplaneP)
-					Instantiate (airplanePrefab, randomPosition, Quaternion.identity);
-			}
 		}
 
 		lastSpawnPositionY = randomPosition.y;

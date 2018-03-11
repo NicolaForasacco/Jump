@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class ShurikenMovement : MonoBehaviour {
 
+	public float horizontalSpeed = 60, verticalSpeed = 0.8f, rotateSpeed = 1000;
+
 	private CameraController cameraController;
-
-	public float wideSpeed = 1f;
-	public float speed = 1.8f;
-	public int wide = 40;
-
-	public float rotateSpeed = 1000;
-
-	public int right = 0;
-	public bool side = true;
 
 	void Start(){
 		
@@ -26,7 +19,11 @@ public class ShurikenMovement : MonoBehaviour {
 
 		transform.Rotate (Vector3.forward * rotateSpeed * Time.deltaTime);
 
+		transform.position += new Vector3 (horizontalSpeed * Time.deltaTime, Mathf.Sin(transform.position.x) * verticalSpeed, transform.position.z);
+
+		/*
 		transform.position += Vector3.right * speed * Time.deltaTime;
+
 
 		if (side) {
 			if (right < wide) {
@@ -48,7 +45,7 @@ public class ShurikenMovement : MonoBehaviour {
 				right++;
 			}
 		}
-
+*/
 		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () <= transform.position.x)
 			Destroy(this.gameObject);
 		

@@ -31,7 +31,7 @@ public class CloudDestroyer : MonoBehaviour {
 		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(minAlpha, maxAlpha));
 
 
-		float lastXPosition = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX());
+		float lastXPosition = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX());
 		speedX = ((lastXPosition > transform.position.x) ? Random.Range (-maxXSpeed, minXSpeed) : Random.Range (minXSpeed, maxXSpeed)) * 4;
 
 		lastUpdatedPosition = transform.position;

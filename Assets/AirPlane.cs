@@ -24,7 +24,7 @@ public class AirPlane : MonoBehaviour {
 
 		GetComponent<SpriteRenderer> ().sprite = planeSprites [Random.Range (0, planeSprites.Length - 1)];
 
-		float lastXPosition = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX());
+		float lastXPosition = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX());
 		float randomScale = Random.Range (minScale, maxScale);
 
 		int side = (lastXPosition > transform.position.x) ? 1 : -1;

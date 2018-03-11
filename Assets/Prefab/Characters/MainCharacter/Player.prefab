@@ -157,7 +157,7 @@ MonoBehaviour:
   comic: {fileID: 1454373247144488}
   cost: 0
   enemiesP: 0.3
-  shurikenP: 0.4
+  shurikenP: 1
   pencilP: 0.4
   liftP: 0.1
   isJumping: 0

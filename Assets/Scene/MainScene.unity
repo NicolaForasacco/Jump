@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12830809, g: 0.9852941, b: 0.014489633, a: 0.98039216}
+  m_Color: {r: 0.12830809, g: 0.9852941, b: 0.014489633, a: 0.65882355}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.98039216}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.65882355}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12830809, g: 0.9852941, b: 0.014489633, a: 0.98039216}
+  m_Color: {r: 0.12830809, g: 0.9852941, b: 0.014489633, a: 0.65882355}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2788,7 +2788,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 839180563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf0385a0f5495641bd142a9e7afe758, type: 3}
+  m_Script: {fileID: 11500000, guid: 13a9faba2e72d9c419b141fb3d6804dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collectablesPrefabs:
@@ -2796,6 +2796,11 @@ MonoBehaviour:
   animals:
   - {fileID: 1701188304188148, guid: 718696ba0076fc14db5e85ee04f79787, type: 2}
   - {fileID: 1038778162623122, guid: a389ff3cf6677e9418012a12f28bed74, type: 2}
+  pencilPrefab: {fileID: 1085186396359000, guid: 5d8290902ffd77240b05567383d78a0f,
+    type: 2}
+  shurikenPrefab: {fileID: 1085186396359000, guid: 536caca339582e64eb26eaf695facd94,
+    type: 2}
+  cameraController: {fileID: 295262797}
   tilePrefabs:
   - tile: {fileID: 1054978158330604, guid: 54d1a561315748e47830b987179a41f3, type: 2}
     currentProbability: 0.4
@@ -2864,6 +2869,11 @@ MonoBehaviour:
   maxPlatformLength: 4
   minPlatformLength: 1
   randomRange: 3
+  enemiesP: 0.2
+  shurikenP: 0.5
+  pencilP: 0.5
+  pencilSpawnThisLevel: 1
+  shurikenSpawnThisLevel: 1
 --- !u!4 &839180565
 Transform:
   m_ObjectHideFlags: 0
@@ -2925,13 +2935,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 1836050914822708, guid: 9dec59fe63d1dc3438716efaa1c14902,
     type: 2}
-  airplanePrefab: {fileID: 1655527354275160, guid: 6c646dea5dd787548b346d9e1621eb24,
-    type: 2}
   baloonPrefab: {fileID: 1836050914822708, guid: 66dec998fbb4c4148ac5663953442bde,
     type: 2}
-  cloudP: 0
-  ballonP: 0
-  airplaneP: 1
+  cloudP: 0.6
+  ballonP: 0.1
 --- !u!1 &860963975
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,7 +3941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.98039216}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.659}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6223,7 +6230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.98039216}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.65882355}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

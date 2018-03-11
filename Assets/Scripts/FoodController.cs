@@ -35,11 +35,11 @@ public class FoodController : MonoBehaviour {
 				break;
 
 			case objectType.pizza:
-				pm.increasePizzaPicked ();
+				//pm.increasePizzaPicked ();
 				break;
 
 			case objectType.hamburger:
-				pm.increaseHamburgerPicked ();
+				//pm.increaseHamburgerPicked ();
 				break;
 			}
 
