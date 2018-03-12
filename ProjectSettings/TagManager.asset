@@ -15,7 +15,6 @@ TagManager:
   - ColorizeTile
   - SpineTile
   - Shuriken
-  - LiftTile
   - background
   - UselessPiece
   - RotatingTile

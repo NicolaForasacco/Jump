@@ -101,7 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 1449858865450576, guid: caeb8d343f8b6af4e89cdc288cc6cf38, type: 2}
-  speed: 60
+  minSpeed: 50
+  maxSpeed: 80
 --- !u!212 &212388015483756370
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -38,7 +38,7 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 
-		audioManager.makeSound ();
+		//audioManager.makeSound ();
 
 		switch(this.tag){
 
@@ -61,6 +61,8 @@ public class TileBehavior : MonoBehaviour {
 
 				FindObjectOfType<CameraShake> ().startBigShake ();
 				FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
+				FindObjectOfType<AudioManager> ().changeBackgroundTrack ();
+
 				showExplosion ();
 			}
 			break;

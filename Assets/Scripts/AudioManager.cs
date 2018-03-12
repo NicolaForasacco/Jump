@@ -4,35 +4,55 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-	public Sound[] sounds;
+	//public Sound[] sounds;
+	public AudioClip[] clips;
 
 	AudioSource audioSource;
+	bool soundOn = true;
+	int currentClip = -1;
 
 	// Use this for initialization
 	void Start () {
+
+		audioSource = GetComponent<AudioSource> ();
 
 		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1)
 			soundOn = true;
 		else
 			soundOn = false;
 
-		foreach(Sound a in sounds){
+		changeBackgroundTrack ();
+
+		/*foreach(Sound a in sounds){
 			
 			a.source = gameObject.AddComponent<AudioSource> ();
 			a.source.clip = a.clip;
 			
-		}
+		}*/
 	}
 
-	bool soundOn = true;
+	public void changeBackgroundTrack(){
 
-	public void makeSound(){
+		if (soundOn) {
+			
+			currentClip++;
+			if (currentClip == clips.Length)
+				currentClip = 0;
+
+			audioSource.clip = clips[currentClip];
+			audioSource.Play ();
+		}
+	
+	}
+
+
+	/*public void makeSound(){
 		
 		if (sounds.Length != 0 && soundOn) {
 			
 			sounds [Random.Range(0, sounds.Length - 1)].source.Play();
 		}
-	}
+	}*/
 
 	public void SetSoundOn(){
 		

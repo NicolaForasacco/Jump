@@ -6,15 +6,18 @@ public class PencilMovement : MonoBehaviour {
 
 
 	public GameObject explosion;
-	public float speed = 10;
+	private float speed;
 
 	Rigidbody2D rb;
 	CameraController cameraController;
+
+	public float minSpeed = 50, maxSpeed = 80;
 
 	void Start(){
 		
 		rb = GetComponent<Rigidbody2D> ();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
+		speed = Random.Range (minSpeed, maxSpeed);
 
 	}
 
