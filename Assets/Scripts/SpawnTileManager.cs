@@ -17,7 +17,7 @@ public class SpawnTileManager : MonoBehaviour {
 				minPlatformLength,
 				randomXRange;
 
-	public float enemiesP, shurikenP, pencilP;
+	public float probabilityChangeEvery = 800, enemiesP;
 
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
 
@@ -36,12 +36,12 @@ public class SpawnTileManager : MonoBehaviour {
 					flowerP = 0.6f,
 					animalP = 0.3f,
 					tileWidth = 20,
-					lastXPosition = 0,
+					lastXPosition = 1,
 					collectableP = 0.1f, 
 					currentLevelHeight = 40,
-					minLevelHeightRange = 40f,
+					currentMaxLevelHeightRange = 40f,
+					minLevelHeightRange = 40,
 					maxLevelHeightRange = 60f,
-					probabilityChangeEvery = 800,
 					twoPlatformOnSameLevelP = 0.8f;
 
 	void Update () {
@@ -62,17 +62,19 @@ public class SpawnTileManager : MonoBehaviour {
 	}
 
 	private void changeProbabilityParameters(){
-
-		Debug.Log ("Probabilities changed at " + currentLevelHeight);
-
+		
 		levelIndex++;
-		probabilityChangeEvery *= 1.5f;
+		probabilityChangeEvery *= 1.2f;
 
 		for (int i = 0; i < tilePrefabs.Length; i++)
 			tilePrefabs [i].changeProbability ();
 
-		if (minLevelHeightRange * 1.05f <= maxLevelHeightRange)
-			minLevelHeightRange *= 1.05f;
+		if (currentMaxLevelHeightRange * 1.05f <= maxLevelHeightRange)
+			currentMaxLevelHeightRange *= 1.05f;
+
+		enemiesP += 0.05f;
+
+		Debug.Log ("Probabilities changed at " + currentLevelHeight + "; enemiesP = " + enemiesP);
 	}
 
 
@@ -95,7 +97,7 @@ public class SpawnTileManager : MonoBehaviour {
 		if(Random.value < twoPlatformOnSameLevelP)
 			spawnPlatform (false);
 		
-		currentLevelHeight += minLevelHeightRange;//Random.Range(minLevelHeightRange, maxLevelHeightRange);
+		currentLevelHeight += Random.Range(minLevelHeightRange, currentMaxLevelHeightRange);//Random.Range(minLevelHeightRange, maxLevelHeightRange);
 	}
 
 	private void spawnPlatform(bool isFirstTileOfThisLevel){
@@ -187,9 +189,19 @@ public class SpawnTileManager : MonoBehaviour {
 				case Tile.TileType.MovingTile3:
 
 					if (isFirstTileOfThisLevel)
-						tileType = tilePrefabs [i];
+						tileType = tilePrefabs[i];
+					else
+						i = tilePrefabs.Length;    // se non va bene la moving tile perchè non è la prima del livello esco dal for
+					
 					break;
+				case Tile.TileType.SpineTile:
 
+					if (!isFirstTileOfThisLevel)
+						tileType = tilePrefabs[i];
+					else
+						i = tilePrefabs.Length;    // se non va bene la spine tile perchè è la prima del livello esco dal for
+					
+					break;
 				default:
 					tileType = tilePrefabs[i];
 					break;
@@ -261,9 +273,9 @@ public class SpawnTileManager : MonoBehaviour {
 		if (Random.value <= enemiesP) {
 			float r = Random.value;
 
-			if (r <= shurikenP && !shurikenSpawnThisLevel)
+			if (Random.value <= 0.5 && !shurikenSpawnThisLevel)
 				spawnRandomVerticalShuriken ();
-			else if (r <= shurikenP + pencilP && !pencilSpawnThisLevel)
+			else if (!pencilSpawnThisLevel)
 				spawnRandomHorizontalPencil ();
 		}
 	}
@@ -271,14 +283,14 @@ public class SpawnTileManager : MonoBehaviour {
 	private void spawnRandomHorizontalPencil(){
 
 		pencilSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXBounds(), player.transform.position.y + Random.Range(4, 7) * tileWidth);
+		Vector2 v = new Vector2 (cameraController.getXBounds(), player.transform.position.y + Random.Range(7, 14) * tileWidth);
 		Instantiate (pencilPrefab, v, Quaternion.identity);	
 	}
 
 	private void spawnRandomVerticalShuriken(){
 
 		shurikenSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXStart(), player.transform.position.y + Random.Range(5, 7) * tileWidth);
+		Vector2 v = new Vector2 (cameraController.getXStart(), player.transform.position.y + Random.Range(7, 14) * tileWidth);
 		Instantiate (shurikenPrefab, v, Quaternion.identity);
 	}
 

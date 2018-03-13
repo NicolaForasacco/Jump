@@ -11,7 +11,7 @@ public class PencilMovement : MonoBehaviour {
 	Rigidbody2D rb;
 	CameraController cameraController;
 
-	public float minSpeed = 50, maxSpeed = 80;
+	public float minSpeed, maxSpeed;
 
 	void Start(){
 		

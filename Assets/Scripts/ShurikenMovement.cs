@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ShurikenMovement : MonoBehaviour {
 
-	public float minHorizontalSpeed, maxHorizontalSpeed,  rotateSpeed, totalSpeed = 100;
+	public float minHorizontalSpeed, maxHorizontalSpeed, totalSpeed = 100;
 
 	private CameraController cameraController;
 
-	private float horizontalSpeed, verticalSpeed;
+	private float horizontalSpeed, verticalSpeed, rotateSpeed = 2000;
 
 	void Start(){
 		
