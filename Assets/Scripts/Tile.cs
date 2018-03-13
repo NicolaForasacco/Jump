@@ -23,13 +23,12 @@ public class Tile{
 							AlternatingTile, 
 							ColorizeTile,
 							BounceTile, 
-							SpineTile,
-							LiftTile}
+							SpineTile}
 
 	public void changeProbability(){
 		
 		if(currentProbability * changeProbabilityParameter >= minProbability && currentProbability * changeProbabilityParameter <= maxProbability)
-		currentProbability *= changeProbabilityParameter;
+			currentProbability *= changeProbabilityParameter;
 	}
 
 	public float getProbability(){

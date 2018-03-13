@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class SpawnBackgroundObjects : MonoBehaviour {
 
-	public GameObject 	cloudPrefab,
-						baloonPrefab;
+	public GameObject cloudPrefab, baloonPrefab;
 
-	public float	cloudP = 0.7f, 
-					ballonP = 0.5f;
+	public float cloudP = 0.7f, ballonP = 0.5f;
 
 	private GameObject player;
 	float lastSpawnPositionY = 0;
@@ -29,13 +27,12 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 		if (player != null) {
 			
 			if (player.transform.position.y + 300 > lastSpawnPositionY)
-				spawnClouds ();
+				spawnBackgroundObject ();
 		}else
 			player = GameObject.FindGameObjectWithTag ("player");
 	}
 
 	float getRandomX(){
-		
 		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
 	}
 
@@ -50,22 +47,15 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 	float getRandomY(){
 		return lastSpawnPositionY + Random.Range (minYRange, maxYRange) * tileWidth;
 	}
-
-
-
-	void spawnClouds(){
+		
+	void spawnBackgroundObject(){
 		
 		Vector3 randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
 
 		if (Random.value <= cloudP)
 			Instantiate (cloudPrefab, randomPosition, Quaternion.identity);
-		else {
-
-			randomPosition = new Vector3 (getRandomX(), getRandomY(), 1);
-
-			if (Random.value <= ballonP)
+		else if (Random.value <= ballonP)
 				Instantiate (baloonPrefab, randomPosition, Quaternion.identity);
-		}
 
 		lastSpawnPositionY = randomPosition.y;
 	}

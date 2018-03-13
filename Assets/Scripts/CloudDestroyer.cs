@@ -50,9 +50,7 @@ public class CloudDestroyer : MonoBehaviour {
 				
 				lastUpdatedPosition.x = lastUpdatedPosition.x + speedX * Time.deltaTime;
 
-				lastUpdatedPosition = Vector3.SmoothDamp (transform.position, lastUpdatedPosition, ref velocity, 0.1f);
-
-				transform.position = lastUpdatedPosition;
+				transform.position = lastUpdatedPosition = Vector3.SmoothDamp (transform.position, lastUpdatedPosition, ref velocity, 0.1f);
 			}
 		}
 	}

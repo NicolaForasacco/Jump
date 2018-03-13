@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public CameraController cameraController;
 	public Text recordText, donutText;
 	public Camera cam;
-	public sliderManager sm;
+	public sliderCharacterManager sm;
 
 	public GameObject videoForDonutsPanel,
 						shareForDonutsPanel,
@@ -237,6 +237,11 @@ public class GameManager : MonoBehaviour {
 		Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
 
 		donutText.text = PlayerPrefs.GetInt ("Donuts", 0).ToString();
+	}
+
+	public void showOnlineShop(){
+		
+		Application.OpenURL("");
 	}
 
 	public void closeDonutPrizePanel(){

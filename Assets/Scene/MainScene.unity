@@ -1934,7 +1934,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &621425567
 GameObject:
@@ -2864,11 +2864,9 @@ MonoBehaviour:
     type: 9
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
     type: 2}
-  tileWidth: 20
-  lastXPosition: 0
   maxPlatformLength: 4
   minPlatformLength: 1
-  randomRange: 3
+  randomXRange: 0
   enemiesP: 0.2
   shurikenP: 0.5
   pencilP: 0.5
@@ -3249,7 +3247,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1051021972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 839180566}
+        m_MethodName: showOnlineShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1051021972
@@ -6006,7 +6015,7 @@ GameObject:
   - component: {fileID: 1901187789}
   - component: {fileID: 1901187788}
   m_Layer: 5
-  m_Name: SliderManager
+  m_Name: SliderCharacterManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6020,7 +6029,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1901187787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b22b39ae78e9bd47929ccab6bd14c7e, type: 3}
+  m_Script: {fileID: 11500000, guid: d23cc12d8ed01534e879fb9cc3982f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   charactersPrefabs:
@@ -6045,7 +6054,7 @@ RectTransform:
   m_LocalScale: {x: 0.31083003, y: 0.31083003, z: 0.31083003}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

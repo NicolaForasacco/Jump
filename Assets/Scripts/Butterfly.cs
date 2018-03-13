@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class Butterfly : MonoBehaviour {
 
-	int side = 1;
-	float speedX = 100;
-	float speedY = 200;
 
-	bool isMoving = false;
 
 	GameObject player;
 
 	Vector3 initialPosition;
+
+	int side = 1, startWhenPlayerIsCloserThan = 100, deleteWhenPlayerFurtherThan = 400;
+	float speedX = 100, speedY = 200;
+	bool isMoving = false;
+	public float minScale = 0.4f, maxScale = 0.9f;
 
 	void Start () {
 
 		player = GameObject.FindGameObjectWithTag ("player");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 
-		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().lastXPosition > 0) ? 1 : -1;
+		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX() > 0) ? 1 : -1;
 
-		float randomScale = Random.Range (0.4f, 0.9f);
+		float randomScale = Random.Range (minScale, maxScale);
 
 		transform.localScale = new Vector2 (side * randomScale, 1 * randomScale);
 		initialPosition = transform.position;
 	}
+
 
 	void Update () {
 
@@ -39,13 +41,16 @@ public class Butterfly : MonoBehaviour {
 			else if (r > 0f)
 				transform.position += Vector3.down * Time.deltaTime * speedY * 0.8f;
 
-			if ((transform.position.x >= initialPosition.x + 400 || transform.position.x <= initialPosition.x - 400) && transform.position.y >= initialPosition.y + 250)
+			if ((transform.position.x >= initialPosition.x + deleteWhenPlayerFurtherThan || 
+				transform.position.x <= initialPosition.x - deleteWhenPlayerFurtherThan) && 
+				transform.position.y >= initialPosition.y + deleteWhenPlayerFurtherThan)
 				DestroyObject (this.gameObject);
 			
 		} else {
 
 			if (player != null) {
-				if (transform.position.y - player.transform.position.y < 100 && transform.position.x - player.transform.position.x < 100)
+				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && 
+					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
 					isMoving = true;
 			}
 		}

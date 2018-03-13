@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VerticalLift : MonoBehaviour {
-
+	/*
 	public GameObject explosion;
 	public float	speed = 100,
 					fastSpeed = 200,
@@ -100,5 +100,5 @@ public class VerticalLift : MonoBehaviour {
 
 		Instantiate (explosion, transform.position, Quaternion.identity);
 		DestroyObject (this.gameObject);
-	}
+	}*/
 }

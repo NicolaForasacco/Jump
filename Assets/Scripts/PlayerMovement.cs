@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour {
 	public Character ch;
 	public GameObject deadBodyPrefab, comic;
 
-	public bool	isJumping = false,
-				jumped = false,
-				active = false,
-				dead = false,
-				isOnLift = false;
+	public bool	dead,
+				jumped,
+				active,
+				isOnLift,
+				isJumping;
 
 	public int donutsPicked,
 				currentRecord = 0,
@@ -33,16 +33,16 @@ public class PlayerMovement : MonoBehaviour {
 					pointsText;
 
 	private	float	sideSpeed,
-					slowSideSpeed,
 					jumpSpeed,
-					currentSideSpeed,
+					lastHeight,
+					slowSideSpeed,
 					horizontalSpeed,
-					maxHorizontalSpeed = 1,
-					lastHeight;
+					currentSideSpeed,
+					maxHorizontalSpeed = 1;
 
-	private	bool	isOnMovingTile = false,
+	private	bool	isOnMovingTile,
 					isFirstMovement = true,
-					jumpButtonDown = false;
+					jumpButtonDown;
 
 
 	void Start()
@@ -258,14 +258,6 @@ public class PlayerMovement : MonoBehaviour {
             || collision.gameObject.CompareTag ("Pencil")) {
 
 			isOnMovingTile = false;
-
-			if(!isOnLift)
-				transform.SetParent (null);
-		}
-
-		if (collision.gameObject.CompareTag ("Lift")) {
-
-			isOnLift = false;
 			transform.SetParent (null);
 		}
 	}
@@ -362,12 +354,6 @@ public class PlayerMovement : MonoBehaviour {
 
                 this.transform.SetParent(c.transform);
 
-                if (c.CompareTag("Lift")){
-                    c.GetComponent<VerticalLift>().incrementSpeed();
-
-                    isOnLift = true;
-                }
-
                 isJumping = false;
                 jumped = false;
 				idleAnim ();
@@ -378,8 +364,7 @@ public class PlayerMovement : MonoBehaviour {
 			|| c.CompareTag("CloudTile") 
 			|| c.CompareTag("UselessTile") 
 			|| c.CompareTag("MovingTile")
-			|| c.CompareTag("RotatingTile")
-			|| c.CompareTag("LiftTile"))
+			|| c.CompareTag("RotatingTile"))
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
 
 			if (jumped) {

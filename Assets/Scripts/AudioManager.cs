@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour {
 
 	public void changeBackgroundTrack(){
 
-		if (soundOn) {
+		if (soundOn && clips.Length > 0) {
 			
 			currentClip++;
 			if (currentClip == clips.Length)

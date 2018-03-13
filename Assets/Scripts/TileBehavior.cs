@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileBehavior : MonoBehaviour {
-	
+
 	public	GameObject	explosion,
 						liftPrefab;
 
 	public	Sprite pressedTile;
-	public	bool isVisited = false;
+	public	bool isVisited;
 	public	int	maxDistanceFromPlayer = 200;
 
 	private	GameObject player;
@@ -28,7 +28,7 @@ public class TileBehavior : MonoBehaviour {
 	}
 
 	void Update () {
-		
+
 		if (player != null)
 		if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer)
 			DestroyObject (this.gameObject);
@@ -66,19 +66,6 @@ public class TileBehavior : MonoBehaviour {
 				showExplosion ();
 			}
 			break;
-
-		case "LiftTile":
-			GetComponent<SpriteRenderer> ().sprite = pressedTile;
-
-			if (!isVisited) {
-				
-				FindObjectOfType<CameraShake> ().startBigShake ();
-				Vector2 liftInitialPosition = new Vector2 (transform.position.x, FindObjectOfType<CameraController> ().getMinPosition ());
-				
-				Instantiate (liftPrefab, liftInitialPosition, Quaternion.identity);
-			}
-			break;
-
 		default:
 			break;
 		}
@@ -87,7 +74,7 @@ public class TileBehavior : MonoBehaviour {
 	}
 
 	private void enableGravity(float waitFor = 0f){
-		
+
 		if(!isVisited)
 			StartCoroutine (enableTileGravity(waitFor));
 	}
@@ -102,7 +89,7 @@ public class TileBehavior : MonoBehaviour {
 	}
 
 	private void showExplosion(float time = 0f){
-		
+
 		if(!isVisited)
 			StartCoroutine (showExplosionCoroutine(time));
 	}
