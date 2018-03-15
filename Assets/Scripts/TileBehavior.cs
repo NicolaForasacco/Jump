@@ -63,7 +63,7 @@ public class TileBehavior : MonoBehaviour {
 				FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
 				FindObjectOfType<AudioManager> ().changeBackgroundTrack ();
 
-				showExplosion ();
+				Instantiate(explosion, transform.position, Quaternion.identity);
 			}
 			break;
 		default:
@@ -99,6 +99,9 @@ public class TileBehavior : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 
 		Instantiate(explosion, transform.position, Quaternion.identity);
+
+		GameObject.FindObjectOfType<CameraShake> ().startShake ();
+
 		if(this.CompareTag("UselessTile"))
 			GameObject.Destroy (this.gameObject);
 	}

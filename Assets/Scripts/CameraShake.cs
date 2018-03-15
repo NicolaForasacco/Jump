@@ -7,14 +7,10 @@ public class CameraShake : MonoBehaviour {
 	// if null.
 	public Transform camTransform;
 
-	// How long the object should shake for.
-	public float maxShakeDuration = 10f;
-	private float shakeDuration = 0f;
+	private float maxShakeDuration;
+	private float shakeDuration;
 
-
-	// Amplitude of the shake. A larger value shakes the camera harder.
-	public float shakeAmount = 0.7f;
-	public float decreaseFactor = 1.0f;
+	private float shakeAmount;
 	public bool active = false;
 
 	Vector3 originalPos;
@@ -35,17 +31,20 @@ public class CameraShake : MonoBehaviour {
 
 	public void startShake()
 	{
-		//active = true;
 		originalPos = camTransform.localPosition;
-		shakeAmount = 0.5f;
-		maxShakeDuration = 0.05f;
+		shakeAmount = 3f;
+		maxShakeDuration = 0.1f;
+		shakeDuration = maxShakeDuration;
+		active = true;
 	}
 
 	public void startBigShake(){
-		active = true;
+		
 		originalPos = camTransform.localPosition;
-		shakeAmount = 6f;
-		maxShakeDuration = 0.3f;
+		shakeAmount = 10f;
+		maxShakeDuration = 0.2f;
+		shakeDuration = maxShakeDuration;
+		active = true;
 	}
 
 	void Update()
@@ -54,10 +53,9 @@ public class CameraShake : MonoBehaviour {
 			if (shakeDuration > 0) {
 				camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 
-				shakeDuration -= Time.deltaTime * decreaseFactor;
+				shakeDuration -= Time.deltaTime;
 			} else {
 				active = false;
-				shakeDuration = maxShakeDuration;
 				camTransform.localPosition = originalPos;
 			}
 		}

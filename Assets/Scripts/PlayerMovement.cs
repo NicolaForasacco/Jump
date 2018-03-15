@@ -318,7 +318,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (c.CompareTag ("Pencil")) {
 
 			if (jumped) {
-				cameraShake.startShake ();
+				//cameraShake.startShake ();
 				landAnim ();
 			}
 			
@@ -368,7 +368,7 @@ public class PlayerMovement : MonoBehaviour {
 			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
 
 			if (jumped) {
-				cameraShake.startShake ();
+				//cameraShake.startShake ();
 				landAnim ();
 			}
 
@@ -391,8 +391,8 @@ public class PlayerMovement : MonoBehaviour {
 		if (c.CompareTag ("BounceTile") 
 			&& transform.position.y > c.transform.position.y) {
 
-			if(jumped)
-				cameraShake.startShake ();
+			//if(jumped)
+				//cameraShake.startShake ();
 
 			c.GetComponent<TileBehavior> ().behave();
 		}

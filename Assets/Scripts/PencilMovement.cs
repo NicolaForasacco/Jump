@@ -62,6 +62,8 @@ public class PencilMovement : MonoBehaviour {
 
 		Instantiate(explosion, transform.position, Quaternion.identity);
 
+		GameObject.FindObjectOfType<CameraShake> ().startShake ();
+
 		GameObject.Destroy (this.gameObject);
 	}
 }
