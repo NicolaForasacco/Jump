@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour {
 						bestText,
 						newBestText,
 						optionsMenu2,
-						optionsMenu;
+						optionsMenu,
+						creditsPanel;
 
 	bool isOptionsMenu2Closed = true, isOptionsMenuClosed = true;
 
@@ -130,9 +131,7 @@ public class GameManager : MonoBehaviour {
 
 		return false;
 	}
-
-
-
+		
 	bool manageDailyGiftPanel(){
 
 		string lastTimeGiftPicked = PlayerPrefs.GetString ("LastTimeGiftPicked", "");
@@ -239,14 +238,27 @@ public class GameManager : MonoBehaviour {
 		donutText.text = PlayerPrefs.GetInt ("Donuts", 0).ToString();
 	}
 
-	public void showOnlineShop(){
-		
-		Application.OpenURL("");
-	}
-
 	public void closeDonutPrizePanel(){
 		donutPrizePanel.SetActive (false);
 	}
+
+
+
+	public void showOnlineShop(){
+		Application.OpenURL("");
+	}
+
+
+
+	public void showCreditsPanel(){
+		creditsPanel.SetActive (true);
+	}
+
+	public void closeCreditsPanel(){
+		creditsPanel.SetActive (false);
+	}
+
+
 
 	public GameObject characterButton;		
 

@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-	//public Sound[] sounds;
 	public AudioClip[] clips;
 
-	AudioSource audioSource;
+	public AudioSource soundtrackSource, soundEffectSource;
+
+	public AudioClip donutPickupEffect, gameOverEffect;
+
 	bool soundOn = true;
+
 	int currentClip = -1;
 
 	// Use this for initialization
 	void Start () {
-
-		audioSource = GetComponent<AudioSource> ();
-
+		
 		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1)
 			soundOn = true;
 		else
@@ -39,10 +40,26 @@ public class AudioManager : MonoBehaviour {
 			if (currentClip == clips.Length)
 				currentClip = 0;
 
-			audioSource.clip = clips[currentClip];
-			audioSource.Play ();
+			soundtrackSource.clip = clips[currentClip];
+			soundtrackSource.Play ();
 		}
 	
+	}
+		
+	public void playDonutsPickupSound(){
+		
+		if (soundOn) {
+			soundEffectSource.clip = donutPickupEffect;
+			soundEffectSource.Play ();
+		}
+	}
+
+	public void playGameOverSound(){
+
+		if (soundOn) {
+			soundEffectSource.clip = gameOverEffect;
+			soundEffectSource.Play ();
+		}
 	}
 
 

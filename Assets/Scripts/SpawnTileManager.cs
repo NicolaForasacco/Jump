@@ -25,7 +25,8 @@ public class SpawnTileManager : MonoBehaviour {
 	private GameObject player;
 
 	private int numberOfPlatformLevelSpawnedEachTime = 15,
-				maxXRage = 4, 
+				maxXRage = 4,
+				tileWidth = 20,
 				levelIndex = 0;
 
 	private Tile lastTileType;
@@ -35,12 +36,11 @@ public class SpawnTileManager : MonoBehaviour {
 					donutP = 0.9f,				
 					flowerP = 0.6f,
 					animalP = 0.3f,
-					tileWidth = 20,
-					lastXPosition = 1,
+					lastXPosition = 1f,
 					collectableP = 0.1f, 
-					currentLevelHeight = 40,
+					currentLevelHeight = 40f,
 					currentMaxLevelHeightRange = 40f,
-					minLevelHeightRange = 40,
+					minLevelHeightRange = 40f,
 					maxLevelHeightRange = 60f,
 					twoPlatformOnSameLevelP = 0.8f;
 
@@ -53,6 +53,7 @@ public class SpawnTileManager : MonoBehaviour {
 
 			if (player.transform.position.y + 15 * tileWidth > currentLevelHeight)
 				spawnMultiplePlatform ();
+			
 		} else {
 			
 			player = GameObject.FindGameObjectWithTag ("player");
@@ -66,11 +67,14 @@ public class SpawnTileManager : MonoBehaviour {
 		levelIndex++;
 		probabilityChangeEvery *= 1.2f;
 
-		for (int i = 0; i < tilePrefabs.Length; i++)
-			tilePrefabs [i].changeProbability ();
+		foreach (Tile t in tilePrefabs)
+			t.changeProbability ();
 
 		if (currentMaxLevelHeightRange * 1.05f <= maxLevelHeightRange)
 			currentMaxLevelHeightRange *= 1.05f;
+		else
+			currentMaxLevelHeightRange = maxLevelHeightRange;
+
 
 		enemiesP += 0.05f;
 

@@ -297,6 +297,8 @@ public class PlayerMovement : MonoBehaviour {
         if (!dead)
         {
 			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
+
+			audioManager.playGameOverSound();
 			dead = true;
             Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
             Instantiate(deadBodyPrefab, v, Quaternion.identity);
@@ -331,7 +333,7 @@ public class PlayerMovement : MonoBehaviour {
 				c.GetComponent<PencilMovement> ().showExplosion ();
 
 			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y &&
-				transform.position.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
+				GetComponent<BoxCollider2D> ().bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
 				die ();
 		}
 
@@ -391,16 +393,14 @@ public class PlayerMovement : MonoBehaviour {
 		if (c.CompareTag ("BounceTile") 
 			&& transform.position.y > c.transform.position.y) {
 
-			//if(jumped)
-				//cameraShake.startShake ();
-
 			c.GetComponent<TileBehavior> ().behave();
 		}
 	}
 
 
 	public void increaseDonutsPicked(){
-		
+
+		audioManager.playDonutsPickupSound ();
 		donutsPicked++;
 		pointsText.text = donutsPicked.ToString ();
 	}

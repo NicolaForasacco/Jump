@@ -6,10 +6,10 @@ public class Tile{
 	public GameObject tile;
 
 	[Range(0f,1f)]
-	public float currentProbability = 0.1f,
-				changeProbabilityParameter = 1f,
-				minProbability = 0f,
-				maxProbability = 0.6f;
+	public float currentProbability,
+				changeProbabilityParameter,
+				minProbability,
+				maxProbability;
 
 	public TileType type;
 
@@ -26,9 +26,27 @@ public class Tile{
 							SpineTile}
 
 	public void changeProbability(){
-		
-		if(currentProbability * changeProbabilityParameter >= minProbability && currentProbability * changeProbabilityParameter <= maxProbability)
+
+		if (changeProbabilityParameter > 1) {
+			
+			if (currentProbability * changeProbabilityParameter <= maxProbability)
+				currentProbability *= changeProbabilityParameter;
+			else
+				currentProbability = maxProbability;
+			
+
+		} else if(changeProbabilityParameter < 1){
+			
+			if (currentProbability * changeProbabilityParameter >= minProbability)
+				currentProbability *= changeProbabilityParameter;
+			else
+				currentProbability = minProbability;
+		}
+			
+		/*if(currentProbability * changeProbabilityParameter >= minProbability && currentProbability * changeProbabilityParameter <= maxProbability)
 			currentProbability *= changeProbabilityParameter;
+		else if (currentProbability == 0 && changeProbabilityParameter > 1)
+			currentProbability += minProbability;*/
 	}
 
 	public float getProbability(){
