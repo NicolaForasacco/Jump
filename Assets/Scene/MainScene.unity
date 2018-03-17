@@ -1581,8 +1581,8 @@ MonoBehaviour:
   cameraSlowSpeed: 50
   landscapeSize: 160
   portraitSize: 210
-  landscapeSizeZoomOn: 60
-  portraitSizeZoomOn: 90
+  landscapeSizeZoomOn: 160
+  portraitSizeZoomOn: 160
   currentColorIndex: 0
 --- !u!114 &295262798
 MonoBehaviour:
@@ -3605,6 +3605,7 @@ MonoBehaviour:
   optionsMenu: {fileID: 1034429996}
   creditsPanel: {fileID: 419479487}
   characterButton: {fileID: 569241200}
+  ground: {fileID: 78141919}
 --- !u!114 &839180567
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,12 +34,13 @@ public class GameManager : MonoBehaviour {
 
 	int donutPrize = 100;
 
+	string likeForDonutString = "LikeForDonutUsed", lastTimeGitPickedString = "LastTimeGiftPicked", recordString = "Record", donutsString = "Donuts";
 
 	public void gameEnd(){
 		
-		int record = PlayerPrefs.GetInt ("Record", 0);
+		int record = PlayerPrefs.GetInt (recordString, 0);
 
-		PlayerPrefs.SetInt ("Donuts", player.donutsPicked);
+		PlayerPrefs.SetInt (donutsString, player.donutsPicked);
 
 		recordText.text = "Best " + record.ToString ();
 
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour {
 			newBestText.SetActive (true);
 			bestText.SetActive (false);
 
-			PlayerPrefs.SetInt ("Record", player.currentRecord);
+			PlayerPrefs.SetInt (recordString, player.currentRecord);
 			record = player.currentRecord;
 		} else {
 			bestText.SetActive (true);
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour {
 		manageDailyGiftPanel ();
 
 		if(!manageshareForDonutsPanel ())
-			manageLikeFonDonutsPanel ();
+			manageLikeForDonutsPanel ();
 		
 
 		/*if (Random.value <= 0.5f)
@@ -99,9 +100,11 @@ public class GameManager : MonoBehaviour {
 	void showChallengePanel(){}*/
 
 
-	bool manageLikeFonDonutsPanel(){
+
+	bool manageLikeForDonutsPanel(){
 		
-		if (Random.value <= 0.5f) {
+		if (Random.value <= 0.5f && PlayerPrefs.GetInt(likeForDonutString, 0) == 0) {
+			
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -113,6 +116,7 @@ public class GameManager : MonoBehaviour {
 	bool manageVideoForDonutsPanel(){
 		
 		if (Random.value <= 0.5f) {
+			
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -123,7 +127,8 @@ public class GameManager : MonoBehaviour {
 
 	bool manageshareForDonutsPanel(){
 
-		if (Random.value <= 0.5f) {
+		if (Random.value <= 0.5f || newBestText.activeSelf) {
+			
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -134,7 +139,7 @@ public class GameManager : MonoBehaviour {
 		
 	bool manageDailyGiftPanel(){
 
-		string lastTimeGiftPicked = PlayerPrefs.GetString ("LastTimeGiftPicked", "");
+		string lastTimeGiftPicked = PlayerPrefs.GetString (lastTimeGitPickedString, "");
 
 		System.DateTime lastTime;
 
@@ -145,11 +150,11 @@ public class GameManager : MonoBehaviour {
 			donutsPresentsPanel.SetActive (true);
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 
-			PlayerPrefs.SetString ("LastTimeGiftPicked", System.DateTime.Now.ToString ());
+			PlayerPrefs.SetString (lastTimeGiftPicked, System.DateTime.Now.ToString ());
 			return true;
 		} else {
 
-			if (Random.value <= 0.5f)
+			if (Random.value <= 0.3f)
 				donutsGiftSoonPanel.SetActive (true);
 		}
 
@@ -185,7 +190,7 @@ public class GameManager : MonoBehaviour {
 
 		#if UNITY_ANDROID
 
-		/*
+
 		string body = "My record in Rage Jump is " + PlayerPrefs.GetInt ("Record", 0) + ". Can you beat my record?", subject = "";
 
 		//Reference of AndroidJavaClass class for intent
@@ -204,7 +209,7 @@ public class GameManager : MonoBehaviour {
 		AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
 		//start the activity by sending the intent data
 		currentActivity.Call ("startActivity", intentObject);
-		*/
+
 
 		shareForDonutsPanel.SetActive(false);
 		showDonutPrize();
@@ -213,10 +218,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void likeForDonuts (){
+		
+		#if UNITY_ANDROID
 
+		PlayerPrefs.SetInt(likeForDonutString, 1);
 		likeForDonutsPanel.SetActive (false);
 		Application.OpenURL("market://details?id=" + Application.productName);
 		showDonutPrize ();
+
+		#endif
 	}
 
 	public void showDonutPresent(){
@@ -226,19 +236,22 @@ public class GameManager : MonoBehaviour {
 	}
 
 
+	private GameObject lastDonutExplosion;
 
 	void showDonutPrize ()
 	{
 
-		PlayerPrefs.SetInt ("Donuts", PlayerPrefs.GetInt("Donuts",0) + donutPrize);
+		PlayerPrefs.SetInt (donutsString, PlayerPrefs.GetInt(donutsString, 0) + donutPrize);
 
 		donutPrizePanel.SetActive (true);
-		Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
+		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
 
 		donutText.text = PlayerPrefs.GetInt ("Donuts", 0).ToString();
 	}
 
 	public void closeDonutPrizePanel(){
+		
+		GameObject.Destroy (lastDonutExplosion);
 		donutPrizePanel.SetActive (false);
 	}
 
@@ -287,6 +300,7 @@ public class GameManager : MonoBehaviour {
 		if (!isFirstPlay) {
 			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
 		} else {
+			
 			isFirstPlay = false;
 			cameraController.active = true;
 			foreground.SetActive (true);
@@ -329,8 +343,11 @@ public class GameManager : MonoBehaviour {
 		isOptionsMenuClosed = !isOptionsMenuClosed;
 	}
 
+	public GameObject ground;
+
 	public void showCharacterSelectionMenu(){
-		
+
+		ground.SetActive (false);
 		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraController.zoomOn ();
@@ -340,6 +357,8 @@ public class GameManager : MonoBehaviour {
 	public void closeCharacterSelectionMenu(){
 
 		//menuAnim.SetTrigger ("MenuOn");
+
+		ground.SetActive (true);
 		cameraController.zoomOff();
 		foreground.SetActive (true);
 		sm.close ();
@@ -347,6 +366,7 @@ public class GameManager : MonoBehaviour {
 
 	public void closeCharacterSelectionMenuAndShowMenu(){
 
+		ground.SetActive (true);
 		sm.close ();
 
 		menuAnim.SetTrigger ("MenuOn");

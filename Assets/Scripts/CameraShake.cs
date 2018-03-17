@@ -15,6 +15,8 @@ public class CameraShake : MonoBehaviour {
 
 	Vector3 originalPos;
 
+	PlayerMovement playerMovement;
+
 	void Start(){
 		
 		shakeDuration = maxShakeDuration;
@@ -31,6 +33,9 @@ public class CameraShake : MonoBehaviour {
 
 	public void startShake()
 	{
+		if (playerMovement == null)
+			playerMovement = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+		
 		originalPos = camTransform.localPosition;
 		shakeAmount = 3f;
 		maxShakeDuration = 0.1f;
@@ -39,6 +44,9 @@ public class CameraShake : MonoBehaviour {
 	}
 
 	public void startBigShake(){
+
+		if (playerMovement == null)
+			playerMovement = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
 		
 		originalPos = camTransform.localPosition;
 		shakeAmount = 10f;
@@ -47,13 +55,15 @@ public class CameraShake : MonoBehaviour {
 		active = true;
 	}
 
-	void Update()
+	void LateUpdate()
 	{
 		if (active) {
-			if (shakeDuration > 0) {
-				camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+			
+			if (shakeDuration > 0 && playerMovement.isPlayerStill() ){
 
+				camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 				shakeDuration -= Time.deltaTime;
+				
 			} else {
 				active = false;
 				camTransform.localPosition = originalPos;

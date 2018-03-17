@@ -252,6 +252,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	public bool isPlayerStill(){
+
+		if (side == -1 && !jumpButtonDown && rigidBody.velocity.y == 0)
+			return true;
+		else
+			return false;
+	}
+
 	void OnCollisionExit2D(Collision2D collision){
 		
 		if (collision.gameObject.CompareTag ("MovingTile") 
@@ -409,5 +417,11 @@ public class PlayerMovement : MonoBehaviour {
 
 		rigidBody = GetComponent<Rigidbody2D>();
 		rigidBody.bodyType = RigidbodyType2D.Static;
+	}
+
+	public void anableGravity(){
+
+		rigidBody = GetComponent<Rigidbody2D>();
+		rigidBody.bodyType = RigidbodyType2D.Dynamic;
 	}
 }
