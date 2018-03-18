@@ -24,23 +24,69 @@ public class GameManager : MonoBehaviour {
 						foreground,
 						bestText,
 						newBestText,
-						optionsMenu2,
+						settingsMenu,
 						optionsMenu,
-						creditsPanel;
+						creditsPanel,
+						characterButton, 
+						ground;
 
-	bool isOptionsMenu2Closed = true, isOptionsMenuClosed = true;
+
+	private bool isSettingsMenuClosed = true, isOptionsMenuClosed = true;
+
+	private int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100;
 
 	private PlayerMovement player;
+	private PreferenceManager prefManager;
 
-	int donutPrize = 100;
 
-	string likeForDonutString = "LikeForDonutUsed", lastTimeGitPickedString = "LastTimeGiftPicked", recordString = "Record", donutsString = "Donuts";
+	void Start(){
 
-	public void gameEnd(){
+		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+
+		sm.InstantiateCharacter();
+
+		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+
+		menuAnim = menu.GetComponent<Animator> ();
+		cameraAnim = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Animator> ();
+
+		menuAnim.SetTrigger ("MenuOn");
+		characterButton.GetComponent<ButtonBlink> ().blinkActive = (sm.existCharacterToBuy ()) ? true : false;
+
+		//PlayerPrefs.DeleteAll ();
+	}
+
+	public void startGame(){
+
+		if (!isFirstPlay) {
+			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
+		} else {
+			
+			isFirstPlay = false;
+			cameraController.active = true;
+			foreground.SetActive (true);
+			menuAnim.SetTrigger ("ControlsOn");
+
+			if (!isOptionsMenuClosed)
+				manageMenuOptions();
+
+			if (!isSettingsMenuClosed)
+				manageMenuOptions2();
+
+			if(player!= null)
+				player.activate ();
+			else
+				player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+
+			if(player!= null)
+				player.activate ();
+		}
+	}
 		
-		int record = PlayerPrefs.GetInt (recordString, 0);
+	public void gameEnd(){
 
-		PlayerPrefs.SetInt (donutsString, player.donutsPicked);
+		int record = prefManager.getRecord ();
+		prefManager.setDonut (player.donutsPicked);
 
 		recordText.text = "Best " + record.ToString ();
 
@@ -53,7 +99,7 @@ public class GameManager : MonoBehaviour {
 			newBestText.SetActive (true);
 			bestText.SetActive (false);
 
-			PlayerPrefs.SetInt (recordString, player.currentRecord);
+			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 		} else {
 			bestText.SetActive (true);
@@ -64,7 +110,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void managePanels(){
-		
+
 		//#if UNITY_ANDROID
 
 		manageVideoForDonutsPanel ();
@@ -72,39 +118,27 @@ public class GameManager : MonoBehaviour {
 
 		if(!manageshareForDonutsPanel ())
 			manageLikeForDonutsPanel ();
-		
+
 
 		/*if (Random.value <= 0.5f)
 			showVideoForDonutsPanel ();
 
 		if (Random.value <= 0.5f)
 			showShareForDonutsPanel ();*/
-		
+
 		//#endif
 
 
 		//manageChallenges ();
 	}
 
-	/*void manageChallenges(){
-		
-		/*int lastChallenge = PlayerPrefs.GetInt ("LastChallenge", 0);
 
-		if (lastChallenge != 0) {
-
-			showChallengePanel ();
-
-		}
-
-	}
-	void showChallengePanel(){}*/
-
-
+	#region EndGamePanels
 
 	bool manageLikeForDonutsPanel(){
-		
-		if (Random.value <= 0.5f && PlayerPrefs.GetInt(likeForDonutString, 0) == 0) {
-			
+
+		if (Random.value <= 0.5f && !prefManager.likeAlreadyGiven()) {
+
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -114,9 +148,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	bool manageVideoForDonutsPanel(){
-		
+
 		if (Random.value <= 0.5f) {
-			
+
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -128,7 +162,7 @@ public class GameManager : MonoBehaviour {
 	bool manageshareForDonutsPanel(){
 
 		if (Random.value <= 0.5f || newBestText.activeSelf) {
-			
+
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
@@ -136,21 +170,22 @@ public class GameManager : MonoBehaviour {
 
 		return false;
 	}
-		
+
 	bool manageDailyGiftPanel(){
 
-		string lastTimeGiftPicked = PlayerPrefs.GetString (lastTimeGitPickedString, "");
+		string lastTimeGiftPicked = prefManager.getLastTimeGift();
 
 		System.DateTime lastTime;
 
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
 		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo ("") == 0) {
-			
+
 			donutsPresentsPanel.SetActive (true);
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 
-			PlayerPrefs.SetString (lastTimeGiftPicked, System.DateTime.Now.ToString ());
+			prefManager.setLasttimeGift (System.DateTime.Now.ToString ());
+
 			return true;
 		} else {
 
@@ -160,9 +195,7 @@ public class GameManager : MonoBehaviour {
 
 		return false;
 	}
-
-
-
+		
 	/*void showVideoForDonutsPanel(){
 		videoForDonutsPanel.SetActive(true);
 	}
@@ -181,17 +214,18 @@ public class GameManager : MonoBehaviour {
 		//show video add
 
 		videoForDonutsPanel.SetActive(false);
-		showDonutPrize();
+		showDonutPrize(prizeForVideo);
 
 		#endif
 	}
+
 
 	public void shareForDonuts(){
 
 		#if UNITY_ANDROID
 
 
-		string body = "My record in Rage Jump is " + PlayerPrefs.GetInt ("Record", 0) + ". Can you beat my record?", subject = "";
+		string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
@@ -212,19 +246,19 @@ public class GameManager : MonoBehaviour {
 
 
 		shareForDonutsPanel.SetActive(false);
-		showDonutPrize();
+		showDonutPrize(prizeForSharing);
 
 		#endif
 	}
 
 	public void likeForDonuts (){
-		
+
 		#if UNITY_ANDROID
 
-		PlayerPrefs.SetInt(likeForDonutString, 1);
+		prefManager.likeGiven();
 		likeForDonutsPanel.SetActive (false);
 		Application.OpenURL("market://details?id=" + Application.productName);
-		showDonutPrize ();
+		showDonutPrize (prizeForLike);
 
 		#endif
 	}
@@ -232,35 +266,34 @@ public class GameManager : MonoBehaviour {
 	public void showDonutPresent(){
 
 		donutsPresentsPanel.SetActive(false);
-		showDonutPrize ();
+		showDonutPrize (prizeForGift);
 	}
 
 
 	private GameObject lastDonutExplosion;
 
-	void showDonutPrize ()
+	void showDonutPrize (int donutPrize)
 	{
-
-		PlayerPrefs.SetInt (donutsString, PlayerPrefs.GetInt(donutsString, 0) + donutPrize);
+		prefManager.setDonut (prefManager.getDonut() + donutPrize);
 
 		donutPrizePanel.SetActive (true);
 		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
 
-		donutText.text = PlayerPrefs.GetInt ("Donuts", 0).ToString();
+		donutText.text = prefManager.getDonut().ToString();
 	}
 
 	public void closeDonutPrizePanel(){
-		
+
 		GameObject.Destroy (lastDonutExplosion);
 		donutPrizePanel.SetActive (false);
 	}
 
+	#endregion
 
 
 	public void showOnlineShop(){
 		Application.OpenURL("");
 	}
-
 
 
 	public void showCreditsPanel(){
@@ -273,64 +306,14 @@ public class GameManager : MonoBehaviour {
 
 
 
-	public GameObject characterButton;		
-
-	void Start(){
-
-		sm.InstantiateCharacter();
-
-		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
-
-		menuAnim = menu.GetComponent<Animator> ();
-		cameraAnim = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Animator> ();
-
-		menuAnim.SetTrigger ("MenuOn");
-		characterButton.GetComponent<ButtonBlink> ().blinkActive = (sm.existCharacterToBuy ()) ? true : false;
-
-		//deleteAll ();
-	}
-
-	void deleteAll(){
-		
-		PlayerPrefs.DeleteAll ();
-	}
-
-	public void startGame(){
-
-		if (!isFirstPlay) {
-			SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
-		} else {
-			
-			isFirstPlay = false;
-			cameraController.active = true;
-			foreground.SetActive (true);
-			menuAnim.SetTrigger ("ControlsOn");
-
-			if (!isOptionsMenuClosed)
-				manageMenuOptions();
-
-			if (!isOptionsMenu2Closed)
-				manageMenuOptions2();
-
-			if(player!= null)
-				player.activate ();
-			else
-				player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
-
-			if(player!= null)
-				player.activate ();
-		}
-	}
-
-
 	public void manageMenuOptions2(){
 
-		if(isOptionsMenu2Closed)
-			optionsMenu2.SetActive (true);
+		if(isSettingsMenuClosed)
+			settingsMenu.SetActive (true);
 		else 
-			optionsMenu2.SetActive (false);
+			settingsMenu.SetActive (false);
 
-		isOptionsMenu2Closed = !isOptionsMenu2Closed;
+		isSettingsMenuClosed = !isSettingsMenuClosed;
 	}
 
 	public void manageMenuOptions(){
@@ -343,7 +326,7 @@ public class GameManager : MonoBehaviour {
 		isOptionsMenuClosed = !isOptionsMenuClosed;
 	}
 
-	public GameObject ground;
+
 
 	public void showCharacterSelectionMenu(){
 
@@ -351,8 +334,7 @@ public class GameManager : MonoBehaviour {
 		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraController.zoomOn ();
-		foreground.SetActive (false);
-	}
+		foreground.SetActive (false);}
 
 	public void closeCharacterSelectionMenu(){
 
@@ -373,6 +355,8 @@ public class GameManager : MonoBehaviour {
 		cameraController.zoomOff ();
 		foreground.SetActive (true);
 	}
+
+
 
 	public void changeButtonsUse(){
 		useButtons = !useButtons;

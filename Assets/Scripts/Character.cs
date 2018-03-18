@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Character", menuName = "Characters")]
 public class Character : ScriptableObject {
 	
-	public Sprite sprite;
+	public Sprite sprite, destroyPieceSprite;
 
 	public int id,
 				jumpSpeed = 45000,
@@ -15,15 +15,16 @@ public class Character : ScriptableObject {
 				gravityScale = 180,
 				cost;
 
-	public objectType type;
+	//public objectType type;
 	public bool boughtWithObjects; // se donut o diamanti o qualsiasi altro oggetto
 
-	public enum objectType{donut, pizza, hamburger};
+	//public enum objectType{donut, pizza, hamburger};
 
 	public int getCount(){
 		return cost;
 	}
 
+	/*
 	public string getType(){
 
 		switch(type){
@@ -40,25 +41,23 @@ public class Character : ScriptableObject {
 			return "";
 		}
 
-	}
+	}*/
 
 	int donutsPicked;
 
 	public bool buy(){
 
+		PreferenceManager prefM = GameObject.FindObjectOfType<PreferenceManager> ();
 
+		if ( canBeBought() && !prefM.hasBeenBought (id)) {
 
-		if ( canBeBought() && PlayerPrefs.GetInt ("Isbought" + id, 0) == 0) {
+			prefM.setHasBought (id);
 
-			PlayerPrefs.SetInt("Isbought" + id, 1);
-
-			int objectsPicked = PlayerPrefs.GetInt (getType(), 0);
-			objectsPicked -= cost;
-
-			PlayerPrefs.SetInt (getType(), objectsPicked);
+			prefM.setDonut (prefM.getDonut() - cost);
 
 			return true;
-		} else if (PlayerPrefs.GetInt ("Isbought" + id, 0) == 1)
+
+		} else if (prefM.hasBeenBought(id))
 			return true;
 		else
 			return false;
@@ -67,7 +66,7 @@ public class Character : ScriptableObject {
 
 	public bool canBeBought(){
 
-		if (boughtWithObjects && cost <= PlayerPrefs.GetInt (getType(), 0) && !hasBeenBought())
+		if (boughtWithObjects && cost <= GameObject.FindObjectOfType<PreferenceManager> ().getDonut() && !hasBeenBought())
 			return true;
 		else {
 				// guardare se può essere sbloccato per altri motivi
@@ -78,9 +77,6 @@ public class Character : ScriptableObject {
 
 	public bool hasBeenBought(){
 
-		if (PlayerPrefs.GetInt ("Isbought" + id, 0) == 1)
-			return true;
-		else
-			return false;
+		return GameObject.FindObjectOfType<PreferenceManager> ().hasBeenBought (id);
 	}
 }

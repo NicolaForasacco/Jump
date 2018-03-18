@@ -14,13 +14,14 @@ public class AudioManager : MonoBehaviour {
 
 	int currentClip = -1;
 
+	PreferenceManager prefM;
+
 	// Use this for initialization
 	void Start () {
-		
-		if (PlayerPrefs.GetInt ("SoundOn", 1) == 1)
-			soundOn = true;
-		else
-			soundOn = false;
+
+		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
+ 
+		soundOn = prefM.getSoundOn ();
 
 		changeBackgroundTrack ();
 
@@ -43,7 +44,6 @@ public class AudioManager : MonoBehaviour {
 			soundtrackSource.clip = clips[currentClip];
 			soundtrackSource.Play ();
 		}
-	
 	}
 		
 	public void playDonutsPickupSound(){
@@ -73,13 +73,13 @@ public class AudioManager : MonoBehaviour {
 
 	public void SetSoundOn(){
 		
-		PlayerPrefs.SetInt ("SoundOn", 1);
+		prefM.setSoundOn(true);
 		soundOn = true;
 	}
 
 	public void SetSoundOff(){
 		
-		PlayerPrefs.SetInt ("SoundOn", 0);
+		prefM.setSoundOn(false);
 		soundOn = false;
 	}
 

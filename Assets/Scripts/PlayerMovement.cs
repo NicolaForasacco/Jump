@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour {
 	private AudioManager audioManager;
 	private	CameraController cameraController;
 	private SpawnTileManager spawnTileManager;
+	private PreferenceManager prefManager;
 
 	private	Text	scoreText,	
 					pointsText;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 					jumpButtonDown;
 
 
+
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
@@ -54,10 +56,11 @@ public class PlayerMovement : MonoBehaviour {
 		spawnTileManager = GameObject.FindObjectOfType<SpawnTileManager> ();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
+		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
 
 		initializeCharacterParameters ();
 
-		donutsPicked = PlayerPrefs.GetInt ("Donuts", 0);
+		donutsPicked = prefManager.getDonut();
 		pointsText.text = donutsPicked.ToString ();
 
 		lastHeight = transform.position.y;
@@ -72,6 +75,16 @@ public class PlayerMovement : MonoBehaviour {
 		jumpSpeed = ch.jumpSpeed;
 		sideSpeed = ch.sideSpeed;
 		slowSideSpeed = ch.slowSideSpeed;
+
+		Sprite destroyPiece = ch.destroyPieceSprite;
+
+		SpriteRenderer[] sr = deadBodyPrefab.GetComponentsInChildren<SpriteRenderer> ();
+
+		foreach(SpriteRenderer s in sr){
+			s.sprite = destroyPiece;
+		}
+
+
 	}
 		
 	public void activate(){

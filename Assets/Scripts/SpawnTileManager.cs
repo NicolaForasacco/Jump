@@ -17,7 +17,7 @@ public class SpawnTileManager : MonoBehaviour {
 				minPlatformLength,
 				randomXRange;
 
-	public float probabilityChangeEvery = 800, enemiesP;
+	public float probabilityChangeEvery, enemiesP;
 
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
 

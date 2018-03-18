@@ -6,27 +6,37 @@ using UnityEngine.UI;
 
 public class sliderCharacterManager : MonoBehaviour {
 
-	public	GameObject[] charactersPrefabs, characters;
+	public GameObject characterPrefab;
+	public Character currentCharacter;
+	public	Character[] characters;
+	private GameObject[] charactersInstances;
 
 	public	GameManager	gm;
 	public	CameraController cameraController;
-	public	GameObject currentCharacter,
+	public	GameObject currentCharacterInstance,
 						donutsCostLabel,
 						playButton;
 
-	public	int	currentSelectedCharacter = 0;
+	public	int	currentSelectedCharacterId = 0;
 
 
-	private	GameObject	newCurrentCharacter;
+	private	GameObject	newCurrentCharacterInstance;
+	private PreferenceManager prefManager;
+
 	private	PlayerMovement	currentPlayerMovement;
 	private	Text donutsCost;
 	private	bool characterSelectionMenuOpen;
 	private const float currentCharacterScale = 2.8f, distanceBetweenCharacters = 40f;
 
 
+	void Start(){
+		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+	}
+
 	public void InstantiateCharacter () {
 
-		characters = new GameObject[charactersPrefabs.Length];
+		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+		charactersInstances = new GameObject[characters.Length];
 
 		//donutsCostLabel = GameObject.FindGameObjectWithTag ("DonutsCostLabel");
 		donutsCost = GameObject.FindGameObjectWithTag ("DonutsCost").GetComponent<Text> ();
@@ -34,19 +44,21 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
-		currentSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
+		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
-		currentCharacter = charactersPrefabs [currentSelectedCharacter];
+		currentCharacter = characters [currentSelectedCharacterId];
 
-		newCurrentCharacter = Instantiate (charactersPrefabs [currentSelectedCharacter], new Vector3 (currentCharacter.transform.position.x, 20, 0), Quaternion.identity);
-		characters [currentSelectedCharacter] = newCurrentCharacter;
+		characterPrefab.GetComponent<PlayerMovement> ().ch = currentCharacter;
+
+		newCurrentCharacterInstance = Instantiate (characterPrefab, new Vector3 (0, 20, 0), Quaternion.identity);//charactersPrefabs [currentSelectedCharacter], new Vector3 (0, 20, 0), Quaternion.identity);
+		charactersInstances [currentSelectedCharacterId] = newCurrentCharacterInstance;
 
 
 		//DestroyObject (currentCharacter.gameObject);
 		cameraController.Start ();
 
-		currentCharacter = newCurrentCharacter;
-		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
+		currentCharacterInstance = newCurrentCharacterInstance;
+		currentPlayerMovement = currentCharacterInstance.GetComponentInChildren<PlayerMovement> ();
 
 	}
 
@@ -80,13 +92,14 @@ public class sliderCharacterManager : MonoBehaviour {
 			currentPlayerMovement.onJumpButtonUp();
 	}
 
+
 	public void slideCharacterRight(){
 		
-		if (currentSelectedCharacter < charactersPrefabs.Length - 1) {
+		if (currentSelectedCharacterId < characters.Length - 1) {
 		
-			currentSelectedCharacter += 1;
+			currentSelectedCharacterId += 1;
 
-			foreach(GameObject c in characters){
+			foreach(GameObject c in charactersInstances){
 				c.transform.position = new Vector3 (c.transform.position.x - distanceBetweenCharacters, c.transform.position.y, c.transform.position.z);
 				c.transform.localScale = new Vector2 (1, 1);
 			}
@@ -97,13 +110,13 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	public void slideCharacterLeft(){
 
-		if (currentSelectedCharacter > 0) {
+		if (currentSelectedCharacterId > 0) {
 
-			currentSelectedCharacter -= 1;
+			currentSelectedCharacterId -= 1;
 
-			for (int i = 0; i < characters.Length; i++) {
-				characters [i].transform.position = new Vector3 (characters [i].transform.position.x + distanceBetweenCharacters, characters [i].transform.position.y, characters [i].transform.position.z);
-				characters [i].transform.localScale = new Vector2 (1, 1);
+			for (int i = 0; i < charactersInstances.Length; i++) {
+				charactersInstances [i].transform.position = new Vector3 (charactersInstances [i].transform.position.x + distanceBetweenCharacters, charactersInstances [i].transform.position.y, charactersInstances [i].transform.position.z);
+				charactersInstances [i].transform.localScale = new Vector2 (1, 1);
 			}
 
 			spawnNewCurrentCharacter ();
@@ -118,15 +131,15 @@ public class sliderCharacterManager : MonoBehaviour {
 		//DestroyObject (currentCharacter.gameObject);
 		//cameraController.Start ();
 
-		currentCharacter = characters[currentSelectedCharacter];
-		currentCharacter.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
+		currentCharacterInstance = charactersInstances[currentSelectedCharacterId];
+		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 
-		currentPlayerMovement = currentCharacter.GetComponentInChildren<PlayerMovement> ();
+		currentPlayerMovement = currentCharacterInstance.GetComponentInChildren<PlayerMovement> ();
 
 		if ( !currentPlayerMovement.ch.hasBeenBought() && currentPlayerMovement.ch.cost > 0 ) {
 
 			// rendo il personaggio un po' scuro per far capire che deve essere acquistato
-			currentCharacter.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
+			currentCharacterInstance.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
 
 			donutsCostLabel.SetActive (true);
 			donutsCost.text = currentPlayerMovement.ch.cost.ToString ();
@@ -142,7 +155,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	public void spawnCharacter(int i, GameObject character){
 
-		characters [i] = character;
+		charactersInstances [i] = character;
 		PlayerMovement pm =  character.GetComponent<PlayerMovement> ();
 
 		pm.disableGravity ();
@@ -167,15 +180,20 @@ public class sliderCharacterManager : MonoBehaviour {
 	public void openSelection (){
 
 		characterSelectionMenuOpen = true;
-		currentCharacter.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
+		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 		currentPlayerMovement.disableGravity ();
 
-		for(int i = 0; i < currentSelectedCharacter; i++)
-			spawnCharacter(i, Instantiate (charactersPrefabs [i], new Vector3 (currentCharacter.transform.position.x + (i - currentSelectedCharacter) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+		for (int i = 0; i < currentSelectedCharacterId; i++) {
+			
+			characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
+			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 
-		for(int i = currentSelectedCharacter + 1; i < charactersPrefabs.Length; i++)
-			spawnCharacter(i, Instantiate (charactersPrefabs [i], new Vector3 (currentCharacter.transform.position.x + (i - currentSelectedCharacter) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
-	
+		}
+
+		for (int i = currentSelectedCharacterId + 1; i < characters.Length; i++) {
+			characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
+			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+		}
 
 	}
 
@@ -183,27 +201,28 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		if (characterSelectionMenuOpen) {
 
-			int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
+			int oldSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
 			if (currentPlayerMovement.ch.buy () && !currentPlayerMovement.dead) { // controllo che sia stato acquistato
 
-				if (oldSelectedCharacter == currentSelectedCharacter) {
+				if (oldSelectedCharacterId == currentSelectedCharacterId) {
 
-					currentCharacter.transform.localScale = new Vector2 (1, 1);
+					currentCharacterInstance.transform.localScale = new Vector2 (1, 1);
 					currentPlayerMovement.anableGravity ();
 					gm.closeCharacterSelectionMenu ();
 					gm.startGame ();
+
 				} else {
 				
 					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
-					PlayerPrefs.SetInt ("CharacterSelected", currentSelectedCharacter);
+					prefManager.setLastSelectedCharacter(currentSelectedCharacterId);
 					gm.startGame ();
 				}
 
 			} else if (currentPlayerMovement.dead) {
 					
 					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
-					PlayerPrefs.SetInt ("CharacterSelected", oldSelectedCharacter);
+					prefManager.setLastSelectedCharacter(oldSelectedCharacterId);
 					gm.startGame ();
 			}
 				
@@ -213,29 +232,29 @@ public class sliderCharacterManager : MonoBehaviour {
 	}
 
 	public void close(){
-		int oldSelectedCharacter = PlayerPrefs.GetInt ("CharacterSelected", 0);
+		int oldSelectedCharacterId = prefManager.getLastSelectedCharacter ();
 
-		for (int i = 0; i < characters.Length; i++) {
-			if (i != oldSelectedCharacter)
-				GameObject.Destroy (characters [i]);
+		for (int i = 0; i < charactersInstances.Length; i++) {
+			if (i != oldSelectedCharacterId)
+				GameObject.Destroy (charactersInstances [i]);
 		}
 
-		if (oldSelectedCharacter != currentSelectedCharacter) {
+		if (oldSelectedCharacterId != currentSelectedCharacterId) {
 			
-			currentSelectedCharacter = oldSelectedCharacter;
+			currentSelectedCharacterId = oldSelectedCharacterId;
 			spawnNewCurrentCharacter ();
 			currentPlayerMovement.transform.position = new Vector3 (0, currentPlayerMovement.transform.position.y, currentPlayerMovement.transform.position.z);
 
 		}
 
-		currentCharacter.transform.localScale = new Vector2 (1, 1);
+		currentCharacterInstance.transform.localScale = new Vector2 (1, 1);
 		currentPlayerMovement.anableGravity ();
 	}
 
 	public bool existCharacterToBuy(){
 
-		foreach(GameObject g in charactersPrefabs){
-			if (g.GetComponent<PlayerMovement> ().ch.canBeBought())
+		foreach(Character g in characters){
+			if (g.canBeBought())
 				return true;
 		}
 
