@@ -220,12 +220,15 @@ public class sliderCharacterManager : MonoBehaviour {
 				}
 
 			} else if (currentPlayerMovement.dead) {
-					
-					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
-					prefManager.setLastSelectedCharacter(oldSelectedCharacterId);
-					gm.startGame ();
+
+				prefManager.setLastSelectedCharacter(oldSelectedCharacterId);
+				gm.restartGame ();
 			}
 				
+		}else if (currentPlayerMovement.dead) {
+
+			//prefManager.setLastSelectedCharacter(oldSelectedCharacterId);
+			gm.restartGame ();
 		}else
 			gm.startGame ();
 			

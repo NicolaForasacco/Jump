@@ -33,7 +33,7 @@ public class SpawnTileManager : MonoBehaviour {
 
 	private float 	lastPlatformLength, 
 					lastPlatformPosition,
-					donutP = 0.9f,				
+					donutP = 0.7f,				
 					flowerP = 0.6f,
 					animalP = 0.3f,
 					lastXPosition = 1f,

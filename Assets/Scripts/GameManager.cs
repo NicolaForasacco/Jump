@@ -109,6 +109,8 @@ public class GameManager : MonoBehaviour {
 		managePanels ();
 	}
 
+
+
 	void managePanels(){
 
 		//#if UNITY_ANDROID
@@ -119,17 +121,7 @@ public class GameManager : MonoBehaviour {
 		if(!manageshareForDonutsPanel ())
 			manageLikeForDonutsPanel ();
 
-
-		/*if (Random.value <= 0.5f)
-			showVideoForDonutsPanel ();
-
-		if (Random.value <= 0.5f)
-			showShareForDonutsPanel ();*/
-
 		//#endif
-
-
-		//manageChallenges ();
 	}
 
 
@@ -149,7 +141,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageVideoForDonutsPanel(){
 
-		if (Random.value <= 0.5f) {
+		if (Random.value <= 0.6f) {
 
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -290,6 +282,19 @@ public class GameManager : MonoBehaviour {
 
 	#endregion
 
+	public void restartGame(){
+		
+		menuAnim.SetTrigger ("NoUI");
+		StartCoroutine (reloadScene(1.2f));
+
+	}
+
+	private IEnumerator reloadScene(float time){
+
+		yield return new WaitForSeconds(time);
+
+		SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
+	}
 
 	public void showOnlineShop(){
 		Application.OpenURL("");
@@ -354,11 +359,5 @@ public class GameManager : MonoBehaviour {
 		menuAnim.SetTrigger ("MenuOn");
 		cameraController.zoomOff ();
 		foreground.SetActive (true);
-	}
-
-
-
-	public void changeButtonsUse(){
-		useButtons = !useButtons;
 	}
 }
