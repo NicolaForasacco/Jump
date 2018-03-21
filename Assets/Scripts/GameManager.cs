@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageshareForDonutsPanel(){
 
-		if (Random.value <= 0.5f || newBestText.activeSelf) {
+		if (Random.value <= 0.2f || newBestText.activeSelf) {
 
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -176,11 +176,12 @@ public class GameManager : MonoBehaviour {
 			donutsPresentsPanel.SetActive (true);
 
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+			prefManager.setLasttimeGift (System.DateTime.Now.ToString());
 
 			return true;
 		} else {
 
-			if (Random.value <= 1f) {
+			if (Random.value <= 0.3f) {
 				donutsGiftSoonPanel.SetActive (true);
 
 				int minuteLeft = ((lastTime.Hour*60 + 3*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);

@@ -66,6 +66,7 @@ public class SpawnTileManager : MonoBehaviour {
 		
 		levelIndex++;
 		probabilityChangeEvery *= 1.2f;
+		cameraController.increaseSpeed ();
 
 		foreach (Tile t in tilePrefabs)
 			t.changeProbability ();

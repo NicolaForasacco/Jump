@@ -10,7 +10,8 @@ public class CameraController : MonoBehaviour {
 					landscapeSize = 120f,
 					portraitSize = 180f,
 					landscapeSizeZoomOn = 60f,
-					portraitSizeZoomOn = 90f;
+					portraitSizeZoomOn = 90f,
+					maxCameraSpeed = 150;
 
 
 	private	GameObject player;
@@ -104,6 +105,15 @@ public class CameraController : MonoBehaviour {
 
 			previousScreenOrientation = Screen.orientation;
 		}
+	}
+
+
+	public void increaseSpeed(){
+		
+		if (cameraSlowSpeed + 40 < maxCameraSpeed)
+			cameraSlowSpeed += 40;
+		else
+			cameraSlowSpeed = maxCameraSpeed;
 	}
 		
 	void LateUpdate () 
