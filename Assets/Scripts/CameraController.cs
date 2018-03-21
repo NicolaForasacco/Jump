@@ -34,6 +34,8 @@ public class CameraController : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("player");
 
+
+			
 		if (player != null) {
 			
 			cameraB = GetComponent<Camera> ();
@@ -42,17 +44,16 @@ public class CameraController : MonoBehaviour {
 			newCameraPosition = new Vector3 (transform.position.x,
 											transform.position.y, 
 											transform.position.z);
+
+			if (GameObject.FindObjectOfType<PreferenceManager> ().getRecord () != 0)
+				changeRandomBackgroundColor ();
 		}
 	}
 
 
 	public void changeRandomBackgroundColor(){
 		
-		currentColorIndex++;
-		if (currentColorIndex == backgroundColors.Length)
-			currentColorIndex = 0;
-		
-		cameraB.backgroundColor = backgroundColors[currentColorIndex];
+		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length - 1)];
 
 	}
 

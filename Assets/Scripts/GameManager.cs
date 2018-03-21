@@ -171,18 +171,25 @@ public class GameManager : MonoBehaviour {
 
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
-		if (System.DateTime.Now.Day - lastTime.Day > 0 || lastTimeGiftPicked.CompareTo ("") == 0) {
+		if (System.DateTime.Now.Day - lastTime.Day > 0 || System.DateTime.Now.Hour - lastTime.Hour > 2|| lastTimeGiftPicked.CompareTo ("") == 0) {
 
 			donutsPresentsPanel.SetActive (true);
-			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 
-			prefManager.setLasttimeGift (System.DateTime.Now.ToString ());
+			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 
 			return true;
 		} else {
 
-			if (Random.value <= 0.3f)
+			if (Random.value <= 1f) {
 				donutsGiftSoonPanel.SetActive (true);
+
+				int minuteLeft = ((lastTime.Hour*60 + 3*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);
+
+				int hourLeft = (int)Mathf.Floor(minuteLeft / 60);
+				minuteLeft = minuteLeft % 60;
+				donutsGiftSoonPanel.GetComponentInChildren<Text>().text = "NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M";
+
+			}
 		}
 
 		return false;

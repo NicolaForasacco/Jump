@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: ch2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d8295a3fa7b306c42827523dc9070e8e, type: 3}
+  destroyPieceSprite: {fileID: 21300000, guid: 802cecdb4f2dc764fbe36538b6b8874c, type: 3}
   id: 1
   jumpSpeed: 45000
   sideSpeed: 170
@@ -19,5 +20,4 @@ MonoBehaviour:
   mass: 60
   gravityScale: 180
   cost: 100
-  type: 0
   boughtWithObjects: 1
