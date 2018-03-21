@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour {
 		#if UNITY_ANDROID
 
 
-		string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
+		/*string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
@@ -235,7 +235,7 @@ public class GameManager : MonoBehaviour {
 		AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
 		//start the activity by sending the intent data
 		currentActivity.Call ("startActivity", intentObject);
-
+*/
 
 		shareForDonutsPanel.SetActive(false);
 		showDonutPrize(prizeForSharing);

@@ -175,9 +175,21 @@ public class sliderCharacterManager : MonoBehaviour {
 		}
 	}
 
+	int getTotalNumberOwnedCharacter(){
+		
+		int sum = 0;
+		foreach(Character c in characters)
+			sum += (c.hasBeenBought())? 1 : 0;
 
+		return sum;
+	}
 
+	public Text ownedText;
 	public void openSelection (){
+
+		int characterOwned = getTotalNumberOwnedCharacter();
+		int totalCharacter = characters.Length;
+		ownedText.text = characterOwned + "/" + totalCharacter;
 
 		characterSelectionMenuOpen = true;
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);

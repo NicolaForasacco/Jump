@@ -75,6 +75,7 @@ public class SpawnTileManager : MonoBehaviour {
 		else
 			currentMaxLevelHeightRange = maxLevelHeightRange;
 
+		twoPlatformOnSameLevelP -= 0.1f;
 
 		enemiesP += 0.05f;
 

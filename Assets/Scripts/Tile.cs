@@ -27,6 +27,10 @@ public class Tile{
 
 	public void changeProbability(){
 
+		if (currentProbability == 0 && changeProbabilityParameter >= 1) {
+			currentProbability = minProbability;
+		}
+
 		if (changeProbabilityParameter > 1) {
 			
 			if (currentProbability * changeProbabilityParameter <= maxProbability)
