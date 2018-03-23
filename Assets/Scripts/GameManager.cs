@@ -171,7 +171,9 @@ public class GameManager : MonoBehaviour {
 
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
-		if (System.DateTime.Now.Day - lastTime.Day > 0 || System.DateTime.Now.Hour - lastTime.Hour > 2|| lastTimeGiftPicked.CompareTo ("") == 0) {
+		if ((System.DateTime.Now.Day - lastTime.Day > 0 && (24 - lastTime.Hour + System.DateTime.Now.Hour > 2)) 
+			|| System.DateTime.Now.Hour - lastTime.Hour > 2 
+			|| lastTimeGiftPicked.CompareTo ("") == 0) {
 
 			donutsPresentsPanel.SetActive (true);
 
