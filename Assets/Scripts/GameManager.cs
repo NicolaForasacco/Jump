@@ -33,7 +33,9 @@ public class GameManager : MonoBehaviour {
 
 	private bool isSettingsMenuClosed = true, isOptionsMenuClosed = true;
 
-	private int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100;
+	private int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
+
+	private float showVideoPanelP = 0.6f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
 
 	private PlayerMovement player;
 	private PreferenceManager prefManager;
@@ -73,13 +75,10 @@ public class GameManager : MonoBehaviour {
 			if (!isSettingsMenuClosed)
 				manageMenuOptions2();
 
-			if(player!= null)
-				player.activate ();
-			else
+			while(player == null)
 				player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
-
-			if(player!= null)
-				player.activate ();
+			
+			player.activate ();
 		}
 	}
 		
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageLikeForDonutsPanel(){
 
-		if (Random.value <= 0.5f && !prefManager.likeAlreadyGiven()) {
+		if (Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
 
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageVideoForDonutsPanel(){
 
-		if (Random.value <= 0.6f) {
+		if (Random.value <= showVideoPanelP) {
 
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -153,7 +152,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageshareForDonutsPanel(){
 
-		if (Random.value <= 0.2f || newBestText.activeSelf) {
+		if (Random.value <= showSharePanelP || newBestText.activeSelf) {
 
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -172,7 +171,7 @@ public class GameManager : MonoBehaviour {
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
 		if ((System.DateTime.Now.Day - lastTime.Day > 0 && (24 - lastTime.Hour + System.DateTime.Now.Hour > 2)) 
-			|| System.DateTime.Now.Hour - lastTime.Hour > 2 
+			|| System.DateTime.Now.Hour - lastTime.Hour >= hourBetweenGift 
 			|| lastTimeGiftPicked.CompareTo ("") == 0) {
 
 			donutsPresentsPanel.SetActive (true);
@@ -183,10 +182,10 @@ public class GameManager : MonoBehaviour {
 			return true;
 		} else {
 
-			if (Random.value <= 0.3f) {
+			if (Random.value <= showGiftSoonPanelP) {
 				donutsGiftSoonPanel.SetActive (true);
 
-				int minuteLeft = ((lastTime.Hour*60 + 3*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);
+				int minuteLeft = ((lastTime.Hour*60 + hourBetweenGift*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);
 
 				int hourLeft = (int)Mathf.Floor(minuteLeft / 60);
 				minuteLeft = minuteLeft % 60;
@@ -227,7 +226,7 @@ public class GameManager : MonoBehaviour {
 		#if UNITY_ANDROID
 
 
-		/*string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
+		string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
@@ -245,7 +244,7 @@ public class GameManager : MonoBehaviour {
 		AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
 		//start the activity by sending the intent data
 		currentActivity.Call ("startActivity", intentObject);
-*/
+
 
 		shareForDonutsPanel.SetActive(false);
 		showDonutPrize(prizeForSharing);
@@ -352,9 +351,7 @@ public class GameManager : MonoBehaviour {
 		foreground.SetActive (false);}
 
 	public void closeCharacterSelectionMenu(){
-
-		//menuAnim.SetTrigger ("MenuOn");
-
+		
 		ground.SetActive (true);
 		cameraController.zoomOff();
 		foreground.SetActive (true);

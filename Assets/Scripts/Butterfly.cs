@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Butterfly : MonoBehaviour {
 
+	private GameObject player;
+	private Vector3 initialPosition;
 
+	private int side = 1, startWhenPlayerIsCloserThan = 100, deleteWhenPlayerFurtherThan = 400;
+	private float speedX = 100, speedY = 200;
+	private bool isMoving = false;
 
-	GameObject player;
-
-	Vector3 initialPosition;
-
-	int side = 1, startWhenPlayerIsCloserThan = 100, deleteWhenPlayerFurtherThan = 400;
-	float speedX = 100, speedY = 200;
-	bool isMoving = false;
 	public float minScale = 0.4f, maxScale = 0.9f;
 
 	void Start () {
@@ -27,8 +25,7 @@ public class Butterfly : MonoBehaviour {
 		transform.localScale = new Vector2 (side * randomScale, 1 * randomScale);
 		initialPosition = transform.position;
 	}
-
-
+		
 	void Update () {
 
 		if (isMoving) {
@@ -49,8 +46,7 @@ public class Butterfly : MonoBehaviour {
 		} else {
 
 			if (player != null) {
-				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && 
-					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
+				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
 					isMoving = true;
 			}
 		}

@@ -4,40 +4,28 @@ using UnityEngine;
 
 public class SpawnTileManager : MonoBehaviour {
 
-	public GameObject[] collectablesPrefabs, animals;
-	public GameObject pencilPrefab, shurikenPrefab;
-
+	public GameObject[] animals;
+	public GameObject pencilPrefab, shurikenPrefab, donutPrefab;
 	public CameraController cameraController;
-
 	public Tile[] tilePrefabs;
-
 	public Object flowerPrefab;
 
-	public int	maxPlatformLength,
-				minPlatformLength,
-				randomXRange;
-
-	public float probabilityChangeEvery, enemiesP;
-
+	public int	maxPlatformLength = 4, minPlatformLength = 1, randomXRange = 0;
+	public float probabilityChangeEvery = 500, enemiesP = 0;
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
 
 
 	private GameObject player;
-
-	private int numberOfPlatformLevelSpawnedEachTime = 15,
-				maxXRage = 4,
-				tileWidth = 20,
-				levelIndex = 0;
-
 	private Tile lastTileType;
+
+	private int numberOfPlatformLevelSpawnedEachTime = 15, maxXRage = 4, tileWidth = 20, levelIndex = 0;
 
 	private float 	lastPlatformLength, 
 					lastPlatformPosition,
-					donutP = 0.7f,				
+					donutP = 0.1f,				
 					flowerP = 0.6f,
 					animalP = 0.3f,
-					lastXPosition = 1f,
-					collectableP = 0.1f, 
+					lastXPosition = 1f, 
 					currentLevelHeight = 40f,
 					currentMaxLevelHeightRange = 40f,
 					minLevelHeightRange = 40f,
@@ -79,10 +67,9 @@ public class SpawnTileManager : MonoBehaviour {
 		twoPlatformOnSameLevelP -= 0.1f;
 
 		enemiesP += 0.05f;
-
-		Debug.Log ("Probabilities changed at " + currentLevelHeight + "; enemiesP = " + enemiesP);
 	}
 
+	#region spawnPlatforms
 
 	public void spawnMultiplePlatform(){
 
@@ -103,7 +90,7 @@ public class SpawnTileManager : MonoBehaviour {
 		if(Random.value < twoPlatformOnSameLevelP)
 			spawnPlatform (false);
 		
-		currentLevelHeight += Random.Range(minLevelHeightRange, currentMaxLevelHeightRange);//Random.Range(minLevelHeightRange, maxLevelHeightRange);
+		currentLevelHeight += Random.Range(minLevelHeightRange, currentMaxLevelHeightRange);
 	}
 
 	private void spawnPlatform(bool isFirstTileOfThisLevel){
@@ -157,7 +144,7 @@ public class SpawnTileManager : MonoBehaviour {
 
 			Instantiate (tileType.tile, tmpPosition, Quaternion.identity);
 
-			if(!spawnCollectable (tmpPosition, tileType.type))
+			if(!spawnDonut (tmpPosition, tileType.type))
 			if(!spawnFlowers (tmpPosition, tileType.type))
 				spawnAnimal (tmpPosition, tileType.type);
 		}
@@ -165,22 +152,10 @@ public class SpawnTileManager : MonoBehaviour {
 		lastXPosition = tmpPosition.x;
 	}
 
-
-	private float getCurrentTotalTilesP(){
-		
-		float totalP = 0;
-
-		for (int i = 0; i < tilePrefabs.Length; i++)
-			totalP += tilePrefabs [i].currentProbability;
-		
-		return totalP;
-	}
-
 	private Tile getNextTile(bool isFirstTileOfThisLevel){
 
-		float randomFloat = Random.Range (0, getCurrentTotalTilesP());
+		float randomFloat = Random.Range (0, getCurrentTotalTilesP()), currentP = 0;
 		Tile tileType = null;
-		float currentP = 0;
 
 		for(int i = 0; i < tilePrefabs.Length && tileType == null; i++){
 
@@ -198,7 +173,7 @@ public class SpawnTileManager : MonoBehaviour {
 						tileType = tilePrefabs[i];
 					else
 						i = tilePrefabs.Length;    // se non va bene la moving tile perchè non è la prima del livello esco dal for
-					
+
 					break;
 				case Tile.TileType.SpineTile:
 
@@ -206,7 +181,7 @@ public class SpawnTileManager : MonoBehaviour {
 						tileType = tilePrefabs[i];
 					else
 						i = tilePrefabs.Length;    // se non va bene la spine tile perchè è la prima del livello esco dal for
-					
+
 					break;
 				default:
 					tileType = tilePrefabs[i];
@@ -220,21 +195,34 @@ public class SpawnTileManager : MonoBehaviour {
 
 		return tileType;
 	}
+		
+	private float getCurrentTotalTilesP(){
+		
+		float totalP = 0;
 
-	private bool spawnCollectable(Vector3 position, Tile.TileType tileType){
+		for (int i = 0; i < tilePrefabs.Length; i++)
+			totalP += tilePrefabs [i].currentProbability;
+		
+		return totalP;
+	}
+
+	#endregion
+
+	#region spawnObjects
+
+	private bool spawnDonut(Vector3 position, Tile.TileType tileType){
 		
 		if (tileType != Tile.TileType.SpineTile &&
 			tileType != Tile.TileType.MovingTile1 && 
 			tileType != Tile.TileType.MovingTile2 &&
 			tileType != Tile.TileType.MovingTile3 &&
 			tileType != Tile.TileType.ColorizeTile &&
-			Random.value <= collectableP) {
+			Random.value <= donutP) {
 
 			position.y = position.y + tileWidth;
 			position.z = -1;
 
-			if(Random.value <= donutP)
-				Instantiate (collectablesPrefabs [0], position, Quaternion.identity);
+			Instantiate (donutPrefab, position, Quaternion.identity);
 
 			return true;
 		}else
@@ -268,11 +256,14 @@ public class SpawnTileManager : MonoBehaviour {
 			for (int i = 0; i < animalNumber; i++)
 				Instantiate (animals[animalType], new Vector3(position.x + 2 * i, position.y, position.z), Quaternion.identity);
 			
-
 			return true;
 		}else
 			return false;
 	}
+
+	#endregion
+
+	#region spawnEnemies
 
 	public void spawnEnemies(){
 
@@ -300,6 +291,7 @@ public class SpawnTileManager : MonoBehaviour {
 		Instantiate (shurikenPrefab, v, Quaternion.identity);
 	}
 
+	#endregion
 
 	public float getAverageX(){
 		

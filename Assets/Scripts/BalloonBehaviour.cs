@@ -6,20 +6,20 @@ public class BalloonBehaviour : MonoBehaviour {
 
 	GameObject player;
 
-	int speed;
+	float minScale = 0.5f, maxScale = 1.5f, minSpeed = 5, maxSpeed = 15, minAlpha = 0.5f, maxAlpha = 0.9f, speed;
 
 	void Start () {
 
 		transform.SetParent (GameObject.FindGameObjectWithTag ("background").transform);
 		player = GameObject.FindGameObjectWithTag ("player");
 
-		float randomScale = Random.Range (0.5f, 1.5f);
+		float randomScale = Random.Range (minScale, maxScale);
 
-		transform.localScale = (Random.value > 0.5)? new Vector2 (randomScale, randomScale): new Vector2 (-randomScale, randomScale);
+		transform.localScale = (Random.value > 0.5)? new Vector2 (randomScale, randomScale): new Vector2 (- randomScale, randomScale);
 
-		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(0.5f, 0.9f));
+		(GetComponent<SpriteRenderer> ()).color = new Color (1f, 1f, 1f, Random.Range(minAlpha, maxAlpha));
 
-		speed = Random.Range (5, 15);
+		speed = Random.Range (minSpeed, maxSpeed);
 	}
 
 	void Update () {
@@ -28,10 +28,8 @@ public class BalloonBehaviour : MonoBehaviour {
 			
 			if (Mathf.Abs(player.transform.position.y - transform.position.y) > 400)
 				DestroyObject (this.gameObject);
-			else {
-
+			else
 				transform.Translate( Vector2.up * speed * Time.deltaTime);
-			}
 		}
 	}
 }

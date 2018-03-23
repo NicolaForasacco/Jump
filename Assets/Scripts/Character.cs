@@ -15,33 +15,7 @@ public class Character : ScriptableObject {
 				gravityScale = 180,
 				cost;
 
-	//public objectType type;
 	public bool boughtWithObjects; // se donut o diamanti o qualsiasi altro oggetto
-
-	//public enum objectType{donut, pizza, hamburger};
-
-	public int getCount(){
-		return cost;
-	}
-
-	/*
-	public string getType(){
-
-		switch(type){
-		case objectType.donut:
-			return "Donuts";
-
-		case objectType.pizza:
-			return "Pizza";
-
-		case objectType.hamburger:
-			return "Hamburger";
-
-		default:
-			return "";
-		}
-
-	}*/
 
 	int donutsPicked;
 
@@ -52,7 +26,6 @@ public class Character : ScriptableObject {
 		if ( canBeBought() && !prefM.hasBeenBought (id)) {
 
 			prefM.setHasBought (id);
-
 			prefM.setDonut (prefM.getDonut() - cost);
 
 			return true;
@@ -61,7 +34,6 @@ public class Character : ScriptableObject {
 			return true;
 		else
 			return false;
-
 	}
 
 	public bool canBeBought(){

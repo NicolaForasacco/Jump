@@ -8,55 +8,44 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Character ch;
 	public GameObject deadBodyPrefab, comic;
-
-	public bool	dead,
-				jumped,
-				active,
-				isOnLift,
-				isJumping;
-
-	public int donutsPicked,
-				currentRecord = 0,
-				side = -1,
-				cost;
-
+	public bool	dead, jumped, active, isJumping;
+	public int donutsPicked, currentRecord = 0, side = -1;
 
 	private Animator animator;
 	private Rigidbody2D	rigidBody;
 	private GameManager	gameManager;
 	private CameraShake	cameraShake;
 	private AudioManager audioManager;
+	private BoxCollider2D boxCollider2D;
 	private	CameraController cameraController;
 	private SpawnTileManager spawnTileManager;
 	private PreferenceManager prefManager;
 
-	private	Text	scoreText,	
-					pointsText;
+	private	Text scoreText, pointsText;
+	private	bool isOnMovingTile, isFirstMovement = true, jumpButtonDown;
 
-	private	float	sideSpeed,
+	private	float	speed = 0.2f, 
+					decreaseFactor = 0.1f,
+					sideSpeed,
 					jumpSpeed,
 					lastHeight,
 					slowSideSpeed,
-					horizontalSpeed,
+					horizontalSpeed = 0,
 					currentSideSpeed,
 					maxHorizontalSpeed = 1;
-
-	private	bool	isOnMovingTile,
-					isFirstMovement = true,
-					jumpButtonDown;
-
-
 
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
+		boxCollider2D = GetComponent<BoxCollider2D> ();
 		cameraShake	= GameObject.FindObjectOfType<CameraShake>();
 		gameManager = GameObject.FindObjectOfType<GameManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
-		spawnTileManager = GameObject.FindObjectOfType<SpawnTileManager> ();
-		cameraController = GameObject.FindObjectOfType<CameraController> ();
-		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+		cameraController = GameObject.FindObjectOfType<CameraController> ();
+		spawnTileManager = GameObject.FindObjectOfType<SpawnTileManager> ();
+
+		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
 		initializeCharacterParameters ();
 
@@ -64,43 +53,28 @@ public class PlayerMovement : MonoBehaviour {
 		pointsText.text = donutsPicked.ToString ();
 
 		lastHeight = transform.position.y;
-		horizontalSpeed = 0;
 	}
 
 	private void initializeCharacterParameters(){
 
-		rigidBody.gravityScale = ch.gravityScale;
-		rigidBody.mass = ch.mass;
-		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
 		jumpSpeed = ch.jumpSpeed;
 		sideSpeed = ch.sideSpeed;
+		rigidBody.mass = ch.mass;
 		slowSideSpeed = ch.slowSideSpeed;
+		rigidBody.gravityScale = ch.gravityScale;
+		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
 
 		Sprite destroyPiece = ch.destroyPieceSprite;
-
 		SpriteRenderer[] sr = deadBodyPrefab.GetComponentsInChildren<SpriteRenderer> ();
 
-		foreach(SpriteRenderer s in sr){
+		foreach(SpriteRenderer s in sr)
 			s.sprite = destroyPiece;
-		}
-
-
 	}
 		
 	public void activate(){
 		
 		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
-
-		// non metter questo in start(provare a capire il problema)
-		//groundDust = GameObject.FindGameObjectWithTag ("GroundDust");
-		//anim = groundDust.GetComponent<Animator>();
-
-		if (comic != null) {
-
-			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
-			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
-		}
-
+		showMessage ();
 		active = true;
 	}
 
@@ -159,64 +133,51 @@ public class PlayerMovement : MonoBehaviour {
 			comic.GetComponent<Animator> ().SetTrigger ("FadeOut");
 	}
 		
-
-	public void onJumpButtonDown(){
+	void checkFirstMovement(){
 		
-		jumpButtonDown = true;
-
 		if (isFirstMovement) {
 			hideMessage ();
 			isFirstMovement = false;
 		}
+	}
+
+	#region Input methods
+
+	public void onJumpButtonDown(){
+		
+		jumpButtonDown = true;
+		checkFirstMovement ();
 	}
 
 	public void onJumpButtonUp(){
 		
 		jumpButtonDown = false;
-
-
 	}
 		
 	public void goLeft(){
 		
-		if (!isJumping && !jumped && side != 0)
-			movingAnim ();
-		
 		side = 0;
-
-		if (isFirstMovement) {
-			hideMessage ();
-			isFirstMovement = false;
-		}
+		checkFirstMovement ();
 	}
 
 	public void goRight(){
-
-		if (!isJumping && !jumped && side != 1)
-			movingAnim ();
 		
 		side = 1;
-
-		if (isFirstMovement) {
-			hideMessage ();
-			isFirstMovement = false;
-		}
+		checkFirstMovement ();
 	}
 	
 	public void stopHorizontalSpeed(){
 		side = -1;
 	}
-		
-	float speed = 0.2f; 
-	float decreaseFactor = 0.1f;
+
+	#endregion
 
 	void FixedUpdate()
 	{
-		if (active) //&& (!isOnLift || (isOnLift && !currentLift.isLiftWorking ))) {
+		if (active) {
 			
 			currentSideSpeed = (rigidBody.velocity.y == 0) ? sideSpeed : slowSideSpeed;
 	
-
 			if (horizontalSpeed < maxHorizontalSpeed && side == 1)
 				horizontalSpeed += speed;
 			else if (horizontalSpeed > -maxHorizontalSpeed && side == 0)
@@ -248,9 +209,7 @@ public class PlayerMovement : MonoBehaviour {
 */
 
 			if (isJumping && !jumped && (rigidBody.velocity.y == 0 || isOnMovingTile)) {
-
-				jumpAnim ();
-
+				
 				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 
 				spawnTileManager.pencilSpawnThisLevel = false;
@@ -261,8 +220,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			if (transform.position.y < cameraController.getMinPosition ())
 				die ();
-
-
+		}
 	}
 
 	public bool isPlayerStill(){
@@ -282,37 +240,7 @@ public class PlayerMovement : MonoBehaviour {
 			transform.SetParent (null);
 		}
 	}
-
-    void idleAnim()
-    {
-		/*
-        anim.SetBool("Idle", true);
-        anim.SetBool("Moving", false);
-        anim.SetBool("Jumping", false);*/
-    }
-
-	void landAnim(){
-		//anim.SetTrigger ("landing");
-	}
-
-    void movingAnim()
-    {
-
-		//anim.SetTrigger ("moving");
-
-        /*anim.SetBool("Idle", false);
-        anim.SetBool("Moving", true);
-        anim.SetBool("Jumping", false);*/
-    }
-
-    void jumpAnim() {
-		/*
-        anim.SetBool("Idle",false);
-        anim.SetBool("Moving", false);
-        anim.SetBool("Jumping", true);
-        */
-    }
-
+		
 	void die(){
 
         if (!dead)
@@ -335,87 +263,48 @@ public class PlayerMovement : MonoBehaviour {
 
 		GameObject c = collision.gameObject;
 
-		if (c.CompareTag ("Shuriken"))
-			die ();
-		
 		if (c.CompareTag ("Pencil")) {
-
-			if (jumped) {
-				//cameraShake.startShake ();
-				landAnim ();
-			}
+			
+			if (jumped)
+				cameraShake.startShake ();
 			
 			isJumping = false;
 			jumped = false;
 
-            if (GetComponent<BoxCollider2D> ().bounds.min.y >= c.transform.position.y) {
+			if (boxCollider2D.bounds.min.y >= c.transform.position.y) {
 
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().showExplosion ();
 
-			} else if (GetComponent<BoxCollider2D> ().bounds.min.y <= c.transform.position.y &&
-				GetComponent<BoxCollider2D> ().bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
+			} else if (boxCollider2D.bounds.min.y <= c.transform.position.y && boxCollider2D.bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
 				die ();
 		}
 
-		if (c.CompareTag ("ColorizeTile")
-			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y) {
-
+		if ((c.CompareTag ("ColorizeTile") || c.CompareTag ("BounceTile")) && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y)
 			c.GetComponent<TileBehavior> ().behave ();
-		}
 
-		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Lift"))
-			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y) {
+		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Lift")) && boxCollider2D.bounds.min.y > c.transform.position.y) {
 
 			isOnMovingTile = true;
-
-			if (jumped) {
-				landAnim ();
-			}
-
-            if (!isOnLift){
-
-                this.transform.SetParent(c.transform);
-
-                isJumping = false;
-                jumped = false;
-				idleAnim ();
-            }
+			this.transform.SetParent(c.transform);
+			isJumping = false;
+            jumped = false;
 		}
 
 		if ((c.CompareTag("Tile") 
 			|| c.CompareTag("CloudTile") 
 			|| c.CompareTag("UselessTile") 
-			|| c.CompareTag("MovingTile")
-			|| c.CompareTag("RotatingTile"))
-			&& GetComponent<BoxCollider2D> ().bounds.min.y > c.transform.position.y ) {
-
-			if (jumped) {
-				//cameraShake.startShake ();
-				landAnim ();
-			}
+			|| c.CompareTag("MovingTile"))
+			&& boxCollider2D.bounds.min.y > c.transform.position.y ) {
 
 			isJumping = false;
 			jumped = false;
-			idleAnim ();
-
 			spawnTileManager.spawnEnemies ();
-
-			try{
-				c.GetComponent<TileBehavior> ().behave();
-			}catch{}
-
-		}
-
-		if (c.CompareTag ("SpineTile") 
-			&& GetComponent<BoxCollider2D> ().bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y)
-			die ();
-
-		if (c.CompareTag ("BounceTile") 
-			&& transform.position.y > c.transform.position.y) {
-
 			c.GetComponent<TileBehavior> ().behave();
 		}
+
+		if (c.CompareTag ("Shuriken") || (c.CompareTag ("SpineTile") && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y))
+			die ();
 	}
 
 
@@ -424,17 +313,18 @@ public class PlayerMovement : MonoBehaviour {
 		audioManager.playDonutsPickupSound ();
 		donutsPicked++;
 		pointsText.text = donutsPicked.ToString ();
-	}
+  	}
 
-	public void disableGravity(){
+	public void SetGravity(bool enableGravity){
 
-		rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.bodyType = RigidbodyType2D.Static;
-	}
+		if (enableGravity) {
+			
+			rigidBody = GetComponent<Rigidbody2D> ();
+			rigidBody.bodyType = RigidbodyType2D.Dynamic;
+		} else {
 
-	public void anableGravity(){
-
-		rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.bodyType = RigidbodyType2D.Dynamic;
+			rigidBody = GetComponent<Rigidbody2D>();
+			rigidBody.bodyType = RigidbodyType2D.Static;
+		}
 	}
 }

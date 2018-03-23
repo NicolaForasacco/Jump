@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour {
 
-	float speedX = 100;
-	float speedY = 200;
+	private GameObject player;
+	private Vector3 initialPosition;
 
-	int side = 1, deleteWhenPlayerFurtherThan = 400, startWhenPlayerIsCloserThan = 100;
-
-	bool isMoving = false;
-
-	GameObject player;
-
-	Vector3 initialPosition;
+	private int side = 1, deleteWhenPlayerFurtherThan = 400, startWhenPlayerIsCloserThan = 100;
+	private float speedX = 100, speedY = 200;
+	private bool isMoving = false;
 
 
 	public float minScale = 0.3f, maxScale = 0.8f;
@@ -50,8 +46,7 @@ public class Bird : MonoBehaviour {
 		} else {
 			
 			if (player != null) {
-				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan
-					&& transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
+				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
 					isMoving = true;
 			}
 		}

@@ -37,9 +37,7 @@ public class TileBehavior : MonoBehaviour {
 
 
 	public void behave(){
-
-		//audioManager.makeSound ();
-
+		
 		switch(this.tag){
 
 		case "CloudTile":
@@ -65,6 +63,7 @@ public class TileBehavior : MonoBehaviour {
 
 				Instantiate(explosion, transform.position, Quaternion.identity);
 			}
+
 			break;
 		default:
 			break;

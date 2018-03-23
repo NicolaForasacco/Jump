@@ -9,13 +9,13 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 	public float cloudP = 0.7f, ballonP = 0.5f;
 
 	private GameObject player;
-	float lastSpawnPositionY = 0;
+	private float lastSpawnPositionY = 0;
 
-	int	tileWidth = 20,
-		minXRange = -6,
-		maxXRange = 6,
-		minYRange = 5,
-		maxYRange = 8;
+	private int tileWidth = 20,
+				minXRange = -6,
+				maxXRange = 6,
+				minYRange = 5,
+				maxYRange = 8;
 
 	void Start () {
 		
@@ -25,7 +25,6 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 	void Update () {
 		
 		if (player != null) {
-			
 			if (player.transform.position.y + 300 > lastSpawnPositionY)
 				spawnBackgroundObject ();
 		}else
@@ -35,14 +34,6 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 	float getRandomX(){
 		return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX()) + Random.Range (minXRange, maxXRange) * tileWidth;
 	}
-
-	/*float getRandomSideX(){
-		
-		if(Random.value <= 0.5f)
-			return ();
-		else
-			return (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTile> ().getAverageX());
-	}*/
 
 	float getRandomY(){
 		return lastSpawnPositionY + Random.Range (minYRange, maxYRange) * tileWidth;

@@ -8,11 +8,6 @@ public class BlinkDestroyer : MonoBehaviour {
 	void Start () {
 		destroy (1f);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	private void destroy(float time){
 		StartCoroutine (destroyCoroutine(time));

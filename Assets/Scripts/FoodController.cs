@@ -6,17 +6,12 @@ public class FoodController : MonoBehaviour {
 	
 	private CameraController cameraController;
 	public GameObject blink;
-	public objectType type;
 
-	public enum objectType{ donut, pizza, hamburger};
-
-
-	// Use this for initialization
 	void Start () {
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 	}
-	// Update is called once per frame
+
 	void Update () {
 		
 		if (cameraController.getMinPosition () >= transform.position.y)
@@ -27,24 +22,11 @@ public class FoodController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 
 		if (other.gameObject.CompareTag ("player")) {
+			
 			PlayerMovement pm = other.gameObject.GetComponent<PlayerMovement> ();
 
-			switch(type){
-			case objectType.donut:
-				pm.increaseDonutsPicked ();
-				break;
-
-			case objectType.pizza:
-				//pm.increasePizzaPicked ();
-				break;
-
-			case objectType.hamburger:
-				//pm.increaseHamburgerPicked ();
-				break;
-			}
-
+			pm.increaseDonutsPicked ();
 			Instantiate (blink, transform.position, Quaternion.identity);
-
 			Destroy (this.gameObject);
 		}
 	}

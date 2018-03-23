@@ -6,75 +6,41 @@ public class CameraController : MonoBehaviour {
 
 	public Color[] backgroundColors;
 	public bool active = false;
-	public float cameraSlowSpeed = 70,
+	public float cameraSlowSpeed = 70f,
 					landscapeSize = 120f,
 					portraitSize = 180f,
 					landscapeSizeZoomOn = 60f,
 					portraitSizeZoomOn = 90f,
-					maxCameraSpeed = 150;
-
+					maxCameraSpeed = 150f,
+					cameraOffset = 10f;
 
 	private	GameObject player;
 	private	Camera cameraB;
 	private	ScreenOrientation previousScreenOrientation;
-	public int currentColorIndex = 0;
 	private bool isZoomOn = false;
-	private	Vector3	offset,
-					newCameraPosition,
-					velocity;
-
+	private	Vector3	offset,newCameraPosition, velocity, initialTransform;
 
 	public void Start () 
 	{
 		initialSetup ();
 	}
-
-	Vector3 initialTransform;
-
+		
 	void initialSetup(){
 
 		player = GameObject.FindGameObjectWithTag ("player");
 
-
-			
 		if (player != null) {
 			
 			cameraB = GetComponent<Camera> ();
-			offset = new Vector3 (0, 10, transform.position.z);
+			offset = new Vector3 (0, cameraOffset, transform.position.z);
 			initialTransform = transform.position;
-			newCameraPosition = new Vector3 (transform.position.x,
-											transform.position.y, 
-											transform.position.z);
+			newCameraPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 
 			if (GameObject.FindObjectOfType<PreferenceManager> ().getRecord () != 0)
 				changeRandomBackgroundColor ();
 		}
 	}
-
-
-	public void changeRandomBackgroundColor(){
 		
-		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length - 1)];
-
-	}
-
-
-	public void zoomOn(){
-		
-		isZoomOn = true;
-		updateCameraSize ();
-
-		if (player != null)
-			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
-	}
-
-	public void  zoomOff(){
-		
-		isZoomOn = false;
-		updateCameraSize ();
-		transform.position = initialTransform;
-	}
-
 	void updateCameraSize(){
 		
 		if (Screen.orientation == ScreenOrientation.Portrait
@@ -96,26 +62,16 @@ public class CameraController : MonoBehaviour {
 				cameraB.orthographicSize = landscapeSizeZoomOn;
 		}
 	}
-
+		
 	void Update(){
 
 		if (previousScreenOrientation != Screen.orientation || previousScreenOrientation == null) {
 			
 			updateCameraSize ();
-
 			previousScreenOrientation = Screen.orientation;
 		}
 	}
 
-
-	public void increaseSpeed(){
-		
-		if (cameraSlowSpeed + 40 < maxCameraSpeed)
-			cameraSlowSpeed += 40;
-		else
-			cameraSlowSpeed = maxCameraSpeed;
-	}
-		
 	void LateUpdate () 
 	{
 		
@@ -136,6 +92,35 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
+
+	public void changeRandomBackgroundColor(){
+
+		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length - 1)];
+	}
+
+	public void zoomOn(){
+
+		isZoomOn = true;
+		updateCameraSize ();
+
+		if (player != null)
+			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+	}
+
+	public void  zoomOff(){
+
+		isZoomOn = false;
+		updateCameraSize ();
+		transform.position = initialTransform;
+	}
+
+	public void increaseSpeed(){
+
+		if (cameraSlowSpeed + 40 < maxCameraSpeed)
+			cameraSlowSpeed += 40;
+		else
+			cameraSlowSpeed = maxCameraSpeed;
+	}
 
 	public float getXStart(){
 

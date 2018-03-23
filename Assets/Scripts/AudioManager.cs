@@ -16,7 +16,6 @@ public class AudioManager : MonoBehaviour {
 
 	PreferenceManager prefM;
 
-	// Use this for initialization
 	void Start () {
 
 		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -24,13 +23,6 @@ public class AudioManager : MonoBehaviour {
 		soundOn = prefM.getSoundOn ();
 
 		changeBackgroundTrack ();
-
-		/*foreach(Sound a in sounds){
-			
-			a.source = gameObject.AddComponent<AudioSource> ();
-			a.source.clip = a.clip;
-			
-		}*/
 	}
 
 	public void changeBackgroundTrack(){
@@ -41,7 +33,7 @@ public class AudioManager : MonoBehaviour {
 			if (currentClip == clips.Length)
 				currentClip = 0;
 
-			soundtrackSource.clip = clips[currentClip];
+			soundtrackSource.clip = clips[Random.Range(0, clips.Length - 1)];
 			soundtrackSource.Play ();
 		}
 	}
@@ -57,19 +49,12 @@ public class AudioManager : MonoBehaviour {
 	public void playGameOverSound(){
 
 		if (soundOn) {
+			
+			soundtrackSource.volume = 0.5f;
 			soundEffectSource.clip = gameOverEffect;
 			soundEffectSource.Play ();
 		}
 	}
-
-
-	/*public void makeSound(){
-		
-		if (sounds.Length != 0 && soundOn) {
-			
-			sounds [Random.Range(0, sounds.Length - 1)].source.Play();
-		}
-	}*/
 
 	public void SetSoundOn(){
 		

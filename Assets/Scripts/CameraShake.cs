@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
-	// Transform of the camera to shake. Grabs the gameObject's transform
-	// if null.
+	
 	public Transform camTransform;
 
-	private float maxShakeDuration;
-	private float shakeDuration;
-
-	private float shakeAmount;
+	private float maxShakeDuration, shakeDuration, shakeAmount;
 	public bool active = false;
 
 	Vector3 originalPos;
@@ -26,9 +22,7 @@ public class CameraShake : MonoBehaviour {
 	void Awake()
 	{
 		if (camTransform == null)
-		{
 			camTransform = GetComponent(typeof(Transform)) as Transform;
-		}
 	}
 
 	public void startShake()
