@@ -12,6 +12,11 @@ public class PreferenceManager : MonoBehaviour {
 			lastCharacterSelectedString = "CharacterSelected",
 			soundOnString = "SoundOn";
 
+	public bool isFirstTime(){
+		
+		return (getRecord () == 0) ? true : false;
+	}
+
 	public bool hasBeenBought(int id){
 		
 		return (PlayerPrefs.GetInt (isBoughtString + id, 0) == 1);

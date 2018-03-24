@@ -29,6 +29,9 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	void Start(){
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+
+		if (prefManager.isFirstTime ())
+			characters [0].buy ();
 	}
 
 	public void InstantiateCharacter () {
@@ -44,6 +47,7 @@ public class sliderCharacterManager : MonoBehaviour {
 		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
 		currentCharacter = characters [currentSelectedCharacterId];
+
 
 		characterPrefab.GetComponent<PlayerMovement> ().ch = currentCharacter;
 

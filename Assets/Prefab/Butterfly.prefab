@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4520135117709846}
   - component: {fileID: 212440409174256270}
   - component: {fileID: 95579939925776600}
-  - component: {fileID: 114832399345000810}
+  - component: {fileID: 114497603691978306}
   m_Layer: 0
   m_Name: Butterfly
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114832399345000810
+--- !u!114 &114497603691978306
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -67,9 +67,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1038778162623122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc23fd09a46151940a28f078c977bdc3, type: 3}
+  m_Script: {fileID: 11500000, guid: 35421d8644a97ff4db0bd85f23adf509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minScale: 0.4
+  maxScale: 0.9
+  upP: 0.3
 --- !u!212 &212440409174256270
 SpriteRenderer:
   m_ObjectHideFlags: 1

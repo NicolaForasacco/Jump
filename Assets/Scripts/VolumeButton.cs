@@ -16,7 +16,6 @@ public class VolumeButton : MonoBehaviour {
 			GetComponent<Image> ().sprite = volumeOn;
 		else
 			GetComponent<Image> ().sprite = volumeOff;
-		
 	}
 
 	public void changeVolumeState(){

@@ -5,35 +5,47 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
 
 	public AudioClip[] clips;
-
 	public AudioSource soundtrackSource, soundEffectSource;
-
 	public AudioClip donutPickupEffect, gameOverEffect;
 
-	bool soundOn = true;
+	public static AudioManager instance;
 
-	int currentClip = -1;
+	private bool soundOn = true;
+	private PreferenceManager prefM;
 
-	PreferenceManager prefM;
+
+	void Awake(){
+		
+		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
+		soundOn = prefM.getSoundOn ();
+
+		if (instance == null) {
+			instance = this;
+			changeBackgroundTrack ();
+		}else
+			Destroy (gameObject);
+
+		DontDestroyOnLoad (gameObject);
+	}
 
 	void Start () {
 
 		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
- 
 		soundOn = prefM.getSoundOn ();
-
-		changeBackgroundTrack ();
+		soundtrackSource.volume = 1;
 	}
 
 	public void changeBackgroundTrack(){
-
+		
 		if (soundOn && clips.Length > 0) {
 			
-			currentClip++;
-			if (currentClip == clips.Length)
-				currentClip = 0;
+			soundtrackSource.Stop ();
+			int rc = Random.Range (0, clips.Length - 1);
 
-			soundtrackSource.clip = clips[Random.Range(0, clips.Length - 1)];
+			while (soundtrackSource.clip == clips [rc])
+				rc = Random.Range (0, clips.Length - 1);
+
+			soundtrackSource.clip = clips [rc];
 			soundtrackSource.Play ();
 		}
 	}
@@ -50,7 +62,7 @@ public class AudioManager : MonoBehaviour {
 
 		if (soundOn) {
 			
-			soundtrackSource.volume = 0.5f;
+			soundtrackSource.volume = 0.3f;
 			soundEffectSource.clip = gameOverEffect;
 			soundEffectSource.Play ();
 		}

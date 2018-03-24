@@ -33,16 +33,19 @@ public class GameManager : MonoBehaviour {
 
 	private bool isSettingsMenuClosed = true, isOptionsMenuClosed = true;
 
-	private int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
+	public int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
 
 	private float showVideoPanelP = 0.6f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
 
 	private PlayerMovement player;
 	private PreferenceManager prefManager;
+	private GameObject lastDonutExplosion;
 
+	AdsManager adsManager;
 
 	void Start(){
 
+		adsManager = GameObject.FindObjectOfType<AdsManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
 
 		sm.InstantiateCharacter();
@@ -69,8 +72,8 @@ public class GameManager : MonoBehaviour {
 			foreground.SetActive (true);
 			menuAnim.SetTrigger ("ControlsOn");
 
-			if (!isOptionsMenuClosed)
-				manageMenuOptions();
+			/*if (!isOptionsMenuClosed)
+				manageMenuOptions();*/
 
 			if (!isSettingsMenuClosed)
 				manageMenuOptions2();
@@ -212,10 +215,10 @@ public class GameManager : MonoBehaviour {
 
 
 
-		//show video add
+		adsManager.showVideo();
 
 		videoForDonutsPanel.SetActive(false);
-		showDonutPrize(prizeForVideo);
+		//showDonutPrize(prizeForVideo);
 
 		#endif
 	}
@@ -271,9 +274,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-	private GameObject lastDonutExplosion;
 
-	void showDonutPrize (int donutPrize)
+	public void showDonutPrize (int donutPrize)
 	{
 		prefManager.setDonut (prefManager.getDonut() + donutPrize);
 
@@ -329,18 +331,6 @@ public class GameManager : MonoBehaviour {
 
 		isSettingsMenuClosed = !isSettingsMenuClosed;
 	}
-
-	public void manageMenuOptions(){
-
-		if(isOptionsMenuClosed)
-			optionsMenu.SetActive (true);
-		else 
-			optionsMenu.SetActive (false);
-
-		isOptionsMenuClosed = !isOptionsMenuClosed;
-	}
-
-
 
 	public void showCharacterSelectionMenu(){
 
