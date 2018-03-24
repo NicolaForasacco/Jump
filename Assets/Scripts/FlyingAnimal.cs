@@ -47,7 +47,8 @@ public class FlyingAnimal : MonoBehaviour {
 		} else {
 			
 			if (player != null) {
-				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
+				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && 
+					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
 					isMoving = true;
 			}
 		}

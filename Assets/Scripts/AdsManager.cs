@@ -32,14 +32,19 @@ public class AdsManager : MonoBehaviour {
         rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
         // Called when an ad request failed to load.
         rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+
         // Called when an ad is shown.
         rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+
         // Called when the ad starts to play.
         rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+
         // Called when the user should be rewarded for watching a video.
 		rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+
         // Called when the ad is closed.
         rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+
         // Called when the ad click caused the user to leave the application.
         rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
 
