@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour {
 	private bool soundOn = true;
 	private PreferenceManager prefM;
 
-
 	void Awake(){
 		
 		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -29,9 +28,6 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	void Start () {
-
-		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
-		soundOn = prefM.getSoundOn ();
 		soundtrackSource.volume = 1;
 	}
 
@@ -47,7 +43,14 @@ public class AudioManager : MonoBehaviour {
 
 			soundtrackSource.clip = clips [rc];
 			soundtrackSource.Play ();
-		}
+
+		} else
+			soundtrackSource.Stop ();
+	}
+
+	public void restart(){
+		
+		soundtrackSource.volume = 1f;
 	}
 		
 	public void playDonutsPickupSound(){
@@ -72,12 +75,20 @@ public class AudioManager : MonoBehaviour {
 		
 		prefM.setSoundOn(true);
 		soundOn = true;
+
+		if (soundtrackSource.clip != null)
+			soundtrackSource.Play ();
+		else
+			changeBackgroundTrack ();
+		
+		soundtrackSource.volume = 0.3f;
 	}
 
 	public void SetSoundOff(){
 		
 		prefM.setSoundOn(false);
 		soundOn = false;
+		soundtrackSource.Stop ();
 	}
 
 	public bool getSoundState(){

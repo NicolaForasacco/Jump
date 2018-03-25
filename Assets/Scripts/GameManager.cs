@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+//using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -30,8 +33,7 @@ public class GameManager : MonoBehaviour {
 						characterButton, 
 						ground;
 
-
-	private bool isSettingsMenuClosed = true, isOptionsMenuClosed = true;
+	private bool isSettingsMenuClosed = true;//, isOptionsMenuClosed = true;
 
 	public int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
 
@@ -40,11 +42,14 @@ public class GameManager : MonoBehaviour {
 	private PlayerMovement player;
 	private PreferenceManager prefManager;
 	private GameObject lastDonutExplosion;
+	private AdsManager adsManager;
+	private AudioManager audioManager;
 
-	AdsManager adsManager;
+	public Text testText;
 
 	void Start(){
 
+		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 		adsManager = GameObject.FindObjectOfType<AdsManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
 
@@ -58,7 +63,20 @@ public class GameManager : MonoBehaviour {
 		menuAnim.SetTrigger ("MenuOn");
 		characterButton.GetComponent<ButtonBlink> ().blinkActive = (sm.existCharacterToBuy ()) ? true : false;
 
+		audioManager.restart ();
 		//PlayerPrefs.DeleteAll ();
+
+
+		// authenticate user:
+	/*	Social.localUser.Authenticate((bool success) => {
+			
+			if(success)
+				testText.text = "SUCCESS";
+			else {
+				testText.text = "NO";
+			}
+
+		});*/
 	}
 
 	public void startGame(){
@@ -98,11 +116,23 @@ public class GameManager : MonoBehaviour {
 
 		if (player.currentRecord > record) {
 
+
+
 			newBestText.SetActive (true);
 			bestText.SetActive (false);
 
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
+
+		/*	Social.ReportScore(record, GPGSIds.leaderboard_top_scores , (bool success) => {
+				
+				if(success)
+					testText.text = "SUCCESS";
+				else {
+					testText.text = "NO";
+				}
+			});*/
+
 		} else {
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
@@ -131,7 +161,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageLikeForDonutsPanel(){
 
-		if (Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
+		if (UnityEngine.Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
 
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -143,7 +173,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageVideoForDonutsPanel(){
 
-		if (Random.value <= showVideoPanelP) {
+		if (UnityEngine.Random.value <= showVideoPanelP) {
 
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -155,7 +185,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageshareForDonutsPanel(){
 
-		if (Random.value <= showSharePanelP || newBestText.activeSelf) {
+		if (UnityEngine.Random.value <= showSharePanelP || newBestText.activeSelf) {
 
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -180,12 +210,12 @@ public class GameManager : MonoBehaviour {
 			donutsPresentsPanel.SetActive (true);
 
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
-			prefManager.setLasttimeGift (System.DateTime.Now.ToString());
+
 
 			return true;
 		} else {
 
-			if (Random.value <= showGiftSoonPanelP) {
+			if (UnityEngine.Random.value <= showGiftSoonPanelP) {
 				donutsGiftSoonPanel.SetActive (true);
 
 				int minuteLeft = ((lastTime.Hour*60 + hourBetweenGift*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);
@@ -267,9 +297,13 @@ public class GameManager : MonoBehaviour {
 		#endif
 	}
 
-	public void showDonutPresent(){
 
+
+	public void showDonutPresent(){
+		
 		donutsPresentsPanel.SetActive(false);
+
+		prefManager.setLasttimeGift (System.DateTime.Now.ToString());
 		showDonutPrize (prizeForGift);
 	}
 
@@ -311,6 +345,18 @@ public class GameManager : MonoBehaviour {
 		Application.OpenURL("");
 	}
 
+	public void showLeatherboard(){
+		try{
+			
+		//PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkItsyOi9oaEAIQAQ");
+
+		}catch(NullReferenceException  e){
+
+			testText.text = "NO L";
+			
+
+		}
+	}
 
 	public void showCreditsPanel(){
 		creditsPanel.SetActive (true);

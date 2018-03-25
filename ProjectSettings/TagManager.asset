@@ -26,6 +26,7 @@ TagManager:
   - DonutsCost
   - DonutsCostLabel
   - Lift
+  - testtext
   layers:
   - Default
   - TransparentFX

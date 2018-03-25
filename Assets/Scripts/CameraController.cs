@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour {
 		
 	void Update(){
 
-		if (previousScreenOrientation != Screen.orientation || previousScreenOrientation == null) {
+		if (previousScreenOrientation != Screen.orientation) {
 			
 			updateCameraSize ();
 			previousScreenOrientation = Screen.orientation;

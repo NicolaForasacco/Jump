@@ -14,14 +14,12 @@ public class TileBehavior : MonoBehaviour {
 	private	GameObject player;
 	private	Rigidbody2D rb;
 	private	Animator anim;
-	private	AudioManager audioManager;
 
 	void Start () {
 
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		player = GameObject.FindGameObjectWithTag ("player");
-		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 
 		if(transform.parent == null)
 			transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
