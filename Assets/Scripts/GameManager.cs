@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour {
 
 	bool manageVideoForDonutsPanel(){
 
-		if (UnityEngine.Random.value <= showVideoPanelP) {
+		if (UnityEngine.Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
 
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -215,14 +215,18 @@ public class GameManager : MonoBehaviour {
 
 		System.DateTime.TryParse (lastTimeGiftPicked,out lastTime);
 
-		if ((System.DateTime.Now.Day - lastTime.Day > 0 && (24 - lastTime.Hour + System.DateTime.Now.Hour > 2)) 
-			|| System.DateTime.Now.Hour - lastTime.Hour >= hourBetweenGift 
+		int currentHoursInMinute = System.DateTime.Now.Hour * 60;
+		int currentMinute = System.DateTime.Now.Minute;
+		int lastHourInMinute = lastTime.Hour * 60; 
+		int hourBetweenGiftInMinute = hourBetweenGift * 60;
+		int lastMinutesToMidnight = (24 - lastTime.Hour) * 60 - lastTime.Minute;
+
+		if ((System.DateTime.Now.Day - lastTime.Day > 0 && (lastMinutesToMidnight + currentHoursInMinute + currentMinute >= hourBetweenGiftInMinute)) 
+			|| (currentHoursInMinute + currentMinute - lastHourInMinute - lastTime.Minute >= hourBetweenGiftInMinute && System.DateTime.Now.Day == lastTime.Day)
 			|| lastTimeGiftPicked.CompareTo ("") == 0) {
 
 			donutsPresentsPanel.SetActive (true);
-
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
-
 
 			return true;
 		} else {
@@ -230,12 +234,16 @@ public class GameManager : MonoBehaviour {
 			if (UnityEngine.Random.value <= showGiftSoonPanelP) {
 				donutsGiftSoonPanel.SetActive (true);
 
-				int minuteLeft = ((lastTime.Hour*60 + hourBetweenGift*60) - System.DateTime.Now.Hour*60 - System.DateTime.Now.Minute);
+				int minuteLeft = 0, hourLeft = 0;
 
-				int hourLeft = (int)Mathf.Floor(minuteLeft / 60);
+				if (System.DateTime.Now.Day == lastTime.Day)
+					minuteLeft = ((lastHourInMinute + lastTime.Minute + hourBetweenGiftInMinute) - currentHoursInMinute - currentMinute);
+				else if(System.DateTime.Now.Day > lastTime.Day)
+					minuteLeft = ((hourBetweenGiftInMinute - lastMinutesToMidnight) - currentHoursInMinute - currentMinute);
+
+				hourLeft = (int)Mathf.Floor (minuteLeft / 60);
 				minuteLeft = minuteLeft % 60;
-				donutsGiftSoonPanel.GetComponentInChildren<Text>().text = "NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M";
-
+				donutsGiftSoonPanel.GetComponentInChildren<Text> ().text = "NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M";
 			}
 		}
 
@@ -255,9 +263,8 @@ public class GameManager : MonoBehaviour {
 
 		#if UNITY_ANDROID
 
-		adsManager.showVideo();
-
 		videoForDonutsPanel.SetActive(false);
+		adsManager.showVideo();
 
 		#endif
 	}
@@ -320,11 +327,10 @@ public class GameManager : MonoBehaviour {
 
 	public void showDonutPrize (int donutPrize)
 	{
-		prefManager.setDonut (prefManager.getDonut() + donutPrize);
-
 		donutPrizePanel.SetActive (true);
 		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), Quaternion.identity);
 
+		prefManager.setDonut (prefManager.getDonut() + donutPrize);
 		donutText.text = prefManager.getDonut().ToString();
 	}
 

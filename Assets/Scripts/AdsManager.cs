@@ -5,47 +5,49 @@ using UnityEngine;
 
 public class AdsManager : MonoBehaviour {
 
-  	private RewardBasedVideoAd rewardBasedVideo;
+  	public RewardBasedVideoAd rewardBasedVideo;
 
 	public GameManager gm;
 
+	bool prizeAlreadyGiven = false; 
+	public bool active = false;
 	public void Start (){
 
-		gm = FindObjectOfType<GameManager> ();
-
-		#if UNITY_ANDROID
-		string appId = "ca-app-pub-3940256099942544~3347511713";
-		#else
+		if (active) {
+			#if UNITY_ANDROID
+			string appId = "ca-app-pub-3940256099942544~3347511713";
+			#else
          	string appId = "unexpected_platform";
-      	#endif
+			#endif
 
-      	// Initialize the Google Mobile Ads SDK.
-      	MobileAds.Initialize(appId);
+			// Initialize the Google Mobile Ads SDK.
+			MobileAds.Initialize (appId);
 
 
-          // Get singleton reward based video ad reference.
-        this.rewardBasedVideo = RewardBasedVideoAd.Instance;
+			// Get singleton reward based video ad reference.
+			this.rewardBasedVideo = RewardBasedVideoAd.Instance;
 
-        // Called when an ad request has successfully loaded.
-        rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
-        // Called when an ad request failed to load.
-        rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+			// Called when an ad request has successfully loaded.
+			rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+			// Called when an ad request failed to load.
+			rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
 
-        // Called when an ad is shown.
-        rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+			// Called when an ad is shown.
+			rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
 
-        // Called when the ad starts to play.
-        rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+			// Called when the ad starts to play.
+			rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
 
-        // Called when the user should be rewarded for watching a video.
-		rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+			// Called when the user should be rewarded for watching a video.
+			rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
 
-        // Called when the ad is closed.
-        rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+			// Called when the ad is closed.
+			rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
 
-        // Called when the ad click caused the user to leave the application.
-		rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
-		this.RequestRewardedVideo();
+			// Called when the ad click caused the user to leave the application.
+			rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+			this.RequestRewardedVideo ();
+		}
 
 	}
 	
@@ -103,7 +105,10 @@ public class AdsManager : MonoBehaviour {
     {
         Debug.Log("HandleRewardBasedVideoClosed event received");
 
-		gm.showDonutPrize (gm.prizeForVideo);
+		if (!prizeAlreadyGiven) {
+			gm.showDonutPrize (gm.prizeForVideo);
+			prizeAlreadyGiven = true;
+		}
     }
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
@@ -112,13 +117,14 @@ public class AdsManager : MonoBehaviour {
         //double amount = args.Amount;
 		Debug.Log("HandleRewardBasedVideoRewarded event received for ");
 
-		gm.showDonutPrize (gm.prizeForVideo);
+		if (!prizeAlreadyGiven) {
+			gm.showDonutPrize (gm.prizeForVideo);
+			prizeAlreadyGiven = true;
+		}
 
     }
 
     public void HandleRewardBasedVideoLeftApplication(object sender, EventArgs args){
         Debug.Log("HandleRewardBasedVideoLeftApplication event received");
-
-		gm.showDonutPrize (gm.prizeForVideo);
 	}
 }

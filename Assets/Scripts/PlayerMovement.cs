@@ -225,7 +225,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool isPlayerStill(){
 
-		if (side == -1 && !jumpButtonDown && rigidBody.velocity.y == 0)
+		if (!jumpButtonDown && rigidBody.velocity.y == 0)
 			return true;
 		else
 			return false;
