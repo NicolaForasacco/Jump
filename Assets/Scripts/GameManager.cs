@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-//using GooglePlayGames;
+using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 using System;
 
@@ -68,7 +68,11 @@ public class GameManager : MonoBehaviour {
 
 
 		// authenticate user:
-	/*	Social.localUser.Authenticate((bool success) => {
+		PlayGamesPlatform.Activate();
+
+		PlayGamesPlatform.Instance.Authenticate (SignInCallback, true);
+
+		/*Social.localUser.Authenticate((bool success) => {
 			
 			if(success)
 				testText.text = "SUCCESS";
@@ -77,6 +81,14 @@ public class GameManager : MonoBehaviour {
 			}
 
 		});*/
+	}
+
+	public void SignInCallback(bool success) {
+		if (success)
+			testText.text = "SUCCESS";
+		else {
+			testText.text = "NO";
+		}
 	}
 
 	public void startGame(){
@@ -124,14 +136,14 @@ public class GameManager : MonoBehaviour {
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 
-		/*	Social.ReportScore(record, GPGSIds.leaderboard_top_scores , (bool success) => {
+			Social.ReportScore (record, GPGSIds.leaderboard_top_scores, (bool success) => {
 				
-				if(success)
+				if (success)
 					testText.text = "SUCCESS";
 				else {
 					testText.text = "NO";
 				}
-			});*/
+			});
 
 		} else {
 			bestText.SetActive (true);
@@ -243,12 +255,9 @@ public class GameManager : MonoBehaviour {
 
 		#if UNITY_ANDROID
 
-
-
 		adsManager.showVideo();
 
 		videoForDonutsPanel.SetActive(false);
-		//showDonutPrize(prizeForVideo);
 
 		#endif
 	}
@@ -348,7 +357,7 @@ public class GameManager : MonoBehaviour {
 	public void showLeatherboard(){
 		try{
 			
-		//PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkItsyOi9oaEAIQAQ");
+			PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_top_scores);
 
 		}catch(NullReferenceException  e){
 
