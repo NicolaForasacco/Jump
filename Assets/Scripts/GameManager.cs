@@ -381,6 +381,25 @@ public class GameManager : MonoBehaviour {
 		creditsPanel.SetActive (false);
 	}
 
+	public GameObject statsPanel;
+	public Text statText;
+
+	public void showStatsPanel(){
+		statsPanel.SetActive (true);
+		string stat = "TOTAL PLAYS: " + prefManager.getPlaysNumber() + "\n" 
+			+ "TOTAL DONUTS PICKED: " + prefManager.getTotalDonutsPicked() + "\n"
+			+ "TOTAL JUMPS: " + prefManager.getTotalJumps() + "\n"
+			+ "TOTAL HEIGHT: " + prefManager.getTotalHeight() + "\n"
+			+ "DEATH BY PENCIL: " + prefManager.getDeathByPencil() + "\n"
+			+ "DEATH BY SHURIKEN: " + prefManager.getDeathByShuriken();
+		
+		statText.text = stat;
+
+	}
+
+	public void closeStatsPanel(){
+		statsPanel.SetActive (false);
+	}
 
 
 	public void manageMenuOptions2(){

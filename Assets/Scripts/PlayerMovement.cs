@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour {
 					currentSideSpeed,
 					maxHorizontalSpeed = 1;
 
+	private int currentDonutsPicked = 0, currentTotalJumps = 0;
+
+
+
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
@@ -212,6 +216,8 @@ public class PlayerMovement : MonoBehaviour {
 				
 				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 
+				currentTotalJumps++;
+
 				spawnTileManager.pencilSpawnThisLevel = false;
 				spawnTileManager.shurikenSpawnThisLevel = false;
 
@@ -247,6 +253,11 @@ public class PlayerMovement : MonoBehaviour {
         {
 			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
 
+			prefManager.increasePlayNumber ();
+			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
+			prefManager.increaseTotalJumps (currentTotalJumps);
+			prefManager.increaseTotalHeight (currentRecord);
+
 			audioManager.playGameOverSound();
 			dead = true;
             Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
@@ -276,8 +287,10 @@ public class PlayerMovement : MonoBehaviour {
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().showExplosion ();
 
-			} else if (boxCollider2D.bounds.min.y <= c.transform.position.y && boxCollider2D.bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x)
+			} else if (boxCollider2D.bounds.min.y <= c.transform.position.y && boxCollider2D.bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x) {
+				prefManager.increaseDeathByPencil ();
 				die ();
+			}
 		}
 
 		if ((c.CompareTag ("ColorizeTile") || c.CompareTag ("BounceTile")) && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y)
@@ -303,14 +316,19 @@ public class PlayerMovement : MonoBehaviour {
 			c.GetComponent<TileBehavior> ().behave();
 		}
 
-		if (c.CompareTag ("Shuriken") || (c.CompareTag ("SpineTile") && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y))
+		if (c.CompareTag ("Shuriken") || (c.CompareTag ("SpineTile") && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D> ().bounds.max.y)) {
+			
+			prefManager.increaseDeathByShuriken ();
 			die ();
+		}
 	}
 
 
 	public void increaseDonutsPicked(){
 
+
 		audioManager.playDonutsPickupSound ();
+		currentDonutsPicked++;
 		donutsPicked++;
 		pointsText.text = donutsPicked.ToString ();
   	}

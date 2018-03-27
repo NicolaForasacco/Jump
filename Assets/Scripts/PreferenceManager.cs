@@ -10,12 +10,84 @@ public class PreferenceManager : MonoBehaviour {
 			donutsString = "Donuts", 
 			isBoughtString = "Isbought",
 			lastCharacterSelectedString = "CharacterSelected",
-			soundOnString = "SoundOn";
+			soundOnString = "SoundOn",
+			numberOfPlays = "numberOfPlays",
+			totalDonutsPicked = "totalDonutsPicked",
+			totalJumps = "totalJumps",
+			totalHeight = "totalHeight",
+			deathByPencil = "DeathByPencil",
+			deathByShuriken = "DeathByShuriken";
 
 	public bool isFirstTime(){
 		
 		return (getRecord () == 0) ? true : false;
 	}
+
+	#region InfoForStats
+
+	public int getPlaysNumber(){
+		return PlayerPrefs.GetInt (numberOfPlays, 0);
+	}
+
+	public void increasePlayNumber(){
+		PlayerPrefs.SetInt (numberOfPlays,getPlaysNumber() + 1);
+	}
+
+
+	public int getTotalDonutsPicked(){
+		
+		return PlayerPrefs.GetInt (totalDonutsPicked, 0);
+	}
+
+	public void increaseTotalDonutsPicked(int donut){
+		
+		PlayerPrefs.SetInt (totalDonutsPicked, getTotalDonutsPicked() + donut);
+	}
+
+
+	public int getTotalJumps(){
+
+		return PlayerPrefs.GetInt (totalJumps, 0);
+	}
+
+	public void increaseTotalJumps(int jump){
+
+		PlayerPrefs.SetInt (totalJumps, getTotalJumps() + jump);
+	}
+
+
+	public int getTotalHeight(){
+
+		return PlayerPrefs.GetInt (totalHeight, 0);
+	}
+
+	public void increaseTotalHeight(int height){
+		PlayerPrefs.SetInt (totalHeight, getTotalHeight() + height);
+	}
+
+
+	public int getDeathByPencil(){
+		
+		return PlayerPrefs.GetInt (deathByPencil, 0);
+	}
+
+	public void increaseDeathByPencil(){
+		
+		PlayerPrefs.SetInt (deathByPencil, getDeathByPencil() + 1);
+	}
+
+
+	public int getDeathByShuriken(){
+
+		return PlayerPrefs.GetInt (deathByShuriken, 0);
+	}
+
+	public void increaseDeathByShuriken(){
+
+		PlayerPrefs.SetInt (deathByShuriken, getDeathByShuriken() + 1);
+	}
+
+	#endregion
 
 	public bool hasBeenBought(int id){
 		
