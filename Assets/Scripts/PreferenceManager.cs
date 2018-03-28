@@ -16,7 +16,9 @@ public class PreferenceManager : MonoBehaviour {
 			totalJumps = "totalJumps",
 			totalHeight = "totalHeight",
 			deathByPencil = "DeathByPencil",
-			deathByShuriken = "DeathByShuriken";
+			deathByShuriken = "DeathByShuriken",
+			totalPaintButton = "TotalPaintButton",
+			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared";
 
 	public bool isFirstTime(){
 		
@@ -33,6 +35,21 @@ public class PreferenceManager : MonoBehaviour {
 		PlayerPrefs.SetInt (numberOfPlays,getPlaysNumber() + 1);
 	}
 
+	public void increaseTotalFlyingAnimalsScared(int n = 1){
+		PlayerPrefs.SetInt (totalFlyingAnimalsScared, getTotalFlyingAnimalsScared() + n);
+	}
+
+	public int getTotalFlyingAnimalsScared(){
+		return PlayerPrefs.GetInt (totalFlyingAnimalsScared, 0);
+	}
+
+	public void increaseTotalPaintButton(int n = 1){
+		PlayerPrefs.SetInt (totalPaintButton, getTotalPaintButton() + n);
+	}
+
+	public int getTotalPaintButton(){
+		return PlayerPrefs.GetInt (totalPaintButton, 0);
+	}
 
 	public int getTotalDonutsPicked(){
 		

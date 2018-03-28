@@ -48,8 +48,12 @@ public class FlyingAnimal : MonoBehaviour {
 			
 			if (player != null) {
 				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && 
-					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan)
+					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan){
+
 					isMoving = true;
+
+					GameObject.FindObjectOfType<PreferenceManager> ().increaseTotalFlyingAnimalsScared ();
+				}
 			}
 		}
 	}

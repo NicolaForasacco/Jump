@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 
 	public int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
 
-	private float showVideoPanelP = 0.6f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
+	private float showVideoPanelP = 0.7f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
 
 	private PlayerMovement player;
 	private PreferenceManager prefManager;
@@ -391,7 +391,9 @@ public class GameManager : MonoBehaviour {
 			+ "TOTAL JUMPS: " + prefManager.getTotalJumps() + "\n"
 			+ "TOTAL HEIGHT: " + prefManager.getTotalHeight() + "\n"
 			+ "DEATH BY PENCIL: " + prefManager.getDeathByPencil() + "\n"
-			+ "DEATH BY SHURIKEN: " + prefManager.getDeathByShuriken();
+			+ "DEATH BY SHURIKEN: " + prefManager.getDeathByShuriken() + "\n"
+			+ "PAINT BUTTONS: " + prefManager.getTotalPaintButton() + "\n"
+			+ "ANIMALS SCARED: " + prefManager.getTotalFlyingAnimalsScared();
 		
 		statText.text = stat;
 

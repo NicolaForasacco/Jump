@@ -1055,7 +1055,7 @@ RectTransform:
   m_GameObject: {fileID: 195382690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.2, y: 7.2, z: 1}
+  m_LocalScale: {x: 7.6, y: 7.6, z: 1}
   m_Children: []
   m_Father: {fileID: 1475377297}
   m_RootOrder: 1
@@ -1644,9 +1644,9 @@ MonoBehaviour:
   - {r: 1, g: 0.9630348, b: 0.04411763, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   active: 0
-  cameraSlowSpeed: 10
+  cameraSlowSpeed: 0
   landscapeSize: 170
-  portraitSize: 210
+  portraitSize: 230
   landscapeSizeZoomOn: 160
   portraitSizeZoomOn: 160
   maxCameraSpeed: 500
@@ -3162,7 +3162,7 @@ RectTransform:
   m_GameObject: {fileID: 762558163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.2, y: 7.2, z: 1}
+  m_LocalScale: {x: 7.6, y: 7.6, z: 1}
   m_Children: []
   m_Father: {fileID: 735373512}
   m_RootOrder: 1
@@ -3669,7 +3669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 839180566}
-  active: 0
+  active: 1
 --- !u!1 &860963975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5836,7 +5836,7 @@ RectTransform:
   m_GameObject: {fileID: 1553484121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.2, y: 7.2, z: 1}
+  m_LocalScale: {x: 7.6, y: 7.6, z: 1}
   m_Children: []
   m_Father: {fileID: 147447011}
   m_RootOrder: 1
@@ -7001,7 +7001,7 @@ RectTransform:
   m_GameObject: {fileID: 1891864802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.2, y: 7.2, z: 1}
+  m_LocalScale: {x: 7.6, y: 7.6, z: 1}
   m_Children: []
   m_Father: {fileID: 30737317}
   m_RootOrder: 1

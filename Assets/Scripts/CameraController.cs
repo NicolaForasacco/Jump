@@ -117,7 +117,7 @@ public class CameraController : MonoBehaviour {
 	public void increaseSpeed(){
 
 		if (cameraSlowSpeed + 40 < maxCameraSpeed)
-			cameraSlowSpeed += 40;
+			cameraSlowSpeed += 30;
 		else
 			cameraSlowSpeed = maxCameraSpeed;
 	}

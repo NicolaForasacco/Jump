@@ -11,9 +11,11 @@ public class AdsManager : MonoBehaviour {
 
 	bool prizeAlreadyGiven = false; 
 	public bool active = false;
+
 	public void Start (){
 
 		if (active) {
+			
 			#if UNITY_ANDROID
 			string appId = "ca-app-pub-3940256099942544~3347511713";
 			#else
@@ -104,11 +106,6 @@ public class AdsManager : MonoBehaviour {
     public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
         Debug.Log("HandleRewardBasedVideoClosed event received");
-
-		if (!prizeAlreadyGiven) {
-			gm.showDonutPrize (gm.prizeForVideo);
-			prizeAlreadyGiven = true;
-		}
     }
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)

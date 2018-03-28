@@ -58,7 +58,7 @@ public class TileBehavior : MonoBehaviour {
 				FindObjectOfType<CameraShake> ().startBigShake ();
 				FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
 				FindObjectOfType<AudioManager> ().changeBackgroundTrack ();
-
+				FindObjectOfType<PreferenceManager> ().increaseTotalPaintButton ();
 				Instantiate(explosion, transform.position, Quaternion.identity);
 			}
 
