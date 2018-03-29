@@ -53,7 +53,7 @@ public class CameraShake : MonoBehaviour {
 	{
 		if (active) {
 			
-			if (shakeDuration > 0 && playerMovement.isPlayerStill() ){
+			if (shakeDuration > 0 && playerMovement.isPlayerVerticalStill() ){
 
 				camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 				shakeDuration -= Time.deltaTime;

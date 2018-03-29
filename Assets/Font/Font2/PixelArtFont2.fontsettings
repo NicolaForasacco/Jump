@@ -165,7 +165,7 @@ Font:
     index: 56
     uv:
       serializedVersion: 2
-      x: 0
+      x: 0.8
       y: 0.75
       width: 0.2
       height: 0.125

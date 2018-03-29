@@ -229,7 +229,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	public bool isPlayerStill(){
+	public bool isPlayerVerticalStill(){
 
 		if (!jumpButtonDown && rigidBody.velocity.y == 0)
 			return true;

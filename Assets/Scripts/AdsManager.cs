@@ -7,8 +7,6 @@ public class AdsManager : MonoBehaviour {
 
   	public RewardBasedVideoAd rewardBasedVideo;
 
-	public GameManager gm;
-
 	bool prizeAlreadyGiven = false; 
 	public bool active = false;
 
@@ -115,7 +113,7 @@ public class AdsManager : MonoBehaviour {
 		Debug.Log("HandleRewardBasedVideoRewarded event received for ");
 
 		if (!prizeAlreadyGiven) {
-			gm.showDonutPrize (gm.prizeForVideo);
+			FindObjectOfType<EndPanelsManager>().showDonutPrize (FindObjectOfType<EndPanelsManager>().prizeForVideo);
 			prizeAlreadyGiven = true;
 		}
 

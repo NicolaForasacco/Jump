@@ -711,7 +711,7 @@ RectTransform:
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 1815732429}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 839180566}
+      - m_Target: {fileID: 839180569}
         m_MethodName: showVideoForDonuts
         m_Mode: 1
         m_Arguments:
@@ -1194,7 +1194,7 @@ RectTransform:
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 1815732429}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1533,7 +1533,6 @@ GameObject:
   m_Component:
   - component: {fileID: 295262796}
   - component: {fileID: 295262795}
-  - component: {fileID: 295262794}
   - component: {fileID: 295262793}
   - component: {fileID: 295262792}
   - component: {fileID: 295262797}
@@ -1554,13 +1553,6 @@ AudioListener:
   m_GameObject: {fileID: 295262791}
   m_Enabled: 1
 --- !u!124 &295262793
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295262791}
-  m_Enabled: 1
---- !u!92 &295262794
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3211,7 +3203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 839180566}
+      - m_Target: {fileID: 839180569}
         m_MethodName: showDonutPresent
         m_Mode: 1
         m_Arguments:
@@ -3347,7 +3339,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 839180566}
+      - m_Target: {fileID: 839180569}
         m_MethodName: closeDonutPrizePanel
         m_Mode: 1
         m_Arguments:
@@ -3484,6 +3476,7 @@ GameObject:
   - component: {fileID: 839180564}
   - component: {fileID: 839180567}
   - component: {fileID: 839180568}
+  - component: {fileID: 839180569}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -3616,14 +3609,7 @@ MonoBehaviour:
   donutText: {fileID: 827160592}
   cam: {fileID: 295262795}
   sm: {fileID: 1901187788}
-  videoForDonutsPanel: {fileID: 1475377296}
-  shareForDonutsPanel: {fileID: 147447010}
-  donutsPresentsPanel: {fileID: 735373511}
-  likeForDonutsPanel: {fileID: 30737316}
   donutPrizePanel: {fileID: 1911801744}
-  donutsGiftSoonPanel: {fileID: 456258614}
-  donutExplosion: {fileID: 1986718887005714, guid: 7e0ea63000f02374793e0a348db21e6d,
-    type: 2}
   foreground: {fileID: 595325371}
   bestText: {fileID: 621425567}
   newBestText: {fileID: 60634066}
@@ -3632,13 +3618,8 @@ MonoBehaviour:
   creditsPanel: {fileID: 419479487}
   characterButton: {fileID: 569241200}
   ground: {fileID: 78141919}
-  prizeForSharing: 30
-  prizeForLike: 30
-  prizeForGift: 100
-  prizeForVideo: 100
-  hourBetweenGift: 3
-  testText: {fileID: 606042348}
   statsPanel: {fileID: 1813594923}
+  testText: {fileID: 606042348}
   statText: {fileID: 552416206}
 --- !u!114 &839180567
 MonoBehaviour:
@@ -3668,8 +3649,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9321f4d5a530f4746942632f5a2b5e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 839180566}
   active: 1
+--- !u!114 &839180569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 839180563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3d80f9bbe81294b8a0321385ed3add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  likeForDonutsPanel: {fileID: 30737316}
+  videoForDonutsPanel: {fileID: 1475377296}
+  shareForDonutsPanel: {fileID: 147447010}
+  donutsGiftSoonPanel: {fileID: 456258614}
+  donutsPresentsPanel: {fileID: 735373511}
+  donutPrizePanel: {fileID: 1911801744}
+  donutExplosion: {fileID: 1986718887005714, guid: 7e0ea63000f02374793e0a348db21e6d,
+    type: 2}
+  newBestText: {fileID: 60634066}
+  donutText: {fileID: 827160592}
+  prizeForSharing: 30
+  prizeForLike: 30
+  prizeForGift: 100
+  prizeForVideo: 100
+  hourBetweenGift: 3
 --- !u!1 &860963975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5900,7 +5906,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 839180566}
+      - m_Target: {fileID: 839180569}
         m_MethodName: shareForDonuts
         m_Mode: 1
         m_Arguments:
@@ -5977,7 +5983,7 @@ RectTransform:
   - {fileID: 735373512}
   - {fileID: 456258615}
   m_Father: {fileID: 1815732429}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6892,9 +6898,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 153744347}
   - {fileID: 1558253474}
   - {fileID: 230130108}
+  - {fileID: 153744347}
   - {fileID: 1035672096}
   - {fileID: 278519393}
   - {fileID: 547062644}
@@ -7065,7 +7071,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 839180566}
+      - m_Target: {fileID: 839180569}
         m_MethodName: likeForDonuts
         m_Mode: 1
         m_Arguments:

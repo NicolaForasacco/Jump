@@ -19,7 +19,7 @@ public class FlyingAnimal : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("player");
 		transform.SetParent (GameObject.FindGameObjectWithTag ("foreground").transform);
 
-		side = (GameObject.FindGameObjectWithTag ("GameController").GetComponent<SpawnTileManager> ().getAverageX() > 0) ? 1 : -1;
+		side = (FindObjectOfType<SpawnTileManager> ().getAverageX() > 0) ? 1 : -1;
 
 		float randomScale = Random.Range (minScale, maxScale);
 
@@ -47,6 +47,7 @@ public class FlyingAnimal : MonoBehaviour {
 		} else {
 			
 			if (player != null) {
+				
 				if (transform.position.y - player.transform.position.y < startWhenPlayerIsCloserThan && 
 					transform.position.x - player.transform.position.x < startWhenPlayerIsCloserThan){
 
