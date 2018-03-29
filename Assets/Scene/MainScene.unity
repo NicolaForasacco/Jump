@@ -259,7 +259,7 @@ RectTransform:
   m_GameObject: {fileID: 28164215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 1.000025}
+  m_LocalScale: {x: 12, y: 10, z: 1.000025}
   m_Children: []
   m_Father: {fileID: 456258615}
   m_RootOrder: 1
@@ -316,7 +316,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 30737317}
-  - component: {fileID: 30737318}
   m_Layer: 5
   m_Name: LikeForDonuts
   m_TagString: Untagged
@@ -346,50 +345,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &30737318
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 30737316}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.022058845, b: 0.022058845, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!1 &47954522
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.293551, g: 0.9558824, b: 0.16868511, a: 0.9607843}
+  m_Color: {r: 0.17254902, g: 0.8980392, b: 0.53333336, a: 0.98039216}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -608,7 +563,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 147447011}
-  - component: {fileID: 147447012}
   m_Layer: 5
   m_Name: ShareForDonuts
   m_TagString: Untagged
@@ -638,50 +592,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &147447012
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147447010}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!1 &153744346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8745098, g: 0.14117648, b: 0.14117648, a: 0.9607843}
+  m_Color: {r: 1, g: 0.166, b: 0.055, a: 0.98039216}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1503,7 +1413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.293551, g: 0.9558824, b: 0.16868511, a: 0.9607843}
+  m_Color: {r: 0.17149654, g: 0.89705884, b: 0.5342777, a: 0.98039216}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1905,7 +1815,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 456258615}
-  - component: {fileID: 456258616}
   m_Layer: 5
   m_Name: DonutsGiftSoon
   m_TagString: Untagged
@@ -1933,50 +1842,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -210}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &456258616
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 456258614}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.022058845, b: 0.022058845, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!1 &470594546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,7 +2557,7 @@ RectTransform:
   m_GameObject: {fileID: 656882304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 1}
+  m_LocalScale: {x: 12, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 147447011}
   m_RootOrder: 2
@@ -2907,7 +2772,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 735373512}
-  - component: {fileID: 735373513}
   m_Layer: 5
   m_Name: DonutsGift
   m_TagString: Untagged
@@ -2936,50 +2800,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -210}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &735373513
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 735373511}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.022058845, b: 0.022058845, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!1 &753682608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4932,7 +4752,7 @@ RectTransform:
   m_GameObject: {fileID: 1295190722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 1}
+  m_LocalScale: {x: 12, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1475377297}
   m_RootOrder: 3
@@ -5083,7 +4903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8745098, g: 0.14117648, b: 0.14117648, a: 0.9607843}
+  m_Color: {r: 1, g: 0.16470589, b: 0.05490196, a: 0.98039216}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5679,7 +5499,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1475377297}
-  - component: {fileID: 1475377298}
   m_Layer: 5
   m_Name: VideoForDonuts
   m_TagString: Untagged
@@ -5709,50 +5528,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &1475377298
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1475377296}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.022058845, b: 0.022058845, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!1 &1506038278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5966,7 +5741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1558253474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6754,7 +6529,7 @@ RectTransform:
   m_GameObject: {fileID: 1808043316}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 1.0000104}
+  m_LocalScale: {x: 12, y: 10, z: 1.0000104}
   m_Children: []
   m_Father: {fileID: 735373512}
   m_RootOrder: 2
@@ -7150,14 +6925,79 @@ MonoBehaviour:
   characters:
   - {fileID: 11400000, guid: 750391c198e013c468fdfdc9e83d881c, type: 2}
   - {fileID: 11400000, guid: c91d3388b0ea7034299dac1404d3906a, type: 2}
-  - {fileID: 11400000, guid: 347d86a1d4837e3419d3d56e587f6fdd, type: 2}
+  - {fileID: 11400000, guid: 3f3cb5926d9e6b844997dcef1380561f, type: 2}
+  - {fileID: 11400000, guid: cceaf69b09045c848a67214231bad691, type: 2}
+  - {fileID: 11400000, guid: 35c5c13bee811974aa1af69e1290a3fa, type: 2}
+  - {fileID: 11400000, guid: b055145ec47b75f4ea883f791cea79a4, type: 2}
+  - {fileID: 11400000, guid: 852f5e56bf704314d9bbdfc692451cfe, type: 2}
+  - {fileID: 11400000, guid: 5cbeb33e44eadac409d7ecf032b35791, type: 2}
+  - {fileID: 11400000, guid: d8b895a7e70b5764189823907ecc4aeb, type: 2}
+  - {fileID: 11400000, guid: 7deba97b4c097894291a3d5c89ed444f, type: 2}
+  - {fileID: 11400000, guid: bdcddcff8f1500549a08271fa1e95716, type: 2}
+  - {fileID: 11400000, guid: 235b771bbd8d2564b97e71f41f35be59, type: 2}
+  - {fileID: 11400000, guid: 51ad50b3b944da548b7a90d2cd96e4b1, type: 2}
+  - {fileID: 11400000, guid: 0baeeaa83f30c674db3a5e0013a75244, type: 2}
+  - {fileID: 11400000, guid: 8e919f998d9df964890217e7e597b312, type: 2}
+  - {fileID: 11400000, guid: 6218d1d0be7ce274c9e61cf96a44836f, type: 2}
+  - {fileID: 11400000, guid: 831906551f9da81439b95cdff4a4cdf1, type: 2}
+  - {fileID: 11400000, guid: c129cd20955fa6d4eb6e98e5532dcf7b, type: 2}
+  - {fileID: 11400000, guid: d56f0661f77f0c745bc2efdc40ea84a8, type: 2}
+  - {fileID: 11400000, guid: 8ca5ced37a842bd42acfa10491917fa5, type: 2}
+  - {fileID: 11400000, guid: 86baedbc9b067ad44b6da50353e51586, type: 2}
+  - {fileID: 11400000, guid: e67cbc7916f144c4a949c0e2b892bd7e, type: 2}
+  - {fileID: 11400000, guid: 81e1968dd3a419846bcc21fde9234262, type: 2}
+  - {fileID: 11400000, guid: ee00a0403f2f57b498f100548e544016, type: 2}
+  - {fileID: 11400000, guid: 93e6c14a30cc67a4daf9dc8e9757d8a2, type: 2}
+  - {fileID: 11400000, guid: 81ca2775da3cc844cad710a917954e64, type: 2}
+  - {fileID: 11400000, guid: 5ceab619cbdbee74db2c14f25ca27dea, type: 2}
+  - {fileID: 11400000, guid: faa5a7b852873d04e8d547bd453e7dc7, type: 2}
+  - {fileID: 11400000, guid: 1404814390b7d7a43a2ca205a4d4b0d3, type: 2}
+  - {fileID: 11400000, guid: 0a22f14135965da4fb46c4f5a4f2d35d, type: 2}
+  - {fileID: 11400000, guid: ed8cc6bb3b7258544bfdd4ec57ad3256, type: 2}
+  - {fileID: 11400000, guid: fb7932db689a14c4e8ab2157e958aafe, type: 2}
+  - {fileID: 11400000, guid: 5069ea766024f834d957f4f9f3ccc804, type: 2}
+  - {fileID: 11400000, guid: 8c5bf072e03c0e4489177274a82c0b82, type: 2}
+  - {fileID: 11400000, guid: 7a1513cc6be8f0445b65c3e47bfcc202, type: 2}
+  - {fileID: 11400000, guid: 3181206f08b795e448f52de42c86417b, type: 2}
+  - {fileID: 11400000, guid: c35c53e560f1c8649823658518efa907, type: 2}
+  - {fileID: 11400000, guid: 96226af7b9b6fa14689f1f339e243fd9, type: 2}
+  - {fileID: 11400000, guid: c55cf98aa97ed6941b2616f760d6cd4e, type: 2}
+  - {fileID: 11400000, guid: 286bf17bae923a24eb05cc4e14627d34, type: 2}
+  - {fileID: 11400000, guid: fa51b49fe81bd0a46b8341e86f29f41a, type: 2}
+  - {fileID: 11400000, guid: 9201a2d17f6fb3b49b2d56e6898f6b64, type: 2}
+  - {fileID: 11400000, guid: 2247a5c0fd0110745bb586ad05bef799, type: 2}
+  - {fileID: 11400000, guid: b45cf04bbc8f1bf41a94a18ddbd45731, type: 2}
+  - {fileID: 11400000, guid: f6531126d39e2dc4a9945b6dadac5232, type: 2}
+  - {fileID: 11400000, guid: 70588f9e6b358cc4cb7eb4e1b966059a, type: 2}
+  - {fileID: 11400000, guid: 33e6a2c7d901b6344852f8590a3d7dbf, type: 2}
+  - {fileID: 11400000, guid: 66932f8421b05c54ba13d401d69a43b3, type: 2}
+  - {fileID: 11400000, guid: 5ad386379f0681b4ba5fdcab46cc3c3a, type: 2}
+  - {fileID: 11400000, guid: 0007bf1f26b700a499ea4e424e2dcf26, type: 2}
+  - {fileID: 11400000, guid: 49fedee5a8d7dc04ba6fe66a38553925, type: 2}
+  - {fileID: 11400000, guid: d52821f5d2e906d45a88c5b7bb5b98e4, type: 2}
+  - {fileID: 11400000, guid: c320b26f144993f4dba2f5867894d16d, type: 2}
+  - {fileID: 11400000, guid: 4d4d360f25db0f2408b564c34c401684, type: 2}
+  - {fileID: 11400000, guid: 74504d69b9041544eb4f7dcf0cff9fbc, type: 2}
+  - {fileID: 11400000, guid: bb7c941fae1e6ad4e92bce07d17f2cca, type: 2}
+  - {fileID: 11400000, guid: 263f1dccb8aef744097b97acc268478e, type: 2}
+  - {fileID: 11400000, guid: fe46e0b73c311e74aa360e8af614a0e9, type: 2}
+  - {fileID: 11400000, guid: 5f4307a0d77321b4c83b62e13904f938, type: 2}
+  - {fileID: 11400000, guid: f29681f9b87ea1043a2eddd01ca83788, type: 2}
+  - {fileID: 11400000, guid: d0bea762aca9f5747b1fb3ca5b6a864f, type: 2}
+  - {fileID: 11400000, guid: a026fd87d6d8bc547849864c1804eada, type: 2}
+  - {fileID: 11400000, guid: 62f604ed824e0404d9b19e0ae9c809c9, type: 2}
+  - {fileID: 11400000, guid: 765bb925300d2054fa4578dc8c3c4415, type: 2}
+  - {fileID: 11400000, guid: dd4823bd2ab2f3e429f755b02f1512ea, type: 2}
+  - {fileID: 11400000, guid: 47009601b4d064c4a99413fc48f8e2c0, type: 2}
+  - {fileID: 11400000, guid: e2a1f69443f1b9f4f91e9081b839b6b9, type: 2}
+  - {fileID: 11400000, guid: 7d6e2c293eee17e42a770b3db37983b4, type: 2}
   ownedText: {fileID: 1595213275}
   gm: {fileID: 839180566}
   cameraController: {fileID: 295262797}
   currentCharacterInstance: {fileID: 0}
   donutsCostLabel: {fileID: 449699213}
   playButton: {fileID: 1725169948}
-  currentSelectedCharacterId: 0
+  currentSelectedCharacterId: 1
 --- !u!224 &1901187789
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7272,7 +7112,7 @@ RectTransform:
   m_GameObject: {fileID: 1912611412}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 1}
+  m_LocalScale: {x: 12, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 30737317}
   m_RootOrder: 2
@@ -7507,7 +7347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28627452, g: 0.6156863, b: 1, a: 0.9607843}
+  m_Color: {r: 1, g: 0.641, b: 0.36078432, a: 0.98039216}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

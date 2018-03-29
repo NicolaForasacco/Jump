@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Character", menuName = "Characters")]
 public class Character : ScriptableObject {
 	
-	public Sprite sprite, destroyPieceSprite;
+	public Sprite sprite;
 
 	public int id,
 				jumpSpeed = 45000,

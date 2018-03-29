@@ -163,7 +163,7 @@ public class PreferenceManager : MonoBehaviour {
 
 	public int getLastSelectedCharacter(){
 
-		return PlayerPrefs.GetInt (lastCharacterSelectedString, 0);
+		return PlayerPrefs.GetInt (lastCharacterSelectedString, 1);
 	}
 
 	public void setLastSelectedCharacter(int id){

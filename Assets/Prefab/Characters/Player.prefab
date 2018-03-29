@@ -154,12 +154,10 @@ MonoBehaviour:
   dead: 0
   jumped: 0
   active: 0
-  isOnLift: 0
   isJumping: 0
   donutsPicked: 0
   currentRecord: 0
   side: -1
-  cost: 0
 --- !u!212 &212080905118339850
 SpriteRenderer:
   m_ObjectHideFlags: 1

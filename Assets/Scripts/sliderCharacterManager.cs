@@ -15,7 +15,7 @@ public class sliderCharacterManager : MonoBehaviour {
 	public	CameraController cameraController;
 	public	GameObject currentCharacterInstance, donutsCostLabel, playButton;
 
-	public	int	currentSelectedCharacterId = 0;
+	public	int	currentSelectedCharacterId = 1;
 
 
 	private GameObject[] charactersInstances;
@@ -46,13 +46,13 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
-		currentCharacter = characters [currentSelectedCharacterId];
+		currentCharacter = characters [currentSelectedCharacterId - 1];
 
 
 		characterPrefab.GetComponent<PlayerMovement> ().ch = currentCharacter;
 
 		newCurrentCharacterInstance = Instantiate (characterPrefab, new Vector3 (0, 20, 0), Quaternion.identity);
-		charactersInstances [currentSelectedCharacterId] = newCurrentCharacterInstance;
+		charactersInstances [currentSelectedCharacterId - 1] = newCurrentCharacterInstance;
 
 		cameraController.Start ();
 
@@ -97,7 +97,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	public void slideCharacterRight(){
 		
-		if (currentSelectedCharacterId < characters.Length - 1) {
+		if (currentSelectedCharacterId < characters.Length) {
 		
 			currentSelectedCharacterId += 1;
 
@@ -112,7 +112,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	public void slideCharacterLeft(){
 
-		if (currentSelectedCharacterId > 0) {
+		if (currentSelectedCharacterId > 1) {
 
 			currentSelectedCharacterId -= 1;
 
@@ -128,7 +128,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	void spawnNewCurrentCharacter(){
 
-		currentCharacterInstance = charactersInstances[currentSelectedCharacterId];
+		currentCharacterInstance = charactersInstances[currentSelectedCharacterId - 1];
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 
 		currentPlayerMovement = currentCharacterInstance.GetComponentInChildren<PlayerMovement> ();
@@ -182,14 +182,14 @@ public class sliderCharacterManager : MonoBehaviour {
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 		currentPlayerMovement.SetGravity (false);
 
-		for (int i = 0; i < currentSelectedCharacterId; i++) {
+		for (int i = 0; i < currentSelectedCharacterId - 1; i++) {
 			characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
-			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 		}
 
-		for (int i = currentSelectedCharacterId + 1; i < characters.Length; i++) {
+		for (int i = currentSelectedCharacterId; i < characters.Length; i++) {
 			characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
-			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+			spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 		}
 	}
 
@@ -232,7 +232,7 @@ public class sliderCharacterManager : MonoBehaviour {
 		int oldSelectedCharacterId = prefManager.getLastSelectedCharacter ();
 
 		for (int i = 0; i < charactersInstances.Length; i++) {
-			if (i != oldSelectedCharacterId)
+			if (i != oldSelectedCharacterId - 1)
 				GameObject.Destroy (charactersInstances [i]);
 		}
 

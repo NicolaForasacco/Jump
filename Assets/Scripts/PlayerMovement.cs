@@ -67,12 +67,6 @@ public class PlayerMovement : MonoBehaviour {
 		slowSideSpeed = ch.slowSideSpeed;
 		rigidBody.gravityScale = ch.gravityScale;
 		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
-
-		Sprite destroyPiece = ch.destroyPieceSprite;
-		SpriteRenderer[] sr = deadBodyPrefab.GetComponentsInChildren<SpriteRenderer> ();
-
-		foreach(SpriteRenderer s in sr)
-			s.sprite = destroyPiece;
 	}
 		
 	public void activate(){
