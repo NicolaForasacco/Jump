@@ -8,70 +8,59 @@ public class AdsManager : MonoBehaviour {
   	public RewardBasedVideoAd rewardBasedVideo;
 
 	bool prizeAlreadyGiven = false; 
-	public bool active = false;
 
 	public void Start (){
+		
+		#if UNITY_ANDROID
+		string appId = "ca-app-pub-3940256099942544~3347511713";
+		#else
+     	string appId = "unexpected_platform";
+		#endif
 
-		if (active) {
-			
-			#if UNITY_ANDROID
-			string appId = "ca-app-pub-3940256099942544~3347511713";
-			#else
-         	string appId = "unexpected_platform";
-			#endif
-
-			// Initialize the Google Mobile Ads SDK.
-			MobileAds.Initialize (appId);
+		// Initialize the Google Mobile Ads SDK.
+		MobileAds.Initialize (appId);
 
 
-			// Get singleton reward based video ad reference.
-			this.rewardBasedVideo = RewardBasedVideoAd.Instance;
+		// Get singleton reward based video ad reference.
+		this.rewardBasedVideo = RewardBasedVideoAd.Instance;
 
-			// Called when an ad request has successfully loaded.
-			rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
-			// Called when an ad request failed to load.
-			rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+		// Called when an ad request has successfully loaded.
+		rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+		// Called when an ad request failed to load.
+		rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
 
-			// Called when an ad is shown.
-			rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+		// Called when an ad is shown.
+		rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
 
-			// Called when the ad starts to play.
-			rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+		// Called when the ad starts to play.
+		rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
 
-			// Called when the user should be rewarded for watching a video.
-			rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+		// Called when the user should be rewarded for watching a video.
+		rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
 
-			// Called when the ad is closed.
-			rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+		// Called when the ad is closed.
+		rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
 
-			// Called when the ad click caused the user to leave the application.
-			rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
-			this.RequestRewardedVideo ();
-		}
-
+		// Called when the ad click caused the user to leave the application.
+		rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+		this.RequestRewardedVideo ();
 	}
 	
 	private void RequestRewardedVideo(){
 
-		//appid
-		//ca-app-pub-3940256099942544~3347511713
 
-		//adid
-		//ca-app-pub-3940256099942544/5224354917
-
-
-	        #if UNITY_ANDROID
-				string adUnitId = "ca-app-pub-3940256099942544/5224354917";
-	        #elif UNITY_IPHONE
-	            string adUnitId = "ca-app-pub-3940256099942544/1712485313";
-	        #else
-	            string adUnitId = "unexpected_platform";
-	        #endif
+        #if UNITY_ANDROID
+			string adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        #elif UNITY_IPHONE
+            string adUnitId = "ca-app-pub-3940256099942544/1712485313";
+        #else
+            string adUnitId = "unexpected_platform";
+        #endif
 	        
 		// Create an empty ad request.
-	        AdRequest request = new AdRequest.Builder().Build();
-	        // Load the rewarded video ad with the request.
-	        this.rewardBasedVideo.LoadAd(request, adUnitId);
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the rewarded video ad with the request.
+        this.rewardBasedVideo.LoadAd(request, adUnitId);
 	}
 
     public void showVideo(){

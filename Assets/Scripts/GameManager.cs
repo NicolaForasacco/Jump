@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
 using System;
 
 public class GameManager : MonoBehaviour {
@@ -38,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	private PreferenceManager prefManager;
 	private AudioManager audioManager;
 	private EndPanelsManager endPanelsManager;
+	private PlayGamesManager playGamesManager;
 
 
 	void Start(){
@@ -45,6 +44,7 @@ public class GameManager : MonoBehaviour {
 		endPanelsManager = GameObject.FindObjectOfType<EndPanelsManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+		playGamesManager = GameObject.FindObjectOfType<PlayGamesManager> ();
 
 		sm.InstantiateCharacter();
 
@@ -59,29 +59,7 @@ public class GameManager : MonoBehaviour {
 		audioManager.restart ();
 		//PlayerPrefs.DeleteAll ();
 
-
-		// authenticate user:
-		PlayGamesPlatform.Activate();
-
-		PlayGamesPlatform.Instance.Authenticate (SignInCallback, true);
-
-		/*Social.localUser.Authenticate((bool success) => {
-			
-			if(success)
-				testText.text = "SUCCESS";
-			else {
-				testText.text = "NO";
-			}
-
-		});*/
-	}
-
-	public void SignInCallback(bool success) {
-		if (success)
-			testText.text = "SUCCESS";
-		else {
-			testText.text = "NO";
-		}
+		playGamesManager.signIn ();
 	}
 
 	public void startGame(){
@@ -121,22 +99,13 @@ public class GameManager : MonoBehaviour {
 
 		if (player.currentRecord > record) {
 
-
-
 			newBestText.SetActive (true);
 			bestText.SetActive (false);
 
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 
-			Social.ReportScore (record, GPGSIds.leaderboard_top_scores, (bool success) => {
-				
-				if (success)
-					testText.text = "SUCCESS";
-				else {
-					testText.text = "NO";
-				}
-			});
+			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 
 		} else {
 			bestText.SetActive (true);
@@ -146,32 +115,28 @@ public class GameManager : MonoBehaviour {
 		managePanels ();
 	}
 
+	public void restartGame(){
 
+		menuAnim.SetTrigger ("NoUI");
+		StartCoroutine (reloadScene(1.2f));
+	}
 
 	void managePanels(){
 
-		//#if UNITY_ANDROID
+		#if UNITY_ANDROID
 
-		if(Application.internetReachability == NetworkReachability.NotReachable){
+		if(Application.internetReachability != NetworkReachability.NotReachable){
 
 			endPanelsManager.manageVideoForDonutsPanel();
 			if(!endPanelsManager.manageshareForDonutsPanel ())
 				endPanelsManager.manageLikeForDonutsPanel ();
 		}
 
+		#endif
+
 		endPanelsManager.manageDailyGiftPanel ();
-
-		//#endif
 	}
-
-
-	public void restartGame(){
 		
-		menuAnim.SetTrigger ("NoUI");
-		StartCoroutine (reloadScene(1.2f));
-
-	}
-
 	private IEnumerator reloadScene(float time){
 
 		yield return new WaitForSeconds(time);
@@ -179,31 +144,18 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene ("MainScene", LoadSceneMode.Single);
 	}
 
+
 	public void showOnlineShop(){
 		Application.OpenURL("");
 	}
 
 	public void showLeatherboard(){
-		try{
-			
-			PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_top_scores);
-
-		}catch(NullReferenceException  e){
-
-			testText.text = "NO L";
-			
-
-		}
+		playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores);
 	}
 
 	public void showCreditsPanel(){
 		creditsPanel.SetActive (true);
 	}
-
-	public void closeCreditsPanel(){
-		creditsPanel.SetActive (false);
-	}
-
 
 	public void showStatsPanel(){
 		statsPanel.SetActive (true);
@@ -217,24 +169,7 @@ public class GameManager : MonoBehaviour {
 			+ "ANIMALS SCARED: " + prefManager.getTotalFlyingAnimalsScared();
 		
 		statText.text = stat;
-
 	}
-
-	public void closeStatsPanel(){
-		statsPanel.SetActive (false);
-	}
-
-
-	public void manageMenuOptions2(){
-
-		if(isSettingsMenuClosed)
-			settingsMenu.SetActive (true);
-		else 
-			settingsMenu.SetActive (false);
-
-		isSettingsMenuClosed = !isSettingsMenuClosed;
-	}
-
 
 	public void showCharacterSelectionMenu(){
 
@@ -242,7 +177,17 @@ public class GameManager : MonoBehaviour {
 		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraController.zoomOn ();
-		foreground.SetActive (false);}
+		foreground.SetActive (false);
+	}
+
+
+	public void closeCreditsPanel(){
+		creditsPanel.SetActive (false);
+	}
+
+	public void closeStatsPanel(){
+		statsPanel.SetActive (false);
+	}
 
 	public void closeCharacterSelectionMenu(){
 		
@@ -256,9 +201,19 @@ public class GameManager : MonoBehaviour {
 
 		ground.SetActive (true);
 		sm.close ();
-
 		menuAnim.SetTrigger ("MenuOn");
 		cameraController.zoomOff ();
 		foreground.SetActive (true);
+	}
+
+
+	public void manageMenuOptions2(){
+
+		if(isSettingsMenuClosed)
+			settingsMenu.SetActive (true);
+		else 
+			settingsMenu.SetActive (false);
+
+		isSettingsMenuClosed = !isSettingsMenuClosed;
 	}
 }

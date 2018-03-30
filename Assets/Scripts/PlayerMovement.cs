@@ -57,6 +57,10 @@ public class PlayerMovement : MonoBehaviour {
 		pointsText.text = donutsPicked.ToString ();
 
 		lastHeight = transform.position.y;
+
+		Destroy (boxCollider2D);
+		boxCollider2D = gameObject.AddComponent<BoxCollider2D> () as BoxCollider2D;
+
 	}
 
 	private void initializeCharacterParameters(){

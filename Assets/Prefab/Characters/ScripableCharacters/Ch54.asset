@@ -11,8 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56860f9ad645e8f479c992ffd74d1d41, type: 3}
   m_Name: Ch54
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1ee287c66b78e9c49992bff21ce1857c, type: 3}
-  destroyPieceSprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 484533970b3fae941a51b03490994b06, type: 3}
   id: 54
   jumpSpeed: 45000
   sideSpeed: 170

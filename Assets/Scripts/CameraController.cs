@@ -95,7 +95,7 @@ public class CameraController : MonoBehaviour {
 
 	public void changeRandomBackgroundColor(){
 
-		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length - 1)];
+		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length)];
 	}
 
 	public void zoomOn(){

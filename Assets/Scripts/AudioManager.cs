@@ -36,10 +36,10 @@ public class AudioManager : MonoBehaviour {
 		if (soundOn && clips.Length > 0) {
 			
 			soundtrackSource.Stop ();
-			int rc = Random.Range (0, clips.Length - 1);
+			int rc = Random.Range (0, clips.Length);
 
 			while (soundtrackSource.clip == clips [rc])
-				rc = Random.Range (0, clips.Length - 1);
+				rc = Random.Range (0, clips.Length);
 
 			soundtrackSource.clip = clips [rc];
 			soundtrackSource.Play ();

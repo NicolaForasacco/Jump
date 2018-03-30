@@ -3295,8 +3295,9 @@ GameObject:
   - component: {fileID: 839180566}
   - component: {fileID: 839180564}
   - component: {fileID: 839180567}
-  - component: {fileID: 839180568}
   - component: {fileID: 839180569}
+  - component: {fileID: 839180568}
+  - component: {fileID: 839180570}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -3391,7 +3392,7 @@ MonoBehaviour:
   maxPlatformLength: 4
   minPlatformLength: 1
   randomXRange: 0
-  probabilityChangeEvery: 500
+  probabilityChangeEvery: 200
   enemiesP: 0
   pencilSpawnThisLevel: 1
   shurikenSpawnThisLevel: 1
@@ -3469,7 +3470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9321f4d5a530f4746942632f5a2b5e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
 --- !u!114 &839180569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3496,6 +3496,17 @@ MonoBehaviour:
   prizeForGift: 100
   prizeForVideo: 100
   hourBetweenGift: 3
+--- !u!114 &839180570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 839180563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb29b6942b5108641b4c1fabb0988b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &860963975
 GameObject:
   m_ObjectHideFlags: 0
