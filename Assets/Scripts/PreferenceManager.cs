@@ -18,7 +18,8 @@ public class PreferenceManager : MonoBehaviour {
 			deathByPencil = "DeathByPencil",
 			deathByShuriken = "DeathByShuriken",
 			totalPaintButton = "TotalPaintButton",
-			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared";
+			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared",
+			totalPencilExplosion = "totalPencilExplosion";
 
 	public bool isFirstTime(){
 		
@@ -103,6 +104,17 @@ public class PreferenceManager : MonoBehaviour {
 
 		PlayerPrefs.SetInt (deathByShuriken, getDeathByShuriken() + 1);
 	}
+
+	public int getTotalPencilExplosion(){
+
+		return PlayerPrefs.GetInt (totalPencilExplosion, 0);
+	}
+
+	public void increaseTotalPencilExplosion(){
+
+		PlayerPrefs.SetInt (totalPencilExplosion, getTotalPencilExplosion () + 1);
+	}
+
 
 	#endregion
 

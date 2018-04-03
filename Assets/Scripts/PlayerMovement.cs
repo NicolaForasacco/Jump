@@ -229,7 +229,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool isPlayerVerticalStill(){
 
-		if (!jumpButtonDown && rigidBody.velocity.y == 0)
+		if ((!jumpButtonDown && rigidBody.velocity.y == 0) || dead)
 			return true;
 		else
 			return false;
@@ -250,14 +250,17 @@ public class PlayerMovement : MonoBehaviour {
         if (!dead)
         {
 			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
+			dead = true;
 
 			prefManager.increasePlayNumber ();
 			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
 			prefManager.increaseTotalJumps (currentTotalJumps);
 			prefManager.increaseTotalHeight (currentRecord);
 
+			cameraShake.startBigShake ();
 			audioManager.playGameOverSound();
-			dead = true;
+
+
             Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
             Instantiate(deadBodyPrefab, v, Quaternion.identity);
             this.gameObject.SetActive(false);
@@ -284,6 +287,7 @@ public class PlayerMovement : MonoBehaviour {
 
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().showExplosion ();
+				prefManager.increaseTotalPencilExplosion ();
 
 			} else if (boxCollider2D.bounds.min.y <= c.transform.position.y && boxCollider2D.bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x) {
 				prefManager.increaseDeathByPencil ();

@@ -1948,7 +1948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55, y: 0}
+  m_AnchoredPosition: {x: 55.00006, y: 0}
   m_SizeDelta: {x: 36, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474628094
@@ -2132,7 +2132,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 80}
+  m_SizeDelta: {x: 180, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &552416206
 MonoBehaviour:
@@ -2160,7 +2160,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4316,6 +4316,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5120e7fb96c76c2499bb57c0df775632, type: 3}
   - {fileID: 8300000, guid: b41e29fd42e52f54c9119c5b15ebc5e2, type: 3}
   - {fileID: 8300000, guid: c9b82e73e306d844885bdf6a590d3b1f, type: 3}
+  - {fileID: 8300000, guid: 3d625979cc51b5e46a38a44f1b06de65, type: 3}
+  - {fileID: 8300000, guid: 65857c5a124077347ae94107abb84736, type: 3}
+  - {fileID: 8300000, guid: 25af1c4fe36da3747abf95e37e3f8f00, type: 3}
   soundtrackSource: {fileID: 1248337804}
   soundEffectSource: {fileID: 1248337806}
   donutPickupEffect: {fileID: 8300000, guid: 8bfbdbfefe13cb94a9383469efe8fa50, type: 3}

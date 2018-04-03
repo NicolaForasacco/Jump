@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void showStatsPanel(){
+		
 		statsPanel.SetActive (true);
 		string stat = "TOTAL PLAYS: " + prefManager.getPlaysNumber() + "\n" 
 			+ "TOTAL DONUTS PICKED: " + prefManager.getTotalDonutsPicked() + "\n"
@@ -165,7 +166,8 @@ public class GameManager : MonoBehaviour {
 			+ "DEATH BY PENCIL: " + prefManager.getDeathByPencil() + "\n"
 			+ "DEATH BY SHURIKEN: " + prefManager.getDeathByShuriken() + "\n"
 			+ "PAINT BUTTONS: " + prefManager.getTotalPaintButton() + "\n"
-			+ "ANIMALS SCARED: " + prefManager.getTotalFlyingAnimalsScared();
+			+ "ANIMALS SCARED: " + prefManager.getTotalFlyingAnimalsScared() + "\n"
+			+ "PENCIL EXPLOSION: "+ prefManager.getTotalPencilExplosion ();
 		
 		statText.text = stat;
 	}
