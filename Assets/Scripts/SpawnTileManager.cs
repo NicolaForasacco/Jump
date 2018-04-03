@@ -45,6 +45,7 @@ public class SpawnTileManager : MonoBehaviour {
 		} else {
 			
 			player = GameObject.FindGameObjectWithTag ("player");
+
 			lastPlatformPosition = 0;
 			lastPlatformPosition = player.transform.position.x;
 		}

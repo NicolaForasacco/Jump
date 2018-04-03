@@ -26,6 +26,8 @@ public class Character : ScriptableObject {
 		if ( canBeBought() && !prefM.hasBeenBought (id)) {
 
 			prefM.setHasBought (id);
+			prefM.setLastSelectedCharacter (id);
+
 			prefM.setDonut (prefM.getDonut() - cost);
 
 			return true;

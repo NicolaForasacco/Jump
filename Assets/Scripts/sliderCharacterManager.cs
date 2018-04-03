@@ -46,6 +46,8 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
+		Debug.Log (currentSelectedCharacterId);
+
 		currentCharacter = characters [currentSelectedCharacterId - 1];
 
 

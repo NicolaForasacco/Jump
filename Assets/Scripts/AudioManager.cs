@@ -80,8 +80,6 @@ public class AudioManager : MonoBehaviour {
 			soundtrackSource.Play ();
 		else
 			changeBackgroundTrack ();
-		
-		soundtrackSource.volume = 0.3f;
 	}
 
 	public void SetSoundOff(){

@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 
 
 	void Start(){
-
+		
 		endPanelsManager = GameObject.FindObjectOfType<EndPanelsManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour {
 		characterButton.GetComponent<ButtonBlink> ().blinkActive = (sm.existCharacterToBuy ()) ? true : false;
 
 		audioManager.restart ();
-		//PlayerPrefs.DeleteAll ();
 
 		playGamesManager.signIn ();
 	}
