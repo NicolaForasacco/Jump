@@ -29,12 +29,17 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	void Start(){
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
+		buyInitialCharacter ();
+	}
 
+	public void buyInitialCharacter(){
+		
 		if (prefManager.isFirstTime ())
 			characters [0].buy ();
 	}
 
 	public void InstantiateCharacter () {
+		//buyInitialCharacter ();
 
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
 		charactersInstances = new GameObject[characters.Length];
@@ -45,8 +50,6 @@ public class sliderCharacterManager : MonoBehaviour {
 		gm = GameObject.FindObjectOfType<GameManager> ();
 
 		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
-
-		Debug.Log (currentSelectedCharacterId);
 
 		currentCharacter = characters [currentSelectedCharacterId - 1];
 
@@ -205,11 +208,15 @@ public class sliderCharacterManager : MonoBehaviour {
 
 				if (oldSelectedCharacterId == currentSelectedCharacterId) {
 
+					characterSelectionMenuOpen = false;
+					gm.closeCharacterSelectionMenuAndShowMenu ();
+
+					/*
 					currentCharacterInstance.transform.localScale = new Vector2 (1, 1);
 					currentPlayerMovement.SetGravity (true);
 					gm.closeCharacterSelectionMenu ();
 					gm.startGame ();
-
+						*/
 				} else {
 				
 					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena

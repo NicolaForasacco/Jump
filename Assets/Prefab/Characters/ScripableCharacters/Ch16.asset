@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56860f9ad645e8f479c992ffd74d1d41, type: 3}
   m_Name: Ch16
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f8367c116c78d254cbd16d4891bae4dc, type: 3}
+  sprite: {fileID: 21300000, guid: 67efa2bf7eec48a4f99c89397a871c9b, type: 3}
   id: 16
   jumpSpeed: 65000
   sideSpeed: 170

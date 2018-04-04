@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
 		playGamesManager = GameObject.FindObjectOfType<PlayGamesManager> ();
-
+	
 		sm.InstantiateCharacter();
 
 		player = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
@@ -159,16 +159,16 @@ public class GameManager : MonoBehaviour {
 	public void showStatsPanel(){
 		
 		statsPanel.SetActive (true);
-		string stat = "TOTAL PLAYS: " + prefManager.getPlaysNumber() + "\n" 
-			+ "TOTAL DONUTS PICKED: " + prefManager.getTotalDonutsPicked() + "\n"
-			+ "TOTAL JUMPS: " + prefManager.getTotalJumps() + "\n"
-			+ "TOTAL HEIGHT: " + prefManager.getTotalHeight() + "\n"
-			+ "DEATH BY PENCIL: " + prefManager.getDeathByPencil() + "\n"
-			+ "DEATH BY SHURIKEN: " + prefManager.getDeathByShuriken() + "\n"
-			+ "PAINT BUTTONS: " + prefManager.getTotalPaintButton() + "\n"
-			+ "ANIMALS SCARED: " + prefManager.getTotalFlyingAnimalsScared() + "\n"
-			+ "PENCIL EXPLOSION: "+ prefManager.getTotalPencilExplosion ();
-		
+		string stat = prefManager.getPlaysNumber() + "\n" 
+					+ prefManager.getTotalDonutsPicked() + "\n"
+					+ prefManager.getTotalJumps() + "\n"
+					+ prefManager.getTotalHeight() + "\n"
+					+ prefManager.getDeathByPencil() + "\n"
+					+ prefManager.getDeathByShuriken() + "\n"
+					+ prefManager.getTotalPaintButton() + "\n"
+					+ prefManager.getTotalFlyingAnimalsScared() + "\n"
+					+ prefManager.getTotalPencilExplosion ();
+
 		statText.text = stat;
 	}
 

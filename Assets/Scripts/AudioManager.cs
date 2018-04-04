@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour {
 	private bool soundOn = true;
 	private PreferenceManager prefM;
 
+	private int index;
+
 	void Awake(){
 		
 		prefM = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -29,19 +31,19 @@ public class AudioManager : MonoBehaviour {
 
 	void Start () {
 		soundtrackSource.volume = 1;
+		index = Random.Range (0, clips.Length);
 	}
 
 	public void changeBackgroundTrack(){
 		
 		if (soundOn && clips.Length > 0) {
 			
+			index++;
+			if (index == clips.Length)
+				index = 0;
+			
 			soundtrackSource.Stop ();
-			int rc = Random.Range (0, clips.Length);
-
-			while (soundtrackSource.clip == clips [rc])
-				rc = Random.Range (0, clips.Length);
-
-			soundtrackSource.clip = clips [rc];
+			soundtrackSource.clip = clips [index];
 			soundtrackSource.Play ();
 
 		} else

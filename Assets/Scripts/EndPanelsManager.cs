@@ -14,7 +14,7 @@ public class EndPanelsManager : MonoBehaviour {
 						donutExplosion,
 						newBestText;
 
-	public Text donutText;
+	public Text donutText, donutPrizeText;
 
 	private GameObject lastDonutExplosion;
 	private PreferenceManager prefManager;
@@ -29,13 +29,14 @@ public class EndPanelsManager : MonoBehaviour {
 
 
 	void Start(){
-		
+
 		prefManager = FindObjectOfType<PreferenceManager> ();
+		adsManager = FindObjectOfType<AdsManager> ();
 	}
 
 	public bool manageLikeForDonutsPanel(){
 
-		if (UnityEngine.Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
+		if (Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
 
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -47,19 +48,23 @@ public class EndPanelsManager : MonoBehaviour {
 		
 	public bool manageVideoForDonutsPanel(){
 
-		if (UnityEngine.Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
+		#if UNITY_ANDROID && !UNITY_EDITOR
+
+		if (Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
 
 			videoForDonutsPanel.SetActive (true);
 			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
 			return true;
 		}
 
+		#endif
+
 		return false;
 	}
 
 	public bool manageshareForDonutsPanel(){
 
-		if (UnityEngine.Random.value <= showSharePanelP || newBestText.activeSelf) {
+		if (Random.value <= showSharePanelP || newBestText.activeSelf) {
 
 			shareForDonutsPanel.SetActive (true);
 			shareForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -83,9 +88,14 @@ public class EndPanelsManager : MonoBehaviour {
 		int hourBetweenGiftInMinute = hourBetweenGift * 60;
 		int lastMinutesToMidnight = (24 - lastTime.Hour) * 60 - lastTime.Minute;
 
-		if ((System.DateTime.Now.Day - lastTime.Day > 0 && (lastMinutesToMidnight + currentHoursInMinute + currentMinute >= hourBetweenGiftInMinute)) 
-			|| (currentHoursInMinute + currentMinute - lastHourInMinute - lastTime.Minute >= hourBetweenGiftInMinute && System.DateTime.Now.Day == lastTime.Day)
-			|| lastTimeGiftPicked.CompareTo ("") == 0) {
+		int minuteLeft = 0, hourLeft = 0;
+
+		if (System.DateTime.Now.Day == lastTime.Day)
+			minuteLeft = ((lastHourInMinute + lastTime.Minute + hourBetweenGiftInMinute) - currentHoursInMinute - currentMinute);
+		else if(System.DateTime.Now.Day > lastTime.Day)
+			minuteLeft = ((hourBetweenGiftInMinute - lastMinutesToMidnight) - currentHoursInMinute - currentMinute);
+
+		if (minuteLeft <= 0 || lastTimeGiftPicked.CompareTo ("") == 0) {
 
 			donutsPresentsPanel.SetActive (true);
 			donutsPresentsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -93,19 +103,15 @@ public class EndPanelsManager : MonoBehaviour {
 			return true;
 		} else {
 
-			if (UnityEngine.Random.value <= showGiftSoonPanelP) {
+			if (Random.value <= showGiftSoonPanelP) {
+
 				donutsGiftSoonPanel.SetActive (true);
-
-				int minuteLeft = 0, hourLeft = 0;
-
-				if (System.DateTime.Now.Day == lastTime.Day)
-					minuteLeft = ((lastHourInMinute + lastTime.Minute + hourBetweenGiftInMinute) - currentHoursInMinute - currentMinute);
-				else if(System.DateTime.Now.Day > lastTime.Day)
-					minuteLeft = ((hourBetweenGiftInMinute - lastMinutesToMidnight) - currentHoursInMinute - currentMinute);
 
 				hourLeft = (int)Mathf.Floor (minuteLeft / 60);
 				minuteLeft = minuteLeft % 60;
 				donutsGiftSoonPanel.GetComponentInChildren<Text> ().text = "NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M";
+			} else {
+				Debug.Log ("NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M");
 			}
 		}
 
@@ -134,9 +140,6 @@ public class EndPanelsManager : MonoBehaviour {
 	public void shareForDonuts(){
 
 		#if UNITY_ANDROID
-
-
-
 
 		showPrizeOnResume = true;
 		prizeOnResume = prizeForSharing;
@@ -205,6 +208,7 @@ public class EndPanelsManager : MonoBehaviour {
 	public void showDonutPrize (int donutPrize)
 	{
 		donutPrizePanel.SetActive (true);
+		donutPrizeText.text = donutPrize.ToString ();
 		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(FindObjectOfType<Camera>().transform.position.x, FindObjectOfType<Camera>().transform.position.y, 0), Quaternion.identity);
 
 		prefManager.setDonut (prefManager.getDonut() + donutPrize);
