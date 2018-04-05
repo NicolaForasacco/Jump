@@ -24,19 +24,12 @@ public class PlayerMovement : MonoBehaviour {
 	private	Text scoreText, pointsText;
 	private	bool isOnMovingTile, isFirstMovement = true, jumpButtonDown;
 
-	private	float	speed = 0.2f, 
-					decreaseFactor = 0.1f,
-					sideSpeed,
-					jumpSpeed,
-					lastHeight,
-					slowSideSpeed,
-					horizontalSpeed = 0,
-					currentSideSpeed,
-					maxHorizontalSpeed = 1;
+	private	float maxHorizontalSpeed = 1, lastHeight, horizontalSpeed = 0, currentSideSpeed;
+
+	public float speed = 0.2f, decreaseFactor = 0.2f;
+	public float jumpSpeed = 65000, sideSpeed = 170, slowSideSpeed = 150, mass = 65, gravityScale = 250;
 
 	private int currentDonutsPicked = 0, currentTotalJumps = 0;
-
-
 
 	void Start()
 	{
@@ -65,11 +58,20 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void initializeCharacterParameters(){
 
-		jumpSpeed = ch.jumpSpeed;
-		sideSpeed = ch.sideSpeed;
-		rigidBody.mass = ch.mass;
-		slowSideSpeed = ch.slowSideSpeed;
-		rigidBody.gravityScale = ch.gravityScale;
+		if (ch.differentProperties) {
+			
+			jumpSpeed = ch.jumpSpeed;
+			sideSpeed = ch.sideSpeed;
+			rigidBody.mass = ch.mass;
+			slowSideSpeed = ch.slowSideSpeed;
+			rigidBody.gravityScale = ch.gravityScale;
+
+		} else {
+			
+			rigidBody.mass = mass;
+			rigidBody.gravityScale = gravityScale;
+		}
+
 		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
 	}
 		

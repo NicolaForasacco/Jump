@@ -13,10 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 5ae79c7d6eb22c74db8d1ab7ac49ece9, type: 3}
   id: 15
-  jumpSpeed: 65000
-  sideSpeed: 170
-  slowSideSpeed: 150
-  mass: 65
-  gravityScale: 250
+  jumpSpeed: 0
+  sideSpeed: 0
+  slowSideSpeed: 0
+  mass: 0
+  gravityScale: 0
   cost: 100
   boughtWithObjects: 1
+  differentProperties: 0

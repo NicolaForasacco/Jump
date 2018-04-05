@@ -14,9 +14,11 @@ public class TileBehavior : MonoBehaviour {
 	private	GameObject player;
 	private	Rigidbody2D rb;
 	private	Animator anim;
+	private AudioManager am;
 
 	void Start () {
-
+		
+		am = FindObjectOfType<AudioManager> ();
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		player = GameObject.FindGameObjectWithTag ("player");
@@ -35,7 +37,9 @@ public class TileBehavior : MonoBehaviour {
 
 
 	public void behave(){
-		
+
+		am.playJumpSound ();
+
 		switch(this.tag){
 
 		case "CloudTile":
@@ -95,6 +99,7 @@ public class TileBehavior : MonoBehaviour {
 
 		yield return new WaitForSeconds(time);
 
+		am.playExplosionSound ();
 		Instantiate(explosion, transform.position, Quaternion.identity);
 
 		GameObject.FindObjectOfType<CameraShake> ().startShake ();

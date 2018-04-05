@@ -20,17 +20,23 @@ public class SpawnTileManager : MonoBehaviour {
 
 	private int numberOfPlatformLevelSpawnedEachTime = 15, maxXRage = 4, tileWidth = 20, levelIndex = 0;
 
-	private float 	lastPlatformLength, 
-					lastPlatformPosition,
-					donutP = 0.1f,				
+	private float 	donutP = 0.1f,				
 					flowerP = 0.6f,
 					animalP = 0.3f,
-					lastXPosition = 1f, 
-					currentLevelHeight = 40f,
-					currentMaxLevelHeightRange = 40f,
+					lastXPosition = 1f,
 					minLevelHeightRange = 40f,
-					maxLevelHeightRange = 60f,
-					twoPlatformOnSameLevelP = 0.8f;
+					maxLevelHeightRange = 50f,
+					twoPlatformOnSameLevelP = 0.9f,
+					enemiesPChangeParameter = 0.05f,
+					levelHeightRangeChangeParameter = 1.05f;
+
+	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight, currentMaxLevelHeightRange;
+
+
+	void Start(){
+		
+		currentLevelHeight = currentMaxLevelHeightRange = minLevelHeightRange;
+	}
 
 	void Update () {
 		
@@ -60,14 +66,14 @@ public class SpawnTileManager : MonoBehaviour {
 		foreach (Tile t in tilePrefabs)
 			t.changeProbability ();
 
-		if (currentMaxLevelHeightRange * 1.05f <= maxLevelHeightRange)
-			currentMaxLevelHeightRange *= 1.05f;
+		if (currentMaxLevelHeightRange * levelHeightRangeChangeParameter <= maxLevelHeightRange)
+			currentMaxLevelHeightRange *= levelHeightRangeChangeParameter;
 		else
 			currentMaxLevelHeightRange = maxLevelHeightRange;
 
 		twoPlatformOnSameLevelP -= 0.1f;
 
-		enemiesP += 0.05f;
+		enemiesP += enemiesPChangeParameter;
 	}
 
 	#region spawnPlatforms

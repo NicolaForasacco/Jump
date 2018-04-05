@@ -7,15 +7,10 @@ public class Character : ScriptableObject {
 	
 	public Sprite sprite;
 
-	public int id,
-				jumpSpeed = 45000,
-				sideSpeed = 170,
-				slowSideSpeed = 150,
-				mass = 60,
-				gravityScale = 180,
-				cost;
+	public int id, jumpSpeed = 0, sideSpeed, slowSideSpeed, mass, gravityScale, cost;
 
 	public bool boughtWithObjects; // se donut o diamanti o qualsiasi altro oggetto
+	public bool differentProperties = false;
 
 	int donutsPicked;
 
