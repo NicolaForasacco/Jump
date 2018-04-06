@@ -160,7 +160,7 @@ MonoBehaviour:
   side: -1
   speed: 0.2
   decreaseFactor: 0.1
-  jumpSpeed: 75000
+  jumpSpeed: 80000
   sideSpeed: 170
   slowSideSpeed: 150
   mass: 70

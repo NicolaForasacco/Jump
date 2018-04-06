@@ -18,7 +18,7 @@ public class EndPanelsManager : MonoBehaviour {
 
 	private GameObject lastDonutExplosion;
 	private PreferenceManager prefManager;
-	private AdsManager adsManager;
+	public AdsManager adsManager;
 
 	private int prizeOnResume = 0;
 	private bool showPrizeOnResume = false;
@@ -48,13 +48,15 @@ public class EndPanelsManager : MonoBehaviour {
 		
 	public bool manageVideoForDonutsPanel(){
 
-		#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID
 
-		if (Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
+		if(adsManager.rewardBasedVideo != null){
+			if (Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
 
-			videoForDonutsPanel.SetActive (true);
-			videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
-			return true;
+				videoForDonutsPanel.SetActive (true);
+				videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
+				return true;
+			}
 		}
 
 		#endif

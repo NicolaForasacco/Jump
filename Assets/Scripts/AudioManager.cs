@@ -5,8 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
 
 	public AudioClip[] clips;
-	public AudioSource soundtrackSource, soundEffectSource, jumpEffectSource, explosionEffectSource;
-	public AudioClip donutPickupEffect, gameOverEffect;
+	public AudioSource soundtrackSource, donutPickUpEffectSource, jumpEffectSource, explosionEffectSource, gameOverEffectSource;
 
 	public static AudioManager instance;
 
@@ -71,8 +70,7 @@ public class AudioManager : MonoBehaviour {
 	public void playDonutsPickupSound(){
 		
 		if (soundOn) {
-			soundEffectSource.clip = donutPickupEffect;
-			soundEffectSource.Play ();
+			donutPickUpEffectSource.Play ();
 		}
 	}
 
@@ -81,8 +79,7 @@ public class AudioManager : MonoBehaviour {
 		if (soundOn) {
 			
 			soundtrackSource.volume = 0.45f;
-			soundEffectSource.clip = gameOverEffect;
-			soundEffectSource.Play ();
+			gameOverEffectSource.Play ();
 		}
 	}
 
