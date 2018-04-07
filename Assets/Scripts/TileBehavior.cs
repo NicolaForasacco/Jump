@@ -64,8 +64,7 @@ public class TileBehavior : MonoBehaviour {
 			}
 
 			break;
-		default:
-			break;
+		default: break;
 		}
 
 		isVisited = true;
