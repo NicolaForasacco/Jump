@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CloudDestroyer : MonoBehaviour {
-	
-
-	public Sprite[] cloudSprites;
 
 	GameObject player;
 	Vector3 lastUpdatedPosition, velocity;
@@ -20,7 +17,7 @@ public class CloudDestroyer : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("player");
 
 
-		GetComponent<SpriteRenderer> ().sprite = cloudSprites [Random.Range (0, cloudSprites.Length - 1)];
+		GetComponent<SpriteRenderer> ().sprite = FindObjectOfType<CloudManager> ().getCloudSprite ();
 
 
 		float randomScale = Random.Range (minScale, maxScale);

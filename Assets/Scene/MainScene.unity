@@ -1538,7 +1538,8 @@ MonoBehaviour:
   landscapeSizeZoomOn: 160
   portraitSizeZoomOn: 160
   maxCameraSpeed: 500
-  cameraOffset: 10
+  cameraOffset: 50
+  smoothDampTime: 0.2
 --- !u!114 &295262798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3447,7 +3448,7 @@ MonoBehaviour:
     type: 2}
   baloonPrefab: {fileID: 1836050914822708, guid: 66dec998fbb4c4148ac5663953442bde,
     type: 2}
-  cloudP: 0.6
+  cloudP: 0.8
   ballonP: 0.1
 --- !u!114 &839180568
 MonoBehaviour:
@@ -3482,6 +3483,7 @@ MonoBehaviour:
   newBestText: {fileID: 60634066}
   donutText: {fileID: 827160592}
   donutPrizeText: {fileID: 474628094}
+  adsManager: {fileID: 0}
   prizeForSharing: 30
   prizeForLike: 30
   prizeForGift: 100
@@ -4128,6 +4130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1248337803}
   - component: {fileID: 1248337802}
+  - component: {fileID: 1248337811}
   - component: {fileID: 1248337801}
   - component: {fileID: 1248337807}
   - component: {fileID: 1248337805}
@@ -4650,6 +4653,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1248337811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1248337800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b32591e9bd539641b83bc09f97a7340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudSprites:
+  - {fileID: 21300000, guid: f88cb9b99d80d9549b479d9f04159da7, type: 3}
+  - {fileID: 21300000, guid: beaa974961c22e743b316d527c800779, type: 3}
+  - {fileID: 21300000, guid: fc594c3da63d46d42b780fe6ce912ce3, type: 3}
+  - {fileID: 21300000, guid: fac0a31b85c20d54c925db52cfa228a1, type: 3}
+  - {fileID: 21300000, guid: 725b2c6724608e44c8f62504caa709fd, type: 3}
+  - {fileID: 21300000, guid: d2e79df5e72dcb849b190178f60f6749, type: 3}
+  - {fileID: 21300000, guid: f3c3d857ecbf0fc488f582ebf796acd4, type: 3}
+  - {fileID: 21300000, guid: 8131ed0ed6c12fa4aa3477bf316ab79f, type: 3}
+  - {fileID: 21300000, guid: a98d2ad9e67984945b56776b5b5e8b85, type: 3}
+  - {fileID: 21300000, guid: 48cd42d57673c1142b7a227c86751e36, type: 3}
+  - {fileID: 21300000, guid: f0d54ceb5a3bfa0419d2aca58bdaa878, type: 3}
 --- !u!1 &1263437289
 GameObject:
   m_ObjectHideFlags: 0

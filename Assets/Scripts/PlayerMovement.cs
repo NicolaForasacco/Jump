@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour {
 
 	public Character ch;
-	public GameObject deadBodyPrefab, comic;
+	public GameObject deadBodyPrefab, comic, comicPrefab;
 	public bool	dead, jumped, active, isJumping;
 	public int donutsPicked, currentRecord = 0, side = -1;
 
@@ -33,8 +33,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start()
 	{
-		rigidBody = GetComponent<Rigidbody2D>();
-		boxCollider2D = GetComponent<BoxCollider2D> ();
+		
 		cameraShake	= GameObject.FindObjectOfType<CameraShake>();
 		gameManager = GameObject.FindObjectOfType<GameManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
@@ -44,19 +43,17 @@ public class PlayerMovement : MonoBehaviour {
 
 		pointsText = GameObject.FindGameObjectWithTag ("DonutPointsText").GetComponent<Text> ();
 
-		initializeCharacterParameters ();
+		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
 
 		donutsPicked = prefManager.getDonut();
 		pointsText.text = donutsPicked.ToString ();
 
 		lastHeight = transform.position.y;
-
-		Destroy (boxCollider2D);
-		boxCollider2D = gameObject.AddComponent<BoxCollider2D> () as BoxCollider2D;
-
 	}
 
 	private void initializeCharacterParameters(){
+
+
 
 		if (ch.differentProperties) {
 			
@@ -64,19 +61,30 @@ public class PlayerMovement : MonoBehaviour {
 			sideSpeed = ch.sideSpeed;
 			rigidBody.mass = ch.mass;
 			slowSideSpeed = ch.slowSideSpeed;
-			rigidBody.gravityScale = ch.gravityScale;
 
 		} else {
 			
 			rigidBody.mass = mass;
 			rigidBody.gravityScale = gravityScale;
 		}
-
-		GetComponent<SpriteRenderer> ().sprite = ch.sprite;
+			
 	}
 		
 	public void activate(){
-		
+
+		comic = Instantiate (comicPrefab,comicPrefab.transform.position, Quaternion.identity);
+		comic.transform.SetParent (this.transform);
+
+		this.gameObject.AddComponent<Rigidbody2D> ();
+		boxCollider2D = gameObject.AddComponent<BoxCollider2D> () as BoxCollider2D;
+
+		rigidBody = GetComponent<Rigidbody2D>();
+
+		rigidBody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+		rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+		initializeCharacterParameters ();
+
 		scoreText = GameObject.FindGameObjectWithTag ("HeightText").GetComponent<Text> ();
 		showMessage ();
 		active = true;
@@ -338,7 +346,7 @@ public class PlayerMovement : MonoBehaviour {
   	}
 
 	public void SetGravity(bool enableGravity){
-
+		/*
 		if (enableGravity) {
 			
 			rigidBody = GetComponent<Rigidbody2D> ();
@@ -347,6 +355,6 @@ public class PlayerMovement : MonoBehaviour {
 
 			rigidBody = GetComponent<Rigidbody2D>();
 			rigidBody.bodyType = RigidbodyType2D.Static;
-		}
+		}*/
 	}
 }

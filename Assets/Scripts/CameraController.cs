@@ -12,7 +12,8 @@ public class CameraController : MonoBehaviour {
 					landscapeSizeZoomOn = 60f,
 					portraitSizeZoomOn = 90f,
 					maxCameraSpeed = 150f,
-					cameraOffset = 10f;
+					cameraOffset = 10f,
+					smoothDampTime= 0.3f;
 
 	private	GameObject player;
 	private	Camera cameraB;
@@ -72,6 +73,7 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
+
 	void LateUpdate () 
 	{
 		
@@ -84,7 +86,7 @@ public class CameraController : MonoBehaviour {
 				if (player.transform.position.y + offset.y >= newCameraPosition.y)
 					newCameraPosition.y = player.transform.position.y + offset.y;
 				
-				newCameraPosition = Vector3.SmoothDamp (transform.position, newCameraPosition, ref velocity, 0.1f);
+				newCameraPosition = Vector3.SmoothDamp (transform.position, newCameraPosition, ref velocity,smoothDampTime);
 
 				transform.position = newCameraPosition;
 			} else

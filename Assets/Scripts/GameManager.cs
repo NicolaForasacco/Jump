@@ -175,10 +175,10 @@ public class GameManager : MonoBehaviour {
 	public void showCharacterSelectionMenu(){
 
 		ground.SetActive (false);
-		sm.openSelection ();
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraController.zoomOn ();
 		foreground.SetActive (false);
+		sm.openSelection ();
 	}
 
 

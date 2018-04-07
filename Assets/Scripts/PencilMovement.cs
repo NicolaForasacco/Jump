@@ -59,6 +59,7 @@ public class PencilMovement : MonoBehaviour {
 
 		yield return new WaitForSeconds(time);
 
+		FindObjectOfType<AudioManager> ().playExplosionSound ();
 		Instantiate(explosion, transform.position, Quaternion.identity);
 
 		GameObject.FindObjectOfType<CameraShake> ().startShake ();

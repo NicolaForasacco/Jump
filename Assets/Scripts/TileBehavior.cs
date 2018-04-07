@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class TileBehavior : MonoBehaviour {
 
-	public	GameObject	explosion,
-						liftPrefab;
-
-	public	Sprite pressedTile;
+	public	GameObject	explosion;
 	public	bool isVisited;
 	public	int	maxDistanceFromPlayer = 200;
 

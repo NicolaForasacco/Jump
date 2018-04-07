@@ -6,16 +6,12 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 
 	public GameObject cloudPrefab, baloonPrefab;
 
-	public float cloudP = 0.7f, ballonP = 0.5f;
+	public float cloudP = 0.9f, ballonP = 0.5f;
 
 	private GameObject player;
 	private float lastSpawnPositionY = 0;
 
-	private int tileWidth = 20,
-				minXRange = -6,
-				maxXRange = 6,
-				minYRange = 5,
-				maxYRange = 8;
+	private int tileWidth = 20, minXRange = -6, maxXRange = 6, minYRange = 5, maxYRange = 8;
 
 	void Start () {
 		
