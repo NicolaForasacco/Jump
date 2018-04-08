@@ -208,19 +208,18 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		characterSelectionMenuOpen = true;
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
-		currentPlayerMovement.SetGravity (false);
 
 		int i = currentSelectedCharacterId - 2, l = currentSelectedCharacterId;
 
 		while(i >= 0 || l < characters.Length ){
 
-			if(i >= currentSelectedCharacterId - 1 - numberOfCharacterPerSideSpawned){
+			if(i >= currentSelectedCharacterId - 1 - numberOfCharacterPerSideSpawned && i >= 0){
 				
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
 				spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 			}
 				
-			if(l < currentSelectedCharacterId + numberOfCharacterPerSideSpawned){
+			if(l < currentSelectedCharacterId + numberOfCharacterPerSideSpawned && l < characters.Length){
 
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [l];
 				spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
@@ -286,7 +285,6 @@ public class sliderCharacterManager : MonoBehaviour {
 		}
 
 		currentCharacterInstance.transform.localScale = new Vector2 (1, 1);
-		currentPlayerMovement.SetGravity (true);
 		characterSelectionMenuOpen = false;
 	}
 

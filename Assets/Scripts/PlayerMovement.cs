@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Character ch;
 	public GameObject deadBodyPrefab, comic, comicPrefab;
-	public bool	dead, jumped, active, isJumping;
+	public bool	dead, jumped, active;
 	public int donutsPicked, currentRecord = 0, side = -1;
 
 	private Animator animator;
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 	private PreferenceManager prefManager;
 
 	private	Text scoreText, pointsText;
-	private	bool isOnMovingTile, isFirstMovement = true, jumpButtonDown;
+	private	bool isFirstMovement = true, jumpButtonDown;
 
 	private	float maxHorizontalSpeed = 1, lastHeight, horizontalSpeed = 0, currentSideSpeed;
 
@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour {
 	public float jumpSpeed = 65000, sideSpeed = 170, slowSideSpeed = 150, mass = 65, gravityScale = 250;
 
 	private int currentDonutsPicked = 0, currentTotalJumps = 0;
+
+	public bool isOnTile = true;
 
 	void Start()
 	{
@@ -53,8 +55,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void initializeCharacterParameters(){
 
-
-
 		if (ch.differentProperties) {
 			
 			jumpSpeed = ch.jumpSpeed;
@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour {
 			rigidBody.mass = mass;
 			rigidBody.gravityScale = gravityScale;
 		}
-			
 	}
 		
 	public void activate(){
@@ -103,10 +102,13 @@ public class PlayerMovement : MonoBehaviour {
 				scoreText.text = currentRecord.ToString ();
 			}
 
-			if (rigidBody.velocity.y == 0 && jumped) {
-				isJumping = false;
-				jumped = false;
-			}
+			/*if (rigidBody.velocity.y == 0 && jumped) {
+				
+			}*/
+
+			//if (isOnTile) {
+				//jumped = false;
+			//}
 
 			#if UNITY_EDITOR_WIN
 
@@ -124,12 +126,9 @@ public class PlayerMovement : MonoBehaviour {
 		
 			#endif
 
-			if (jumpButtonDown)
-				isJumping = true;
 		}
 	}
-
-
+		
 	public void showMessage(){
 		
 		if (comic != null) {
@@ -207,93 +206,108 @@ public class PlayerMovement : MonoBehaviour {
 
 			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
-			/*if (horizontalSpeed < 0)
-				groundDust.transform.localScale = new Vector2 (-groundDust.transform.localScale.x, groundDust.transform.localScale.y);
-			else if (horizontalSpeed > 0)
-				groundDust.transform.localScale = new Vector2 (groundDust.transform.localScale.x, groundDust.transform.localScale.y);
-*/
-
-			/*if (!isJumping && !jumped)
-            if (horizontalSpeed == 0)
-                idleAnim();
-            else
-                movingAnim();
-*/
-
-			if (isJumping && !jumped && (rigidBody.velocity.y == 0 || isOnMovingTile)) {
+			if (jumpButtonDown && !jumped && isOnTile && (rigidBody.velocity.y == 0)){
 				
 				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
+				jumped = true;
 
 				currentTotalJumps++;
 
 				spawnTileManager.pencilSpawnThisLevel = false;
 				spawnTileManager.shurikenSpawnThisLevel = false;
-
-				jumped = true;
 			}
 
 			if (transform.position.y < cameraController.getMinPosition ())
 				die ();
 		}
 	}
-
-	public bool isPlayerVerticalStill(){
-
-		if ((!jumpButtonDown && rigidBody.velocity.y == 0) || dead)
-			return true;
-		else
-			return false;
-	}
-
-	void OnCollisionExit2D(Collision2D collision){
 		
-		if (collision.gameObject.CompareTag ("MovingTile") 
-            || collision.gameObject.CompareTag ("Pencil")) {
-
-			isOnMovingTile = false;
-			transform.SetParent (null);
-		}
-	}
-		
-	void die(){
-
-        if (!dead)
-        {
-			//ScreenCapture.CaptureScreenshot ("\\Pictures\\LastDeath.png", 2);
-			dead = true;
-
-			prefManager.increasePlayNumber ();
-			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
-			prefManager.increaseTotalJumps (currentTotalJumps);
-			prefManager.increaseTotalHeight (currentRecord);
-
-			cameraShake.startBigShake ();
-			audioManager.playGameOverSound();
-
-
-            Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
-            Instantiate(deadBodyPrefab, v, Quaternion.identity);
-            this.gameObject.SetActive(false);
-
-            
-			gameManager.gameEnd();
-        }
-	}
-
-
 	void OnCollisionEnter2D(Collision2D collision){
+		
+		GameObject collidingObject = collision.gameObject;
 
-		GameObject c = collision.gameObject;
+		switch(collidingObject.tag){
 
+		case "ColorizeTile":
+		case "BounceTile":
+			
+			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
+				collidingObject.GetComponent<TileBehavior> ().behave ();
+
+				isOnTile = true;
+				jumped = false;
+			}
+			break;
+
+		case "Tile":
+		case "CloudTile":
+		case "UselessTile":
+		case "AlterningTile":
+			
+			if(boxCollider2D.bounds.min.y > collidingObject.transform.position.y ) {
+
+				isOnTile = true;
+				jumped = false;
+
+				spawnTileManager.spawnEnemies ();
+				collidingObject.GetComponent<TileBehavior> ().behave();
+			}
+
+			break;
+
+		case "Pencil":
+			
+			if (jumped)
+			cameraShake.startShake ();
+
+			if (boxCollider2D.bounds.min.y >= collidingObject.transform.position.y) {
+
+				isOnTile = true;
+				jumped = false;
+
+				this.transform.SetParent (collidingObject.transform);
+				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
+				prefManager.increaseTotalPencilExplosion ();
+
+			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x) {
+				prefManager.increaseDeathByPencil ();
+				die ();
+			}
+
+			break;
+
+		case "MovingTile":
+			
+			if(boxCollider2D.bounds.min.y > collidingObject.transform.position.y) {
+
+				this.transform.SetParent(collidingObject.transform);
+				isOnTile = true;
+				jumped = false;
+			}
+
+			break;
+		case "SpineTile":
+		case "Shuriken":
+			
+			if(boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
+
+				prefManager.increaseDeathByShuriken ();
+				die ();
+			}
+
+			break;
+		}
+
+		/*
 		if (c.CompareTag ("Pencil")) {
 			
 			if (jumped)
 				cameraShake.startShake ();
-			
-			isJumping = false;
-			jumped = false;
 
 			if (boxCollider2D.bounds.min.y >= c.transform.position.y) {
+				
+				isOnTile = true;
+				jumped = false;
 
 				this.transform.SetParent (c.transform);
 				c.GetComponent<PencilMovement> ().showExplosion ();
@@ -305,25 +319,28 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if ((c.CompareTag ("ColorizeTile") || c.CompareTag ("BounceTile")) && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D>().bounds.max.y)
+		if ((c.CompareTag ("ColorizeTile") || c.CompareTag ("BounceTile")) && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D> ().bounds.max.y) {
 			c.GetComponent<TileBehavior> ().behave ();
 
-		if ((c.CompareTag ("MovingTile") || c.CompareTag ("Lift")) && boxCollider2D.bounds.min.y > c.transform.position.y) {
-
-			isOnMovingTile = true;
-			this.transform.SetParent(c.transform);
-			isJumping = false;
-            jumped = false;
+			isOnTile = true;
+			jumped = false;
 		}
 
-		if ((c.CompareTag("Tile") 
-			|| c.CompareTag("CloudTile") 
-			|| c.CompareTag("UselessTile") 
-			|| c.CompareTag("MovingTile"))
-			&& boxCollider2D.bounds.min.y > c.transform.position.y ) {
+		if (c.CompareTag ("MovingTile") && boxCollider2D.bounds.min.y > c.transform.position.y) {
 
-			isJumping = false;
+			//isOnMovingTile = true;
+			this.transform.SetParent(c.transform);
+
+			isOnTile = true;
 			jumped = false;
+			spawnTileManager.spawnEnemies ();
+		}
+
+		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("UselessTile") || c.CompareTag ("AlterningTile")) && boxCollider2D.bounds.min.y > c.transform.position.y ) {
+
+			isOnTile = true;
+			jumped = false;
+
 			spawnTileManager.spawnEnemies ();
 			c.GetComponent<TileBehavior> ().behave();
 		}
@@ -332,6 +349,60 @@ public class PlayerMovement : MonoBehaviour {
 			
 			prefManager.increaseDeathByShuriken ();
 			die ();
+		}*/
+	}
+
+	void OnCollisionExit2D(Collision2D collision){
+
+		string tag = collision.gameObject.gameObject.tag;
+
+		switch (tag) {
+
+		case "ColorizeTile":
+		case "BounceTile":
+		case "Tile":
+		case "CloudTile":
+		case "UselessTile":
+		case "AlterningTile":
+			if (jumped)
+				isOnTile = false;
+			break;
+
+		case "Pencil":
+			transform.SetParent (null);
+			if (jumped)
+				isOnTile = false;
+			break;
+
+		case "MovingTile":
+			transform.SetParent (null);
+			if (jumped)
+				isOnTile = false;
+			break;
+		}
+	}
+
+	void die(){
+
+		if (!dead)
+		{
+			dead = true;
+
+			prefManager.increasePlayNumber ();
+			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
+			prefManager.increaseTotalJumps (currentTotalJumps);
+			prefManager.increaseTotalHeight (currentRecord);
+
+			cameraShake.startBigShake ();
+			audioManager.playGameOverSound();
+
+
+			Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
+			Instantiate(deadBodyPrefab, v, Quaternion.identity);
+			this.gameObject.SetActive(false);
+
+
+			gameManager.gameEnd();
 		}
 	}
 
@@ -345,16 +416,11 @@ public class PlayerMovement : MonoBehaviour {
 		pointsText.text = donutsPicked.ToString ();
   	}
 
-	public void SetGravity(bool enableGravity){
-		/*
-		if (enableGravity) {
-			
-			rigidBody = GetComponent<Rigidbody2D> ();
-			rigidBody.bodyType = RigidbodyType2D.Dynamic;
-		} else {
+	public bool isPlayerVerticalStill(){
 
-			rigidBody = GetComponent<Rigidbody2D>();
-			rigidBody.bodyType = RigidbodyType2D.Static;
-		}*/
+		if ((!jumpButtonDown && rigidBody.velocity.y == 0) || dead)
+			return true;
+		else
+			return false;
 	}
 }

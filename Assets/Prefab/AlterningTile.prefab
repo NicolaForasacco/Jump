@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114160415029604058}
   m_Layer: 0
   m_Name: AlterningTile
-  m_TagString: Untagged
+  m_TagString: AlterningTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8cc764199e4ae409983cad11ca0aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisited: 0
   explosion: {fileID: 0}
+  isVisited: 0
+  maxDistanceFromPlayer: 200
 --- !u!212 &212921705432347506
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -17,7 +17,6 @@ TagManager:
   - Shuriken
   - background
   - UselessPiece
-  - RotatingTile
   - GroundDust
   - HeightText
   - RecordText
@@ -25,8 +24,8 @@ TagManager:
   - foreground
   - DonutsCost
   - DonutsCostLabel
-  - Lift
   - testtext
+  - AlterningTile
   layers:
   - Default
   - TransparentFX

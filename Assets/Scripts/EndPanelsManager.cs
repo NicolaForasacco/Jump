@@ -25,7 +25,7 @@ public class EndPanelsManager : MonoBehaviour {
 
 
 	public int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
-	private float showVideoPanelP = 0.7f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
+	private float showVideoPanelP = 0.8f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
 
 
 	void Start(){

@@ -11,7 +11,7 @@ public class SpawnTileManager : MonoBehaviour {
 	public Object flowerPrefab;
 
 	public int	maxPlatformLength = 4, minPlatformLength = 1, randomXRange = 0;
-	public float probabilityChangeEvery = 500, enemiesP = 0;
+	public float probabilityChangeEvery = 500, enemiesP = 0, donutP = 0.2f;
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
 
 
@@ -20,8 +20,7 @@ public class SpawnTileManager : MonoBehaviour {
 
 	private int numberOfPlatformLevelSpawnedEachTime = 15, maxXRage = 4, tileWidth = 20, levelIndex = 0;
 
-	private float 	donutP = 0.1f,				
-					flowerP = 0.6f,
+	private float 	flowerP = 0.6f,
 					animalP = 0.3f,
 					lastXPosition = 1f,
 					minLevelHeightRange = 40f,
