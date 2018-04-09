@@ -18,6 +18,6 @@ MonoBehaviour:
   slowSideSpeed: 0
   mass: 0
   gravityScale: 0
-  cost: 1000
+  cost: 2000
   boughtWithObjects: 1
   differentProperties: 0

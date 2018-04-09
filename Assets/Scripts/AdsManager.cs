@@ -97,12 +97,13 @@ public class AdsManager : MonoBehaviour {
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-        //string type = args.Type;
-        //double amount = args.Amount;
 		Debug.Log("HandleRewardBasedVideoRewarded event received for ");
 
 		if (!prizeAlreadyGiven) {
-			FindObjectOfType<EndPanelsManager>().showDonutPrize (FindObjectOfType<EndPanelsManager>().prizeForVideo);
+
+			int prize = FindObjectOfType<EndPanelsManager> ().prizeForVideo;
+			prize = (UnityEngine.Random.value <= 0.5) ? prize : prize * 2;
+			FindObjectOfType<EndPanelsManager>().showDonutPrize (prize);
 			prizeAlreadyGiven = true;
 		}
 

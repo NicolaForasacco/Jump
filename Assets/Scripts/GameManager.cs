@@ -107,6 +107,8 @@ public class GameManager : MonoBehaviour {
 			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 
 		} else {
+			
+			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
 		}
@@ -133,7 +135,8 @@ public class GameManager : MonoBehaviour {
 
 		#endif
 
-		endPanelsManager.manageDailyGiftPanel ();
+		if(!endPanelsManager.manageDailyGiftPanel ())
+			endPanelsManager.manageRandomGiftPanel();
 	}
 		
 	private IEnumerator reloadScene(float time){
@@ -159,12 +162,13 @@ public class GameManager : MonoBehaviour {
 	public void showStatsPanel(){
 		
 		statsPanel.SetActive (true);
-		string stat = prefManager.getPlaysNumber() + "\n" 
-					+ prefManager.getTotalDonutsPicked() + "\n"
-					+ prefManager.getTotalJumps() + "\n"
-					+ prefManager.getTotalHeight() + "\n"
-					+ prefManager.getDeathByPencil() + "\n"
-					+ prefManager.getDeathByShuriken() + "\n"
+		string stat = prefManager.getPlaysNumber () + "\n"
+					+ prefManager.getTotalDonutsPicked () + "\n"
+		            + prefManager.getTotalJumps () + "\n"
+		            + prefManager.getTotalHeight () + "\n"
+		            + prefManager.getDeathByPencil () + "\n"
+		            + prefManager.getDeathByShuriken () + "\n"
+		            + prefManager.getDeathBySpine () + "\n"
 					+ prefManager.getTotalPaintButton() + "\n"
 					+ prefManager.getTotalFlyingAnimalsScared() + "\n"
 					+ prefManager.getTotalPencilExplosion ();
@@ -174,6 +178,8 @@ public class GameManager : MonoBehaviour {
 
 	public void showCharacterSelectionMenu(){
 
+		settingsMenu.SetActive (false);
+		isSettingsMenuClosed = true;
 		ground.SetActive (false);
 		menuAnim.SetTrigger ("CharacterSelectionMenu");
 		cameraController.zoomOn ();

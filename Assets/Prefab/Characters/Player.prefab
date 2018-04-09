@@ -52,10 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77067c1e0dbaa741a6890dd4bf2548c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ch: {fileID: 11400000, guid: 7d6e2c293eee17e42a770b3db37983b4, type: 2}
+  ch: {fileID: 11400000, guid: 750391c198e013c468fdfdc9e83d881c, type: 2}
   deadBodyPrefab: {fileID: 1854650050600510, guid: 54bcec7e3efc64c4c878c4dc64221261,
     type: 2}
-  comic: {fileID: 0}
   comicPrefab: {fileID: 1686956526169006, guid: 9ddd58864b066a94ab3a1c055c733a20,
     type: 2}
   dead: 0
@@ -66,7 +65,7 @@ MonoBehaviour:
   side: -1
   speed: 0.2
   decreaseFactor: 0.1
-  jumpSpeed: 75000
+  jumpSpeed: 80000
   sideSpeed: 150
   slowSideSpeed: 170
   mass: 70

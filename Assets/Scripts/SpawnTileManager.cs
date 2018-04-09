@@ -23,18 +23,17 @@ public class SpawnTileManager : MonoBehaviour {
 	private float 	flowerP = 0.6f,
 					animalP = 0.3f,
 					lastXPosition = 1f,
-					minLevelHeightRange = 40f,
-					maxLevelHeightRange = 50f,
+					levelHeightRange = 40f,
 					twoPlatformOnSameLevelP = 0.9f,
 					enemiesPChangeParameter = 0.05f,
 					levelHeightRangeChangeParameter = 1.05f;
 
-	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight, currentMaxLevelHeightRange;
+	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight;
 
 
 	void Start(){
 		
-		currentLevelHeight = currentMaxLevelHeightRange = minLevelHeightRange;
+		currentLevelHeight = levelHeightRange;
 	}
 
 	void Update () {
@@ -65,11 +64,6 @@ public class SpawnTileManager : MonoBehaviour {
 		foreach (Tile t in tilePrefabs)
 			t.changeProbability ();
 
-		if (currentMaxLevelHeightRange * levelHeightRangeChangeParameter <= maxLevelHeightRange)
-			currentMaxLevelHeightRange *= levelHeightRangeChangeParameter;
-		else
-			currentMaxLevelHeightRange = maxLevelHeightRange;
-
 		twoPlatformOnSameLevelP -= 0.1f;
 
 		enemiesP += enemiesPChangeParameter;
@@ -96,7 +90,7 @@ public class SpawnTileManager : MonoBehaviour {
 		if(Random.value < twoPlatformOnSameLevelP)
 			spawnPlatform (false);
 		
-		currentLevelHeight += Random.Range(minLevelHeightRange, currentMaxLevelHeightRange);
+		currentLevelHeight += levelHeightRange;
 	}
 
 	private void spawnPlatform(bool isFirstTileOfThisLevel){

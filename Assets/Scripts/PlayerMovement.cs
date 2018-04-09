@@ -7,10 +7,11 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour {
 
 	public Character ch;
-	public GameObject deadBodyPrefab, comic, comicPrefab;
+	public GameObject deadBodyPrefab, comicPrefab;
 	public bool	dead, jumped, active;
 	public int donutsPicked, currentRecord = 0, side = -1;
 
+	private GameObject comic;
 	private Animator animator;
 	private Rigidbody2D	rigidBody;
 	private GameManager	gameManager;
@@ -269,7 +270,7 @@ public class PlayerMovement : MonoBehaviour {
 				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
 				prefManager.increaseTotalPencilExplosion ();
 
-			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x) {
+			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x && !dead) {
 				prefManager.increaseDeathByPencil ();
 				die ();
 			}
@@ -287,14 +288,18 @@ public class PlayerMovement : MonoBehaviour {
 
 			break;
 		case "SpineTile":
-		case "Shuriken":
 			
-			if(boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
-
-				prefManager.increaseDeathByShuriken ();
+			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y && !dead) {
+				prefManager.increaseDeathBySpine ();
 				die ();
 			}
 
+			break;
+		case "Shuriken":
+			if (!dead) {
+				prefManager.increaseDeathByShuriken ();
+				die ();
+			}
 			break;
 		}
 

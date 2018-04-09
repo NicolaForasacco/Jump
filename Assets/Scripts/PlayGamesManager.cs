@@ -12,11 +12,14 @@ public class PlayGamesManager : MonoBehaviour {
 
 		#if UNITY_ANDROID
 
-		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
-		PlayGamesPlatform.InitializeInstance(config);
-		PlayGamesPlatform.Activate();
+		if(Application.internetReachability != NetworkReachability.NotReachable){
+			
+			PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+			PlayGamesPlatform.InitializeInstance(config);
+			PlayGamesPlatform.Activate();
 
-		Social.localUser.Authenticate(success => { });
+			Social.localUser.Authenticate(success => { });
+		}
 
 		#endif
 	}

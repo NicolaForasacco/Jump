@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour {
 
 	public Color[] backgroundColors;
 	public bool active = false;
-	public float cameraSlowSpeed = 70f,
+	public float cameraSlowSpeed = 0f,
 					landscapeSize = 120f,
 					portraitSize = 180f,
 					landscapeSizeZoomOn = 60f,
@@ -118,8 +118,8 @@ public class CameraController : MonoBehaviour {
 
 	public void increaseSpeed(){
 
-		if (cameraSlowSpeed + 40 < maxCameraSpeed)
-			cameraSlowSpeed += 30;
+		if (cameraSlowSpeed + 10 < maxCameraSpeed)
+			cameraSlowSpeed += 10;
 		else
 			cameraSlowSpeed = maxCameraSpeed;
 	}

@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour {
 	private bool soundOn = true;
 	private PreferenceManager prefM;
 
-	private int index;
+	private int index = 0;
 
 	void Awake(){
 		

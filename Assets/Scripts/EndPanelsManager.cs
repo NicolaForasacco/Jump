@@ -12,7 +12,8 @@ public class EndPanelsManager : MonoBehaviour {
 						donutsPresentsPanel,
 						donutPrizePanel,
 						donutExplosion,
-						newBestText;
+						newBestText,
+						randomGift;
 
 	public Text donutText, donutPrizeText;
 
@@ -24,8 +25,19 @@ public class EndPanelsManager : MonoBehaviour {
 	private bool showPrizeOnResume = false;
 
 
-	public int prizeForSharing = 30, prizeForLike = 30, prizeForGift = 100, prizeForVideo = 100, hourBetweenGift = 3;
-	private float showVideoPanelP = 0.8f, showLikePanelP = 0.5f, showSharePanelP = 0.2f, showGiftSoonPanelP = 0.3f;
+	public int prizeForSharing = 50, 
+				prizeForLike = 100, 
+				prizeForGift = 250, 
+				minRandomGift = 20, 
+				maxRandomGift = 50, 
+				prizeForVideo = 500, 
+				hourBetweenGift = 3;
+
+	private float showVideoPanelP = 0.8f, 
+					showLikePanelP = 0.5f, 
+					showSharePanelP = 0.2f, 
+					showGiftSoonPanelP = 0.3f, 
+					showRandomGiftP = 0.05f;
 
 
 	void Start(){
@@ -112,12 +124,19 @@ public class EndPanelsManager : MonoBehaviour {
 				hourLeft = (int)Mathf.Floor (minuteLeft / 60);
 				minuteLeft = minuteLeft % 60;
 				donutsGiftSoonPanel.GetComponentInChildren<Text> ().text = "NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M";
-			} else {
-				Debug.Log ("NEXT GIFT IN " + hourLeft + "H " + minuteLeft + "M");
+
+				return true;
 			}
 		}
 
 		return false;
+	}
+
+	public void manageRandomGiftPanel(){
+		if(Random.value <= showRandomGiftP){
+			
+			randomGift.SetActive (true);
+		}
 	}
 
 	/*void showVideoForDonutsPanel(){
@@ -195,6 +214,12 @@ public class EndPanelsManager : MonoBehaviour {
 		showDonutPrize (prizeForGift);
 	}
 
+	public void showDonutRandomPresent(){
+		
+		randomGift.SetActive (false);
+		showDonutPrize (Random.Range(minRandomGift, maxRandomGift));
+	}
+
 
 	void OnApplicationFocus(bool hasFocus)
 	{
@@ -209,8 +234,9 @@ public class EndPanelsManager : MonoBehaviour {
 
 	public void showDonutPrize (int donutPrize)
 	{
-		donutPrizePanel.SetActive (true);
+
 		donutPrizeText.text = donutPrize.ToString ();
+		donutPrizePanel.SetActive (true);
 		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(FindObjectOfType<Camera>().transform.position.x, FindObjectOfType<Camera>().transform.position.y, 0), Quaternion.identity);
 
 		prefManager.setDonut (prefManager.getDonut() + donutPrize);
