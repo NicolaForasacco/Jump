@@ -848,7 +848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 38}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &171611058
@@ -883,8 +883,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "CODING\nMUSIC\nPIXELARTS \nBY\nNICOLA FORASACCO\n\nGAME DESIGNER\nNICOLA
-    FORASACCO\n\nTOOLS USED\nPISKEL\nBOSCACEOIL\n\nSPECIAL THANKS TO\nMY FAMILY\nMY
+  m_Text: "CODING MUSIC PIXELARTS \nBY\nNICOLA FORASACCO\n\nGAME DESIGNER\nNICOLA
+    FORASACCO\n\nTOOLS USED\nPISKEL\nBOSCACEOIL\n\nSPECIAL THANKS TO MY FAMILY AND
     FRIENDS"
 --- !u!222 &171611059
 CanvasRenderer:
@@ -1500,7 +1500,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.84705883, b: 0.2509804, a: 1}
+  m_BackGroundColor: {r: 0.101960786, g: 0.7372549, b: 0.99215686, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1552,23 +1552,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundColors:
-  - {r: 1, g: 0.84705883, b: 0.2509804, a: 1}
+  - {r: 0.101960786, g: 0.7372549, b: 0.99215686, a: 1}
   - {r: 0.9411765, g: 0.29803923, b: 0.29803923, a: 1}
-  - {r: 0.9338235, g: 0.564664, b: 0.09612887, a: 1}
-  - {r: 0.6544118, g: 0.21172146, b: 0.21172146, a: 1}
+  - {r: 1, g: 0.6241829, b: 0.058823526, a: 1}
+  - {r: 0.75, g: 0.022058845, b: 0.072, a: 1}
   - {r: 1, g: 0.029411793, b: 0.37301213, a: 1}
   - {r: 1, g: 0.39705884, b: 0.83397466, a: 1}
   - {r: 0.7620548, g: 0.31617647, b: 1, a: 1}
   - {r: 0.2647059, g: 0.5174103, b: 1, a: 1}
-  - {r: 0.102184236, g: 0.7385621, b: 0.99264705, a: 1}
+  - {r: 1, g: 0.84705883, b: 0.2509804, a: 1}
   - {r: 0.045036756, g: 0.875, b: 0.803565, a: 1}
   - {r: 0.07661114, g: 0.8014706, b: 0.49997234, a: 1}
   - {r: 0.2509804, g: 0.91764706, b: 0.30588236, a: 1}
   - {r: 0.73105216, g: 0.9632353, b: 0.41079152, a: 1}
-  - {r: 1, g: 0.9630348, b: 0.04411763, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   active: 0
   cameraSlowSpeed: 0
+  increaseSpeedEachTime: 10
   landscapeSize: 170
   portraitSize: 230
   landscapeSizeZoomOn: 160
@@ -1754,6 +1754,7 @@ RectTransform:
   m_Children:
   - {fileID: 1263437290}
   - {fileID: 171611057}
+  - {fileID: 905435536}
   m_Father: {fileID: 1271838681}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1774,7 +1775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28676468, g: 0.61632866, b: 1, a: 0.96}
+  m_Color: {r: 0.9411765, g: 0.29803923, b: 0.29803923, a: 0.9607843}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2378,7 +2379,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 595325371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 198.80241, y: 282.7222, z: -7.330885}
+  m_LocalPosition: {x: 0, y: 0, z: -7.330885}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2540,7 +2541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28676468, g: 0.61632866, b: 1, a: 1}
+  m_Color: {r: 0.9411765, g: 0.29803923, b: 0.29803923, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3421,7 +3422,7 @@ MonoBehaviour:
   maxPlatformLength: 4
   minPlatformLength: 1
   randomXRange: 0
-  probabilityChangeEvery: 200
+  probabilityChangeEvery: 160
   enemiesP: 0
   donutP: 0.2
   pencilSpawnThisLevel: 1
@@ -3663,6 +3664,74 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 860963975}
+--- !u!1 &905435535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 905435536}
+  - component: {fileID: 905435538}
+  - component: {fileID: 905435537}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &905435536
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905435535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 419479488}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 60}
+  m_SizeDelta: {x: 92, y: 19}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &905435537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905435535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: d478f7763b8b437409c1ac53253c88ad, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &905435538
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905435535}
 --- !u!1 &938935697
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,7 +7386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28676468, g: 0.61632866, b: 1, a: 0.96}
+  m_Color: {r: 0.9411765, g: 0.29803923, b: 0.29803923, a: 0.9607843}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7756,7 +7825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28676468, g: 0.61632866, b: 1, a: 0.891}
+  m_Color: {r: 0.9411765, g: 0.29803923, b: 0.29803923, a: 0.8901961}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

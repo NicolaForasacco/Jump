@@ -34,7 +34,7 @@ public class PlayGamesManager : MonoBehaviour {
 		#endif
 	}
 
-	public void showLeatherboard(string leaderboardId){
+	public bool showLeatherboard(string leaderboardId){
 
 		try{
 			
@@ -43,7 +43,9 @@ public class PlayGamesManager : MonoBehaviour {
 			PlayGamesPlatform.Instance.ShowLeaderboardUI(leaderboardId);
 
 			#endif
-
-		}catch(NullReferenceException  e){}
+			return true;
+		}catch(NullReferenceException  e){
+			return false;
+		}
 	}
 }

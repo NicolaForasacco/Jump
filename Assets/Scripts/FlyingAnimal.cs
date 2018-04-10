@@ -7,7 +7,7 @@ public class FlyingAnimal : MonoBehaviour {
 	private GameObject player;
 	private Vector3 initialPosition;
 
-	private int side = 1, deleteWhenPlayerFurtherThan = 400, startWhenPlayerIsCloserThan = 100;
+	private int side = 1, deleteWhenPlayerFurtherThan = 400, startWhenPlayerIsCloserThan = 70;
 	private float speedX = 100, speedY = 200;
 	private bool isMoving = false;
 

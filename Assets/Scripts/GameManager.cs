@@ -152,7 +152,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void showLeatherboard(){
-		playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores);
+		if(!playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores))
+			playGamesManager.signIn ();
 	}
 
 	public void showCreditsPanel(){

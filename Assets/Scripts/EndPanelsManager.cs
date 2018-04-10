@@ -27,18 +27,17 @@ public class EndPanelsManager : MonoBehaviour {
 
 	public int prizeForSharing = 50, 
 				prizeForLike = 100, 
-				prizeForGift = 250, 
+				prizeForGift = 250,
 				minRandomGift = 20, 
 				maxRandomGift = 50, 
 				prizeForVideo = 500, 
 				hourBetweenGift = 3;
 
-	private float showVideoPanelP = 0.8f, 
-					showLikePanelP = 0.5f, 
-					showSharePanelP = 0.2f, 
-					showGiftSoonPanelP = 0.3f, 
+	private float showVideoPanelP = 0.85f,
+					showLikePanelP = 0.5f,
+					showSharePanelP = 0.2f,
+					showGiftSoonPanelP = 0.25f, 
 					showRandomGiftP = 0.05f;
-
 
 	void Start(){
 
@@ -165,7 +164,7 @@ public class EndPanelsManager : MonoBehaviour {
 		showPrizeOnResume = true;
 		prizeOnResume = prizeForSharing;
 
-		string body = "My record in Rage Jump is " + prefManager.getRecord() + ". Can you beat my record?", subject = "";
+		string body = "My record in Rage Jump is " + prefManager.getRecord() + ".\nCan you beat my record? Try it " + "market://details?id=" + Application.productName, subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");

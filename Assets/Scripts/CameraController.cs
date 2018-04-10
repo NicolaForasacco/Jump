@@ -7,13 +7,14 @@ public class CameraController : MonoBehaviour {
 	public Color[] backgroundColors;
 	public bool active = false;
 	public float cameraSlowSpeed = 0f,
-					landscapeSize = 120f,
-					portraitSize = 180f,
-					landscapeSizeZoomOn = 60f,
-					portraitSizeZoomOn = 90f,
-					maxCameraSpeed = 150f,
+					increaseSpeedEachTime = 10f,
+					landscapeSize = 170f,
+					portraitSize = 230f,
+					landscapeSizeZoomOn = 160f,
+					portraitSizeZoomOn = 180f,
+					maxCameraSpeed,
 					cameraOffset = 10f,
-					smoothDampTime= 0.3f;
+					smoothDampTime;
 
 	private	GameObject player;
 	private	Camera cameraB;
@@ -96,8 +97,13 @@ public class CameraController : MonoBehaviour {
 
 
 	public void changeRandomBackgroundColor(){
+		
+		Color c = backgroundColors [Random.Range (0, backgroundColors.Length)];
 
-		cameraB.backgroundColor = backgroundColors[Random.Range(0, backgroundColors.Length)];
+		while(c == cameraB.backgroundColor)
+			c = backgroundColors [Random.Range (0, backgroundColors.Length)];
+
+		cameraB.backgroundColor = c;
 	}
 
 	public void zoomOn(){
@@ -118,8 +124,8 @@ public class CameraController : MonoBehaviour {
 
 	public void increaseSpeed(){
 
-		if (cameraSlowSpeed + 10 < maxCameraSpeed)
-			cameraSlowSpeed += 10;
+		if (cameraSlowSpeed + increaseSpeedEachTime < maxCameraSpeed)
+			cameraSlowSpeed += increaseSpeedEachTime;
 		else
 			cameraSlowSpeed = maxCameraSpeed;
 	}

@@ -9,7 +9,6 @@ public class SpawnTileManager : MonoBehaviour {
 	public CameraController cameraController;
 	public Tile[] tilePrefabs;
 	public Object flowerPrefab;
-
 	public int	maxPlatformLength = 4, minPlatformLength = 1, randomXRange = 0;
 	public float probabilityChangeEvery = 500, enemiesP = 0, donutP = 0.2f;
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
@@ -17,9 +16,8 @@ public class SpawnTileManager : MonoBehaviour {
 
 	private GameObject player;
 	private Tile lastTileType;
-
+	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight;
 	private int numberOfPlatformLevelSpawnedEachTime = 15, maxXRage = 4, tileWidth = 20, levelIndex = 0;
-
 	private float 	flowerP = 0.6f,
 					animalP = 0.3f,
 					lastXPosition = 1f,
@@ -27,8 +25,6 @@ public class SpawnTileManager : MonoBehaviour {
 					twoPlatformOnSameLevelP = 0.9f,
 					enemiesPChangeParameter = 0.05f,
 					levelHeightRangeChangeParameter = 1.05f;
-
-	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight;
 
 
 	void Start(){
@@ -58,7 +54,6 @@ public class SpawnTileManager : MonoBehaviour {
 	private void changeProbabilityParameters(){
 		
 		levelIndex++;
-		probabilityChangeEvery *= 1.2f;
 		cameraController.increaseSpeed ();
 
 		foreach (Tile t in tilePrefabs)
@@ -280,8 +275,8 @@ public class SpawnTileManager : MonoBehaviour {
 	private void spawnRandomHorizontalPencil(){
 
 		pencilSpawnThisLevel = true;
-		Vector2 v = new Vector2 (cameraController.getXBounds(), player.transform.position.y + Random.Range(7, 14) * tileWidth);
-		Instantiate (pencilPrefab, v, Quaternion.identity);	
+		Vector2 v = new Vector2 (cameraController.getXBounds(), ((int)(player.transform.position.y + Random.Range(7, 14) * tileWidth) / 20) * 20 );
+		Instantiate (pencilPrefab, v, Quaternion.identity);
 	}
 
 	private void spawnRandomVerticalShuriken(){

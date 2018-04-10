@@ -6,7 +6,7 @@ public class TileBehavior : MonoBehaviour {
 
 	public	GameObject	explosion;
 	public	bool isVisited;
-	public	int	maxDistanceFromPlayer = 200;
+	private	int	maxDistanceFromPlayer = 400;
 
 	private	GameObject player;
 	private	Rigidbody2D rb;
