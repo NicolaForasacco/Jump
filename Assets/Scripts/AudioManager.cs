@@ -57,30 +57,30 @@ public class AudioManager : MonoBehaviour {
 
 	public void playExplosionSound(){
 		
-		if (soundOn)
+		//if (soundOn)
 			explosionEffectSource.Play ();
 	}
 
 	public void playJumpSound(){
 
-		if (soundOn)
+		//if (soundOn)
 			jumpEffectSource.Play ();
 	}
 		
 	public void playDonutsPickupSound(){
 		
-		if (soundOn) {
+		//if (soundOn)
 			donutPickUpEffectSource.Play ();
-		}
+		
 	}
 
 	public void playGameOverSound(){
 
-		if (soundOn) {
+		//if (soundOn) {
 			
 			soundtrackSource.volume = 0.45f;
 			gameOverEffectSource.Play ();
-		}
+		//}
 	}
 
 	public void SetSoundOn(){
