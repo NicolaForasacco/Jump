@@ -25,7 +25,7 @@ public class ShurikenMovement : MonoBehaviour {
 
 		transform.position += new Vector3 (horizontalSpeed * Time.deltaTime, Mathf.Sin(transform.position.x / horizontalSpeed) * verticalSpeed * Time.deltaTime , transform.position.z);
 
-		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () <= transform.position.x)
+		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXBounds () + 200 <= transform.position.x)
 			Destroy(this.gameObject);
 	}
 }

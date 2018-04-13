@@ -398,19 +398,31 @@ public class PlayerMovement : MonoBehaviour {
 			prefManager.increaseTotalJumps (currentTotalJumps);
 			prefManager.increaseTotalHeight (currentRecord);
 
-			cameraShake.startBigShake ();
+			cameraShake.startBigBigShake ();
+			FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
+
 			audioManager.playGameOverSound();
 
 
 			Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
 			Instantiate(deadBodyPrefab, v, Quaternion.identity);
-			this.gameObject.SetActive(false);
 
 
-			gameManager.gameEnd();
+			cameraController.active = false;
+			GetComponent<SpriteRenderer> ().enabled = false;
+
+			StartCoroutine (callGameEndAfter (1.5f));
+
 		}
 	}
 
+	private IEnumerator callGameEndAfter(float time){
+
+		yield return new WaitForSeconds(time);
+
+		this.gameObject.SetActive(false);
+		gameManager.gameEnd ();
+	}
 
 	public void increaseDonutsPicked(){
 

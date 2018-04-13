@@ -84,7 +84,7 @@ MonoBehaviour:
   horizontalWide: 200
   right: 0
   side: 1
-  maxSideSpeed: 2
+  maxSideSpeed: 3
 --- !u!114 &114512126868106300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,10 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 0}
-  liftPrefab: {fileID: 0}
-  pressedTile: {fileID: 0}
   isVisited: 0
-  maxDistanceFromPlayer: 200
 --- !u!212 &212725595327899892
 SpriteRenderer:
   m_ObjectHideFlags: 1

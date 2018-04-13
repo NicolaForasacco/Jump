@@ -49,6 +49,18 @@ public class CameraShake : MonoBehaviour {
 		active = true;
 	}
 
+	public void startBigBigShake(){
+
+		if (playerMovement == null)
+			playerMovement = GameObject.FindGameObjectWithTag ("player").GetComponent<PlayerMovement>();
+
+		originalPos = camTransform.localPosition;
+		shakeAmount = 15f;
+		maxShakeDuration = 0.3f;
+		shakeDuration = maxShakeDuration;
+		active = true;
+	}
+
 	void LateUpdate()
 	{
 		if (active) {

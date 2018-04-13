@@ -9,6 +9,7 @@ public class destroyPiece : MonoBehaviour {
 	private float verticalForce = 0, horizontalForce = 0, rotatingSpeed;
 
 	public int forcePower = 12000, maxRotatingSpeed = 100;
+	private float deleteWhenPlayerFurtherThan = 300;
 
 	void Start () {
 		
@@ -31,11 +32,11 @@ public class destroyPiece : MonoBehaviour {
 		this.transform.Rotate (Vector3.forward * Time.deltaTime * rotatingSpeed, Space.World);
 
 		if (player != null) {
-			if (player.transform.position.y - transform.position.y > 200)
+			if (player.transform.position.y - transform.position.y > deleteWhenPlayerFurtherThan)
 				GameObject.Destroy (this.gameObject);
 			
 		}else if (cameraController != null) {
-			if (cameraController.transform.position.y - transform.position.y > 200)
+			if (cameraController.transform.position.y - transform.position.y > deleteWhenPlayerFurtherThan)
 				GameObject.Destroy (this.gameObject);
 		}
 	}

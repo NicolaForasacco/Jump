@@ -2000,7 +2000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114036817399205994
 MonoBehaviour:
@@ -2013,7 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114079276494065184
 MonoBehaviour:
@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114091742143686610
 MonoBehaviour:
@@ -2039,7 +2039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114200285168666796
 MonoBehaviour:
@@ -2052,7 +2052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114309282638167540
 MonoBehaviour:
@@ -2065,7 +2065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114327049165872826
 MonoBehaviour:
@@ -2078,7 +2078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114328875186637884
 MonoBehaviour:
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114347150591796550
 MonoBehaviour:
@@ -2104,7 +2104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114381325629990620
 MonoBehaviour:
@@ -2117,7 +2117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114406006055785604
 MonoBehaviour:
@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114423571522682086
 MonoBehaviour:
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114424085289265132
 MonoBehaviour:
@@ -2156,7 +2156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114425965189719688
 MonoBehaviour:
@@ -2169,7 +2169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114458588030531102
 MonoBehaviour:
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114549658211513232
 MonoBehaviour:
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114557224357773986
 MonoBehaviour:
@@ -2208,7 +2208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114677233892157524
 MonoBehaviour:
@@ -2221,7 +2221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114747067055360508
 MonoBehaviour:
@@ -2234,7 +2234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114865006263675184
 MonoBehaviour:
@@ -2247,7 +2247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114878910999732294
 MonoBehaviour:
@@ -2260,7 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114888579856225274
 MonoBehaviour:
@@ -2273,7 +2273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114957644663102048
 MonoBehaviour:
@@ -2286,7 +2286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114981215172430720
 MonoBehaviour:
@@ -2299,7 +2299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!114 &114987672464030376
 MonoBehaviour:
@@ -2312,7 +2312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e642ef38e67c15409ab036af69b3440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 5000
+  forcePower: 10000
   maxRotatingSpeed: 0
 --- !u!212 &212077225413452226
 SpriteRenderer:

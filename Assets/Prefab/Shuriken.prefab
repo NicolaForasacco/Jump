@@ -69,9 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minHorizontalSpeed: 50
-  maxHorizontalSpeed: 80
-  rotateSpeed: 2000
-  totalSpeed: 130
+  maxHorizontalSpeed: 100
+  totalSpeed: 150
 --- !u!212 &212388015483756370
 SpriteRenderer:
   m_ObjectHideFlags: 1

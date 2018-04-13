@@ -1574,8 +1574,8 @@ MonoBehaviour:
   landscapeSizeZoomOn: 160
   portraitSizeZoomOn: 160
   maxCameraSpeed: 500
-  cameraOffset: 40
-  smoothDampTime: 0.18
+  cameraOffset: 50
+  smoothDampTime: 0.2
 --- !u!114 &295262798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3367,37 +3367,37 @@ MonoBehaviour:
     currentProbability: 0.2
     changeProbabilityParameter: 1.1
     minProbability: 0.2
-    maxProbability: 0.6
+    maxProbability: 0.4
     type: 1
   - tile: {fileID: 1624925779961050, guid: 85a76b35f09bf1a4cb6b5aa1316cab3b, type: 2}
     currentProbability: 0.1
     changeProbabilityParameter: 1.2
     minProbability: 0.1
-    maxProbability: 0.6
+    maxProbability: 0.7
     type: 2
   - tile: {fileID: 1054978158330604, guid: 2c73355ba1502e044a349c6a610d965c, type: 2}
     currentProbability: 0.01
     changeProbabilityParameter: 1.2
     minProbability: 0.01
-    maxProbability: 0.6
+    maxProbability: 0.4
     type: 3
   - tile: {fileID: 1122039140993570, guid: 1ec1d804d1736e544a2211bb4f2325a8, type: 2}
     currentProbability: 0.02
     changeProbabilityParameter: 1.2
     minProbability: 0.02
-    maxProbability: 0.6
+    maxProbability: 0.4
     type: 4
   - tile: {fileID: 1346916375844550, guid: a77af72de57ffce479a71abbd77f0762, type: 2}
     currentProbability: 0.03
     changeProbabilityParameter: 1.2
     minProbability: 0.03
-    maxProbability: 0.6
+    maxProbability: 0.4
     type: 5
   - tile: {fileID: 1763151332436610, guid: c5fa191cfabb05d40b083c7e3f9bddea, type: 2}
     currentProbability: 0
     changeProbabilityParameter: 1.1
     minProbability: 0.02
-    maxProbability: 0.6
+    maxProbability: 0.4
     type: 6
   - tile: {fileID: 1297513007848872, guid: 85ec334e832ef564e950aa2859945da7, type: 2}
     currentProbability: 0.02
@@ -4616,8 +4616,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 123fd1e6ab4f3ca44b57ad8ef9bb98ad, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
-  m_Pitch: 1
+  m_Volume: 0.6
+  m_Pitch: 0.5
   Loop: 0
   Mute: 0
   Spatialize: 0
