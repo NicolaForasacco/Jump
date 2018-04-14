@@ -37,7 +37,7 @@ public class EndPanelsManager : MonoBehaviour {
 					showLikePanelP = 0.5f,
 					showSharePanelP = 0.2f,
 					showGiftSoonPanelP = 0.25f, 
-					showRandomGiftP = 0.05f;
+					showRandomGiftP = 0.2f;
 
 	void Start(){
 

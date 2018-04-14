@@ -116,6 +116,26 @@ public class GameManager : MonoBehaviour {
 		managePanels ();
 	}
 
+	void Update(){
+
+		#if UNITY_EDITOR_WIN
+		if (Input.GetButton ("Submit") && !cameraController.active) {
+			sm.selectCurrentCharacter ();
+		}
+
+		#endif
+
+		#if UNITY_STANDALONE_WIN
+
+		if (Input.GetButton ("Submit") && !cameraController.active) {
+		sm.selectCurrentCharacter ();
+		}
+
+		#endif
+
+
+	}
+
 	public void restartGame(){
 
 		menuAnim.SetTrigger ("NoUI");

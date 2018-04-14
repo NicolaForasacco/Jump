@@ -127,6 +127,21 @@ public class PlayerMovement : MonoBehaviour {
 		
 			#endif
 
+			#if UNITY_STANDALONE_WIN
+
+			if (Input.GetButton ("Jump")) {
+				onJumpButtonDown ();
+			} else
+				onJumpButtonUp ();
+
+			if (Input.GetAxis("Horizontal") < 0)
+				goLeft ();
+			else if (Input.GetAxis("Horizontal") > 0)
+				goRight ();
+			else
+				side = -1;
+
+			#endif
 		}
 	}
 		

@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	private	Camera cameraB;
 	private	ScreenOrientation previousScreenOrientation;
 	private bool isZoomOn = false;
-	private	Vector3	offset,newCameraPosition, velocity, initialTransform;
+	private	Vector3	offset, newCameraPosition, velocity, initialTransform;
 
 	public void Start () 
 	{

@@ -24,8 +24,8 @@ public class SpawnTileManager : MonoBehaviour {
 					levelHeightRange = 40f,
 					twoPlatformOnSameLevelP = 0.9f,
 					enemiesPChangeParameter = 0.05f,
-					levelHeightRangeChangeParameter = 1.05f;
-
+					levelHeightRangeChangeParameter = 1.05f, 
+					minProbabilityChangeEvery = 160;
 
 	void Start(){
 		
@@ -54,6 +54,12 @@ public class SpawnTileManager : MonoBehaviour {
 	private void changeProbabilityParameters(){
 		
 		levelIndex++;
+
+		if (probabilityChangeEvery * 0.8f > minProbabilityChangeEvery)
+			probabilityChangeEvery *= 0.8f;
+		else
+			probabilityChangeEvery = minProbabilityChangeEvery;
+
 		cameraController.increaseSpeed ();
 
 		foreach (Tile t in tilePrefabs)

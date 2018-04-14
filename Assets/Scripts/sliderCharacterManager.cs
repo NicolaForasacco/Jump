@@ -9,6 +9,7 @@ public class sliderCharacterManager : MonoBehaviour {
 	public Character currentCharacter;
 	public Character[] characters;
 	public Text ownedText;
+	public Text currentCharacterText;
 	public GameManager gm;
 	public CameraController cameraController;
 	public GameObject currentCharacterInstance, donutsCostLabel, playButton;
@@ -114,6 +115,8 @@ public class sliderCharacterManager : MonoBehaviour {
 
 			currentSelectedCharacterId += 1;
 
+			currentCharacterText.text = currentSelectedCharacterId + "/" + characters.Length;
+
 			changeCharactersPosition (-1);
 
 			spawnNewCurrentCharacter ();
@@ -138,6 +141,8 @@ public class sliderCharacterManager : MonoBehaviour {
 			}
 
 			currentSelectedCharacterId -= 1;
+
+			currentCharacterText.text = currentSelectedCharacterId + "/" + characters.Length;
 
 			changeCharactersPosition (1);
 
@@ -205,6 +210,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		int characterOwned = getTotalNumberOwnedCharacter(), totalCharacter = characters.Length;
 		ownedText.text = characterOwned + "/" + totalCharacter;
+		currentCharacterText.text = currentSelectedCharacterId + "/" + totalCharacter;
 
 		characterSelectionMenuOpen = true;
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
