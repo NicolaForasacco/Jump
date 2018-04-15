@@ -26,7 +26,7 @@ public class BalloonBehaviour : MonoBehaviour {
 
 		if (player != null) {
 			
-			if (Mathf.Abs(player.transform.position.y - transform.position.y) > 400)
+			if (player.transform.position.y - transform.position.y > 400)
 				DestroyObject (this.gameObject);
 			else
 				transform.Translate( Vector2.up * speed * Time.deltaTime);

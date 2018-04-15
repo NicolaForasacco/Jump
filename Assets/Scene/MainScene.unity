@@ -3544,7 +3544,7 @@ MonoBehaviour:
   - tile: {fileID: 1054978158330604, guid: 2e79ba14ed96d1c49bed88a770aedb9c, type: 2}
     currentProbability: 0
     changeProbabilityParameter: 1.1
-    minProbability: 0.005
+    minProbability: 0.01
     maxProbability: 0.4
     type: 9
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
@@ -3660,7 +3660,7 @@ MonoBehaviour:
   prizeForGift: 200
   minRandomGift: 25
   maxRandomGift: 50
-  prizeForVideo: 500
+  prizeForVideo: 1000
   hourBetweenGift: 3
 --- !u!114 &839180570
 MonoBehaviour:

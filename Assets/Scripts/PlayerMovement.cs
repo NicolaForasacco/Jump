@@ -407,6 +407,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (!dead)
 		{
 			dead = true;
+			active = false;
 
 			prefManager.increasePlayNumber ();
 			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
@@ -427,7 +428,6 @@ public class PlayerMovement : MonoBehaviour {
 			GetComponent<SpriteRenderer> ().enabled = false;
 
 			StartCoroutine (callGameEndAfter (1.5f));
-
 		}
 	}
 

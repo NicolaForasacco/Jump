@@ -164,7 +164,7 @@ public class EndPanelsManager : MonoBehaviour {
 		showPrizeOnResume = true;
 		prizeOnResume = prizeForSharing;
 
-		string body = "My record in Rage Jump is " + prefManager.getRecord() + ".\nCan you beat my record? Try it " + "market://details?id=" + Application.productName, subject = "";
+		string body = "My record in Rage Jump is " + prefManager.getRecord() + ".\nCan you beat my record? Try it " + "https://play.google.com/store/apps/details?id=" + Application.productName, subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
