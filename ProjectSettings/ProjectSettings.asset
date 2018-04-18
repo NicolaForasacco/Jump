@@ -248,6 +248,7 @@ PlayerSettings:
   androidSplashScreen: {fileID: 2800000, guid: 659551c4886cddf48b2e2323c778d41b, type: 3}
   AndroidKeystoreName: 
   AndroidKeyaliasName: 
+  AndroidTVCompatibility: 1
   AndroidIsGame: 1
   AndroidEnableTango: 0
   androidEnableBanner: 1
@@ -255,7 +256,7 @@ PlayerSettings:
   m_AndroidBanners:
   - width: 320
     height: 180
-    banner: {fileID: 0}
+    banner: {fileID: 2800000, guid: 15cbc25186c2ede4bb348d3fd36b7641, type: 3}
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:

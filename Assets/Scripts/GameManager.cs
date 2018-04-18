@@ -171,6 +171,10 @@ public class GameManager : MonoBehaviour {
 		Application.OpenURL("");
 	}
 
+	public void showSocialProfile(){
+		Application.OpenURL("https://twitter.com/");
+	}
+
 	public void showLeatherboard(){
 		if(!playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores))
 			playGamesManager.signIn ();

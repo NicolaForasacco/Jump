@@ -22,7 +22,7 @@ public class EndPanelsManager : MonoBehaviour {
 	public AdsManager adsManager;
 
 	private int prizeOnResume = 0;
-	private bool showPrizeOnResume = false;
+	private bool showPrizeOnResume = false, prizeForVideoGiven = false;
 
 
 	public int prizeForSharing = 50, 
@@ -33,11 +33,12 @@ public class EndPanelsManager : MonoBehaviour {
 				prizeForVideo = 500, 
 				hourBetweenGift = 3;
 
-	private float showVideoPanelP = 0.85f,
-					showLikePanelP = 0.5f,
+	private float showVideoPanelP = 0.9f,
 					showSharePanelP = 0.2f,
-					showGiftSoonPanelP = 0.25f, 
+					showGiftSoonPanelP = 0.25f,
 					showRandomGiftP = 0.2f;
+
+	private string productName = "brickteamdevelopment.ragejump";
 
 	void Start(){
 
@@ -47,7 +48,7 @@ public class EndPanelsManager : MonoBehaviour {
 
 	public bool manageLikeForDonutsPanel(){
 
-		if (Random.value <= showLikePanelP && !prefManager.likeAlreadyGiven()) {
+		if (!prefManager.likeAlreadyGiven()) {
 
 			likeForDonutsPanel.SetActive (true);
 			likeForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
@@ -164,7 +165,7 @@ public class EndPanelsManager : MonoBehaviour {
 		showPrizeOnResume = true;
 		prizeOnResume = prizeForSharing;
 
-		string body = "My record in Rage Jump is " + prefManager.getRecord() + ".\nCan you beat my record? Try it " + "https://play.google.com/store/apps/details?id=" + Application.productName, subject = "";
+		string body = "My record in Rage Jump is " + prefManager.getRecord() + ".\nCan you beat my record? Try it " + "https://play.google.com/store/apps/details?id=" + productName, subject = "";
 
 		//Reference of AndroidJavaClass class for intent
 		AndroidJavaClass intentClass = new AndroidJavaClass ("android.content.Intent");
@@ -200,7 +201,7 @@ public class EndPanelsManager : MonoBehaviour {
 
 		prefManager.likeGiven();
 		likeForDonutsPanel.SetActive (false);
-		Application.OpenURL("market://details?id=" + Application.productName);
+		Application.OpenURL("market://details?id=" + productName);
 
 		#endif
 	}
@@ -237,9 +238,25 @@ public class EndPanelsManager : MonoBehaviour {
 		donutPrizeText.text = donutPrize.ToString ();
 		donutPrizePanel.SetActive (true);
 		lastDonutExplosion = Instantiate (donutExplosion, new Vector3(FindObjectOfType<Camera>().transform.position.x, FindObjectOfType<Camera>().transform.position.y, 0), Quaternion.identity);
-
-		prefManager.setDonut (prefManager.getDonut() + donutPrize);
+		int totalDonut = prefManager.getDonut () + donutPrize;
+		prefManager.setDonut (totalDonut);
 		donutText.text = prefManager.getDonut().ToString();
+	}
+
+	public void showDonutPrizeForVideo ()
+	{
+		if (!prizeForVideoGiven) {
+			
+			prizeForVideoGiven = true;
+
+			donutPrizeText.text = prizeForVideo.ToString ();
+			donutPrizePanel.SetActive (true);
+			lastDonutExplosion = Instantiate (donutExplosion, new Vector3 (FindObjectOfType<Camera> ().transform.position.x, FindObjectOfType<Camera> ().transform.position.y, 0), Quaternion.identity);
+
+			int totalDonut = prefManager.getDonut () + prizeForVideo;
+			prefManager.setDonut (totalDonut);
+			donutText.text = prefManager.getDonut ().ToString ();
+		}
 	}
 
 	public void closeDonutPrizePanel(){

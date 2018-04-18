@@ -35,7 +35,6 @@ public class AdsManager : MonoBehaviour {
 		// Called when the ad starts to play.
 		rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
 
-		rewardBasedVideo.OnAdRewarded -= HandleRewardBasedVideoRewarded;
 		// Called when the user should be rewarded for watching a video.
 		rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
 
@@ -103,7 +102,7 @@ public class AdsManager : MonoBehaviour {
 		if (!prizeAlreadyGiven) {
 
 			prizeAlreadyGiven = true;
-			FindObjectOfType<EndPanelsManager>().showDonutPrize (FindObjectOfType<EndPanelsManager> ().prizeForVideo);
+			FindObjectOfType<EndPanelsManager> ().showDonutPrizeForVideo ();
 		}
 
     }
