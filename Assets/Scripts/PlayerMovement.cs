@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject deadBodyPrefab, comicPrefab;
 	public bool	dead, jumped, active;
 	public int donutsPicked, currentRecord = 0, side = -1;
+	public bool isOnTile = true;
+	public float jumpSpeed, sideSpeed, slowSideSpeed, mass, gravityScale;
 
 	private GameObject comic;
 	private Animator animator;
@@ -24,15 +26,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	private	Text scoreText, pointsText;
 	private	bool isFirstMovement = true, jumpButtonDown;
-
-	private	float maxHorizontalSpeed = 1, lastHeight, horizontalSpeed = 0, currentSideSpeed;
-
-	public float speed = 0.2f, decreaseFactor = 0.2f;
-	public float jumpSpeed = 65000, sideSpeed = 170, slowSideSpeed = 150, mass = 65, gravityScale = 250;
-
 	private int currentDonutsPicked = 0, currentTotalJumps = 0;
 
-	public bool isOnTile = true;
+	private	float maxHorizontalSpeed = 1,
+					lastHeight,
+					horizontalSpeed = 0,
+					currentSideSpeed,
+					speed = 0.2f,
+					decreaseFactor = 0.2f;
 
 	void Start()
 	{
@@ -418,7 +419,7 @@ public class PlayerMovement : MonoBehaviour {
 			FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
 
 			audioManager.playGameOverSound();
-
+			audioManager.changeBackgroundTrack ();
 
 			Vector2 v = new Vector2(transform.position.x - 3, transform.position.y - 30 + 1);
 			Instantiate(deadBodyPrefab, v, Quaternion.identity);

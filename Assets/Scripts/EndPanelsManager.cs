@@ -21,17 +21,16 @@ public class EndPanelsManager : MonoBehaviour {
 	private PreferenceManager prefManager;
 	public AdsManager adsManager;
 
-	private int prizeOnResume = 0;
+	private int prizeOnResume = 0, hourBetweenGift = 3;
 	private bool showPrizeOnResume = false, prizeForVideoGiven = false;
 
 
-	public int prizeForSharing = 50, 
-				prizeForLike = 100, 
-				prizeForGift = 250,
-				minRandomGift = 20, 
-				maxRandomGift = 50, 
-				prizeForVideo = 500, 
-				hourBetweenGift = 3;
+	public int prizeForSharing, 
+				prizeForLike, 
+				prizeForGift,
+				minRandomGift, 
+				maxRandomGift, 
+				prizeForVideo;
 
 	private float showVideoPanelP = 0.9f,
 					showSharePanelP = 0.2f,
@@ -133,10 +132,9 @@ public class EndPanelsManager : MonoBehaviour {
 	}
 
 	public void manageRandomGiftPanel(){
-		if(Random.value <= showRandomGiftP){
-			
+		
+		if(Random.value <= showRandomGiftP)
 			randomGift.SetActive (true);
-		}
 	}
 
 	/*void showVideoForDonutsPanel(){

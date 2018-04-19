@@ -6,26 +6,110 @@ public class PreferenceManager : MonoBehaviour {
 
 	string likeForDonutString = "LikeForDonutUsed", 
 			lastTimeGitPickedString = "LastTimeGiftPicked", 
-			recordString = "Record", 
-			donutsString = "Donuts", 
-			isBoughtString = "Isbought",
+			recordString = "Record",
+			donutsString = "Donuts",
+			isBoughtString = "IsBought",
 			lastCharacterSelectedString = "CharacterSelected",
-			soundOnString = "SoundOn",
-			numberOfPlays = "numberOfPlays",
-			totalDonutsPicked = "totalDonutsPicked",
-			totalJumps = "totalJumps",
-			totalHeight = "totalHeight",
-			deathByPencil = "DeathByPencil",
-			deathByShuriken = "DeathByShuriken",
-			totalPaintButton = "TotalPaintButton",
-			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared",
-			totalPencilExplosion = "totalPencilExplosion",
-			deathBySpine = "DeathByPencil";
+			soundOnString = "SoundOn";
+
+	#region saveDataInfo 
 
 	public bool isFirstTime(){
 		
 		return (getRecord () == 0) ? true : false;
 	}
+
+	public bool hasBeenBought(int id){
+
+		return (PlayerPrefs.GetInt (isBoughtString + id, 0) == 1);
+	}
+
+	public void setHasBought(int id){
+
+		PlayerPrefs.SetInt (isBoughtString + id, 1);
+	}
+
+
+	public int getRecord(){
+
+		return PlayerPrefs.GetInt (recordString, 0);
+	}
+
+	public void setRecord(int record){
+
+		PlayerPrefs.SetInt (recordString, record);
+	}
+
+
+	public void setDonut(int donut){
+
+		PlayerPrefs.SetInt (donutsString, donut);
+	}
+
+	public int getDonut(){
+
+		return PlayerPrefs.GetInt (donutsString, 0);
+	}
+
+
+	public bool likeAlreadyGiven(){
+
+		return (PlayerPrefs.GetInt (likeForDonutString, 0) == 1);
+	}
+
+	public void likeGiven(){
+
+		PlayerPrefs.SetInt (likeForDonutString, 1);
+	}
+
+
+	public string getLastTimeGift(){
+
+		return PlayerPrefs.GetString (lastTimeGitPickedString, "");
+	}
+
+	public void setLasttimeGift(string time){
+
+		PlayerPrefs.SetString (lastTimeGitPickedString, time);
+	}
+
+
+	public int getLastSelectedCharacter(){
+
+		return PlayerPrefs.GetInt (lastCharacterSelectedString, 1);
+	}
+
+	public void setLastSelectedCharacter(int id){
+
+		PlayerPrefs.SetInt (lastCharacterSelectedString, id);
+	}
+
+
+	public bool getSoundOn(){
+
+		return (PlayerPrefs.GetInt (soundOnString, 1) == 1);
+	}
+
+	public void setSoundOn(bool on){
+
+		if(on)
+			PlayerPrefs.SetInt (soundOnString, 1);
+		else
+			PlayerPrefs.SetInt (soundOnString, 0);
+	}
+
+	#endregion
+
+	string numberOfPlays = "NumberOfPlays",
+			totalDonutsPicked = "TotalDonutsPicked",
+			totalJumps = "TotalJumps",
+			totalHeight = "TotalHeight",
+			deathByPencil = "DeathByPencil",
+			deathByShuriken = "DeathByShuriken",
+			totalPaintButtonPressed = "TotalPaintButtonPressed",
+			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared",
+			totalPencilExplosion = "TotalPencilExplosion",
+			deathBySpine = "DeathByPencil";
 
 	#region InfoForStats
 
@@ -54,11 +138,11 @@ public class PreferenceManager : MonoBehaviour {
 	}
 
 	public void increaseTotalPaintButton(int n = 1){
-		PlayerPrefs.SetInt (totalPaintButton, getTotalPaintButton() + n);
+		PlayerPrefs.SetInt (totalPaintButtonPressed, getTotalPaintButton() + n);
 	}
 
 	public int getTotalPaintButton(){
-		return PlayerPrefs.GetInt (totalPaintButton, 0);
+		return PlayerPrefs.GetInt (totalPaintButtonPressed, 0);
 	}
 
 	public int getTotalDonutsPicked(){
@@ -126,83 +210,4 @@ public class PreferenceManager : MonoBehaviour {
 
 
 	#endregion
-
-	public bool hasBeenBought(int id){
-		
-		return (PlayerPrefs.GetInt (isBoughtString + id, 0) == 1);
-	}
-
-	public void setHasBought(int id){
-
-		PlayerPrefs.SetInt (isBoughtString + id, 1);
-	}
-
-
-	public int getRecord(){
-
-		return PlayerPrefs.GetInt (recordString, 0);
-	}
-
-	public void setRecord(int record){
-
-		PlayerPrefs.SetInt (recordString, record);
-	}
-
-
-	public void setDonut(int donut){
-
-		PlayerPrefs.SetInt (donutsString, donut);
-	}
-
-	public int getDonut(){
-
-		return PlayerPrefs.GetInt (donutsString, 0);
-	}
-
-
-	public bool likeAlreadyGiven(){
-
-		return (PlayerPrefs.GetInt (likeForDonutString, 0) == 1);
-	}
-
-	public void likeGiven(){
-		
-		PlayerPrefs.SetInt (likeForDonutString, 1);
-	}
-
-
-	public string getLastTimeGift(){
-		
-		return PlayerPrefs.GetString (lastTimeGitPickedString, "");
-	}
-
-	public void setLasttimeGift(string time){
-		
-		PlayerPrefs.SetString (lastTimeGitPickedString, time);
-	}
-
-
-	public int getLastSelectedCharacter(){
-
-		return PlayerPrefs.GetInt (lastCharacterSelectedString, 1);
-	}
-
-	public void setLastSelectedCharacter(int id){
-
-		PlayerPrefs.SetInt (lastCharacterSelectedString, id);
-	}
-
-
-	public bool getSoundOn(){
-
-		return (PlayerPrefs.GetInt (soundOnString, 1) == 1);
-	}
-
-	public void setSoundOn(bool on){
-
-		if(on)
-			PlayerPrefs.SetInt (soundOnString, 1);
-		else
-			PlayerPrefs.SetInt (soundOnString, 0);
-	}
 }

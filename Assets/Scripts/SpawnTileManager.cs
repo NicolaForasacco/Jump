@@ -9,22 +9,29 @@ public class SpawnTileManager : MonoBehaviour {
 	public CameraController cameraController;
 	public Tile[] tilePrefabs;
 	public Object flowerPrefab;
-	public int	maxPlatformLength = 4, minPlatformLength = 1, randomXRange = 0;
-	public float probabilityChangeEvery = 500, enemiesP = 0, donutP = 0.2f;
+	public float probabilityChangeEvery, donutP = 0.2f;
 	public bool pencilSpawnThisLevel = true, shurikenSpawnThisLevel = true;
 
 
 	private GameObject player;
 	private Tile lastTileType;
 	private float lastPlatformLength, lastPlatformPosition, currentLevelHeight;
-	private int numberOfPlatformLevelSpawnedEachTime = 15, maxXRage = 4, tileWidth = 20, levelIndex = 0;
-	private float 	flowerP = 0.6f,
+
+	private int numberOfPlatformLevelSpawnedEachTime = 15, 
+				maxXRage = 4,
+				tileWidth = 20, 
+				levelIndex = 0,
+				randomXRange = 0,
+				maxPlatformLength = 4,
+				minPlatformLength = 1;
+
+	private float flowerP = 0.6f,
 					animalP = 0.3f,
+					enemiesP = 0,
 					lastXPosition = 1f,
 					levelHeightRange = 40f,
 					twoPlatformOnSameLevelP = 0.9f,
 					enemiesPChangeParameter = 0.05f,
-					levelHeightRangeChangeParameter = 1.05f, 
 					minProbabilityChangeEvery = 160;
 
 	void Start(){
@@ -65,7 +72,7 @@ public class SpawnTileManager : MonoBehaviour {
 		foreach (Tile t in tilePrefabs)
 			t.changeProbability ();
 
-		twoPlatformOnSameLevelP -= 0.1f;
+		twoPlatformOnSameLevelP -= 0.05f;
 
 		enemiesP += enemiesPChangeParameter;
 	}
@@ -272,7 +279,7 @@ public class SpawnTileManager : MonoBehaviour {
 			float r = Random.value;
 
 			if (Random.value <= 0.5 && !shurikenSpawnThisLevel)
-				spawnRandomVerticalShuriken ();
+				spawnRandomShuriken ();
 			else if (!pencilSpawnThisLevel)
 				spawnRandomHorizontalPencil ();
 		}
@@ -285,7 +292,7 @@ public class SpawnTileManager : MonoBehaviour {
 		Instantiate (pencilPrefab, v, Quaternion.identity);
 	}
 
-	private void spawnRandomVerticalShuriken(){
+	private void spawnRandomShuriken(){
 
 		shurikenSpawnThisLevel = true;
 		Vector2 v = new Vector2 (cameraController.getXStart(), player.transform.position.y + Random.Range(7, 14) * tileWidth);

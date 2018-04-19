@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour {
 						ground,
 						statsPanel;
 
-
 	public Text testText, statText;
 
 

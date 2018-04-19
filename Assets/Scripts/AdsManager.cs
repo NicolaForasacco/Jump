@@ -97,14 +97,11 @@ public class AdsManager : MonoBehaviour {
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-		Debug.Log("HandleRewardBasedVideoRewarded event received for ");
-
 		if (!prizeAlreadyGiven) {
 
 			prizeAlreadyGiven = true;
 			FindObjectOfType<EndPanelsManager> ().showDonutPrizeForVideo ();
 		}
-
     }
 
     public void HandleRewardBasedVideoLeftApplication(object sender, EventArgs args){

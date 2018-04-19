@@ -1586,7 +1586,6 @@ MonoBehaviour:
   - {r: 0.07661114, g: 0.8014706, b: 0.49997234, a: 1}
   - {r: 0.2509804, g: 0.91764706, b: 0.30588236, a: 1}
   - {r: 0.73105216, g: 0.9632353, b: 0.41079152, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
   active: 0
   cameraSlowSpeed: 0
   increaseSpeedEachTime: 10
@@ -3549,11 +3548,7 @@ MonoBehaviour:
     type: 9
   flowerPrefab: {fileID: 1613903030295980, guid: f4573a7211692b94fb0ccf9ba4081d1f,
     type: 2}
-  maxPlatformLength: 4
-  minPlatformLength: 1
-  randomXRange: 0
   probabilityChangeEvery: 250
-  enemiesP: 0
   donutP: 0.2
   pencilSpawnThisLevel: 1
   shurikenSpawnThisLevel: 1
@@ -3661,7 +3656,6 @@ MonoBehaviour:
   minRandomGift: 25
   maxRandomGift: 50
   prizeForVideo: 1000
-  hourBetweenGift: 3
 --- !u!114 &839180570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4667,7 +4661,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f8135f7f91bfcde4db6096b85aea7c52, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 0
   Mute: 0
