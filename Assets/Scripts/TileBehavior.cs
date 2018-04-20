@@ -35,8 +35,6 @@ public class TileBehavior : MonoBehaviour {
 
 	public void behave(){
 
-		am.playJumpSound ();
-
 		switch(this.tag){
 
 		case "CloudTile":

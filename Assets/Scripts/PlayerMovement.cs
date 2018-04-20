@@ -224,7 +224,10 @@ public class PlayerMovement : MonoBehaviour {
 			transform.Translate (new Vector2 (Time.deltaTime * currentSideSpeed * horizontalSpeed, 0));
 
 			if (jumpButtonDown && !jumped && isOnTile && (rigidBody.velocity.y == 0)){
-				
+
+
+
+				audioManager.playJumpSound ();
 				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 				jumped = true;
 
@@ -418,6 +421,7 @@ public class PlayerMovement : MonoBehaviour {
 			cameraShake.startBigBigShake ();
 			FindObjectOfType<CameraController> ().changeRandomBackgroundColor ();
 
+			audioManager.playExplosionSound ();
 			audioManager.playGameOverSound();
 			audioManager.changeBackgroundTrack ();
 
