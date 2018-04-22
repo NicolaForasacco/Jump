@@ -32,7 +32,7 @@ public class EndPanelsManager : MonoBehaviour {
 				maxRandomGift, 
 				prizeForVideo;
 
-	private float showVideoPanelP = 0.9f,
+	private float showVideoPanelP = 0.95f,
 					showSharePanelP = 0.2f,
 					showGiftSoonPanelP = 0.25f,
 					showRandomGiftP = 0.2f;
@@ -246,12 +246,24 @@ public class EndPanelsManager : MonoBehaviour {
 		if (!prizeForVideoGiven) {
 			
 			prizeForVideoGiven = true;
+			float rf = Random.value;
+			int currendVideoPrize = 0;
 
-			donutPrizeText.text = prizeForVideo.ToString ();
+			if (rf < 0.1f)
+				currendVideoPrize = 250;
+			else if (rf < 0.6f)
+				currendVideoPrize = 500;
+			else if (rf < 0.8f)
+				currendVideoPrize = 750;
+			else
+				currendVideoPrize = 1000;
+			
+
+			donutPrizeText.text = currendVideoPrize.ToString ();
 			donutPrizePanel.SetActive (true);
 			lastDonutExplosion = Instantiate (donutExplosion, new Vector3 (FindObjectOfType<Camera> ().transform.position.x, FindObjectOfType<Camera> ().transform.position.y, 0), Quaternion.identity);
 
-			int totalDonut = prefManager.getDonut () + prizeForVideo;
+			int totalDonut = prefManager.getDonut () + currendVideoPrize;
 			prefManager.setDonut (totalDonut);
 			donutText.text = prefManager.getDonut ().ToString ();
 		}
