@@ -1595,7 +1595,7 @@ MonoBehaviour:
   portraitSizeZoomOn: 160
   maxCameraSpeed: 350
   cameraOffset: 40
-  smoothDampTime: 0.2
+  smoothDampTime: 0.3
 --- !u!114 &295262798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2245,7 +2245,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.4
-  m_Text: 'TOTAL PLAYS:
+  m_Text: 'TOTAL GAMES PLAYED:
 
     TOTAL DONUTS PICKED:
 
@@ -2263,7 +2263,11 @@ MonoBehaviour:
 
     ANIMALS SCARED:
 
-    PENCIL EXPLOSION:'
+    PENCIL EXPLOSION:
+
+    AVERAGE JUMPS:
+
+    AVERAGE HEIGHT:'
 --- !u!222 &552416207
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -195,7 +195,9 @@ public class GameManager : MonoBehaviour {
 		            + prefManager.getDeathBySpine () + "\n"
 					+ prefManager.getTotalPaintButton() + "\n"
 					+ prefManager.getTotalFlyingAnimalsScared() + "\n"
-					+ prefManager.getTotalPencilExplosion ();
+					+ prefManager.getTotalPencilExplosion () + "\n"
+					+ (int)(prefManager.getTotalJumps ()/prefManager.getPlaysNumber ()) + "\n"
+					+ (int)(prefManager.getTotalHeight ()/prefManager.getPlaysNumber ());
 
 		statText.text = stat;
 	}

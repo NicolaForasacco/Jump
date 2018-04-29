@@ -163,7 +163,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: brickteamdevelopment.ragejump
   buildNumber: {}
-  AndroidBundleVersionCode: 6
+  AndroidBundleVersionCode: 7
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
