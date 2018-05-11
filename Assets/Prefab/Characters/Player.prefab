@@ -63,14 +63,14 @@ MonoBehaviour:
   donutsPicked: 0
   currentRecord: 0
   side: -1
-  speed: 0.2
-  decreaseFactor: 0.1
+  isOnTile: 1
   jumpSpeed: 72000
   sideSpeed: 150
   slowSideSpeed: 170
   mass: 70
   gravityScale: 280
-  isOnTile: 1
+  bonusText: {fileID: 1298088015393870, guid: 82bcf230059aaaa4a81affecde1e78d1, type: 2}
+  canvas: {fileID: 0}
 --- !u!212 &212080905118339850
 SpriteRenderer:
   m_ObjectHideFlags: 1

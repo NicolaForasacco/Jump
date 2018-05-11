@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float jumpSpeed, sideSpeed, slowSideSpeed, mass, gravityScale;
 
 	private GameObject comic;
+	private Canvas canvas;
 	private Animator animator;
 	private Rigidbody2D	rigidBody;
 	private GameManager	gameManager;
@@ -28,16 +29,20 @@ public class PlayerMovement : MonoBehaviour {
 	private	bool isFirstMovement = true, jumpButtonDown;
 	private int currentDonutsPicked = 0, currentTotalJumps = 0;
 
-	private	float maxHorizontalSpeed = 1,
-					lastHeight,
-					horizontalSpeed = 0,
+	private	float maxHorizontalSpeed = 1,horizontalSpeed = 0,
 					currentSideSpeed,
 					speed = 0.2f,
 					decreaseFactor = 0.2f;
 
+	public GameObject bonusText;
+
+	public int bonusPoints=0;
+
 	void Start()
 	{
 		
+		canvas = (Canvas)GameObject.FindObjectOfType<Canvas>();
+
 		cameraShake	= GameObject.FindObjectOfType<CameraShake>();
 		gameManager = GameObject.FindObjectOfType<GameManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
@@ -51,8 +56,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		donutsPicked = prefManager.getDonut();
 		pointsText.text = donutsPicked.ToString ();
-
-		lastHeight = transform.position.y;
 	}
 
 	private void initializeCharacterParameters(){
@@ -94,13 +97,10 @@ public class PlayerMovement : MonoBehaviour {
 	void Update(){
 		
 		if (active) {
-			
-			if (transform.position.y * 5 > lastHeight * 5 + 400)
-				lastHeight = transform.position.y;
 
-			if (!dead && transform.position.y / 20 > currentRecord) {
+			if (!dead && transform.position.y / 20 + bonusPoints > currentRecord) {
 
-				currentRecord = Mathf.FloorToInt (transform.position.y / 20);
+				currentRecord = Mathf.FloorToInt (transform.position.y / 20) + bonusPoints;
 				scoreText.text = currentRecord.ToString ();
 			}
 
@@ -241,7 +241,21 @@ public class PlayerMovement : MonoBehaviour {
 				die ();
 		}
 	}
+
+	void showBonusPointsText(Transform target, int points){
 		
+		GameObject text = Instantiate (bonusText, transform.position, Quaternion.identity);
+		text.GetComponent<Text> ().text = points.ToString();
+		bonusPoints += points;
+		text.transform.SetParent(canvas.transform);
+
+		text.transform.localPosition = new Vector3((target.position.x - canvas.transform.position.x) * 3,
+			(target.position.y - canvas.transform.position.y) * 3,
+			target.position.z );
+
+
+	}
+
 	void OnCollisionEnter2D(Collision2D collision){
 		
 		GameObject collidingObject = collision.gameObject;
@@ -252,11 +266,16 @@ public class PlayerMovement : MonoBehaviour {
 		case "BounceTile":
 			
 			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
+				
 				collidingObject.GetComponent<TileBehavior> ().behave ();
+
+				showBonusPointsText (collision.transform, 100);
 
 				isOnTile = true;
 				jumped = false;
 			}
+
+
 			break;
 
 		case "Tile":
@@ -287,6 +306,8 @@ public class PlayerMovement : MonoBehaviour {
 
 				this.transform.SetParent (collidingObject.transform);
 				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
+				showBonusPointsText (collision.transform, 30);
+
 				prefManager.increaseTotalPencilExplosion ();
 
 			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x && !dead) {
@@ -413,6 +434,7 @@ public class PlayerMovement : MonoBehaviour {
 			dead = true;
 			active = false;
 
+			Handheld.Vibrate();
 			prefManager.increasePlayNumber ();
 			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
 			prefManager.increaseTotalJumps (currentTotalJumps);

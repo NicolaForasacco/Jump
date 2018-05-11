@@ -26,6 +26,7 @@ TagManager:
   - DonutsCostLabel
   - testtext
   - AlterningTile
+  - PointsCanvas
   layers:
   - Default
   - TransparentFX
