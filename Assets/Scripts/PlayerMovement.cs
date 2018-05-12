@@ -245,14 +245,13 @@ public class PlayerMovement : MonoBehaviour {
 	void showBonusPointsText(Transform target, int points){
 		
 		GameObject text = Instantiate (bonusText, transform.position, Quaternion.identity);
+		scoreText.GetComponent<Animator> ().SetTrigger ("Blink");
+
 		text.GetComponent<Text> ().text = points.ToString();
 		bonusPoints += points;
-		text.transform.SetParent(canvas.transform);
+		text.transform.SetParent(GameObject.FindGameObjectWithTag("PointsCanvas").transform);
 
-		text.transform.localPosition = new Vector3((target.position.x - canvas.transform.position.x) * 3,
-			(target.position.y - canvas.transform.position.y) * 3,
-			target.position.z );
-
+		text.transform.localPosition = new Vector3(target.position.x, target.position.y, target.position.z);
 
 	}
 
@@ -269,7 +268,8 @@ public class PlayerMovement : MonoBehaviour {
 				
 				collidingObject.GetComponent<TileBehavior> ().behave ();
 
-				showBonusPointsText (collision.transform, 100);
+				if(collidingObject.CompareTag("ColorizeTile"))
+					showBonusPointsText (collision.transform, 100);
 
 				isOnTile = true;
 				jumped = false;
@@ -290,6 +290,9 @@ public class PlayerMovement : MonoBehaviour {
 
 				spawnTileManager.spawnEnemies ();
 				collidingObject.GetComponent<TileBehavior> ().behave();
+
+				if(collidingObject.CompareTag("UselessTile"))
+					showBonusPointsText (collision.transform, 10);
 			}
 
 			break;
@@ -306,6 +309,7 @@ public class PlayerMovement : MonoBehaviour {
 
 				this.transform.SetParent (collidingObject.transform);
 				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
+
 				showBonusPointsText (collision.transform, 30);
 
 				prefManager.increaseTotalPencilExplosion ();
@@ -342,59 +346,6 @@ public class PlayerMovement : MonoBehaviour {
 			}
 			break;
 		}
-
-		/*
-		if (c.CompareTag ("Pencil")) {
-			
-			if (jumped)
-				cameraShake.startShake ();
-
-			if (boxCollider2D.bounds.min.y >= c.transform.position.y) {
-				
-				isOnTile = true;
-				jumped = false;
-
-				this.transform.SetParent (c.transform);
-				c.GetComponent<PencilMovement> ().showExplosion ();
-				prefManager.increaseTotalPencilExplosion ();
-
-			} else if (boxCollider2D.bounds.min.y <= c.transform.position.y && boxCollider2D.bounds.min.x <= c.GetComponent<BoxCollider2D> ().bounds.min.x) {
-				prefManager.increaseDeathByPencil ();
-				die ();
-			}
-		}
-
-		if ((c.CompareTag ("ColorizeTile") || c.CompareTag ("BounceTile")) && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D> ().bounds.max.y) {
-			c.GetComponent<TileBehavior> ().behave ();
-
-			isOnTile = true;
-			jumped = false;
-		}
-
-		if (c.CompareTag ("MovingTile") && boxCollider2D.bounds.min.y > c.transform.position.y) {
-
-			//isOnMovingTile = true;
-			this.transform.SetParent(c.transform);
-
-			isOnTile = true;
-			jumped = false;
-			spawnTileManager.spawnEnemies ();
-		}
-
-		if ((c.CompareTag("Tile") || c.CompareTag("CloudTile") || c.CompareTag("UselessTile") || c.CompareTag ("AlterningTile")) && boxCollider2D.bounds.min.y > c.transform.position.y ) {
-
-			isOnTile = true;
-			jumped = false;
-
-			spawnTileManager.spawnEnemies ();
-			c.GetComponent<TileBehavior> ().behave();
-		}
-
-		if (c.CompareTag ("Shuriken") || (c.CompareTag ("SpineTile") && boxCollider2D.bounds.min.y >= c.GetComponent<BoxCollider2D> ().bounds.max.y)) {
-			
-			prefManager.increaseDeathByShuriken ();
-			die ();
-		}*/
 	}
 
 	void OnCollisionExit2D(Collision2D collision){
