@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private	Text scoreText, pointsText;
 	private	bool isFirstMovement = true, jumpButtonDown;
-	private int currentDonutsPicked = 0, currentTotalJumps = 0;
+	private int currentDonutsPicked = 0, currentTotalJumps = 0, bonusPointsColorizeTile = 100, bonusPointsPencil = 30, bonusPointsUselessTile = 5;
 
 	private	float maxHorizontalSpeed = 1,horizontalSpeed = 0,
 					currentSideSpeed,
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public GameObject bonusText;
 
-	public int bonusPoints=0;
+	public int bonusPoints = 0;
 
 	void Start()
 	{
@@ -243,8 +243,9 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void showBonusPointsText(Transform target, int points){
-		
-		GameObject text = Instantiate (bonusText, transform.position, Quaternion.identity);
+
+
+		GameObject text = Instantiate (bonusText, new Vector3(transform.position.x + Random.Range (-20f, 20f), transform.position.y - Random.Range (0f, 20f), transform.position.z), Quaternion.identity);
 		scoreText.GetComponent<Animator> ().SetTrigger ("Blink");
 
 		text.GetComponent<Text> ().text = points.ToString();
@@ -269,7 +270,7 @@ public class PlayerMovement : MonoBehaviour {
 				collidingObject.GetComponent<TileBehavior> ().behave ();
 
 				if(collidingObject.CompareTag("ColorizeTile"))
-					showBonusPointsText (collision.transform, 100);
+					showBonusPointsText (collision.transform, bonusPointsColorizeTile);
 
 				isOnTile = true;
 				jumped = false;
@@ -292,7 +293,7 @@ public class PlayerMovement : MonoBehaviour {
 				collidingObject.GetComponent<TileBehavior> ().behave();
 
 				if(collidingObject.CompareTag("UselessTile"))
-					showBonusPointsText (collision.transform, 10);
+					showBonusPointsText (collision.transform, bonusPointsUselessTile);
 			}
 
 			break;
@@ -310,7 +311,7 @@ public class PlayerMovement : MonoBehaviour {
 				this.transform.SetParent (collidingObject.transform);
 				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
 
-				showBonusPointsText (collision.transform, 30);
+				showBonusPointsText (collision.transform, bonusPointsPencil);
 
 				prefManager.increaseTotalPencilExplosion ();
 

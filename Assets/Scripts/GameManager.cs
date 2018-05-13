@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
 		cameraController.active = false;
 
-		menuAnim.SetTrigger ("GameOver");
+		menuAnim.SetTrigger ("GameOver"); 
 
 		if (player.currentRecord > record) {
 
@@ -103,11 +103,11 @@ public class GameManager : MonoBehaviour {
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 
-			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
+			//playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 
 		} else {
 			
-			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
+			//playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
 		}
