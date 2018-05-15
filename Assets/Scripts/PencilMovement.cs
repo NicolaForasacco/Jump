@@ -12,13 +12,13 @@ public class PencilMovement : MonoBehaviour {
 	CameraController cameraController;
 
 	public float minSpeed, maxSpeed;
+	public bool isVisited = false;
 
 	void Start(){
 		
 		rb = GetComponent<Rigidbody2D> ();
 		cameraController = GameObject.FindObjectOfType<CameraController> ();
 		speed = Random.Range (minSpeed, maxSpeed);
-
 	}
 
 	void Update () {
@@ -27,6 +27,15 @@ public class PencilMovement : MonoBehaviour {
 
 		if (cameraController.getMinPosition () >= transform.position.y || cameraController.getXStart() - 200 >= transform.position.x)
 			Destroy(this.gameObject);
+	}
+
+	public void behave(){
+		if (!isVisited) {
+	
+			isVisited = true;
+			showExplosion ();
+			GameObject.FindObjectOfType<PreferenceManager> ().increaseTotalPencilExplosion ();
+		}
 	}
 
 	public void showExplosion(){

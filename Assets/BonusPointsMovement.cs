@@ -7,7 +7,7 @@ public class BonusPointsMovement : MonoBehaviour {
 	public int speedX, speedY;
 
 	private int sX, sY;
-	// Use this for initialization
+
 	void Start () {
 		
 		sX = Random.Range (0, 3) * speedX;
@@ -17,8 +17,7 @@ public class BonusPointsMovement : MonoBehaviour {
 	}
 
 	Vector3 lastUpdatePosition;
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 		lastUpdatePosition.x = lastUpdatePosition.x + sX * Time.deltaTime;

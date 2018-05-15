@@ -49,6 +49,12 @@ public class CameraShake : MonoBehaviour {
 		active = true;
 	}
 
+	public void startSlowMotion(){
+
+		slowTimeLeft = 0.05f;
+		Time.timeScale = 0.1f;
+	}
+
 	public void startBigBigShake(){
 
 		if (playerMovement == null)
@@ -59,6 +65,18 @@ public class CameraShake : MonoBehaviour {
 		maxShakeDuration = 0.3f;
 		shakeDuration = maxShakeDuration;
 		active = true;
+	}
+
+	float slowTimeLeft;
+
+	void Update(){
+		
+		if (Time.timeScale != 1) {
+
+			slowTimeLeft -= Time.deltaTime;
+			if (slowTimeLeft <= 0)
+				Time.timeScale = 1;
+		}
 	}
 
 	void LateUpdate()

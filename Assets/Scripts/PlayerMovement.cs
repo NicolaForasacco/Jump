@@ -242,7 +242,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	void showBonusPointsText(Transform target, int points){
+	void increaseBonusPoints(Transform target, int points){
 
 
 		GameObject text = Instantiate (bonusText, new Vector3(transform.position.x + Random.Range (-20f, 20f), transform.position.y - Random.Range (0f, 20f), transform.position.z), Quaternion.identity);
@@ -267,10 +267,11 @@ public class PlayerMovement : MonoBehaviour {
 			
 			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
 				
-				collidingObject.GetComponent<TileBehavior> ().behave ();
 
-				if(collidingObject.CompareTag("ColorizeTile"))
-					showBonusPointsText (collision.transform, bonusPointsColorizeTile);
+				if(collidingObject.CompareTag("ColorizeTile") && !collidingObject.GetComponent<TileBehavior>().isVisited)
+					increaseBonusPoints (collision.transform, bonusPointsColorizeTile);
+
+				collidingObject.GetComponent<TileBehavior> ().behave ();
 
 				isOnTile = true;
 				jumped = false;
@@ -293,7 +294,7 @@ public class PlayerMovement : MonoBehaviour {
 				collidingObject.GetComponent<TileBehavior> ().behave();
 
 				if(collidingObject.CompareTag("UselessTile"))
-					showBonusPointsText (collision.transform, bonusPointsUselessTile);
+					increaseBonusPoints (collision.transform, bonusPointsUselessTile);
 			}
 
 			break;
@@ -309,11 +310,12 @@ public class PlayerMovement : MonoBehaviour {
 				jumped = false;
 
 				this.transform.SetParent (collidingObject.transform);
-				collidingObject.GetComponent<PencilMovement> ().showExplosion ();
 
-				showBonusPointsText (collision.transform, bonusPointsPencil);
-
-				prefManager.increaseTotalPencilExplosion ();
+				if(!collidingObject.GetComponent<PencilMovement> ().isVisited){
+					increaseBonusPoints (collision.transform, bonusPointsPencil);
+				}
+					
+				collidingObject.GetComponent<PencilMovement> ().behave ();
 
 			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x && !dead) {
 				prefManager.increaseDeathByPencil ();
@@ -406,7 +408,10 @@ public class PlayerMovement : MonoBehaviour {
 			cameraController.active = false;
 			GetComponent<SpriteRenderer> ().enabled = false;
 
+
 			StartCoroutine (callGameEndAfter (1.5f));
+
+			cameraShake.startSlowMotion ();
 		}
 	}
 
