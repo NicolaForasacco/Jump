@@ -8,8 +8,8 @@ public class PencilMovement : MonoBehaviour {
 	public GameObject explosion;
 	private float speed;
 
-	Rigidbody2D rb;
-	CameraController cameraController;
+	private Rigidbody2D rb;
+	private CameraController cameraController;
 
 	public float minSpeed, maxSpeed;
 	public bool isVisited = false;
@@ -30,8 +30,9 @@ public class PencilMovement : MonoBehaviour {
 	}
 
 	public void behave(){
+		
 		if (!isVisited) {
-	
+			
 			isVisited = true;
 			showExplosion ();
 			GameObject.FindObjectOfType<PreferenceManager> ().increaseTotalPencilExplosion ();

@@ -24,6 +24,5 @@ public class BonusPointsMovement : MonoBehaviour {
 		lastUpdatePosition.y = lastUpdatePosition.y + sY * Time.deltaTime;
 
 		transform.position = lastUpdatePosition;
-		
 	}
 }

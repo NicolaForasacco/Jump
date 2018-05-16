@@ -71,9 +71,6 @@ public class GameManager : MonoBehaviour {
 			foreground.SetActive (true);
 			menuAnim.SetTrigger ("ControlsOn");
 
-			/*if (!isOptionsMenuClosed)
-				manageMenuOptions();*/
-
 			if (!isSettingsMenuClosed)
 				manageMenuOptions2();
 

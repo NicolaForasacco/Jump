@@ -71,6 +71,11 @@ public class CameraShake : MonoBehaviour {
 
 	void Update(){
 		
+		checkTimeScale ();
+	}
+
+	void checkTimeScale(){
+
 		if (Time.timeScale != 1) {
 
 			slowTimeLeft -= Time.deltaTime;

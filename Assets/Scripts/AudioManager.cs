@@ -56,31 +56,27 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public void playExplosionSound(){
-		
-		//if (soundOn)
-			explosionEffectSource.Play ();
+
+		explosionEffectSource.Play ();
 	}
 
 	public void playJumpSound(){
 
-		//if (soundOn)
-			jumpEffectSource.Play ();
+		jumpEffectSource.Play ();
 	}
 		
 	public void playDonutsPickupSound(){
-		
-		//if (soundOn)
-			donutPickUpEffectSource.Play ();
-		
+
+		donutPickUpEffectSource.Play ();
 	}
 
 	public void playGameOverSound(){
 
-		//if (soundOn) {
-			
-			soundtrackSource.volume = 0.45f;
-			gameOverEffectSource.Play ();
-		//}
+		if (soundOn)
+			Handheld.Vibrate();
+
+		soundtrackSource.volume = 0.45f;
+		gameOverEffectSource.Play ();
 	}
 
 	public void SetSoundOn(){

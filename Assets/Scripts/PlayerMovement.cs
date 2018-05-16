@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start()
 	{
-		
 		canvas = (Canvas)GameObject.FindObjectOfType<Canvas>();
 
 		cameraShake	= GameObject.FindObjectOfType<CameraShake>();
@@ -104,10 +103,6 @@ public class PlayerMovement : MonoBehaviour {
 				scoreText.text = currentRecord.ToString ();
 			}
 
-			/*if (rigidBody.velocity.y == 0 && jumped) {
-				
-			}*/
-
 			//if (isOnTile) {
 				//jumped = false;
 			//}
@@ -150,7 +145,7 @@ public class PlayerMovement : MonoBehaviour {
 		
 		if (comic != null) {
 
-			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getStartMessage ();
+			comic.GetComponent<SpriteRenderer> ().sprite = GameObject.FindObjectOfType<MessageManager> ().getMessage ();
 			comic.GetComponent<Animator> ().SetTrigger ("FadeIn");
 		}
 	}
@@ -225,8 +220,6 @@ public class PlayerMovement : MonoBehaviour {
 
 			if (jumpButtonDown && !jumped && isOnTile && (rigidBody.velocity.y == 0)){
 
-
-
 				audioManager.playJumpSound ();
 				rigidBody.AddForce (new Vector2 (0, jumpSpeed), ForceMode2D.Impulse);
 				jumped = true;
@@ -244,8 +237,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	void increaseBonusPoints(Transform target, int points){
 
-
-		GameObject text = Instantiate (bonusText, new Vector3(transform.position.x + Random.Range (-20f, 20f), transform.position.y - Random.Range (0f, 20f), transform.position.z), Quaternion.identity);
+		Vector3 bonusPos = new Vector3 (transform.position.x + Random.Range (- 20f, 20f),
+										transform.position.y - Random.Range (0f, 20f), 
+			                   			transform.position.z);
+		
+		GameObject text = Instantiate (bonusText, bonusPos, Quaternion.identity);
+		
 		scoreText.GetComponent<Animator> ().SetTrigger ("Blink");
 
 		text.GetComponent<Text> ().text = points.ToString();
@@ -268,16 +265,18 @@ public class PlayerMovement : MonoBehaviour {
 			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
 				
 
-				if(collidingObject.CompareTag("ColorizeTile") && !collidingObject.GetComponent<TileBehavior>().isVisited)
+				if (collidingObject.CompareTag ("ColorizeTile") && !collidingObject.GetComponent<TileBehavior> ().isVisited) {
 					increaseBonusPoints (collision.transform, bonusPointsColorizeTile);
+
+					isFirstMovement = true;
+					showMessage ();
+				}
 
 				collidingObject.GetComponent<TileBehavior> ().behave ();
 
 				isOnTile = true;
 				jumped = false;
 			}
-
-
 			break;
 
 		case "Tile":
@@ -296,7 +295,6 @@ public class PlayerMovement : MonoBehaviour {
 				if(collidingObject.CompareTag("UselessTile"))
 					increaseBonusPoints (collision.transform, bonusPointsUselessTile);
 			}
-
 			break;
 
 		case "Pencil":
@@ -321,7 +319,6 @@ public class PlayerMovement : MonoBehaviour {
 				prefManager.increaseDeathByPencil ();
 				die ();
 			}
-
 			break;
 
 		case "MovingTile":
@@ -332,17 +329,18 @@ public class PlayerMovement : MonoBehaviour {
 				isOnTile = true;
 				jumped = false;
 			}
-
 			break;
+
 		case "SpineTile":
 			
 			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y && !dead) {
 				prefManager.increaseDeathBySpine ();
 				die ();
 			}
-
 			break;
+
 		case "Shuriken":
+			
 			if (!dead) {
 				prefManager.increaseDeathByShuriken ();
 				die ();
@@ -388,7 +386,6 @@ public class PlayerMovement : MonoBehaviour {
 			dead = true;
 			active = false;
 
-			Handheld.Vibrate();
 			prefManager.increasePlayNumber ();
 			prefManager.increaseTotalDonutsPicked (currentDonutsPicked);
 			prefManager.increaseTotalJumps (currentTotalJumps);
@@ -408,7 +405,6 @@ public class PlayerMovement : MonoBehaviour {
 			cameraController.active = false;
 			GetComponent<SpriteRenderer> ().enabled = false;
 
-
 			StartCoroutine (callGameEndAfter (1.5f));
 
 			cameraShake.startSlowMotion ();
@@ -425,7 +421,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void increaseDonutsPicked(){
 
-
 		audioManager.playDonutsPickupSound ();
 		currentDonutsPicked++;
 		donutsPicked++;
@@ -434,9 +429,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool isPlayerVerticalStill(){
 
-		if ((!jumpButtonDown && rigidBody.velocity.y == 0) || dead)
-			return true;
-		else
-			return false;
+		return ((!jumpButtonDown && rigidBody.velocity.y == 0) || dead);
 	}
 }

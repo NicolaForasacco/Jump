@@ -61,7 +61,6 @@ public class TileBehavior : MonoBehaviour {
 				FindObjectOfType<PreferenceManager> ().increaseTotalPaintButton ();
 				Instantiate(explosion, transform.position, Quaternion.identity);
 				FindObjectOfType<CameraShake> ().startSlowMotion();
-
 			}
 
 			break;
