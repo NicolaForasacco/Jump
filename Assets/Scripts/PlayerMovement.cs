@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	private	bool isFirstMovement = true, jumpButtonDown;
 	private int currentDonutsPicked = 0, currentTotalJumps = 0, bonusPointsColorizeTile = 100, bonusPointsPencil = 30, bonusPointsUselessTile = 5;
 
-	private	float maxHorizontalSpeed = 1,horizontalSpeed = 0,
+	private	float maxHorizontalSpeed = 1, horizontalSpeed = 0,
 					currentSideSpeed,
 					speed = 0.2f,
 					decreaseFactor = 0.2f;
@@ -250,7 +250,6 @@ public class PlayerMovement : MonoBehaviour {
 		text.transform.SetParent(GameObject.FindGameObjectWithTag("PointsCanvas").transform);
 
 		text.transform.localPosition = new Vector3(target.position.x, target.position.y, target.position.z);
-
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
@@ -265,12 +264,9 @@ public class PlayerMovement : MonoBehaviour {
 			if (boxCollider2D.bounds.min.y >= collidingObject.GetComponent<BoxCollider2D> ().bounds.max.y) {
 				
 
-				if (collidingObject.CompareTag ("ColorizeTile") && !collidingObject.GetComponent<TileBehavior> ().isVisited) {
+				if (collidingObject.CompareTag ("ColorizeTile") && !collidingObject.GetComponent<TileBehavior> ().isVisited)
 					increaseBonusPoints (collision.transform, bonusPointsColorizeTile);
-
-					isFirstMovement = true;
-					showMessage ();
-				}
+				
 
 				collidingObject.GetComponent<TileBehavior> ().behave ();
 
@@ -361,17 +357,20 @@ public class PlayerMovement : MonoBehaviour {
 		case "CloudTile":
 		case "UselessTile":
 		case "AlterningTile":
+			
 			if (jumped)
 				isOnTile = false;
 			break;
 
 		case "Pencil":
+			
 			transform.SetParent (null);
 			if (jumped)
 				isOnTile = false;
 			break;
 
 		case "MovingTile":
+			
 			transform.SetParent (null);
 			if (jumped)
 				isOnTile = false;
