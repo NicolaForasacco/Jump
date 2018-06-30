@@ -235,7 +235,14 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	public void jumpBounce(){
+		
+		rigidBody.AddForce (new Vector2 (0, jumpSpeed * 1.5f), ForceMode2D.Impulse);
+	}
+
 	void increaseBonusPoints(Transform target, int points){
+		
+		points = Random.Range (points / 2, points + 1);
 
 		Vector3 bonusPos = new Vector3 (transform.position.x + Random.Range (- 20f, 20f),
 										transform.position.y - Random.Range (0f, 20f), 

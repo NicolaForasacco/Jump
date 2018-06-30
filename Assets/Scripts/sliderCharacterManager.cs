@@ -155,7 +155,7 @@ public class sliderCharacterManager : MonoBehaviour {
 		foreach(GameObject c in charactersInstances){
 
 			if (c != null) {
-				c.transform.position = new Vector3 (c.transform.position.x + offset*distanceBetweenCharacters, c.transform.position.y, c.transform.position.z);
+				c.transform.position = new Vector3 (c.transform.position.x + offset * distanceBetweenCharacters, c.transform.position.y, c.transform.position.z);
 				c.transform.localScale = new Vector2 (1, 1);
 			}
 		}

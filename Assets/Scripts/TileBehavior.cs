@@ -43,6 +43,8 @@ public class TileBehavior : MonoBehaviour {
 
 		case "BounceTile":
 			anim.SetTrigger ("Bouncing");
+
+			player.GetComponent<PlayerMovement> ().jumpBounce ();
 			break;
 
 		case "UselessTile":

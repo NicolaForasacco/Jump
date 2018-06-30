@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour {
 	private EndPanelsManager endPanelsManager;
 	private PlayGamesManager playGamesManager;
 
-
 	void Start(){
 		
 		endPanelsManager = GameObject.FindObjectOfType<EndPanelsManager> ();
@@ -100,11 +99,11 @@ public class GameManager : MonoBehaviour {
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 
-			//playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
+			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 
 		} else {
 			
-			//playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
+			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
 		}

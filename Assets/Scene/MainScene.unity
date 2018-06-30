@@ -4548,6 +4548,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f4c6b5a5309f0484ea0092554911f0db, type: 3}
   - {fileID: 8300000, guid: 322da9102af0ad1478254842e555522d, type: 3}
   - {fileID: 8300000, guid: cf23333b2ec43d640b31f8a8847903d3, type: 3}
+  - {fileID: 8300000, guid: 1b124ea2c13bcdf4ba095acc41b6b111, type: 3}
   soundtrackSource: {fileID: 1248337806}
   donutPickUpEffectSource: {fileID: 1248337804}
   jumpEffectSource: {fileID: 1248337808}
