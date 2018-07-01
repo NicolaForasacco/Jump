@@ -8159,8 +8159,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96226af7b9b6fa14689f1f339e243fd9, type: 2}
   - {fileID: 11400000, guid: c55cf98aa97ed6941b2616f760d6cd4e, type: 2}
   - {fileID: 11400000, guid: 286bf17bae923a24eb05cc4e14627d34, type: 2}
-  - {fileID: 11400000, guid: fa51b49fe81bd0a46b8341e86f29f41a, type: 2}
   - {fileID: 11400000, guid: 9201a2d17f6fb3b49b2d56e6898f6b64, type: 2}
+  - {fileID: 11400000, guid: fa51b49fe81bd0a46b8341e86f29f41a, type: 2}
   - {fileID: 11400000, guid: 2247a5c0fd0110745bb586ad05bef799, type: 2}
   - {fileID: 11400000, guid: b45cf04bbc8f1bf41a94a18ddbd45731, type: 2}
   - {fileID: 11400000, guid: f6531126d39e2dc4a9945b6dadac5232, type: 2}
@@ -8196,7 +8196,6 @@ MonoBehaviour:
   currentCharacterInstance: {fileID: 0}
   donutsCostLabel: {fileID: 449699213}
   playButton: {fileID: 1725169948}
-  currentSelectedCharacterId: 1
 --- !u!224 &1901187789
 RectTransform:
   m_ObjectHideFlags: 0

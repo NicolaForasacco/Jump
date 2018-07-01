@@ -13,7 +13,7 @@ public class sliderCharacterManager : MonoBehaviour {
 	public GameManager gm;
 	public CameraController cameraController;
 	public GameObject currentCharacterInstance, donutsCostLabel, playButton;
-	public	int	currentSelectedCharacterId = 1;
+
 
 	private GameObject[] charactersInstances;
 	private	GameObject	newCurrentCharacterInstance;
@@ -22,7 +22,7 @@ public class sliderCharacterManager : MonoBehaviour {
 	private	Text donutsCost;
 	private	bool characterSelectionMenuOpen;
 	private const float currentCharacterScale = 2.8f, distanceBetweenCharacters = 40f;
-	private int numberOfCharacterPerSideSpawned = 7;
+	private int numberOfCharacterPerSideSpawned = 7, currentCharacterIndex = 0, currentSelectedCharacterId = 1;
 
 	void Start(){
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -34,7 +34,7 @@ public class sliderCharacterManager : MonoBehaviour {
 		if (prefManager.isFirstTime ())
 			characters [0].buy ();
 	}
-
+		
 	public void InstantiateCharacter () {
 		
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
@@ -47,19 +47,34 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		currentSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
-		currentCharacter = characters [currentSelectedCharacterId - 1];
+		currentCharacterIndex = findCharacterIndexFromId (currentSelectedCharacterId);
+
+		currentCharacter = characters [currentCharacterIndex];
 
 
 		characterPrefab.GetComponent<PlayerMovement> ().ch = currentCharacter;
 
 		newCurrentCharacterInstance = Instantiate (characterPrefab, new Vector3 (0, 20, 0), Quaternion.identity);
-		charactersInstances [currentSelectedCharacterId - 1] = newCurrentCharacterInstance;
+		charactersInstances [currentCharacterIndex] = newCurrentCharacterInstance;
 
 		cameraController.Start ();
 
 		currentCharacterInstance = newCurrentCharacterInstance;
 		currentPlayerMovement = currentCharacterInstance.GetComponentInChildren<PlayerMovement> ();
 
+	}
+
+	private int findCharacterIndexFromId(int id){
+		
+		for (int i = 0; i < characters.Length; i++)
+			if (characters [i].id == id)
+				return i;
+
+		return -1;
+	}
+
+	private int findCharacterIdFromIndex(int index){
+		return characters[index].id;
 	}
 
 	#region Player movements
@@ -99,23 +114,23 @@ public class sliderCharacterManager : MonoBehaviour {
 	public void slideCharacterRight(){
 		
 		if (currentSelectedCharacterId < characters.Length) {
-		
-			int l = currentSelectedCharacterId;
 
+			int l = currentCharacterIndex;
 			while(l < characters.Length){
 				
-				if(l < currentSelectedCharacterId + 1 + numberOfCharacterPerSideSpawned && charactersInstances[l] == null){
+				if(l < currentCharacterIndex + 1 + numberOfCharacterPerSideSpawned && charactersInstances[l] == null){
 
 					characterPrefab.GetComponent<PlayerMovement> ().ch = characters [l];
-					spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+					spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentCharacterIndex) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 				}
 
 				l++;
 			}
+				
+			currentCharacterIndex++;
+			currentSelectedCharacterId = findCharacterIdFromIndex (currentCharacterIndex);
 
-			currentSelectedCharacterId += 1;
-
-			currentCharacterText.text = currentSelectedCharacterId + "/" + characters.Length;
+			currentCharacterText.text = currentCharacterIndex + "/" + characters.Length;
 
 			changeCharactersPosition (-1);
 
@@ -127,22 +142,23 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		if (currentSelectedCharacterId > 1) {
 
-			int i = currentSelectedCharacterId - 2;
+			int i = currentCharacterIndex - 1;
 
 			while(i >= 0){
 
-				if(i >= currentSelectedCharacterId - 2 - numberOfCharacterPerSideSpawned && charactersInstances [i] == null) {
+				if(i >= currentCharacterIndex - 2 - numberOfCharacterPerSideSpawned && charactersInstances [i] == null) {
 						
 					characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
-					spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+					spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentCharacterIndex) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 				}
 
 				i--;
 			}
 
-			currentSelectedCharacterId -= 1;
+			currentCharacterIndex--;
+			currentSelectedCharacterId = findCharacterIdFromIndex (currentCharacterIndex);
 
-			currentCharacterText.text = currentSelectedCharacterId + "/" + characters.Length;
+			currentCharacterText.text = currentCharacterIndex + "/" + characters.Length;
 
 			changeCharactersPosition (1);
 
@@ -163,7 +179,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 	void spawnNewCurrentCharacter(){
 
-		currentCharacterInstance = charactersInstances[currentSelectedCharacterId - 1];
+		currentCharacterInstance = charactersInstances[findCharacterIndexFromId (currentSelectedCharacterId)];
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 
 		currentPlayerMovement = currentCharacterInstance.GetComponentInChildren<PlayerMovement> ();
@@ -210,25 +226,25 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		int characterOwned = getTotalNumberOwnedCharacter(), totalCharacter = characters.Length;
 		ownedText.text = characterOwned + "/" + totalCharacter;
-		currentCharacterText.text = currentSelectedCharacterId + "/" + totalCharacter;
+		currentCharacterText.text = currentCharacterIndex + "/" + totalCharacter;
 
 		characterSelectionMenuOpen = true;
 		currentCharacterInstance.transform.localScale = new Vector2 (currentCharacterScale, currentCharacterScale);
 
-		int i = currentSelectedCharacterId - 2, l = currentSelectedCharacterId;
+		int i = currentCharacterIndex - 1, l = currentCharacterIndex + 1;
 
-		while(i >= 0 || l < characters.Length ){
+		while(i >= 0 || l < characters.Length){
 
-			if(i >= currentSelectedCharacterId - 1 - numberOfCharacterPerSideSpawned && i >= 0){
+			if(i >= currentCharacterIndex - 1 - numberOfCharacterPerSideSpawned && i >= 0){
 				
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
-				spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+				spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentCharacterIndex) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 			}
 				
-			if(l < currentSelectedCharacterId + numberOfCharacterPerSideSpawned && l < characters.Length){
+			if(l < currentCharacterIndex + numberOfCharacterPerSideSpawned && l < characters.Length){
 
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [l];
-				spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentSelectedCharacterId + 1) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
+				spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentCharacterIndex) * distanceBetweenCharacters, 20, 0), Quaternion.identity));
 			}
 
 			i--;
@@ -279,7 +295,7 @@ public class sliderCharacterManager : MonoBehaviour {
 		int oldSelectedCharacterId = prefManager.getLastSelectedCharacter ();
 
 		for (int i = 0; i < charactersInstances.Length; i++) {
-			if (i != oldSelectedCharacterId - 1)
+			if (characters[i].id != oldSelectedCharacterId)
 				GameObject.Destroy (charactersInstances [i]);
 		}
 
