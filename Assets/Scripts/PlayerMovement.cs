@@ -273,7 +273,6 @@ public class PlayerMovement : MonoBehaviour {
 
 				if (collidingObject.CompareTag ("ColorizeTile") && !collidingObject.GetComponent<TileBehavior> ().isVisited)
 					increaseBonusPoints (collision.transform, bonusPointsColorizeTile);
-				
 
 				collidingObject.GetComponent<TileBehavior> ().behave ();
 
@@ -312,10 +311,9 @@ public class PlayerMovement : MonoBehaviour {
 
 				this.transform.SetParent (collidingObject.transform);
 
-				if(!collidingObject.GetComponent<PencilMovement> ().isVisited){
+				if(!collidingObject.GetComponent<PencilMovement> ().isVisited)
 					increaseBonusPoints (collision.transform, bonusPointsPencil);
-				}
-					
+				
 				collidingObject.GetComponent<PencilMovement> ().behave ();
 
 			} else if (boxCollider2D.bounds.min.y <= collidingObject.transform.position.y && boxCollider2D.bounds.min.x <= collidingObject.GetComponent<BoxCollider2D> ().bounds.min.x && !dead) {

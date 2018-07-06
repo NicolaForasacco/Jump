@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	public Text recordText, donutText;
 	public Camera cam;
 	public sliderCharacterManager sm;
+	public Text testText, statText;
 
 	public GameObject donutPrizePanel,
 						foreground,
@@ -25,8 +26,6 @@ public class GameManager : MonoBehaviour {
 						characterButton, 
 						ground,
 						statsPanel;
-
-	public Text testText, statText;
 
 
 	private bool isSettingsMenuClosed = true;//, isOptionsMenuClosed = true;

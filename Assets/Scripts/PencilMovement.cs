@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PencilMovement : MonoBehaviour {
 
-
 	public GameObject explosion;
 	private float speed;
 
