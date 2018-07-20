@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void showSocialProfile(){
-		Application.OpenURL("https://twitter.com/");
+		Application.OpenURL("");
 	}
 
 	public void showLeatherboard(){

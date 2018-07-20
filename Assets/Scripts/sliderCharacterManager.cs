@@ -210,13 +210,13 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		while(i >= 0 || l < characters.Length){
 
-			if(i >= currentCharacterIndex - 1 - numberOfCharacterPerSideSpawned && i >= 0){
+			if(i >= currentCharacterIndex - 1 - numberOfCharacterPerSideSpawned  && i >= 0){
 				
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [i];
 				spawnCharacter (i, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (i - currentCharacterIndex) * distanceBetweenCharacters, characterSize, 0), Quaternion.identity));
 			}
 				
-			if(l < currentCharacterIndex + numberOfCharacterPerSideSpawned && l < characters.Length){
+			if(l <= currentCharacterIndex + 1 + numberOfCharacterPerSideSpawned && l < characters.Length){
 
 				characterPrefab.GetComponent<PlayerMovement> ().ch = characters [l];
 				spawnCharacter (l, Instantiate (characterPrefab, new Vector3 (currentCharacterInstance.transform.position.x + (l - currentCharacterIndex) * distanceBetweenCharacters, characterSize, 0), Quaternion.identity));
