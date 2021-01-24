@@ -12,15 +12,19 @@ public class PlayGamesManager : MonoBehaviour {
 
 		#if UNITY_ANDROID
 
-		if(Application.internetReachability != NetworkReachability.NotReachable){
+		try{
+			if(Application.internetReachability != NetworkReachability.NotReachable){
 			
-			PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
-			PlayGamesPlatform.InitializeInstance(config);
-			PlayGamesPlatform.Activate();
+				PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+				PlayGamesPlatform.InitializeInstance(config);
+				PlayGamesPlatform.Activate();
 
-			Social.localUser.Authenticate(success => { });
+				Social.localUser.Authenticate(success => { });
+		 	}
+		}catch(NullReferenceException  e){
+			return;
 		}
-
+		
 		#endif
 	}
 
@@ -28,8 +32,12 @@ public class PlayGamesManager : MonoBehaviour {
 	public void AddScoreToLeaderboard(string leaderboardId, long score)
 	{
 		#if UNITY_ANDROID
-
-		Social.ReportScore(score, leaderboardId, success => { });
+		try{
+			Social.ReportScore(score, leaderboardId, success => { });	
+		}catch(NullReferenceException  e){
+			return;
+		}
+		
 
 		#endif
 	}
