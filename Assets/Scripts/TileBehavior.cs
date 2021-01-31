@@ -27,8 +27,8 @@ public class TileBehavior : MonoBehaviour {
 	void Update () {
 
 		if (player != null)
-		if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer)
-			DestroyObject (this.gameObject);
+			if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer)
+				Destroy(this.gameObject);
 	}
 
 

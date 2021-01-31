@@ -10,6 +10,7 @@ public class PlayGamesManager : MonoBehaviour {
 
 	public void signIn(){
 
+		/*
 		#if UNITY_ANDROID
 
 		try{
@@ -26,11 +27,15 @@ public class PlayGamesManager : MonoBehaviour {
 		}
 		
 		#endif
+
+		*/
 	}
 
 
 	public void AddScoreToLeaderboard(string leaderboardId, long score)
 	{
+
+		/*
 		#if UNITY_ANDROID
 		try{
 			Social.ReportScore(score, leaderboardId, success => { });	
@@ -40,20 +45,31 @@ public class PlayGamesManager : MonoBehaviour {
 		
 
 		#endif
+
+		*/
 	}
 
 	public bool showLeatherboard(string leaderboardId){
 
+		/*
+
+		#if UNITY_ANDROID
 		try{
 			
-			#if UNITY_ANDROID
+			
 
 			PlayGamesPlatform.Instance.ShowLeaderboardUI(leaderboardId);
 
-			#endif
+			
 			return true;
 		}catch(NullReferenceException  e){
+			
 			return false;
 		}
+		#endif
+
+		*/
+
+		return false;
 	}
 }

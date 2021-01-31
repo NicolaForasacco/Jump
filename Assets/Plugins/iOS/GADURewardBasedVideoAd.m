@@ -70,7 +70,7 @@
     didFailToLoadWithError:(NSError *)error {
   if (self.adFailedCallback) {
     NSString *errorMsg = [NSString
-        stringWithFormat:@"Failed to receive ad with error: %@", [error localizedFailureReason]];
+        stringWithFormat:@"Failed to receive ad with error: %@", [error localizedDescription]];
     self.adFailedCallback(self.rewardBasedVideoAdClient,
                           [errorMsg cStringUsingEncoding:NSUTF8StringEncoding]);
   }
@@ -116,6 +116,12 @@
 - (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
   if (self.willLeaveCallback) {
     self.willLeaveCallback(self.rewardBasedVideoAdClient);
+  }
+}
+
+- (void)rewardBasedVideoAdDidCompletePlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  if (self.didCompleteCallback) {
+    self.didCompleteCallback(self.rewardBasedVideoAdClient);
   }
 }
 

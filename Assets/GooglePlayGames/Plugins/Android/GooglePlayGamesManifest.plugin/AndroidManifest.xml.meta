@@ -1,10 +1,6 @@
 fileFormatVersion: 2
 guid: 5134a277633de7c4ebb6d03e83bb21de
-labels:
-- gvh
-timeCreated: 1522105318
-licenseType: Free
-TextScriptImporter:
+DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 

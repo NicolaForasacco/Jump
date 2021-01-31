@@ -1,5 +1,5 @@
-lastUpgrade=00950
-proj.pluginVersion=0.9.50
+lastUpgrade=01012
+proj.pluginVersion=0.10.12
 proj.AppId=917535696438
 and.BundleId=brickteamdevelopment.ragejump
 proj.classDir=Assets
