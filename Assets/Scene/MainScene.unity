@@ -3704,7 +3704,6 @@ GameObject:
   - component: {fileID: 839180564}
   - component: {fileID: 839180567}
   - component: {fileID: 839180569}
-  - component: {fileID: 839180568}
   - component: {fileID: 839180570}
   m_Layer: 0
   m_Name: GameManager
@@ -3868,18 +3867,6 @@ MonoBehaviour:
     type: 3}
   cloudP: 0.8
   ballonP: 0.1
---- !u!114 &839180568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839180563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9321f4d5a530f4746942632f5a2b5e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &839180569
 MonoBehaviour:
   m_ObjectHideFlags: 0

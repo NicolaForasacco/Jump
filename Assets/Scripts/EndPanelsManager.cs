@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +19,6 @@ public class EndPanelsManager : MonoBehaviour {
 
 	private GameObject lastDonutExplosion;
 	private PreferenceManager prefManager;
-	public AdsManager adsManager;
 
 	private int prizeOnResume = 0, hourBetweenGift = 3;
 	private bool showPrizeOnResume = false, prizeForVideoGiven = false;
@@ -42,7 +41,6 @@ public class EndPanelsManager : MonoBehaviour {
 	void Start(){
 
 		prefManager = FindObjectOfType<PreferenceManager> ();
-		adsManager = FindObjectOfType<AdsManager> ();
 	}
 
 	public bool manageLikeForDonutsPanel(){
@@ -58,23 +56,8 @@ public class EndPanelsManager : MonoBehaviour {
 	}
 		
 	public bool manageVideoForDonutsPanel(){
-
-		#if UNITY_ANDROID
-
-		if(adsManager.rewardBasedVideo != null){
-			if (Random.value <= showVideoPanelP && adsManager.rewardBasedVideo.IsLoaded()) {
-
-				videoForDonutsPanel.SetActive (true);
-				videoForDonutsPanel.GetComponentInChildren<ButtonBlink> ().blinkActive = true;
-				return true;
-			}
-		}
-
-		#endif
-
 		return false;
 	}
-
 	public bool manageshareForDonutsPanel(){
 
 		if (Random.value <= showSharePanelP || newBestText.activeSelf) {
@@ -147,15 +130,8 @@ public class EndPanelsManager : MonoBehaviour {
 	*/	
 
 	public void showVideoForDonuts(){
-
-		#if UNITY_ANDROID
-
 		videoForDonutsPanel.SetActive(false);
-		adsManager.showVideo();
-
-		#endif
 	}
-
 	public void shareForDonuts(){
 
 		#if UNITY_ANDROID
