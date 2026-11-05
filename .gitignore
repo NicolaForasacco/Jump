@@ -65,3 +65,11 @@ crashlytics-build.properties
 # Temporary cache for Addressables
 /[Aa]ssets/[Ss]treaming[Aa]ssets/aa.meta
 /[Aa]ssets/[Ss]treaming[Aa]ssets/aa/*
+# OS generated files
+[Tt]humbs.db
+[Tt]humbs.db.meta
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store
+.DS_Store?
+._*
