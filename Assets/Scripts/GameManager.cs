@@ -34,14 +34,12 @@ public class GameManager : MonoBehaviour {
 	private PreferenceManager prefManager;
 	private AudioManager audioManager;
 	private EndPanelsManager endPanelsManager;
-	private PlayGamesManager playGamesManager;
 
 	void Start(){
 		
 		endPanelsManager = GameObject.FindObjectOfType<EndPanelsManager> ();
 		audioManager = GameObject.FindObjectOfType<AudioManager> ();
 		prefManager = GameObject.FindObjectOfType<PreferenceManager> ();
-		playGamesManager = GameObject.FindObjectOfType<PlayGamesManager> ();
 	
 		sm.InstantiateCharacter();
 
@@ -55,7 +53,6 @@ public class GameManager : MonoBehaviour {
 
 		audioManager.restart ();
 
-		playGamesManager.signIn ();
 	}
 
 	public void startGame(){
@@ -98,11 +95,9 @@ public class GameManager : MonoBehaviour {
 			prefManager.setRecord (player.currentRecord);
 			record = player.currentRecord;
 
-			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 
 		} else {
 			
-			playGamesManager.AddScoreToLeaderboard (GPGSIds.leaderboard_top_scores, record);
 			bestText.SetActive (true);
 			newBestText.SetActive (false);
 		}
@@ -162,10 +157,6 @@ public class GameManager : MonoBehaviour {
 
 
 
-	public void showLeatherboard(){
-		if(!playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores))
-			playGamesManager.signIn ();
-	}
 
 	public void showCreditsPanel(){
 		creditsPanel.SetActive (true);
