@@ -4436,7 +4436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1051021970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4499,19 +4499,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1051021972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 839180566}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: showOnlineShop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+    m_Calls: []
 --- !u!114 &1051021972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8195,19 +8183,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783892637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 839180566}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: showSocialProfile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+    m_Calls: []
 --- !u!114 &1783892637
 MonoBehaviour:
   m_ObjectHideFlags: 0

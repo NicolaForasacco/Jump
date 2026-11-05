@@ -161,13 +161,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-	public void showOnlineShop(){
-		Application.OpenURL("");
-	}
-
-	public void showSocialProfile(){
-		Application.OpenURL("");
-	}
 
 	public void showLeatherboard(){
 		if(!playGamesManager.showLeatherboard (GPGSIds.leaderboard_top_scores))
