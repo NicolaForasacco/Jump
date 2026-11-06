@@ -171,7 +171,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 		if ( !currentPlayerMovement.ch.hasBeenBought() && currentPlayerMovement.ch.cost > 0 ) {
 
-			// rendo il personaggio un po' scuro per far capire che deve essere acquistato
+			// darken the character to indicate that it needs to be purchased
 			currentCharacterInstance.GetComponentInChildren<SpriteRenderer> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
 
 			donutsCostLabel.SetActive (true);
@@ -233,7 +233,7 @@ public class sliderCharacterManager : MonoBehaviour {
 
 			int oldSelectedCharacterId = prefManager.getLastSelectedCharacter();
 
-			if (currentPlayerMovement.ch.buy () && !currentPlayerMovement.dead) { // controllo che sia stato acquistato
+			if (currentPlayerMovement.ch.buy () && !currentPlayerMovement.dead) { // check that it has been purchased
 
 				if (oldSelectedCharacterId == currentSelectedCharacterId) {
 
@@ -248,7 +248,7 @@ public class sliderCharacterManager : MonoBehaviour {
 						*/
 				} else {
 				
-					gm.isFirstPlay = false;  // costringo il game manager a ricaricare la scena
+					gm.isFirstPlay = false;  // force the game manager to reload the scene
 					prefManager.setLastSelectedCharacter(currentSelectedCharacterId);
 					gm.startGame ();
 				}

@@ -91,7 +91,7 @@ public class SpawnTileManager : MonoBehaviour {
 		
 		spawnPlatform (true);
 
-		//se l'ultima tile non è una moving tile provo a creare un'altra tile in questo stesso livello
+		// if the last tile is not a moving tile, try to create another tile on this same level
 		if(lastTileType.type != Tile.TileType.MovingTile1 && 
 			lastTileType.type != Tile.TileType.MovingTile2 &&
 			lastTileType.type != Tile.TileType.MovingTile3)
@@ -180,7 +180,7 @@ public class SpawnTileManager : MonoBehaviour {
 					if (isFirstTileOfThisLevel)
 						tileType = tilePrefabs[i];
 					else
-						i = tilePrefabs.Length;    // se non va bene la moving tile perchè non è la prima del livello esco dal for
+						i = tilePrefabs.Length;    // if the moving tile is not valid because it is not the first of this level, exit the loop
 
 					break;
 				case Tile.TileType.SpineTile:
@@ -188,7 +188,7 @@ public class SpawnTileManager : MonoBehaviour {
 					if (!isFirstTileOfThisLevel)
 						tileType = tilePrefabs[i];
 					else
-						i = tilePrefabs.Length;    // se non va bene la spine tile perchè è la prima del livello esco dal for
+						i = tilePrefabs.Length;    // if the spine tile is not valid because it is the first of this level, exit the loop
 
 					break;
 				default:

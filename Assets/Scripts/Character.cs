@@ -9,7 +9,7 @@ public class Character : ScriptableObject {
 
 	public int id, jumpSpeed = 0, sideSpeed, slowSideSpeed, mass, gravityScale, cost;
 
-	public bool boughtWithObjects; // se donut o diamanti o qualsiasi altro oggetto
+	public bool boughtWithObjects; // whether using donuts, diamonds or any other item
 	public bool differentProperties = false;
 
 	int donutsPicked;
@@ -38,7 +38,7 @@ public class Character : ScriptableObject {
 		if (boughtWithObjects && cost <= GameObject.FindObjectOfType<PreferenceManager> ().getDonut() && !hasBeenBought())
 			return true;
 		else {
-				// guardare se può essere sbloccato per altri motivi
+				// check if it can be unlocked for other reasons
 		}
 
 		return false;
