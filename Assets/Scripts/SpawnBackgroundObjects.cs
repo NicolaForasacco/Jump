@@ -1,12 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnBackgroundObjects : MonoBehaviour {
 
-	public GameObject cloudPrefab, baloonPrefab;
+	public GameObject cloudPrefab;
+	[UnityEngine.Serialization.FormerlySerializedAs("baloonPrefab")]
+	public GameObject balloonPrefab;
 
-	public float cloudP = 0.9f, ballonP = 0.5f;
+	public float cloudP = 0.9f;
+	[UnityEngine.Serialization.FormerlySerializedAs("ballonP")]
+	public float balloonP = 0.5f;
 
 	private GameObject player;
 	private float lastSpawnPositionY = 0;
@@ -41,8 +45,8 @@ public class SpawnBackgroundObjects : MonoBehaviour {
 
 		if (Random.value <= cloudP)
 			Instantiate (cloudPrefab, randomPosition, Quaternion.identity);
-		else if (Random.value <= ballonP)
-				Instantiate (baloonPrefab, randomPosition, Quaternion.identity);
+		else if (Random.value <= balloonP)
+				Instantiate (balloonPrefab, randomPosition, Quaternion.identity);
 
 		lastSpawnPositionY = randomPosition.y;
 	}

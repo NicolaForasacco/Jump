@@ -184,7 +184,7 @@ public class EndPanelsManager : MonoBehaviour {
 
 		donutsPresentsPanel.SetActive(false);
 
-		prefManager.setLasttimeGift (System.DateTime.Now.ToString());
+		prefManager.setLastTimeGift (System.DateTime.Now.ToString());
 		showDonutPrize (prizeForGift);
 	}
 
@@ -223,23 +223,23 @@ public class EndPanelsManager : MonoBehaviour {
 			
 			prizeForVideoGiven = true;
 			float rf = Random.value;
-			int currendVideoPrize = 0;
+			int currentVideoPrize = 0;
 
 			if (rf < 0.1f)
-				currendVideoPrize = 250;
+				currentVideoPrize = 250;
 			else if (rf < 0.6f)
-				currendVideoPrize = 500;
+				currentVideoPrize = 500;
 			else if (rf < 0.8f)
-				currendVideoPrize = 750;
+				currentVideoPrize = 750;
 			else
-				currendVideoPrize = 1000;
+				currentVideoPrize = 1000;
 			
 
-			donutPrizeText.text = currendVideoPrize.ToString ();
+			donutPrizeText.text = currentVideoPrize.ToString ();
 			donutPrizePanel.SetActive (true);
 			lastDonutExplosion = Instantiate (donutExplosion, new Vector3 (FindObjectOfType<Camera> ().transform.position.x, FindObjectOfType<Camera> ().transform.position.y, 0), Quaternion.identity);
 
-			int totalDonut = prefManager.getDonut () + currendVideoPrize;
+			int totalDonut = prefManager.getDonut () + currentVideoPrize;
 			prefManager.setDonut (totalDonut);
 			donutText.text = prefManager.getDonut ().ToString ();
 		}

@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PreferenceManager : MonoBehaviour {
 
 	string likeForDonutString = "LikeForDonutUsed", 
-			lastTimeGitPickedString = "LastTimeGiftPicked", 
+			lastTimeGiftPickedString = "LastTimeGiftPicked", 
 			recordString = "Record",
 			donutsString = "Donuts",
 			isBoughtString = "IsBought",
@@ -65,12 +65,12 @@ public class PreferenceManager : MonoBehaviour {
 
 	public string getLastTimeGift(){
 
-		return PlayerPrefs.GetString (lastTimeGitPickedString, "");
+		return PlayerPrefs.GetString (lastTimeGiftPickedString, "");
 	}
 
-	public void setLasttimeGift(string time){
+	public void setLastTimeGift(string time){
 
-		PlayerPrefs.SetString (lastTimeGitPickedString, time);
+		PlayerPrefs.SetString (lastTimeGiftPickedString, time);
 	}
 
 
@@ -109,7 +109,7 @@ public class PreferenceManager : MonoBehaviour {
 			totalPaintButtonPressed = "TotalPaintButtonPressed",
 			totalFlyingAnimalsScared = "TotalFlyingAnimalsScared",
 			totalPencilExplosion = "TotalPencilExplosion",
-			deathBySpine = "DeathByPencil";
+			deathBySpine = "DeathBySpine";
 
 	#region InfoForStats
 

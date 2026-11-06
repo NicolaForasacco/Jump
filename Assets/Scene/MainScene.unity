@@ -3862,10 +3862,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 1836050914822708, guid: 9dec59fe63d1dc3438716efaa1c14902,
     type: 3}
-  baloonPrefab: {fileID: 1836050914822708, guid: 66dec998fbb4c4148ac5663953442bde,
+  balloonPrefab: {fileID: 1836050914822708, guid: 66dec998fbb4c4148ac5663953442bde,
     type: 3}
   cloudP: 0.8
-  ballonP: 0.1
+  balloonP: 0.1
 --- !u!114 &839180569
 MonoBehaviour:
   m_ObjectHideFlags: 0
