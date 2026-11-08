@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,7 +73,9 @@ public class AudioManager : MonoBehaviour {
 	public void playGameOverSound(){
 
 		if (soundOn)
+			#if UNITY_ANDROID || UNITY_IOS
 			Handheld.Vibrate();
+			#endif
 
 		soundtrackSource.volume = 0.45f;
 		gameOverEffectSource.Play ();

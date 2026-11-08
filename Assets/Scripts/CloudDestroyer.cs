@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,7 +41,7 @@ public class CloudDestroyer : MonoBehaviour {
 			
 			if (player.transform.position.y - transform.position.y > maxDistanceFromPlayer || Mathf.Abs (player.transform.position.x - transform.position.x) > maxDistanceFromPlayer) {
 
-				DestroyObject (this.gameObject);
+				Destroy (this.gameObject);
 
 			}else {
 				

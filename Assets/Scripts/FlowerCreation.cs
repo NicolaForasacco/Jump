@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ public class FlowerCreation : MonoBehaviour {
 		if (player != null) {
 		
 			if (player.transform.position.y - transform.position.y > 200)
-				DestroyObject (this.gameObject);
+				Destroy (this.gameObject);
 		}
 	}
 }

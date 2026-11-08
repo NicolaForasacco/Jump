@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ public class FlyingAnimal : MonoBehaviour {
 			if ((transform.position.x >= initialPosition.x + deleteWhenPlayerFurtherThan ||
 				transform.position.x <= initialPosition.x - deleteWhenPlayerFurtherThan) && 
 				transform.position.y >= initialPosition.y + deleteWhenPlayerFurtherThan)
-				DestroyObject (this.gameObject);
+				Destroy (this.gameObject);
 			
 		} else {
 			

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -107,9 +107,9 @@ public class PlayerMovement : MonoBehaviour {
 				//jumped = false;
 			//}
 
-			#if UNITY_EDITOR_WIN
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
 
-			if (Input.GetButton ("Jump")) {
+			if (Input.GetButton ("Jump") || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) {
 				onJumpButtonDown ();
 			} else
 				onJumpButtonUp ();
@@ -123,21 +123,6 @@ public class PlayerMovement : MonoBehaviour {
 		
 			#endif
 
-			#if UNITY_STANDALONE_WIN
-
-			if (Input.GetButton ("Jump")) {
-				onJumpButtonDown ();
-			} else
-				onJumpButtonUp ();
-
-			if (Input.GetAxis("Horizontal") < 0)
-				goLeft ();
-			else if (Input.GetAxis("Horizontal") > 0)
-				goRight ();
-			else
-				side = -1;
-
-			#endif
 		}
 	}
 		

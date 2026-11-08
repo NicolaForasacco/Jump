@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ public class BalloonBehaviour : MonoBehaviour {
 		if (player != null) {
 			
 			if (player.transform.position.y - transform.position.y > 400)
-				DestroyObject (this.gameObject);
+				Destroy (this.gameObject);
 			else
 				transform.Translate( Vector2.up * speed * Time.deltaTime);
 		}

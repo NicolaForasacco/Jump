@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -107,19 +107,10 @@ public class GameManager : MonoBehaviour {
 
 	void Update(){
 
-		#if UNITY_EDITOR_WIN
-		if (Input.GetButton ("Submit") && !cameraController.active) {
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
+		if ((Input.GetButton ("Submit") || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && !cameraController.active) {
 			sm.selectCurrentCharacter ();
 		}
-
-		#endif
-
-		#if UNITY_STANDALONE_WIN
-
-		if (Input.GetButton ("Submit") && !cameraController.active) {
-		sm.selectCurrentCharacter ();
-		}
-
 		#endif
 
 
